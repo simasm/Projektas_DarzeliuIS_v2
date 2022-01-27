@@ -1,4 +1,4 @@
-# Kindergarten information system
+# Kindergarten information system v2
 
 Vocational school project designed for learning purposes. 
 Developed system registers and processes children's requests to the kindergarten. A child is allocated a place at a kindergarten or a place in a waiting list depending on pre-determined criteria.
@@ -13,8 +13,8 @@ System user roles and their authorities:
 
 #### Technologies used: 
 - React 17.0.1,  Boostrap 4.5.3
-- Spring Boot 2.4.0, Java 11
-- Spring security
+- Spring Boot 2.6.3, Java 11
+- Spring security 2.6.3
 - H2 database
 - Apache Tomcat 9.0.40 server
 - Swagger-UI, Maven
@@ -106,6 +106,6 @@ To make a war file for deployment:
 
 ## Authors
 
-List of [contributors](https://github.com/JurgitaVisa/Projektas_Darzeliu_IS/graphs/contributors) who participated in this project.
+TODO
 
 Copyright ©️ 2021, It's Never Too Latte
