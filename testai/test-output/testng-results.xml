@@ -1,33 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="9" total="25" passed="16" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-03-17T18:20:32 EET" name="Default suite" finished-at="2021-03-17T18:20:54 EET" duration-ms="22288">
+  <suite started-at="2022-01-28T11:23:00 EET" name="Tests" finished-at="2022-01-28T11:24:21 EET" duration-ms="80489">
     <groups>
       <group name="regression">
-        <method signature="SubmitNewApplication.deleteApplication()[pri:2, instance:parentTests.SubmitNewApplication@a3d8174]" name="deleteApplication" class="parentTests.SubmitNewApplication"/>
-        <method signature="SubmitNewApplication.successfullySubmitNewApplication()[pri:1, instance:parentTests.SubmitNewApplication@a3d8174]" name="successfullySubmitNewApplication" class="parentTests.SubmitNewApplication"/>
+        <method signature="AdminLoginLogout.unsuccessfulLogin()[pri:0, instance:login.AdminLoginLogout@568ff82]" name="unsuccessfulLogin" class="login.AdminLoginLogout"/>
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewAdmin()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewAdmin" class="adminTests.CreateAndDeleteNewUser"/>
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewKindergartenSpecialist()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewKindergartenSpecialist" class="adminTests.CreateAndDeleteNewUser"/>
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewParent()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewParent" class="adminTests.CreateAndDeleteNewUser"/>
+        <method signature="SubmitNewApplication.deleteApplication()[pri:2, instance:parentTests.SubmitNewApplication@28975c28]" name="deleteApplication" class="parentTests.SubmitNewApplication"/>
+        <method signature="SubmitNewApplication.successfullySubmitNewApplication()[pri:1, instance:parentTests.SubmitNewApplication@28975c28]" name="successfullySubmitNewApplication" class="parentTests.SubmitNewApplication"/>
+        <method signature="UpdateAdminDetails.successfullyChangeAdminDetails()[pri:1, instance:adminTests.UpdateAdminDetails@ba54932]" name="successfullyChangeAdminDetails" class="adminTests.UpdateAdminDetails"/>
+        <method signature="UpdateAdminDetails.successfullyChangeAdminPassword()[pri:2, instance:adminTests.UpdateAdminDetails@ba54932]" name="successfullyChangeAdminPassword" class="adminTests.UpdateAdminDetails"/>
+        <method signature="UpdateAdminDetails.successfullyResetAdminPasswordToOriginal()[pri:3, instance:adminTests.UpdateAdminDetails@ba54932]" name="successfullyResetAdminPasswordToOriginal" class="adminTests.UpdateAdminDetails"/>
+        <method signature="UpdateParentDetails.successfullyChangeParentDetails()[pri:1, instance:parentTests.UpdateParentDetails@3943a2be]" name="successfullyChangeParentDetails" class="parentTests.UpdateParentDetails"/>
+        <method signature="UpdateParentDetails.successfullyChangeParentPassword()[pri:2, instance:parentTests.UpdateParentDetails@3943a2be]" name="successfullyChangeParentPassword" class="parentTests.UpdateParentDetails"/>
+        <method signature="UpdateParentDetails.successfullyResetParentPasswordToOriginal()[pri:3, instance:parentTests.UpdateParentDetails@3943a2be]" name="successfullyResetParentPasswordToOriginal" class="parentTests.UpdateParentDetails"/>
+        <method signature="UpdateSpecialistDetails.successfullyChangeSpecialistDetails()[pri:1, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" name="successfullyChangeSpecialistDetails" class="specialistTests.UpdateSpecialistDetails"/>
+        <method signature="UpdateSpecialistDetails.successfullyChangeSpecialistPassword()[pri:2, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" name="successfullyChangeSpecialistPassword" class="specialistTests.UpdateSpecialistDetails"/>
+        <method signature="UpdateSpecialistDetails.successfullyResetSpecialistPasswordToOriginal()[pri:3, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" name="successfullyResetSpecialistPasswordToOriginal" class="specialistTests.UpdateSpecialistDetails"/>
+        <method signature="UploadMedicalDocumentPDF.successfullyUploadAndDeletePDF()[pri:0, instance:parentTests.UploadMedicalDocumentPDF@343570b7]" name="successfullyUploadAndDeletePDF" class="parentTests.UploadMedicalDocumentPDF"/>
       </group> <!-- regression -->
+      <group name="smoke">
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewAdmin()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewAdmin" class="adminTests.CreateAndDeleteNewUser"/>
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewKindergartenSpecialist()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewKindergartenSpecialist" class="adminTests.CreateAndDeleteNewUser"/>
+        <method signature="CreateAndDeleteNewUser.successfullyCreateAndDeleteNewParent()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" name="successfullyCreateAndDeleteNewParent" class="adminTests.CreateAndDeleteNewUser"/>
+      </group> <!-- smoke -->
     </groups>
-    <test started-at="2021-03-17T18:20:32 EET" name="Default test" finished-at="2021-03-17T18:20:54 EET" duration-ms="22288">
-      <class name="parentTests.SubmitNewApplication">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:parentTests.SubmitNewApplication@a3d8174]" started-at="2021-03-17T18:20:32 EET" name="setUp" finished-at="2021-03-17T18:20:36 EET" duration-ms="4121" status="PASS">
+    <test started-at="2022-01-28T11:23:00 EET" name="regression" finished-at="2022-01-28T11:24:21 EET" duration-ms="80489">
+      <class name="parentTests.UploadMedicalDocumentPDF">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:parentTests.UploadMedicalDocumentPDF@343570b7]" started-at="2022-01-28T11:24:07 EET" name="setUp" finished-at="2022-01-28T11:24:09 EET" duration-ms="1415" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="successfullySubmitNewApplication()[pri:1, instance:parentTests.SubmitNewApplication@a3d8174]" started-at="2021-03-17T18:20:36 EET" name="successfullySubmitNewApplication" finished-at="2021-03-17T18:20:49 EET" duration-ms="13173" status="PASS">
+        <test-method signature="successfullyUploadAndDeletePDF()[pri:0, instance:parentTests.UploadMedicalDocumentPDF@343570b7]" started-at="2022-01-28T11:24:09 EET" name="successfullyUploadAndDeletePDF" finished-at="2022-01-28T11:24:16 EET" duration-ms="7295" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyUploadAndDeletePDF -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:parentTests.UploadMedicalDocumentPDF@343570b7]" started-at="2022-01-28T11:24:16 EET" name="closeBrowser" finished-at="2022-01-28T11:24:21 EET" duration-ms="4712" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- parentTests.UploadMedicalDocumentPDF -->
+      <class name="login.AdminLoginLogout">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:login.AdminLoginLogout@568ff82]" started-at="2022-01-28T11:23:00 EET" name="setUp" finished-at="2022-01-28T11:23:04 EET" duration-ms="3231" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="unsuccessfulLogin()[pri:0, instance:login.AdminLoginLogout@568ff82]" started-at="2022-01-28T11:23:04 EET" name="unsuccessfulLogin" finished-at="2022-01-28T11:23:05 EET" duration-ms="924" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- unsuccessfulLogin -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:login.AdminLoginLogout@568ff82]" started-at="2022-01-28T11:23:05 EET" name="closeBrowser" finished-at="2022-01-28T11:23:05 EET" duration-ms="637" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:login.AdminLoginLogout@568ff82]" started-at="2022-01-28T11:24:21 EET" name="tearDown" finished-at="2022-01-28T11:24:21 EET" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- login.AdminLoginLogout -->
+      <class name="specialistTests.UpdateSpecialistDetails">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" started-at="2022-01-28T11:23:54 EET" name="setUp" finished-at="2022-01-28T11:23:56 EET" duration-ms="1439" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="successfullyChangeSpecialistDetails()[pri:1, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" started-at="2022-01-28T11:23:56 EET" name="successfullyChangeSpecialistDetails" finished-at="2022-01-28T11:23:59 EET" duration-ms="3427" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeSpecialistDetails -->
+        <test-method signature="successfullyChangeSpecialistPassword()[pri:2, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" started-at="2022-01-28T11:23:59 EET" name="successfullyChangeSpecialistPassword" finished-at="2022-01-28T11:24:02 EET" duration-ms="2757" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeSpecialistPassword -->
+        <test-method signature="successfullyResetSpecialistPasswordToOriginal()[pri:3, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" started-at="2022-01-28T11:24:02 EET" name="successfullyResetSpecialistPasswordToOriginal" finished-at="2022-01-28T11:24:07 EET" duration-ms="4996" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyResetSpecialistPasswordToOriginal -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:specialistTests.UpdateSpecialistDetails@71c3b41]" started-at="2022-01-28T11:24:07 EET" name="closeBrowser" finished-at="2022-01-28T11:24:07 EET" duration-ms="668" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- specialistTests.UpdateSpecialistDetails -->
+      <class name="parentTests.SubmitNewApplication">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:parentTests.SubmitNewApplication@28975c28]" started-at="2022-01-28T11:23:15 EET" name="setUp" finished-at="2022-01-28T11:23:16 EET" duration-ms="1477" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="successfullySubmitNewApplication()[pri:1, instance:parentTests.SubmitNewApplication@28975c28]" started-at="2022-01-28T11:23:16 EET" name="successfullySubmitNewApplication" finished-at="2022-01-28T11:23:24 EET" duration-ms="7605" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- successfullySubmitNewApplication -->
-        <test-method signature="deleteApplication()[pri:2, instance:parentTests.SubmitNewApplication@a3d8174]" started-at="2021-03-17T18:20:49 EET" name="deleteApplication" finished-at="2021-03-17T18:20:54 EET" duration-ms="4821" status="PASS">
+        <test-method signature="deleteApplication()[pri:2, instance:parentTests.SubmitNewApplication@28975c28]" started-at="2022-01-28T11:23:24 EET" name="deleteApplication" finished-at="2022-01-28T11:23:28 EET" duration-ms="3842" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteApplication -->
-        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:parentTests.SubmitNewApplication@a3d8174]" started-at="2021-03-17T18:20:54 EET" name="closeBrowser" finished-at="2021-03-17T18:20:54 EET" duration-ms="121" status="PASS">
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:parentTests.SubmitNewApplication@28975c28]" started-at="2022-01-28T11:23:28 EET" name="closeBrowser" finished-at="2022-01-28T11:23:28 EET" duration-ms="644" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
       </class> <!-- parentTests.SubmitNewApplication -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+      <class name="adminTests.CreateAndDeleteNewUser">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" started-at="2022-01-28T11:23:05 EET" name="setUp" finished-at="2022-01-28T11:23:07 EET" duration-ms="1441" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="successfullyCreateAndDeleteNewAdmin()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" started-at="2022-01-28T11:23:07 EET" name="successfullyCreateAndDeleteNewAdmin" finished-at="2022-01-28T11:23:09 EET" duration-ms="2485" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyCreateAndDeleteNewAdmin -->
+        <test-method signature="successfullyCreateAndDeleteNewKindergartenSpecialist()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" started-at="2022-01-28T11:23:09 EET" name="successfullyCreateAndDeleteNewKindergartenSpecialist" finished-at="2022-01-28T11:23:12 EET" duration-ms="2398" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyCreateAndDeleteNewKindergartenSpecialist -->
+        <test-method signature="successfullyCreateAndDeleteNewParent()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" started-at="2022-01-28T11:23:12 EET" name="successfullyCreateAndDeleteNewParent" finished-at="2022-01-28T11:23:14 EET" duration-ms="2558" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyCreateAndDeleteNewParent -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:adminTests.CreateAndDeleteNewUser@757acd7b]" started-at="2022-01-28T11:23:14 EET" name="closeBrowser" finished-at="2022-01-28T11:23:15 EET" duration-ms="633" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- adminTests.CreateAndDeleteNewUser -->
+      <class name="adminTests.UpdateAdminDetails">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:adminTests.UpdateAdminDetails@ba54932]" started-at="2022-01-28T11:23:28 EET" name="setUp" finished-at="2022-01-28T11:23:30 EET" duration-ms="1411" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="successfullyChangeAdminDetails()[pri:1, instance:adminTests.UpdateAdminDetails@ba54932]" started-at="2022-01-28T11:23:30 EET" name="successfullyChangeAdminDetails" finished-at="2022-01-28T11:23:33 EET" duration-ms="3492" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeAdminDetails -->
+        <test-method signature="successfullyChangeAdminPassword()[pri:2, instance:adminTests.UpdateAdminDetails@ba54932]" started-at="2022-01-28T11:23:33 EET" name="successfullyChangeAdminPassword" finished-at="2022-01-28T11:23:35 EET" duration-ms="2190" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeAdminPassword -->
+        <test-method signature="successfullyResetAdminPasswordToOriginal()[pri:3, instance:adminTests.UpdateAdminDetails@ba54932]" started-at="2022-01-28T11:23:35 EET" name="successfullyResetAdminPasswordToOriginal" finished-at="2022-01-28T11:23:40 EET" duration-ms="4963" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyResetAdminPasswordToOriginal -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:adminTests.UpdateAdminDetails@ba54932]" started-at="2022-01-28T11:23:40 EET" name="closeBrowser" finished-at="2022-01-28T11:23:41 EET" duration-ms="652" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- adminTests.UpdateAdminDetails -->
+      <class name="parentTests.UpdateParentDetails">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:parentTests.UpdateParentDetails@3943a2be]" started-at="2022-01-28T11:23:41 EET" name="setUp" finished-at="2022-01-28T11:23:42 EET" duration-ms="1443" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="successfullyChangeParentDetails()[pri:1, instance:parentTests.UpdateParentDetails@3943a2be]" started-at="2022-01-28T11:23:42 EET" name="successfullyChangeParentDetails" finished-at="2022-01-28T11:23:47 EET" duration-ms="4399" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeParentDetails -->
+        <test-method signature="successfullyChangeParentPassword()[pri:2, instance:parentTests.UpdateParentDetails@3943a2be]" started-at="2022-01-28T11:23:47 EET" name="successfullyChangeParentPassword" finished-at="2022-01-28T11:23:49 EET" duration-ms="2225" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyChangeParentPassword -->
+        <test-method signature="successfullyResetParentPasswordToOriginal()[pri:3, instance:parentTests.UpdateParentDetails@3943a2be]" started-at="2022-01-28T11:23:49 EET" name="successfullyResetParentPasswordToOriginal" finished-at="2022-01-28T11:23:53 EET" duration-ms="4426" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- successfullyResetParentPasswordToOriginal -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:parentTests.UpdateParentDetails@3943a2be]" started-at="2022-01-28T11:23:53 EET" name="closeBrowser" finished-at="2022-01-28T11:23:54 EET" duration-ms="649" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- parentTests.UpdateParentDetails -->
+    </test> <!-- regression -->
+  </suite> <!-- Tests -->
 </testng-results>

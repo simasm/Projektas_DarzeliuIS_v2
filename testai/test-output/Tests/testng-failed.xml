@@ -8,21 +8,22 @@
       </run>
     </groups>
     <classes>
-      <class name="parentTests.SubmitNewApplication">
+      <class name="parentTests.UploadMedicalDocumentPDF">
         <methods>
+          <include name="tearDown"/>
           <include name="setUp"/>
-          <include name="deleteApplication"/>
-          <include name="successfullySubmitNewApplication"/>
+          <include name="successfullyUploadAndDeletePDF"/>
           <include name="closeBrowser"/>
         </methods>
-      </class> <!-- parentTests.SubmitNewApplication -->
-      <class name="specialistTests.UpdateSpecialistDetails">
+      </class> <!-- parentTests.UploadMedicalDocumentPDF -->
+      <class name="parentTests.UpdateParentDetails">
         <methods>
+          <include name="tearDown"/>
           <include name="setUp"/>
-          <include name="successfullyResetSpecialistPasswordToOriginal"/>
+          <include name="successfullyResetParentPasswordToOriginal"/>
           <include name="closeBrowser"/>
         </methods>
-      </class> <!-- specialistTests.UpdateSpecialistDetails -->
+      </class> <!-- parentTests.UpdateParentDetails -->
     </classes>
   </test> <!-- regression(failed) -->
 </suite> <!-- Failed suite [Tests] -->

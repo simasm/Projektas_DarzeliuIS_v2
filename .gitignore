@@ -18,6 +18,9 @@ target/
 *.iml
 *.ipr
 
+### QA Tests ###
+testai/test-output/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
