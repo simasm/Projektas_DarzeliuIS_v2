@@ -43,7 +43,7 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
 	@FindBy (xpath = "//div[2]/div/button")
 	public WebElement okButtonUserDetailsUpdated;
 	
-	@FindBy (xpath = "//*//div[3]//button")
+	@FindBy (xpath = "//*[text() = 'Keisti']")
 	public WebElement changeUserPasswordButton;
 	
 	@FindBy (xpath = "//*/div[5]/button")

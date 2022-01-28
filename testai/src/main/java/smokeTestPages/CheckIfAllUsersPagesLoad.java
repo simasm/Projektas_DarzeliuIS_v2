@@ -79,7 +79,7 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
 	
 	public Boolean assertManoPrasymaiPageTitle () {
 		  WebDriverWait wait = new WebDriverWait(driver, 10);
-		  return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Mano prašymai"));
+		  return wait.until(ExpectedConditions.textToBe(By.id("navUserMyApplications"), "Mano prašymai"));
 		}
 	
 	public Boolean assertSukurtiPrasymaPageLoaded () {
