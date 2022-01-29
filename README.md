@@ -47,11 +47,11 @@ USER pages: https://agn709575.invisionapp.com/console/share/GB26F5SD2U/550996143
 
 ### Run with Spring boot and npm/yarn
 
-- go to project folder `cd .../Projektas_Darzeliu_IS/back`
+- go to project folder `cd .../Projektas_Darzeliu_IS_v2/back`
 - Run `mvn spring-boot:run` (application will start on port 8080)
-- go to project folder `cd .../Projektas_Darzeliu_IS/front`
+- go to project folder `cd .../Projektas_Darzeliu_IS_v2/front`
 - run `npm install` or `yarn install`
-- open file `..\Projektas_Darzeliu_IS\front\src\components\10Services\endpoint.js`
+- open file `..\Projektas_Darzeliu_IS_v2\front\src\components\10Services\endpoint.js`
 - change `const apiEndpoint= process.env.PUBLIC_URL` to `const apiEndpoint = "http://localhost:8080"`
 - run `npm run start` or `yarn start`
 - application will open on your browser at http://localhost:3000
