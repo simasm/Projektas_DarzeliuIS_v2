@@ -2,6 +2,8 @@
   text-align: center;
 }
 
+
+
 .fieldRequired {
   color: red;
   text-transform: uppercase;
@@ -79,6 +81,8 @@ p {
   padding-top: 4%;
 }
 
-a.#navInstructions.nav-link {
+a #navInstructions.nav-link {
   background-color: #ffc107;
 }
+
+

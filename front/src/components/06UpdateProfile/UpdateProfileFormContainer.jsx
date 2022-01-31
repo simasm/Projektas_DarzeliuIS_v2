@@ -311,8 +311,8 @@ export default class UpdateProfileFormContainer extends Component {
                                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                             />
                         </div>
-                        <div className=" form-group">
-                            <button type="submit" className="btn btn-primary">Išsaugoti</button>
+                        <div className=" form-floating mb-3">
+                            <button type="submit" className="btn btn-primary mt-3">Išsaugoti</button>
                         </div>
                     </form>
                 </div>
@@ -385,7 +385,7 @@ export default class UpdateProfileFormContainer extends Component {
                         <form onSubmit={this.handleSubmit}>
                             {this.drawUpdateForm(this.state.role)}
 
-                            <button type="submit" id="btnSubmit" className="btn btn-primary">Išsaugoti</button>
+                            <button type="submit" id="btnSubmit" className="btn btn-primary mt-3">Išsaugoti</button>
 
                         </form>
                     </div>

@@ -1,0 +1,42 @@
+
+  
+  .dropdown .dropdown-btn {
+    color: inherit;
+    width: fit-content;
+  }
+
+  .dropdown .dropdown-btn:hover {
+    color: inherit;
+    cursor: pointer;
+  }
+  
+  .dropdown .dropdown-content{
+    position: absolute;
+    top: 135%;
+   background: white;
+    width: fit-content;
+    padding: 10px;
+    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.2);
+    
+   
+  
+  }
+  
+  
+  .dropdown .dropdown-content .dropdown-item {
+    
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-items: center;
+    color: rgb(98, 98, 99);
+    
+
+  }
+  
+  .dropdown .dropdown-content .dropdown-item:hover{
+    background: rgb(235, 232, 232);
+    color: rgb(66, 66, 66);
+  }
+
+  
