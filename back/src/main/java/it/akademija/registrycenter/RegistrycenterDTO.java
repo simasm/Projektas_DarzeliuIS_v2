@@ -1,6 +1,6 @@
 package it.akademija.registrycenter;
 
-import java.time.LocalDate;
+ 
 
 public class RegistrycenterDTO {
 
@@ -9,10 +9,10 @@ public class RegistrycenterDTO {
 	private String pavarde;
 
 	private String asmensKodas;
+	 
+	private String gimimoData;	
 	
-	private LocalDate gimimoData;	
-	
-	public RegistrycenterDTO(String vardas, String pavarde, String asmensKodas, LocalDate gimimoData) {
+	public RegistrycenterDTO(String vardas, String pavarde, String asmensKodas, String gimimoData) {
 		super();
 		this.vardas = vardas;
 		this.pavarde = pavarde;
@@ -45,11 +45,11 @@ public class RegistrycenterDTO {
 		this.asmensKodas = asmensKodas;
 	}
 
-	public LocalDate getGimimoData() {
+	public String getGimimoData() {
 		return gimimoData;
 	}
 
-	public void setGimimoData(LocalDate gimimoData) {
+	public void setGimimoData(String gimimoData) {
 		this.gimimoData = gimimoData;
 	}
 
