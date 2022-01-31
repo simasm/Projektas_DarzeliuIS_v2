@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -101,7 +102,10 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
 	}
 	
 	public void clickButtonSaveChangedPassword () {
-		buttonSaveChangedPassword.click();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,400)");
+		js.executeScript("arguments[0].scrollIntoView()", buttonSaveChangedPassword);
+		js.executeScript("arguments[0].click();", buttonSaveChangedPassword);
 	}
 	
 	public void clickOkButtonPasswordChanged () {

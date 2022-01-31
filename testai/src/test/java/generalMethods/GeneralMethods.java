@@ -412,9 +412,9 @@ public class GeneralMethods extends BaseTest {
 		  	return wait.until(ExpectedConditions.textToBe(By.id("incorrectLoginData"), expectedErrorMessage));
 		}
 
-	public Boolean assertThatPasswordWasReset() {
+	public void assertThatPasswordWasReset() {
 		  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-		  	return wait.until(ExpectedConditions.textToBe(By.xpath("//*[@class='swal-text']"), "Slaptažodis atkurtas sėkmingai"));
+		  	wait.until(ExpectedConditions.textToBe(By.xpath("//*[@role='dialog']/div[contains(text(), 'Slaptažodis atkurtas sėkmingai')]"), "Slaptažodis atkurtas sėkmingai"));
 	}
 
 	public Boolean assertThatUserPasswordWasUpdated() {
