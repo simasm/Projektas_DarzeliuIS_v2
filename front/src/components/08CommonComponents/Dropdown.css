@@ -12,11 +12,13 @@
   
   .dropdown .dropdown-content{
     position: absolute;
-    top: 135%;
+    
    background: white;
     width: fit-content;
     padding: 10px;
-    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 10px 6px rgba(0, 39, 75, 0.2);
+    z-index: 1;
+    
     
    
   
@@ -27,9 +29,9 @@
     
     padding: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.5s;
     align-items: center;
-    color: rgb(98, 98, 99);
+    color: rgb(116, 116, 117);
     
 
   }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
 import './../../App.css'
-import { NavLink } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 
@@ -11,35 +10,37 @@ import { useHistory } from "react-router-dom";
     
 
     const options = [
-        {regType: 'Registracija',
-         path: '/prasymai/naujas'}, 
+        {regType: 'Prašymas dėl registracijos į darželį',
+         path: '/prasymai/registracija'}, 
 
-         {regType: 'Kompensacija',
+         {regType: 'Prašymas dėl kompensacijos',
          path: '/prasymai/kompensacija'},
-
-         {regType: 'test',
-         path: '/prasymai/test'},
          
          ];
 
 
+        const handleSetActive = () => {
+             setIsActive(!isActive);
+         }
+
   return(
 
-    <div className='dropdown container'>
+    <div className='dropdown container' 
+    onMouseLeave={handleSetActive}>
 
         <div className="nav-link dropdown-btn"
          id="navUserNewApplication" 
          
-         onClick={(e) => setIsActive(!isActive)}>
-            Sukurti prasyma
+         onClick={handleSetActive}>
+            Sukurti prašyma
             
-        <span className='fas fa-caret-down'></span>
         </div>
         {isActive && (
             <div className="dropdown-content"
-            onMouseLeave={(e) => setIsActive(!isActive)}>
+            >
+            
                 {options.map(option => (
-                         <div onClick={() => {
+                         <div key={option.regType} onClick={() => {
                         setIsActive(false);
                         history.push(option.path)
                         

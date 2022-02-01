@@ -208,7 +208,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/prasymai/naujas"
+                      path="/prasymai/registracija"
                       component={CreateApplicationFormContainer}
                     />
                     <Route
