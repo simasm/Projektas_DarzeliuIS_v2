@@ -41,4 +41,7 @@
     color: rgb(66, 66, 66);
   }
 
+  .btnnoselect{
+    user-select: none;
+  }
   
