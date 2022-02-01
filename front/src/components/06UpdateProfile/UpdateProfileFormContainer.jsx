@@ -88,7 +88,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtSurname"
@@ -103,7 +103,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtEmail">El. paštas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtEmail"
@@ -140,7 +140,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtSurname"
@@ -155,7 +155,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtPersonalCode">Asmens kodas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtPersonalCode" class="marginTopSide">Asmens kodas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtPersonalCode"
@@ -170,7 +170,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtTelNo">Telefonas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtTelNo" class="marginTopSide">Telefonas <span className="fieldRequired">*</span></label>
                         <div className="input-group">
                             <input
                                 type="tel"
@@ -186,7 +186,7 @@ export default class UpdateProfileFormContainer extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtEmail">El. paštas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtEmail"
@@ -201,7 +201,7 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtAddress">Adresas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtAddress" class="marginTopSide">Adresas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -385,7 +385,7 @@ export default class UpdateProfileFormContainer extends Component {
                         <form onSubmit={this.handleSubmit}>
                             {this.drawUpdateForm(this.state.role)}
 
-                            <button type="submit" id="btnSubmit" className="btn btn-primary">Išsaugoti</button>
+                            <button type="submit" id="btnSubmit" className="btn btn-primary marginTopSide">Išsaugoti</button>
 
                         </form>
                     </div>

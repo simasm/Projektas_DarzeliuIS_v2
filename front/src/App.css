@@ -8,6 +8,7 @@
   font-size: 12px;
   font-weight: bold;
   vertical-align: text-top;
+  margin-top: 20px;
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -79,6 +80,14 @@ p {
   padding-top: 4%;
 }
 
-a.#navInstructions.nav-link {
+/* a.#navInstructions.nav-link {
   background-color: #ffc107;
+} */
+
+.marginTopSide {
+  margin-top: 20px;
+}
+
+.marginBottomSide {
+  margin-bottom: 20px;
 }

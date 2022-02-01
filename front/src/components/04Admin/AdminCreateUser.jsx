@@ -41,7 +41,7 @@ class AdminCreateUser extends Component {
                     </select>
                 </div>
                 <div className="form-group ">
-                    <label htmlFor="txtEmail">El. paštas <span className="fieldRequired">*</span></label>
+                    <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
                     <input
                         type="text"
                         className="form-control"
@@ -64,7 +64,7 @@ class AdminCreateUser extends Component {
             return (
                 <div className="form">
                     <div className="form-group">
-                        <label htmlFor="txtName">Vardas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtName" class="marginTopSide">Vardas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -79,7 +79,7 @@ class AdminCreateUser extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -101,7 +101,7 @@ class AdminCreateUser extends Component {
                 <div className="form-group">
                     <div className="form">
                         <div className="form-group ">
-                            <label htmlFor="txtName">Vardas <span className="fieldRequired">*</span></label>
+                            <label htmlFor="txtName" class="marginTopSide">Vardas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -118,7 +118,7 @@ class AdminCreateUser extends Component {
                     </div>
                     <div className="form">
                         <div className="form-group">
-                            <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                            <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -135,7 +135,7 @@ class AdminCreateUser extends Component {
                     </div>
                     <div className="form">                       
                         <div className="form-group">
-                            <label htmlFor="txtIdentificationCode">Asmens kodas <span className="fieldRequired">*</span></label>
+                            <label htmlFor="txtIdentificationCode" class="marginTopSide">Asmens kodas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -152,7 +152,7 @@ class AdminCreateUser extends Component {
                     </div>
                     <div className="form">
                         <div className="form-group">
-                            <label htmlFor="txtTelNo">Telefonas <span className="fieldRequired">*</span></label>
+                            <label htmlFor="txtTelNo" class="marginTopSide">Telefonas <span className="fieldRequired">*</span></label>
                             <div className="input-group">
                                
                                 <input
@@ -172,7 +172,7 @@ class AdminCreateUser extends Component {
 
                     <div className="form">
                         <div className="form-group ">
-                            <label htmlFor="txtAddress">Adresas <span className="fieldRequired">*</span></label>
+                            <label htmlFor="txtAddress" class="marginTopSide">Adresas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -278,9 +278,9 @@ class AdminCreateUser extends Component {
                             <p>{this.state.email}</p>
                         </div>
                     </div>
-                    <div className="mb-3">
-                        <button className="btn btn-outline-danger float-left" onClick={this.resetState} id="btnClean">Išvalyti</button>
-                        <button type="submit" className="btn btn-primary float-right" id="btnCreate">Sukurti</button>
+                    <div className="row ">
+                        <button className="btn btn-outline-danger btn col-5 ms-4" onClick={this.resetState} id="btnClean">Išvalyti</button>
+                        <button type="submit" className="btn btn-primary btn col-5 ms-2" id="btnCreate">Sukurti</button>
                     </div>
                 </form>
 

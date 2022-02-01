@@ -130,7 +130,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="name">
+          <label htmlFor="name" class="marginTopSide">
             Pavadinimas <span className="fieldRequired">*</span>
           </label>
           <input
@@ -151,7 +151,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="address">
+          <label htmlFor="address" class="marginTopSide">
             Adresas <span className="fieldRequired">*</span>
           </label>
           <input
@@ -170,7 +170,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="elderate">
+          <label htmlFor="elderate" class="marginTopSide">
             Seniūnija <span className="fieldRequired">*</span>
           </label>
           <select
@@ -216,7 +216,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="capacityAgeGroup3to6">3-6 metų grupėse</label>
+          <label htmlFor="capacityAgeGroup3to6" class="marginTopSide">3-6 metų grupėse</label>
           <input
             type="number"
             min="0"
@@ -233,22 +233,24 @@ function KindergartenInputForm() {
             title="Įveskite 2-3 metų amžiaus grupėse esančių vietų skaičių"
           />
         </div>
-
-        <button
-          type="reset"
-          className="btn btn-outline-danger mr-2 form-group"
-          id="btnClearKindergartenForm"
-        >
-          Išvalyti
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary form-group"
-          id="btnSaveKindergarten"
-          disabled={savingStatus}
-        >
-          {savingStatus ? "Pridedama..." : "Pridėti"}
-        </button>
+        <div class="d-grid gap-2 d-md-flex marginTopSide col-12">
+          <button
+            type="reset"
+            className="btn btn-outline-danger form-group float-start"
+            id="btnClearKindergartenForm"
+          >
+            Išvalyti
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary form-group float-end"
+            id="btnSaveKindergarten"
+            disabled={savingStatus}
+          >
+            {savingStatus ? "Pridedama..." : "Pridėti"}
+          </button>
+        </div>
+        
       </form>
     </div>
   );
