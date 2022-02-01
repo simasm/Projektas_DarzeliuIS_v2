@@ -32,7 +32,7 @@ import { useHistory } from "react-router-dom";
          id="navUserNewApplication" 
          
          onClick={handleSetActive}>
-            Sukurti prašyma
+            Sukurti prašymą
             
         </div>
         {isActive && (
