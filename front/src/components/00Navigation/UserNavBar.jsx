@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Dropdown from '../08CommonComponents/Dropdown';
 
 import logo from '../../images/logo.png';
 import '../../App.css';
@@ -21,14 +22,18 @@ function Navigation(props) {
                     <NavLink className="navbar-brand" to={"/home"}>
                         <img className="nav-img" src={logo} alt="logotipas" loading="lazy" />
                     </NavLink>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    {/*V.B. Lyg ir nereikalingas   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
-                    </button>
+                    </button> */}
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto ">
 
                             <li className="nav-item mr-1">
-                                <NavLink className="nav-link" id="navUserNewApplication" to={"/prasymai/naujas"}>Sukurti prašymą</NavLink>
+                            
+                                <Dropdown />
+
+                                {/* <NavLink className="nav-link" id="navUserNewApplication" to={"/prasymai/naujas"}>Sukurti prašymą</NavLink> */}
+                                
                             </li>                        
 
                             <li className="nav-item mr-1">

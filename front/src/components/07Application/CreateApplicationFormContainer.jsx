@@ -870,7 +870,7 @@ class CreateApplicationFormContainer extends Component {
   drawMessageRegistrationNotAvailable(status) {
     if (status) {
       return (
-        <div className="alert alert-warning p-1" role="alert">
+        <div className="alert alert-warning p-1" style={{position: 'relative'}} role="alert">
           Šiuo metu registracija nevykdoma
         </div>
       )
