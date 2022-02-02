@@ -31,5 +31,12 @@ class RegistrycenterControllerTest {
 				.getStatusCode(), HttpStatus.BAD_REQUEST);
 	}
 	
+	@Test
+	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
+	void controllerRespondsWith200OnGoodRequest() {
+		assertEquals(controller.getChildDataByIDFromExternalAPI("51702123212")
+				.getStatusCode(), HttpStatus.OK);
+	}
+	
 
 }
