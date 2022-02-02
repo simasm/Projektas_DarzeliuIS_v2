@@ -20,29 +20,29 @@ function Navigation(props) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ml-auto ">
+                        <ul className="navbar-nav ms-auto">
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navAdminUserList" to={"/admin"}>Naudotojai</NavLink>
                             </li>
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navAdminApplicationStats" to={"/statistika"}>Prašymų statistika</NavLink>
                             </li>
                             
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerApplicationAdmin" to={"/prasymai/statusas"}>Sąrašo redagavimas</NavLink>
                             </li>                            
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navAdminEventLog" to={"/zurnalas"}>Įvykių žurnalas</NavLink>
                             </li>
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navAdminMyAccount" to={"/profilis/atnaujinti"}>Mano paskyra</NavLink>
                             </li>
 
-                            <li className="nav-item nav-item mr-2">
+                            <li className="nav-item nav-item me-2">
                                 <LogoutContainer />
                             </li>
 

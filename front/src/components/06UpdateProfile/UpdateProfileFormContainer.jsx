@@ -74,12 +74,12 @@ export default class UpdateProfileFormContainer extends Component {
                 <div>
                     <div className="form-group">
                         <label htmlFor="txtName">Vardas <span className="fieldRequired">*</span></label>
-                        <input
+                        <input 
                             type="text"
                             id="txtName"
                             name="name"
                             placeholder="Vardas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.name}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -94,7 +94,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtSurname"
                             name="surname"
                             placeholder="Pavardė"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.surname}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -109,7 +109,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtEmail"
                             name="email"
                             placeholder="El. paštas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.email}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -131,7 +131,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtName"
                             name="name"
                             placeholder="Vardas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.name}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -146,7 +146,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtSurname"
                             name="surname"
                             placeholder="Pavardė"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.surname}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -161,7 +161,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtPersonalCode"
                             name="personalCode"
                             placeholder="Asmens kodas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.personalCode}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -174,7 +174,7 @@ export default class UpdateProfileFormContainer extends Component {
                         <div className="input-group">
                             <input
                                 type="tel"
-                                className="form-control"
+                                className="form-control mt-2"
                                 id="txtTelNo"
                                 name="phone"
                                 value={this.state.phone}
@@ -192,7 +192,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtEmail"
                             name="email"
                             placeholder="El. paštas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.email}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -204,7 +204,7 @@ export default class UpdateProfileFormContainer extends Component {
                         <label htmlFor="txtAddress" class="marginTopSide">Adresas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control mt-2"
                             id="txtAddress"
                             name="address"
                             placeholder="Adresas"

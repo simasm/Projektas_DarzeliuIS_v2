@@ -114,7 +114,7 @@ function KindergartenInputForm() {
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control mt-2"
             name="id"
             id="id"
             value={data.id}
@@ -135,7 +135,7 @@ function KindergartenInputForm() {
           </label>
           <input
             type="text"
-            className="form-control "
+            className="form-control mt-2"
             name="name"
             id="name"
             value={data.name}
@@ -156,7 +156,7 @@ function KindergartenInputForm() {
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control mt-2"
             name="address"
             id="address"
             value={data.address}
@@ -175,7 +175,7 @@ function KindergartenInputForm() {
           </label>
           <select
             type="text"
-            className="form-control"
+            className="form-control mt-2"
             name="elderate"
             id="elderate"
             value={data.elderate}
@@ -202,7 +202,7 @@ function KindergartenInputForm() {
             type="number"
             min="0"
             max="999"
-            className="form-control"
+            className="form-control mt-2"
             name="capacityAgeGroup2to3"
             id="capacityAgeGroup2to3"
             value={data.capacityAgeGroup2to3}
@@ -221,7 +221,7 @@ function KindergartenInputForm() {
             type="number"
             min="0"
             max="999"
-            className="form-control"
+            className="form-control mt-2"
             name="capacityAgeGroup3to6"
             id="capacityAgeGroup3to6"
             value={data.capacityAgeGroup3to6}

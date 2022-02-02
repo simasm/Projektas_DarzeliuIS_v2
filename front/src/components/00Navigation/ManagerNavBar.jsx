@@ -20,25 +20,25 @@ function Navigation(props) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mx-auto">
+                        <ul className="navbar-nav ms-auto">
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerKindergartenList" to={"/darzeliai"}>Darželių sąrašas</NavLink>
                             </li>
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerApplicationQueue" to={"/eile"}>Prašymų eilė</NavLink>
                             </li>
 
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerApplicationStats" to={"/statistika"}>Prašymų statistika</NavLink>
                             </li>
                             
-                            <li className="nav-item mr-2">
+                            <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerMyAccount" to={"/profilis/atnaujinti"}>Mano paskyra</NavLink>
                             </li>
 
-                            <li className="nav-item nav-item mr-2" id="navManagerLogout">
+                            <li className="nav-item nav-item me-2" id="navManagerLogout">
                                 <LogoutContainer />
                             </li>
 

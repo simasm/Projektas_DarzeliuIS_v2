@@ -32,16 +32,16 @@ class AdminCreateUser extends Component {
     drawSelector() {
         return (
             <div className="form">
-                <div className="form-group ">
-                    <label htmlFor="role-selector">Naudotojo rolė:</label>
+                <div className="form-group mt-2 mb-3">
+                    <label htmlFor="role-selector" className="mb-2">Naudotojo rolė:</label>
                     <select name="role-selector" id="selRole" className="form-control" value={this.state.role} onChange={this.roleDropdownOnChange}>
                         <option value="ADMIN">Administratorius</option>
                         <option value="MANAGER">Švietimo specialistas</option>
                         <option value="USER">Vaiko atstovas</option>
                     </select>
                 </div>
-                <div className="form-group ">
-                    <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
+                <div className="form-group mb-3">
+                    <label htmlFor="txtEmail" className="mb-2">El. paštas <span className="fieldRequired">*</span></label>
                     <input
                         type="text"
                         className="form-control"
@@ -63,8 +63,8 @@ class AdminCreateUser extends Component {
         if (role === "ADMIN" || role === "MANAGER") {
             return (
                 <div className="form">
-                    <div className="form-group">
-                        <label htmlFor="txtName" class="marginTopSide">Vardas <span className="fieldRequired">*</span></label>
+                    <div className="form-group mt-2">
+                        <label htmlFor="txtName" className="mb-2">Vardas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -78,8 +78,8 @@ class AdminCreateUser extends Component {
                             pattern="[A-zÀ-ž]{2,32}"
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
+                    <div className="form-group mt-2">
+                        <label htmlFor="txtSurname" className="mb-2">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -100,8 +100,8 @@ class AdminCreateUser extends Component {
             return (
                 <div className="form-group">
                     <div className="form">
-                        <div className="form-group ">
-                            <label htmlFor="txtName" class="marginTopSide">Vardas <span className="fieldRequired">*</span></label>
+                        <div className="form-group mt-2">
+                            <label htmlFor="txtName" className="mb-2">Vardas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -117,8 +117,8 @@ class AdminCreateUser extends Component {
                         </div>
                     </div>
                     <div className="form">
-                        <div className="form-group">
-                            <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
+                        <div className="form-group mt-2">
+                            <label htmlFor="txtSurname" className="mb-2">Pavardė <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -134,8 +134,8 @@ class AdminCreateUser extends Component {
                         </div>
                     </div>
                     <div className="form">                       
-                        <div className="form-group">
-                            <label htmlFor="txtIdentificationCode" class="marginTopSide">Asmens kodas <span className="fieldRequired">*</span></label>
+                        <div className="form-group mt-2">
+                            <label htmlFor="txtIdentificationCode" className="mb-2">Asmens kodas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -151,8 +151,8 @@ class AdminCreateUser extends Component {
                         </div>
                     </div>
                     <div className="form">
-                        <div className="form-group">
-                            <label htmlFor="txtTelNo" class="marginTopSide">Telefonas <span className="fieldRequired">*</span></label>
+                        <div className="form-group mt-2">
+                            <label htmlFor="txtTelNo" className="mb-2">Telefonas <span className="fieldRequired">*</span></label>
                             <div className="input-group">
                                
                                 <input
@@ -171,8 +171,8 @@ class AdminCreateUser extends Component {
                     </div>
 
                     <div className="form">
-                        <div className="form-group ">
-                            <label htmlFor="txtAddress" class="marginTopSide">Adresas <span className="fieldRequired">*</span></label>
+                        <div className="form-group mt-2">
+                            <label htmlFor="txtAddress" className="mb-2">Adresas <span className="fieldRequired">*</span></label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -278,9 +278,9 @@ class AdminCreateUser extends Component {
                             <p>{this.state.email}</p>
                         </div>
                     </div>
-                    <div className="row ">
-                        <button className="btn btn-outline-danger btn col-5 ms-4" onClick={this.resetState} id="btnClean">Išvalyti</button>
-                        <button type="submit" className="btn btn-primary btn col-5 ms-2" id="btnCreate">Sukurti</button>
+                    <div className="row justify-content-between">
+                        <button className="btn btn-outline-danger col-3 ms-3" onClick={this.resetState} id="btnClean">Išvalyti</button>
+                        <button type="submit" className="btn btn-primary col-3 me-3 " id="btnCreate">Sukurti</button>
                     </div>
                 </form>
 
