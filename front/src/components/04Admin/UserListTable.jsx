@@ -29,8 +29,10 @@ class UserListTable extends Component {
             content: naudotojas => {
                 if(naudotojas.isRequestingPasswordReset) {
                     return (
+                    <div className="d-grid">   
                         <button onClick={() => this.props.onRestorePassword(naudotojas)} 
                         id="btnRestoreUserPassword" className="btn btn-secondary btn-sm"><b>Atkurti</b></button>
+                    </div>
                     )
                 }
                 else {
