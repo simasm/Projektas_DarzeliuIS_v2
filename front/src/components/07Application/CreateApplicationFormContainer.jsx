@@ -125,7 +125,7 @@ class CreateApplicationFormContainer extends Component {
       return (
         <div className="form">         
             <h6 className="formHeader">Atstovas 1</h6>         
-          <div className="form-group">
+          <div className="form-group mt-3">
             <label htmlFor="txtName">
               Vardas <span className="fieldRequired">*</span>
             </label>
@@ -143,7 +143,7 @@ class CreateApplicationFormContainer extends Component {
               pattern="[A-zÀ-ž]{2,32}"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtSurname">
               Pavardė <span className="fieldRequired">*</span>
             </label>
@@ -161,7 +161,7 @@ class CreateApplicationFormContainer extends Component {
               pattern="[A-zÀ-ž]{2,32}"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtPersonalCode">
               Asmens kodas <span className="fieldRequired">*</span>
             </label>
@@ -179,7 +179,7 @@ class CreateApplicationFormContainer extends Component {
               pattern="[0-9]{11}"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtTelNo">
               Telefonas <span className="fieldRequired">*</span>
             </label>
@@ -199,7 +199,7 @@ class CreateApplicationFormContainer extends Component {
               ></input>
             </div>
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtEmail">
               El. paštas <span className="fieldRequired">*</span>
             </label>
@@ -217,7 +217,7 @@ class CreateApplicationFormContainer extends Component {
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtAddress">
               Adresas <span className="fieldRequired">*</span>
             </label>
@@ -246,8 +246,7 @@ class CreateApplicationFormContainer extends Component {
             <div className="col-5">
               <button
                 id="btnEnableAdditionalGuardian"
-                className="btn btn-primary btn-sm btn-block float-right my-1"
-                style={{ padding: "4px" }}
+                className="btn btn-primary btn-sm btn-block float-end col-12 mb-2"
                 onClick={(e) => {
                   this.setState({
                     ...this.state,
@@ -279,7 +278,7 @@ class CreateApplicationFormContainer extends Component {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtSurname">
               Pavardė <span className="fieldRequired">*</span>
             </label>
@@ -297,7 +296,7 @@ class CreateApplicationFormContainer extends Component {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtPersonalCode">
               Asmens kodas <span className="fieldRequired">*</span>
             </label>
@@ -315,7 +314,7 @@ class CreateApplicationFormContainer extends Component {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtTelNo">
               Telefonas <span className="fieldRequired">*</span>
             </label>
@@ -335,7 +334,7 @@ class CreateApplicationFormContainer extends Component {
               />
             </div>
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtEmail">
               El. paštas <span className="fieldRequired">*</span>
             </label>
@@ -353,7 +352,7 @@ class CreateApplicationFormContainer extends Component {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mt-2">
             <label htmlFor="txtAddress">
               Adresas <span className="fieldRequired">*</span>
             </label>
@@ -400,7 +399,7 @@ class CreateApplicationFormContainer extends Component {
             pattern="[A-zÀ-ž]{2,32}"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtSurname">
             Vaiko pavardė <span className="fieldRequired">*</span>
           </label>
@@ -418,7 +417,7 @@ class CreateApplicationFormContainer extends Component {
             pattern="[A-zÀ-ž]{2,32}"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtPersonalCode">
             Asmens kodas <span className="fieldRequired">*</span>
           </label>
@@ -437,7 +436,7 @@ class CreateApplicationFormContainer extends Component {
           />
         </div>
         {/** Gimimo data */}
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtBirthdate">
             Gimimo data <span className="fieldRequired">*</span>
           </label>
@@ -613,8 +612,8 @@ class CreateApplicationFormContainer extends Component {
             />
           </span>
         </div>
-        <div className="form-group">
-          <label htmlFor="kindergartenId2">2 prioritetas</label>
+        <div className="form-group mt-2">
+          <label htmlFor="kindergartenId2" >2 prioritetas</label>
           <Select
             name="kindergartenId2"
             id="selKindergartenId2"
@@ -655,7 +654,7 @@ class CreateApplicationFormContainer extends Component {
             isOptionDisabled={(option) => option.disabled === "yes" || this.state.registrationDisabled}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="kindergartenId3">3 prioritetas</label>
           <Select
             name="kindergartenId3"
@@ -697,7 +696,7 @@ class CreateApplicationFormContainer extends Component {
             isOptionDisabled={(option) => option.disabled === "yes" || this.state.registrationDisabled}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="kindergartenId4">4 prioritetas</label>
           <Select
             name="kindergartenId4"
@@ -739,7 +738,7 @@ class CreateApplicationFormContainer extends Component {
             isOptionDisabled={(option) => option.disabled === "yes" || this.state.registrationDisabled}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="kindergartenId5">5 prioritetas</label>
           <Select
             name="kindergartenId5"
@@ -914,7 +913,7 @@ class CreateApplicationFormContainer extends Component {
               <div className="col-7">
                 <div className="">{this.kindergartenPriorityForm()}</div>
 
-                <p>
+                <p className="mt-2">
                   Dėmesio! Jei pirmu numeriu nurodytoje įstaigoje nėra laisvų
                   vietų, vieta skiriama antru numeriu pažymėtoje įstaigoje, jei
                   joje yra laisvų vietų ir t. t. Jeigu visuose prašyme pažymėtose

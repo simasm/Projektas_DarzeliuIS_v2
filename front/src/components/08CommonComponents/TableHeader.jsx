@@ -5,7 +5,7 @@ class TableHeader extends Component {
 
     render() {
         return (
-            <thead className="no-top-border">
+            <thead className="">
                 <tr >
                     {this.props.columns.map(column =>
                         <th 
