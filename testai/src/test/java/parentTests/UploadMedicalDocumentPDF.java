@@ -1,4 +1,5 @@
 package parentTests;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.Test;
@@ -49,7 +50,7 @@ public class UploadMedicalDocumentPDF extends GeneralMethods {
 	  // download document
 	  UploadMedicalDocumentPDFPage uploadDocument = new UploadMedicalDocumentPDFPage(driver);
 	  uploadDocument.clickDownloadDocumentButton();
-	  driver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
+	  driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(5));
 	  
 	  // delete document
 	  deletePDF();

@@ -18,6 +18,9 @@ target/
 *.iml
 *.ipr
 
+### QA Tests ###
+testai/test-output/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -112,5 +115,8 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+### Shell scripts ###
+*.sh
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,eclipse

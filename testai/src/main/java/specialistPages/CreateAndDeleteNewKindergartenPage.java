@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pages.AbstractObjectPage;
 
+import java.time.Duration;
+
 public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
 
 	//input fields
@@ -120,8 +122,8 @@ public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
 		buttonAgreeToDeleteKindergarten.click();
 	}
 	
-	public Boolean assertKindergartenWasDeletedSuccesfully () {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+	public Boolean assertKindergartenWasDeletedSuccessfully() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 		return wait.until(ExpectedConditions.textToBe(By.xpath("//body/div[2]/div/div[1]"), "Darželis ištrintas sėkmingai"));
 	}
 	

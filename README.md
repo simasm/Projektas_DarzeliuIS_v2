@@ -1,4 +1,4 @@
-# Kindergarten information system
+# Kindergarten information system v2
 
 Vocational school project designed for learning purposes. 
 Developed system registers and processes children's requests to the kindergarten. A child is allocated a place at a kindergarten or a place in a waiting list depending on pre-determined criteria.
@@ -12,14 +12,14 @@ System user roles and their authorities:
 | USER | submit an application (if not locked by manager), review submitted applications and their status, submit/ review pdf documents, delete application, get user data, update and delete own account |
 
 #### Technologies used: 
-- React 17.0.1,  Boostrap 4.5.3
-- Spring Boot 2.4.0, Java 11
-- Spring security
+- React 17.0.2,  Boostrap 5.1.3
+- Spring Boot 2.6.3, Java 11
+- Spring security 2.6.3
 - H2 database
-- Apache Tomcat 9.0.40 server
+- Apache Tomcat 9.0.x server
 - Swagger-UI, Maven
-- Selenium 3.141.59
-- TestNG 
+- Selenium 4.1.1
+- TestNG 7.4.0
 
 #### Design previews:
 
@@ -33,7 +33,7 @@ USER pages: https://agn709575.invisionapp.com/console/share/GB26F5SD2U/550996143
 
 ## Getting Started
 
-- Clone the repository `git clone https://github.com/JurgitaVisa/Projektas_Darzeliu_IS.git`
+- Clone the repository `git clone https://github.com/simasm/Projektas_DarzeliuIS_v2.git`
 
 ### Run on Tomcat Server
 
@@ -47,11 +47,11 @@ USER pages: https://agn709575.invisionapp.com/console/share/GB26F5SD2U/550996143
 
 ### Run with Spring boot and npm/yarn
 
-- go to project folder `cd .../Projektas_Darzeliu_IS/back`
+- go to project folder `cd .../Projektas_Darzeliu_IS_v2/back`
 - Run `mvn spring-boot:run` (application will start on port 8080)
-- go to project folder `cd .../Projektas_Darzeliu_IS/front`
+- go to project folder `cd .../Projektas_Darzeliu_IS_v2/front`
 - run `npm install` or `yarn install`
-- open file `..\Projektas_Darzeliu_IS\front\src\components\10Services\endpoint.js`
+- open file `..\Projektas_Darzeliu_IS_v2\front\src\components\10Services\endpoint.js`
 - change `const apiEndpoint= process.env.PUBLIC_URL` to `const apiEndpoint = "http://localhost:8080"`
 - run `npm run start` or `yarn start`
 - application will open on your browser at http://localhost:3000
@@ -100,12 +100,12 @@ parentPages package tests:
 ## Deployment
 
 To make a war file for deployment:
-- run `mvn clean install` while in the project folder `.../Projektas_Darzeliu_IS/back`
-- `darzelis.war` file will appear in the `..\Projektas_Darzeliu_IS\back\target` folder
+- run `mvn clean install` while in the project folder `.../Projektas_Darzeliu_IS_v2/back`
+- `darzelis.war` file will appear in the `..\Projektas_Darzeliu_IS_v2\back\target` folder
 
 
 ## Authors
 
-List of [contributors](https://github.com/JurgitaVisa/Projektas_Darzeliu_IS/graphs/contributors) who participated in this project.
+TODO
 
-Copyright ©️ 2021, It's Never Too Latte
+Copyright ©️ 2022, String sextet
