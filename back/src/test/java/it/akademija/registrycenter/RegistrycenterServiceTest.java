@@ -23,12 +23,12 @@ class RegistrycenterServiceTest {
 	private static String url = 
 			"https://darzelis.akademijait.vtmc.lt/registru-centras/vaikai/";
 	//known good id
-	private static String testId = "51702123212";
+	//private static String testId = "51702123212";
 	
 	@Test
 	void TestConnectionToExternalAPI() {
 		try {
-			HttpURLConnection connection = (HttpURLConnection) new URL(url+testId).openConnection();
+			HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		 assertEquals(HttpURLConnection.HTTP_OK, connection.getResponseCode());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
