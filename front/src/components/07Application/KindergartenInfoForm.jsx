@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 export default function KindergartenInfoForm({setKindergartenDTO}) {
   
-  const [kindergartenData, setKindergartenData] = useState({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  })
-  
-  const [name, setName] = useState();
-  const [code, setCode] = useState();
-  const [address, setAddress] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
-  const [bankName, setBankName] = useState();
-  const [accountNumber, setAccountNumber] = useState();
-  const [bankCode, setBankCode] = useState();
+  const [name, setName] = useState('');
+  const [code, setCode] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [bankName, setBankName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [bankCode, setBankCode] = useState('');
 
   const kindergartenDTO = {name, code, address, phone, email, bankName, accountNumber, bankCode}
   
@@ -34,7 +32,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <h6 className="formHeader">Darzelio duomenys</h6>
               </div>
               <div className="form-group">
-                <label htmlFor="txtPersonalCode">
+                <label htmlFor="txtKindergartenName">
                   Ugdymo istaigos pavadinimas <span className="fieldRequired">*</span>
                 </label>
                 <input

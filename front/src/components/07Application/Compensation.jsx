@@ -2,13 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import ChildInfoForm from './ChildInfoForm';
 import CompensationSubmit from './CompensationSubmit';
+import GuardianForm from './GuardianForm';
 import KindergartenInfoForm from './KindergartenInfoForm';
 
 export default function Compensation() {
-    const [childDTO, setChildDTO] = useState({personalID: '', name: '', surname: '', dateOfBirth: '' });
-    const [idLength, setIdLength] = useState(0);
+  const [idLength, setIdLength] = useState(0);  
 
-    const [kindergartenDTO, setKindergartenDTO] = useState({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  });
+  const [childDTO, setChildDTO] = useState({personalID: '', name: '', surname: '', dateOfBirth: '' });
+
+  const [kindergartenDTO, setKindergartenDTO] = useState({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  });
+
+  const [guardianDTO, setGuardianDTO] = useState({emailname: '', surname: '', personalCode: '', phone: '', email: '', address: ''})
 
     const compensationApplication = {
       childInfo:  {
@@ -27,6 +31,15 @@ export default function Compensation() {
         bankName: kindergartenDTO.bankName,
         accountNumber: kindergartenDTO.accountNumber,
         bankCode: kindergartenDTO.bankCode
+      },
+
+      guardianInfo: {
+        name: guardianDTO.name,
+        surname: guardianDTO.surname,
+        personalCode: guardianDTO.personalCode,
+        phone: guardianDTO.phone,
+        email: guardianDTO.name,
+        address: guardianDTO.address
       }
       
 
@@ -80,15 +93,16 @@ export default function Compensation() {
             </div>
 
             <div className="col-4">
-            <ChildInfoForm />
+            <GuardianForm setGuardianDTO = {setGuardianDTO}/>
 
             </div>
 
          </div>
             
             <div className="container">
+              
                 
-                <CompensationSubmit onClick={handleSubmit}/>
+                <CompensationSubmit compensationApplication={compensationApplication}/>
             </div>
             
      </div>
