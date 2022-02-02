@@ -2,7 +2,7 @@ package it.akademija.registrycenter;
 
  
 
-public class RegistrycenterDTO {
+public class RegistrycenterDetailsDTO {
 
 	private String vardas;
 	
@@ -12,7 +12,7 @@ public class RegistrycenterDTO {
 	 
 	private String gimimoData;	
 	
-	public RegistrycenterDTO(String vardas, String pavarde, String asmensKodas, String gimimoData) {
+	public RegistrycenterDetailsDTO(String vardas, String pavarde, String asmensKodas, String gimimoData) {
 		super();
 		this.vardas = vardas;
 		this.pavarde = pavarde;
