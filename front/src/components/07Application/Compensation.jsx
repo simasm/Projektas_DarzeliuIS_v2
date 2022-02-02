@@ -8,19 +8,35 @@ export default function Compensation() {
     const [childDTO, setChildDTO] = useState({personalID: '', name: '', surname: '', dateOfBirth: '' });
     const [idLength, setIdLength] = useState(0);
 
+    const [kindergartenDTO, setKindergartenDTO] = useState({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  });
+
     const compensationApplication = {
-      personalID: childDTO.personalID,
-      name: childDTO.name,
-      surname: childDTO.surname,
-      dateOfBirth: childDTO.dateOfBirth
+      childInfo:  {
+        personalID: childDTO.personalID,
+        name: childDTO.name,
+        surname: childDTO.surname,
+        dateOfBirth: childDTO.dateOfBirth
+      },
+      
+      kindergartenInfo: {
+        name: kindergartenDTO.name,
+        code: kindergartenDTO.code,
+        address: kindergartenDTO.address,
+        phone: kindergartenDTO.phone,
+        email: kindergartenDTO.email,
+        bankName: kindergartenDTO.bankName,
+        accountNumber: kindergartenDTO.accountNumber,
+        bankCode: kindergartenDTO.bankCode
+      }
+      
+
     }
 
-    const [kindergartenData, setKindergartenData] = useState();
-    const [guardianData, setGuardianData] = useState();
+  
 
     useEffect(() => {
 
-      
+      setKindergartenDTO({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  })
 
       if(idLength !== 11){
         setChildDTO(
@@ -50,15 +66,16 @@ export default function Compensation() {
     
     <div className='container'>
       <div>{childDTO.personalID}</div>
+      <div>{kindergartenDTO.address}</div>
 
         <div className="row">
             <div className="col-4">
-            <ChildInfoForm setChildDTO = {setChildDTO} childDTO = {childDTO} setIdLength={setIdLength}/>
+            <ChildInfoForm setChildDTO = {setChildDTO} childDTO = {childDTO} setIdLength = {setIdLength}/>
             
 
             </div>
             <div className="col-4">
-            <KindergartenInfoForm />
+            <KindergartenInfoForm setKindergartenDTO = {setKindergartenDTO}/>
 
             </div>
 

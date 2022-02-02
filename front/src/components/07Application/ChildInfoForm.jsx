@@ -14,11 +14,6 @@ const [childData, setChildData] = useState({name: '', surname: '', dateOfBirth: 
 
 
 
-
-
-
-console.log(childId, childId.length);
-
 useEffect(() => {
 
   async function load(){
