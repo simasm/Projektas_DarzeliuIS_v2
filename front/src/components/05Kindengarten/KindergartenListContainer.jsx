@@ -188,7 +188,7 @@ export class KindergartenListContainer extends Component {
 
     render() {
 
-        const placeholder = "Ieškoti pagal vardą...";
+        const placeholder = "Ieškoti pagal pavadinimą";
 
         const { darzeliai, elderates, totalElements, pageSize, searchQuery, inEditMode, editRowId, errorMessages } = this.state;
 

@@ -29,12 +29,16 @@ class UserListTable extends Component {
             content: naudotojas => {
                 if(naudotojas.isRequestingPasswordReset) {
                     return (
-                        <button onClick={() => this.props.onRestorePassword(naudotojas)} id="btnRestoreUserPassword" className="btn btn-secondary btn-sm btn-block"><b>Atkurti</b></button>
+                        <button onClick={() => this.props.onRestorePassword(naudotojas)} 
+                        id="btnRestoreUserPassword" className="btn btn-secondary btn-sm"><b>Atkurti</b></button>
                     )
                 }
                 else {
                     return (
-                        <button onClick={() => this.props.onRestorePassword(naudotojas)} id="btnRestoreUserPassword" className="btn btn-outline-primary btn-sm btn-block">Atkurti</button>
+                        <div className="d-grid">
+                            <button onClick={() => this.props.onRestorePassword(naudotojas)} 
+                            id="btnRestoreUserPassword" className="btn btn-outline-primary btn-sm">Atkurti</button>
+                        </div>
                     )
                 }
             }
@@ -43,7 +47,11 @@ class UserListTable extends Component {
         {            
             key: 'delete',
             label: 'Ištrinti naudotoją',
-            content: naudotojas => <button onClick={() => this.props.onDelete(naudotojas)} id="btnDeleteUser" className="btn btn-outline-danger btn-sm btn-block">Ištrinti</button>
+            content: naudotojas => 
+                <div className="d-grid">
+                    <button onClick={() => this.props.onDelete(naudotojas)} 
+                     id="btnDeleteUser" className="btn btn-outline-danger btn-sm">Ištrinti</button>
+                </div>
            
         }
         

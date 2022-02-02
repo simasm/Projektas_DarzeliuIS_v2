@@ -128,7 +128,7 @@ export const LoginContainer = () => {
         <form onSubmit={handleSubmit}>
           <h3>Prisijungti</h3>
           <div className="form-group">
-            <label htmlFor="username">
+            <label htmlFor="username" className="mb-2">
               Naudotojo vardas <span className="fieldRequired">*</span>
             </label>
             <input
@@ -147,8 +147,9 @@ export const LoginContainer = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">
+            <label htmlFor="password" className="mt-3 mb-2">
               Slaptažodis <span className="fieldRequired">*</span>
+              
             </label>
             <input
               type="password"
@@ -167,8 +168,7 @@ export const LoginContainer = () => {
 
           <button
             type="button"
-            className="btn btn-link"
-            style={{ paddingLeft: "0px" }}
+            className="btn btn-link mt-3"
             onClick={() => {
               return ForgotPasswordWindow();
             }}
@@ -179,7 +179,7 @@ export const LoginContainer = () => {
 
           <button
             type="submit"
-            className="btn btn-primary float-right"
+            className="btn btn-primary float-end mt-3"
             id="btnLogin"
             disabled={data.loggingIn}
           >
