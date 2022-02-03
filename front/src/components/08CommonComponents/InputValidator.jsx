@@ -55,7 +55,12 @@ function InputValidator(event) {
             }
         }
         else if (target.name === "address") {
-            target.setCustomValidity("");
+            if (target.validity.patternMismatch) {
+                target.setCustomValidity("Netinkamo formato adresas.  Turi būti nuo 2 iki 64 simbolių, lietuviškos arba lotyniškos raidės. Galimi brūkšneliai, taškai bei tarpai")
+            }
+            else {
+                target.setCustomValidity("")
+            }
         }
         else if (target.name === "phone" || target.name === "institutionTelephone") {
             if (target.validity.valueMissing) {

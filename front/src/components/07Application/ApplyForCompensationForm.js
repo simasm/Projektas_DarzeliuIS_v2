@@ -13,8 +13,12 @@ const ApplyForCompensationForm = (props) => {
         institutionName: "", institutionCode: "", institutionAddress: "", institutionTelephone: "",
         institutionEmail: "", bankName: "", accountNumber: "", bankCode: ""
     });
+    const [parentState, setParentState] = useState({
+        name: "", surname: "", personalCode: "",
+        phone: "", email: "", address: ""
+    })
 
-    const inputChange = e => {
+    const inputKindergartenChange = e => {
         inputValidator(e);
         setKindergartenState({
             ...kindergartenState,
@@ -22,6 +26,32 @@ const ApplyForCompensationForm = (props) => {
         });
     };
 
+    const inputParentChange = e => {
+        inputValidator(e);
+        setParentState({
+            ...parentState,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    // const validateKindergarten = (e) => {
+    //     let A = title.length > 0 && title.match(/\w/) !== null;
+    //     let B = place.length > 0 && place.match(/\w/) !== null;
+    //     let C = description.length > 0 && description.match(/\w/) !== null;
+    //     let D = vacs.length > 0 && vacs.match(/\w/) !== null && vacs.match(/Pasirinkti vakciną\.\.\./g) === null;
+    //     let E = registeredUsersNumber > 0 && registeredUsersNumber.match(/^[0-9]+$/) !== null;
+    //     let F = vacNumber > 0 && vacNumber.match(/^[0-9]+$/) !== null;
+    //     let check_6 = A && B && C && D && E && F;
+    //     if (check_6 === false)
+    //         alert("Pavadinimas: " + A +
+    //             "\nEilės tipas: " + B +
+    //             "\nAprašymas: " + C +
+    //             "\nVakcina: " + D +
+    //             "\nRegistruotų žmonių skaičius: " + E +
+    //             "\nVakcinų skaičius: " + F
+    //         );
+    //     return check_6;
+    // }
     const submitHandle = e => {
 
     }
@@ -29,20 +59,23 @@ const ApplyForCompensationForm = (props) => {
     const kindergartenForm = () => {
         return (
             <><h2>Darželio duomenys</h2>
-                <div className="form-group">
-                    <label htmlFor="txtName">
+            <div className="form">
+                <div className="mb-3">
+                    <label htmlFor="txtName"  >
                         Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
                     </label>
                     <input
                         type="text"
                         id="txtEduInstitutionName"
                         name="institutionName"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[ A-zÀ-ž-.]{2,64}"
+                        pattern='[ A-zÀ-ž-".]{2,64}'
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Ugdymo įstaigos kodas <span className="fieldRequired">*</span>
                     </label>
@@ -50,12 +83,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionCode"
                         name="institutionCode"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[0-9]{9}|[0-9]{7}"
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Ugdymo įstaigos adresas <span className="fieldRequired">*</span>
                     </label>
@@ -63,13 +98,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionAddress"
                         name="institutionAddress"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[ A-zÀ-ž-.]{2,64}"
+                        pattern="[ 0-9A-zÀ-ž-.]{2,64}"
                         required
                     />
-
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Kontaktinis telefono numeris <span className="fieldRequired">*</span>
                     </label>
@@ -77,12 +113,14 @@ const ApplyForCompensationForm = (props) => {
                         type="tel"
                         id="txtEduInstitutionTelephone"
                         name="institutionTelephone"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[+]{1}[0-9]{4,19}"
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         El.paštas <span className="fieldRequired">*</span>
                     </label>
@@ -90,12 +128,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionEmail"
                         name="institutionEmail"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Banko pavadinimas <span className="fieldRequired">*</span>
                     </label>
@@ -103,12 +143,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtBankName"
                         name="bankName"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[ A-zÀ-ž]{2,32}"
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Sąskaitos numeris <span className="fieldRequired">*</span>
                     </label>
@@ -116,12 +158,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtAccountNumber"
                         name="accountNumber"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[A-Z]{2}[A-Z0-9]{18,32}"
                         required
                     />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="txtName">
                         Banko kodas <span className="fieldRequired">*</span>
                     </label>
@@ -129,16 +173,114 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtBankCode"
                         name="bankCode"
-                        className="p-3 form-control"
-                        onChange={inputChange}
+                        className="form-control"
+                        onChange={inputKindergartenChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[0-9]{5}"
                         required
                     />
                 </div>
-                <span>* <h5>- simboliu pažymėti laukai privalo būti užpildyti</h5></span>
+                <h6><span className="fieldRequired">*</span> - simboliu pažymėti laukai privalo būti užpildyti</h6>
+            </div>
             </>
         )
+    }
+
+    const parentForm = e => {
+        return (
+            <>
+            <h2>Vieno iš tėvų duomenys</h2>
+            <div className="form">
+                <div className="mb-3">
+                    <label htmlFor="txtName">
+                        Vardas <span className="fieldRequired">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="txtMainName"
+                        name="name"
+                        className="form-control"
+                        onChange={inputParentChange}
+                        onInvalid={(e) => inputValidator(e)}
+                        required
+                        pattern="[A-zÀ-ž]{2,32}" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="txtSurname">
+                        Pavardė <span className="fieldRequired">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="txtMainSurname"
+                        name="surname"
+                        className="form-control"
+                        onChange={inputParentChange}
+                        onInvalid={(e) => inputValidator(e)}
+                        required
+                        pattern="[A-zÀ-ž]{2,32}" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="txtPersonalCode">
+                        Asmens kodas <span className="fieldRequired">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="txtMainPersonalCode"
+                        name="personalCode"
+                        className="form-control"
+                        onChange={inputParentChange}
+                        onInvalid={(e) => inputValidator(e)}
+                        required
+                        pattern="[0-9]{11}" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="txtTelNo">
+                        Telefonas <span className="fieldRequired">*</span>
+                    </label>
+                        <input
+                            type="text"
+                            id="txtMainPhone"
+                            name="phone"
+                            className="form-control"
+                            onChange={inputParentChange}
+                            onInvalid={(e) => inputValidator(e)}
+                            required
+                            pattern="[+]{1}[0-9]{4,19}"
+                        />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="txtEmail">
+                        El.paštas <span className="fieldRequired">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="txtMainEmail"
+                        name="email"
+                        className="form-control"
+                        onChange={inputParentChange}
+                        onInvalid={(e) => inputValidator(e)}
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" 
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="txtAddress">
+                        Adresas <span className="fieldRequired">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="txtMainAddress"
+                        name="address"
+                        onChange={inputParentChange}
+                        onInvalid={(e) => inputValidator(e)}
+                        pattern="[ 0-9A-zÀ-ž-.]{2,64}"
+                        required />
+                </div>
+            </div>
+            </>
+
+        );
     }
 
     return (
@@ -150,20 +292,20 @@ const ApplyForCompensationForm = (props) => {
                         <div className="col-4">
                             {
                                 /** Vaiko duomenys */
-                                /** Vaiko komponentas*/
-                            } 
-                        </div>
-
-                        <div className="col-4">
-                            {
-                                /** Tuščias stulpelis */
-                                /** turėtų būti tėvų stulpelis (Parent's data) */
+                                /** Vaiko komponentas iš Justo*/
                             }
                         </div>
 
                         <div className="col-4">
                             {
-                                /** Vaiko forma */ 
+                                /** Vieno iš tėvų forma */
+                                parentForm()
+                            }
+                        </div>
+
+                        <div className="col-4">
+                            {
+                                /** Vaiko forma */
                                 kindergartenForm()
                             }
                         </div>
@@ -192,7 +334,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildPersonalCode"
     //                     name="childPersonalCode"
     //                     placeholder="Asmens kodas"
-    //                     className="p-3 form-control"
+    //                     className="form-control"
     //                     //value={this.state.childPersonalCode}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -210,7 +352,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildName"
     //                     name="childName"
     //                     placeholder="Vaiko vardas"
-    //                     className="p-3 form-control"
+    //                     className="form-control"
     //                     //value={this.state.childName}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -228,7 +370,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildSurname"
     //                     name="childSurname"
     //                     placeholder="Vaiko pavardė"
-    //                     className="p-3 form-control"
+    //                     className="form-control"
     //                     //value={this.state.childSurname}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -243,7 +385,7 @@ const ApplyForCompensationForm = (props) => {
     //                     Gimimo data
     //                 </label>
     //                 <DatePicker
-    //                     className="p-3 form-control"
+    //                     className="form-control"
     //                     locale="lt"
     //                     dateFormat="yyyy/MM/dd"
     //                     selected={this.state.birthdate}
