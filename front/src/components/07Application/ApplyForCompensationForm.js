@@ -34,24 +34,28 @@ const ApplyForCompensationForm = (props) => {
         });
     }
 
-    // const validateKindergarten = (e) => {
-    //     let A = title.length > 0 && title.match(/\w/) !== null;
-    //     let B = place.length > 0 && place.match(/\w/) !== null;
-    //     let C = description.length > 0 && description.match(/\w/) !== null;
-    //     let D = vacs.length > 0 && vacs.match(/\w/) !== null && vacs.match(/Pasirinkti vakciną\.\.\./g) === null;
-    //     let E = registeredUsersNumber > 0 && registeredUsersNumber.match(/^[0-9]+$/) !== null;
-    //     let F = vacNumber > 0 && vacNumber.match(/^[0-9]+$/) !== null;
-    //     let check_6 = A && B && C && D && E && F;
-    //     if (check_6 === false)
-    //         alert("Pavadinimas: " + A +
-    //             "\nEilės tipas: " + B +
-    //             "\nAprašymas: " + C +
-    //             "\nVakcina: " + D +
-    //             "\nRegistruotų žmonių skaičius: " + E +
-    //             "\nVakcinų skaičius: " + F
-    //         );
-    //     return check_6;
-    // }
+    const validateKindergarten = (e) => {
+        let A = kindergartenState.institutionName.match(/[\w\sÀ-ž-".]{2,64}/) !== null;
+        let B = kindergartenState.institutionCode.match(/[\d]{9}|[\d]{7}/) !== null;
+        let C = kindergartenState.institutionAddress.match(/[\w\s\dĄ-ž-.]{2,64}/) !== null;
+        let D = kindergartenState.institutionTelephone.match(/[+]{1}[0-9]{4,19}/) !== null;
+        let E = kindergartenState.institutionEmail.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/) !== null;
+        let F = kindergartenState.bankName.match(/[À-ž\w\s]{2,32}/) !== null;
+        let G = kindergartenState.accountNumber.match(/[A-Z]{2}[A-Z0-9]{18,32}/) !== null;
+        let H = kindergartenState.bankCode.match(/[0-9]{5}/) !== null;
+        let check_8 = A && B && C && D && E && F && G && H;
+        if (check_8 === false)
+            alert("Ugdymo įstaigos pavadinimas: " + A +
+                "\nUgdymo įstaigos kodas: " + B +
+                "\nUgdymo įstaigos adresas: " + C +
+                "\nKontaktinis telefono numeris: " + D +
+                "\nEl.paštas: " + E +
+                "\nBanko pavadinimas: " + F +
+                "\nSąskaitos numeris: " + G +
+                "\nBanko kodas: " + H
+            );
+        return check_8;
+    }
     const submitHandle = e => {
 
     }
@@ -59,7 +63,7 @@ const ApplyForCompensationForm = (props) => {
     const kindergartenForm = () => {
         return (
             <><h2>Darželio duomenys</h2>
-            <div className="form">
+            <div className="form" onSubmit={validateKindergarten} >
                 <div className="mb-3">
                     <label htmlFor="txtName"  >
                         Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
@@ -180,6 +184,7 @@ const ApplyForCompensationForm = (props) => {
                         required
                     />
                 </div>
+                <div><button type="submit" class="btn btn-primary">Submit</button></div>
                 <h6><span className="fieldRequired">*</span> - simboliu pažymėti laukai privalo būti užpildyti</h6>
             </div>
             </>
