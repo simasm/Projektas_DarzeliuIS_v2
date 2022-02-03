@@ -27,9 +27,15 @@ public class CheckIfParentPagesWork extends GeneralMethods {
         CheckIfAllUsersPagesLoad checkPages = new CheckIfAllUsersPagesLoad(driver);
         checkPages.assertManoPrasymaiPageTitle();
 
-        // check Sukurti prasyma page
+        // check Prasymas del registracijos page
         clickNavButtonNewApplication();
-        checkPages.assertSukurtiPrasymaPageLoaded();
+        clickDrpDnButtonRegistration();
+        checkPages.assertPrasymasRegistracijaiPageLoaded();
+
+        // check Prasymas del kompensacijos page
+        clickNavButtonNewApplication();
+        clickDrpDnButtonCompensation();
+        checkPages.assertPrasymasKompensacijaiPageLoaded();
 
         // check Mano pazymos page
         clickNavButtonMyDocumentsParent();

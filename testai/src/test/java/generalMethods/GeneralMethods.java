@@ -306,6 +306,7 @@ public class GeneralMethods extends BaseTest {
     public void fillInTheApplication() throws IOException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
         clickNavButtonNewApplication();
+        clickDrpDnButtonRegistration();
 
         // add additional parent/ guardian
         newApplication.clickAddAdditionalGuardianButton();
@@ -539,6 +540,21 @@ public class GeneralMethods extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("navUserNewApplication")));
         navNewApplication.click();
     }
+
+    public void clickDrpDnButtonRegistration() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement navButtonRegistration = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='dropdown-item' and contains(text(), 'registracijos')]")));
+        navButtonRegistration.click();
+    }
+
+    public void clickDrpDnButtonCompensation() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement navButtonCompensation = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='dropdown-item' and contains(text(), 'kompensacijos')]")));
+        navButtonCompensation.click();
+    }
+
 
     public void clickNavButtonApplicationQueue() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
