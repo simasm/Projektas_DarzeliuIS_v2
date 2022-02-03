@@ -306,6 +306,7 @@ public class GeneralMethods extends BaseTest {
     public void fillInTheApplication() throws IOException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
         clickNavButtonNewApplication();
+        clickDrpDnButtonRegistration();
 
         // add additional parent/ guardian
         newApplication.clickAddAdditionalGuardianButton();
