@@ -12,7 +12,7 @@ export default function Compensation() {
 
   const [kindergartenDTO, setKindergartenDTO] = useState({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  });
 
-  const [guardianDTO, setGuardianDTO] = useState({emailname: '', surname: '', personalCode: '', phone: '', email: '', address: ''})
+  const [guardianDTO, setGuardianDTO] = useState({name: '', surname: '', personalCode: '', phone: '', email: '', address: ''})
 
     const compensationApplication = {
       childInfo:  {
@@ -49,7 +49,7 @@ export default function Compensation() {
 
     useEffect(() => {
 
-      setKindergartenDTO({name: '', code: '', address: '', phone: '', email: '', bankName: '', accountNumber: '', bankCode: ''  })
+      
 
       if(idLength !== 11){
         setChildDTO(
@@ -102,7 +102,7 @@ export default function Compensation() {
             <div className="container">
               
                 
-                <CompensationSubmit compensationApplication={compensationApplication}/>
+                <CompensationSubmit compensationApplication={compensationApplication} kindergartenDTO={kindergartenDTO} childDTO={childDTO} guardianDTO={guardianDTO}/>
             </div>
             
      </div>
