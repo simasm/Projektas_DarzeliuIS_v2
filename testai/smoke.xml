@@ -3,16 +3,16 @@
 
 <suite name="Tests">
 
-	<test name="smoke">
-		<groups>
-			<run>
-				<include name="smoke"/>
-			</run>
-		</groups>
-		<packages>
-			<package name= "login"/>
-			<package name= "smokeTests" />
-		</packages>
-	</test>
-	
+    <test name="smoke">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="login"/>
+            <package name="smokeTests"/>
+        </packages>
+    </test>
+
 </suite>
