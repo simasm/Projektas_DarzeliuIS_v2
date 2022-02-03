@@ -13,8 +13,6 @@ const ApplyForCompensationForm = (props) => {
         institutionName: "", institutionCode: "", institutionAddress: "", institutionTelephone: "",
         institutionEmail: "", bankName: "", accountNumber: "", bankCode: ""
     });
-    const [threeFields, setThreeFields] = useState("true");
-
 
     const inputChange = e => {
         inputValidator(e);
@@ -39,10 +37,10 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionName"
                         name="institutionName"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[ A-zÀ-ž]{2,32}"
+                        pattern="[ A-zÀ-ž-.]{2,64}"
                         required
                     />
                     <label htmlFor="txtName">
@@ -52,10 +50,10 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionCode"
                         name="institutionCode"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[ 0-9]{9,10}"
+                        pattern="[0-9]{9}|[0-9]{7}"
                         required
                     />
                     <label htmlFor="txtName">
@@ -65,10 +63,10 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionAddress"
                         name="institutionAddress"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[ a-zÀ-ž0-9.-]{2,32}"
+                        pattern="[ A-zÀ-ž-.]{2,64}"
                         required
                     />
 
@@ -79,7 +77,7 @@ const ApplyForCompensationForm = (props) => {
                         type="tel"
                         id="txtEduInstitutionTelephone"
                         name="institutionTelephone"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[+]{1}[0-9]{4,19}"
@@ -92,7 +90,7 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtEduInstitutionEmail"
                         name="institutionEmail"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
@@ -105,7 +103,7 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtBankName"
                         name="bankName"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
                         pattern="[ A-zÀ-ž]{2,32}"
@@ -118,10 +116,10 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtAccountNumber"
                         name="accountNumber"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[A-Z0-9]{20,22}"
+                        pattern="[A-Z]{2}[A-Z0-9]{18,32}"
                         required
                     />
                     <label htmlFor="txtName">
@@ -131,13 +129,14 @@ const ApplyForCompensationForm = (props) => {
                         type="text"
                         id="txtBankCode"
                         name="bankCode"
-                        className="form-control"
+                        className="p-3 form-control"
                         onChange={inputChange}
                         onInvalid={(e) => inputValidator(e)}
-                        pattern="[0-9]{4,5}"
+                        pattern="[0-9]{5}"
                         required
                     />
                 </div>
+                <span>* <h5>- simboliu pažymėti laukai privalo būti užpildyti</h5></span>
             </>
         )
     }
@@ -193,7 +192,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildPersonalCode"
     //                     name="childPersonalCode"
     //                     placeholder="Asmens kodas"
-    //                     className="form-control"
+    //                     className="p-3 form-control"
     //                     //value={this.state.childPersonalCode}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -211,7 +210,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildName"
     //                     name="childName"
     //                     placeholder="Vaiko vardas"
-    //                     className="form-control"
+    //                     className="p-3 form-control"
     //                     //value={this.state.childName}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -229,7 +228,7 @@ const ApplyForCompensationForm = (props) => {
     //                     id="txtChildSurname"
     //                     name="childSurname"
     //                     placeholder="Vaiko pavardė"
-    //                     className="form-control"
+    //                     className="p-3 form-control"
     //                     //value={this.state.childSurname}
     //                     onChange={handleChildChange}
     //                     onInvalid={(e) => inputValidator(e)}
@@ -244,7 +243,7 @@ const ApplyForCompensationForm = (props) => {
     //                     Gimimo data
     //                 </label>
     //                 <DatePicker
-    //                     className="form-control"
+    //                     className="p-3 form-control"
     //                     locale="lt"
     //                     dateFormat="yyyy/MM/dd"
     //                     selected={this.state.birthdate}

@@ -17,21 +17,25 @@ function Navigation(props) {
             <nav className="navbar navbar-expand-md py-4 navbar-light bg-light">
 
                 <div className="container">
-                    
+
                     <NavLink className="navbar-brand" to={"/home"}>
                         <img className="nav-img" src={logo} alt="logotipas" loading="lazy" />
                     </NavLink>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" 
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                   
+
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto">
 
                             <li className="nav-item me-1">
+                                <NavLink className="nav-link" id="navUserNewCompensation" to={"/prasymasKompensacijai"}>Prašyti kompensacijos</NavLink>
+                            </li>
+
+                            <li className="nav-item me-1">
                                 <NavLink className="nav-link" id="navUserNewApplication" to={"/prasymai/naujas"}>Sukurti prašymą</NavLink>
-                            </li>                        
+                            </li>
 
                             <li className="nav-item me-1">
                                 <NavLink className="nav-link" id="navUserMyApplications" to={"/prasymai"}>Mano prašymai</NavLink>
@@ -51,13 +55,13 @@ function Navigation(props) {
 
                             <li className="nav-item me-1">
                                 <a className="nav-link"
-                                id="navInstructions"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={instructionsPdf}
-                                title="Parsisiųsti naudotojo instrukciją"
-                            >
-                                <FontAwesomeIcon icon={faQuestionCircle} />
+                                    id="navInstructions"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={instructionsPdf}
+                                    title="Parsisiųsti naudotojo instrukciją"
+                                >
+                                    <FontAwesomeIcon icon={faQuestionCircle} />
                                 </a>
                             </li>
 
@@ -68,7 +72,7 @@ function Navigation(props) {
                         </ul>
 
                     </div>
-                      
+
                 </div>
             </nav>
             <div>{props.children}</div>
