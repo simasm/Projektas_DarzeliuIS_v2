@@ -2,35 +2,46 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import apiEndpoint from '../10Services/endpoint';
+import swal from 'sweetalert';
 
 export default function ChildInfoForm({setChildDTO, setIdLength}) {
 
 // /api/registru-centras/51609260036
 // 51609260036
+
 const [childId, setChildId] = useState('')
 const [childData, setChildData] = useState({name: '', surname: '', dateOfBirth: ''});
+const [warningText, setWarningText] = useState('');
 
 
 
 
 
 useEffect(() => {
+  const warningmsg = document.getElementById('warningmsg')
+  
 
   async function load(){
-
-  const childDataResponse = await axios.get(apiEndpoint + `/api/registru-centras/51609260036`)
-  setChildData(childDataResponse.data)
-  setChildDTO(childDataResponse.data)
+    
+    
+  try {
+    const childDataResponse = await axios.get(apiEndpoint + `/api/registru-centras/51609260035`)
+    setChildData(childDataResponse.data)
+    setChildDTO(childDataResponse.data)
+  } catch (error){
+    if (error.response.status === 400){
+     warningmsg.textContent = (`Toks asmens kodas registrų centre neegzistuoja.`)
+    }
+  }
   
-  
+    
   
   
 }
 
 if (childId.length !== 11) {
   setChildData({name: '', surname: '', dateOfBirth: ''})
-  
-  
+  warningmsg.textContent = ''
   
 } else {
   load()
@@ -65,7 +76,9 @@ if (childId.length !== 11) {
             maxLength={11}
             required
             pattern="[0-9]{11}"
+            
           />
+          <span id='warningmsg'></span>
         </div>
 
         <div className="form-group">

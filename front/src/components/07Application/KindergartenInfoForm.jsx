@@ -44,7 +44,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   
                   required
                 />
-
+              <span>ahahah</span>
               </div>
 
               <div className="form-group">

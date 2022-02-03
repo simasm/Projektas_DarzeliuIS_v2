@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-export default function CompensationSubmit({onClick, compensationApplication, kindergartenDTO, childDTO, guardianDTO}) {
+export default function CompensationSubmit({compensationApplication, kindergartenDTO, childDTO, guardianDTO}) {
   const keys1 = Object.keys(childDTO)
   const keys2 = Object.keys(kindergartenDTO)
   const keys3 = Object.keys(guardianDTO)
@@ -13,16 +13,13 @@ export default function CompensationSubmit({onClick, compensationApplication, ki
     let btnSubmit = document.getElementById('btnSubmit');
 
     function checkIfAnyEmpty() {
-
     
        const emptyExists1 = keys1.map(k => childDTO[k]).some(val => val === '');
        const emptyExists2 = keys2.map(k => kindergartenDTO[k]).some(val => val === '');
        const emptyExists3 = keys3.map(k => guardianDTO[k]).some(val => val === '');
       
-       const emptyExists = (emptyExists1 || emptyExists2 || emptyExists3);
+      const emptyExists = (emptyExists1 || emptyExists2 || emptyExists3);
       
-
-        
       return emptyExists;
 
     }
@@ -42,16 +39,7 @@ export default function CompensationSubmit({onClick, compensationApplication, ki
   const handleSubmit = () => {
 
     
-    keys1.filter(k =>  compensationApplication.kindergartenInfo[k] === '')
-      .forEach(m => console.log(m, "EMPTY"))
-
-      
-
-
-
-      
-      
-    
+   console.log("submitted")
 
   }
   
