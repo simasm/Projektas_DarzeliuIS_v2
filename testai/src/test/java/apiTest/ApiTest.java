@@ -35,7 +35,7 @@ public class ApiTest extends GeneralApiMethods {
 
         HashMap<String, Object> user = new HashMap<>();
         user.put("address", "gatve 33-14");
-        user.put("email", "asd@asd.lt");
+        user.put("email", "andriusd@andrius.lt");
         user.put("name", "Andrius");
         user.put("password", "andriusd@andrius.lt");
         user.put("personalCode", "34512321234");
@@ -46,6 +46,7 @@ public class ApiTest extends GeneralApiMethods {
 
         createNewUser(user);
 
+
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
@@ -55,6 +56,8 @@ public class ApiTest extends GeneralApiMethods {
                 get("api/users/admin/allusers").
                 then().
                 body("content.username", hasItem(user.get("username")));
+
+        // delete user
 
 
     }

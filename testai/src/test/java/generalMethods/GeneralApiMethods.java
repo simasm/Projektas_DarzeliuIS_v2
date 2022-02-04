@@ -1,8 +1,10 @@
 package generalMethods;
 
 import basetest.BaseApiTest;
+import com.google.gson.Gson;
 import io.restassured.filter.session.SessionFilter;
-import org.openqa.selenium.json.Json;
+import io.restassured.response.Response;
+import models.Child;
 
 import java.util.HashMap;
 
@@ -10,9 +12,9 @@ import static io.restassured.RestAssured.given;
 
 public class GeneralApiMethods extends BaseApiTest {
 
-    SessionFilter sessionFilter = new SessionFilter();
+   static SessionFilter sessionFilter = new SessionFilter();
 
-    public SessionFilter logIn(String username, String pwd) {
+    public static SessionFilter logIn(String username, String pwd) {
 
         given().
                 spec(reqSpec).
@@ -25,8 +27,8 @@ public class GeneralApiMethods extends BaseApiTest {
 
     }
 
-    // requires prior login as admin
-    public void createNewUser(HashMap<String, Object> user) {
+    // requires prior login as admin to get session ID
+    public static void createNewUser(HashMap<String, Object> user) {
 
         given().
                 spec(reqSpec).
@@ -34,5 +36,23 @@ public class GeneralApiMethods extends BaseApiTest {
                 body(user).
         when().
                 post("api/users/admin/createuser");
+    }
+
+    // get child by id from Registru Centras API
+    public static Child getChildById (String asmensKodas) {
+
+        Response response =  given().
+                spec(reqSpec).
+                baseUri("https://darzelis.akademijait.vtmc.lt/registru-centras/vaikai/").
+                pathParam("asmensKodas", asmensKodas).
+                when().
+                get("/{asmensKodas}").
+                then().
+                extract().response();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(response.asString(), Child.class);
+
     }
 }
