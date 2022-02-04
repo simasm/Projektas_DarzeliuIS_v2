@@ -63,7 +63,7 @@ if (childId.length !== 11) {
         <div className="pb-1">
           <h6 className="formHeader">Vaiko duomenys</h6>
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtPersonalCode">
             Asmens kodas <span className="fieldRequired">*</span>
           </label>
@@ -71,7 +71,7 @@ if (childId.length !== 11) {
             type="text"
             id="txtChildPersonalCode"
             name="childPersonalCode"
-            className="form-control"
+            className="form-control "
             onChange={(e) => (setChildId(e.target.value), setIdLength(e.target.value.length))}
             maxLength={11}
             required
@@ -81,7 +81,7 @@ if (childId.length !== 11) {
           <span id='warningmsg'></span>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtName">
             Vaiko vardas <span className="fieldRequired">*</span>
           </label>
@@ -89,14 +89,14 @@ if (childId.length !== 11) {
             type="text"
             id="txtChildName"
             name="childName"
-            className="form-control"
+            className="form-control "
             
             disabled
             pattern="[A-zÀ-ž]{2,32}"
             value={childData.name}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtSurname">
             Vaiko pavardė <span className="fieldRequired">*</span>
           </label>
@@ -112,12 +112,12 @@ if (childId.length !== 11) {
         </div>
         
         {/** Gimimo data */}
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtBirthdate">
             Gimimo data <span className="fieldRequired">*</span>
           </label>
           <DatePicker
-            className="form-control"
+            className="form-control "
             locale="lt"
             dateFormat="yyyy/MM/dd"
             disabled

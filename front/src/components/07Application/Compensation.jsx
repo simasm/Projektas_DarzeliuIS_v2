@@ -14,6 +14,12 @@ export default function Compensation() {
 
   const [guardianDTO, setGuardianDTO] = useState({name: '', surname: '', personalCode: '', phone: '', email: '', address: ''})
 
+
+
+  const keys1 = Object.keys(childDTO)
+  const keys2 = Object.keys(kindergartenDTO)
+  const keys3 = Object.keys(guardianDTO)
+
     const compensationApplication = {
       childInfo:  {
         personalID: childDTO.personalID,
@@ -45,10 +51,36 @@ export default function Compensation() {
 
     }
 
+    useEffect(() => {
+
+      let btnSubmit = document.getElementById('btnSubmit');
+  
+      function checkIfAnyEmpty() {
+      
+         const emptyExists1 = keys1.map(k => childDTO[k]).some(val => val === '');
+         const emptyExists2 = keys2.map(k => kindergartenDTO[k]).some(val => val === '');
+         const emptyExists3 = keys3.map(k => guardianDTO[k]).some(val => val === '');
+        
+        const emptyExists = (emptyExists1 || emptyExists2 || emptyExists3);
+        
+        return emptyExists;
+  
+      }
+  
+  
+       if (checkIfAnyEmpty() === true){
+         btnSubmit.disabled = true
+       } else {
+         btnSubmit.disabled = false
+       }
+  
+  
+    }, [compensationApplication])
+
   
 
     useEffect(() => {
-
+      
       
 
       if(idLength !== 11){
@@ -69,7 +101,7 @@ export default function Compensation() {
    
    const handleSubmit = () => {
            
-            console.log(compensationApplication)
+            console.log('submitted')
     }
 
 
@@ -77,7 +109,7 @@ export default function Compensation() {
 
   return (
     
-    <div className='container'>
+    <div className='container' > 
       <div>{childDTO.personalID}</div>
       <div>{kindergartenDTO.address}</div>
 
@@ -100,9 +132,9 @@ export default function Compensation() {
          </div>
             
             <div className="container">
-              
+                            
                 
-                <CompensationSubmit compensationApplication={compensationApplication} kindergartenDTO={kindergartenDTO} childDTO={childDTO} guardianDTO={guardianDTO}/>
+                <button className='btn btn-primary' id='btnSubmit' onClick={() => handleSubmit()}>submit</button>
             </div>
             
      </div>

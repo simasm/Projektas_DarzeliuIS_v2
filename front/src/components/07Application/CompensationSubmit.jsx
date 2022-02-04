@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import swal from 'sweetalert';
 
-export default function CompensationSubmit({compensationApplication, kindergartenDTO, childDTO, guardianDTO}) {
+export default function CompensationSubmit({onClick, compensationApplication, kindergartenDTO, childDTO, guardianDTO}) {
   const keys1 = Object.keys(childDTO)
   const keys2 = Object.keys(kindergartenDTO)
   const keys3 = Object.keys(guardianDTO)
@@ -37,20 +38,14 @@ export default function CompensationSubmit({compensationApplication, kindergarte
 
 
   const handleSubmit = () => {
-
-    
-   console.log("submitted")
-
+    console.log('aaaaaaaaaa')
   }
   
   return (
 
-    
-
-
 <div className='container'>
 
-<button id="btnSubmit" disabled='disabled' className='btn btn-primary mt-2' onClick={() => handleSubmit()}>submit</button>
+<button type="submit" id="btnSubmit" disabled='disabled' className='btn btn-primary mt-2' onSubmit={() => onClick()}>submit</button>
 
 </div>
 

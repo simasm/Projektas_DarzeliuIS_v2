@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import inputValidator from "../08CommonComponents/InputValidator";
+
 
 export default function KindergartenInfoForm({setKindergartenDTO}) {
   
@@ -41,10 +43,13 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenName"
                   className="form-control"
                   onChange={(e) => setName(e.target.value)}
-                  
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   required
                 />
-              <span>ahahah</span>
+                <span id="txtKindergartenNameWarning" className='warningmsg'></span>
+              
               </div>
 
               <div className="form-group">
@@ -57,9 +62,13 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenCode"
                   className="form-control"
                   onChange={(e) => setCode(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   
                   required
                 />
+                <span id="txtKindergartenCodeWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -73,9 +82,12 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenAddress"
                   className="form-control"
                   onChange={(e) => setAddress(e.target.value)}
-                  
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   required
                 />
+                <span id="txtKindergartenAddressWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -89,8 +101,12 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenPhone"
                   className="form-control"
                   onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   required
                 />
+                <span id="txtKindergartenPhoneWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -104,9 +120,13 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenEmail"
                   className="form-control"
                   onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   
                   required
                 />
+                <span id="txtKindergartenEmailWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -120,9 +140,13 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenBankName"
                   className="form-control"
                   onChange={(e) => setBankName(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   
                   required
                 />
+                <span id="txtKindergartenBankNameWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -136,9 +160,12 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenAccountNumber"
                   className="form-control"
                   onChange={(e) => setAccountNumber(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+
                   
                   required
                 />
+                <span id="txtKindergartenAccountNumberWarning"  className='warningmsg'></span>
 
               </div>
 
@@ -152,9 +179,13 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   name="kindergartenBankCode"
                   className="form-control"
                   onChange={(e) => setBankCode(e.target.value)}
+                  onChange={(e) => inputValidator(e)}
+                  pattern="[A-zÀ-ž]{2,32}"
+
                   
                   required
                 />
+                <span id="txtKindergartenBankCodeWarning"  className='warningmsg'></span>
 
               </div>
 

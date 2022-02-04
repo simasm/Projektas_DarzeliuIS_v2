@@ -1,5 +1,7 @@
 function InputValidator(event) {
     const target = event.target;
+
+    
     
         if (target.validity.valueMissing && target.name !== "birthdate" && target.name !== "phone") {
             target.setCustomValidity(target.placeholder + " yra privalomas laukelis")
@@ -87,6 +89,133 @@ function InputValidator(event) {
                 target.setCustomValidity("");
             }
         }
+
+        const txtGuardianNameWarning = document.getElementById('txtGuardianNameWarning')
+        const txtGuardianSurnameWarning = document.getElementById('txtGuardianSurnameWarning')
+        const txtGuardianIdWarning = document.getElementById('txtGuardianIdWarning')
+        const txtGuardianPhoneWarning = document.getElementById('txtGuardianPhoneWarning')
+        const txtGuardianEmailWarning = document.getElementById('txtGuardianEmailWarning')
+        const txtGuardianAddressWarning = document.getElementById('txtGuardianAddressWarning')
+
+       
+
+        //###########################Compensation Application -> guardian form#######################################//
+        if (target.validity.patternMismatch && target.id === 'txtGuardianName'){
+            txtGuardianNameWarning.textContent = 'neteisingas vardas'
+        } else {
+            txtGuardianNameWarning.textContent = ''
+        }
+
+        if (target.validity.patternMismatch && target.id === 'txtGuardianSurname'){
+            txtGuardianSurnameWarning.textContent = 'neteisinga pavarde'
+        } else {
+            txtGuardianSurnameWarning.textContent = ''
+        }
+
+
+        if (target.validity.patternMismatch && target.id === 'txtGuardianId'){
+            txtGuardianIdWarning.textContent = 'neteisingas id'
+        } else {
+            txtGuardianIdWarning.textContent = ''
+        }
+
+
+        if (target.validity.patternMismatch && target.id === 'txtGuardianPhone'){
+            txtGuardianPhoneWarning.textContent = 'neteisingas telefono numeris'
+        } else {
+            txtGuardianPhoneWarning.textContent = ''
+        }
+
+
+        if (target.validity.patternMismatch && target.id === 'txtGuardianEmail'){
+            txtGuardianEmailWarning.textContent = 'neteisingas email'
+        } else {
+            txtGuardianEmailWarning.textContent = ''
+        }
+
+
+        if (target.validity.patternMismatch && target.id === 'txtGuardianAddress'){
+            txtGuardianAddressWarning.textContent = 'neteisingas adresas'
+        } else {
+            txtGuardianAddressWarning.textContent = ''
+        }
+        //###########################Compensation Application -> kindergarten form#######################################//
+        const txtKindergartenNameWarning = document.getElementById('txtKindergartenNameWarning')
+        const txtKindergartenCodeWarning = document.getElementById('txtKindergartenCodeWarning')
+        const txtKindergartenAddressWarning = document.getElementById('txtKindergartenAddressWarning')
+        const txtKindergartenPhoneWarning = document.getElementById('txtKindergartenPhoneWarning')
+        const txtKindergartenEmailWarning = document.getElementById('txtKindergartenEmailWarning')
+        const txtKindergartenBankNameWarning = document.getElementById('txtKindergartenBankNameWarning')
+        const txtKindergartenAccountNumberWarning = document.getElementById('txtKindergartenAccountNumberWarning')
+        const txtKindergartenBankCodeWarning = document.getElementById('txtKindergartenBankCodeWarning')
+
+        if (target.validity.patternMismatch){
+
+            if(target.id === 'txtKindergartenName') {
+                txtKindergartenNameWarning.textContent = 'neteisingas pavadinimas'
+            } else {
+                txtKindergartenNameWarning.textContent = ''
+            }
+
+         if (target.id === 'txtKindergartenCode'){
+
+            txtKindergartenCodeWarning.textContent = 'neteisingas kodas'
+        } else {
+            txtKindergartenCodeWarning.textContent = ''
+        
+        }
+        }
+
+
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenName'){
+        //     txtKindergartenNameWarning.textContent = 'neteisingas pavadinimas'
+        // } else {
+        //     txtKindergartenNameWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenCode'){
+        //     txtKindergartenCodeWarning.textContent = 'neteisingas kodas'
+        // } else {
+        //     txtKindergartenCodeWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenAddress'){
+        //     txtKindergartenAddressWarning.textContent = 'neteisingas adresas'
+        // } else {
+        //     txtKindergartenAddressWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenPhone'){
+        //     txtKindergartenPhoneWarning.textContent = 'neteisingas telefono numeris'
+        // } else {
+        //     txtKindergartenPhoneWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenEmail'){
+        //     txtKindergartenEmailWarning.textContent = 'neteisingas el. pastas'
+        // } else {
+        //     txtKindergartenEmailWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenBankName'){
+        //     txtKindergartenBankNameWarning.textContent = 'neteisingas banko pavadinimas'
+        // } else {
+        //     txtKindergartenBankNameWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenAccountNumber'){
+        //     txtKindergartenAccountNumberWarning.textContent = 'neteisingas saskaitos numeris'
+        // } else {
+        //     txtKindergartenAccountNumberWarning.textContent = ''
+        // }
+
+        // if (target.validity.patternMismatch && target.id === 'txtKindergartenBankCode'){
+        //     txtKindergartenBankCodeWarning.textContent = 'neteisingas banko kodas'
+        // } else {
+        //     txtKindergartenBankCodeWarning.textContent = ''
+        // }
+
 }
 
 export default InputValidator;

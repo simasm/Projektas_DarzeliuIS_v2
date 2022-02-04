@@ -84,3 +84,9 @@ p {
   float: right;
   color: rgb(134, 37, 37);
 }
+
+.warningmsg {
+  display: block;
+  float: right;
+  color: rgb(134, 37, 37);
+}
