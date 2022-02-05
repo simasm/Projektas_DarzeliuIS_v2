@@ -2,16 +2,21 @@ package it.akademija.registrycenter;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -25,31 +30,50 @@ import it.akademija.application.ApplicationController;
 @RequestMapping(path = "/api/registru-centras")
 public class RegistrycenterController {
 	
+	
+	//todo logging
 	private static final Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 	
-//	@Autowired
-//	private JournalService journalService;
+	//todo
+	//	@Autowired
+	//	private JournalService journalService;
+	
+	//todo
+	//
 	
 	@Autowired
 	private RegistrycenterService registrycenterService;
-	
-//	@Secured({ "ROLE_USER", "ROLE_ADMIN", "ROLE_MANAGER" })
+
+	/**
+	 * Get child's data from external registry center API
+	 * by querying personal ID code
+	 * @return name, surname, personalID, date of birth
+	 */
+ 	@Secured({ "ROLE_USER", "ROLE_ADMIN", "ROLE_MANAGER" })
  	@RequestMapping(value = "/{childPersonalCode}", method = RequestMethod.GET)
-	//@GetMapping("/{childPersonalCode}")
+ 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Get full info about child from ID code")
 	@ResponseBody
-	public RegistrycenterInfo getChildDataByIDFromExternalAPI( 
-			@ApiParam(value = "Application id", required = true) @PathVariable String childPersonalCode) {
+	public ResponseEntity<RegistrycenterDetails> getChildDataByIDFromExternalAPI( 
+			@ApiParam(value = "Child ID", required = true) @PathVariable @Valid String childPersonalCode) {
 			
+		 
+		RegistrycenterDetailsDTO data = registrycenterService.getDataByID(childPersonalCode);
 		
-		RegistrycenterDTO data = registrycenterService.getDataByID(childPersonalCode);
-		
-	//	System.out.println("registru centras - " + childPersonalCode + " " + data);
-		
-	//	System.out.println();
-		 return  new RegistrycenterInfo(data.getVardas(), data.getPavarde(), data.getAsmensKodas(), LocalDate.parse(data.getGimimoData()));
-				 
-		//return new ResponseEntity<>(data.toString(), HttpStatus.OK);
+		if(data != null) {
+		 		
+			return new ResponseEntity<>(new RegistrycenterDetails(data.getVardas(),
+					data.getPavarde(),
+					data.getAsmensKodas(),
+					LocalDate.parse(data.getGimimoData())),
+					HttpStatus.OK);
+		}
+		else {
+			//if id code doesn't exist in api or connection is not established
+			//returns empty strings
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			 
+		} 
 	}
 
 }

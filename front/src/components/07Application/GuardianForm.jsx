@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import inputValidator from "../08CommonComponents/InputValidator";
 
-export default function GuardianForm({setGuardianDTO}) {
-
-const [name, setName] = useState('');
-const [surname, setSurname] = useState('');
-const [personalCode, setPersonalCode] = useState('');
-const [phone, setPhone] = useState('');
-const [email, setEmail] = useState('');
-const [address, setAddress] = useState('');
+export default function GuardianForm({guardianData, setGuardianData}) {
 
 
 
-
-
-const guardianDTO = {name, surname, personalCode, phone, email, address}
-
-useEffect(() => {
-  setGuardianDTO(guardianDTO)
-
-
-}, [guardianDTO.name, guardianDTO.surname, guardianDTO.personalCode, guardianDTO.phone, guardianDTO.email, guardianDTO.address])
+const handleOnChange = (e) => {
+  setGuardianData({
+    ...guardianData,
+    [e.target.name]: e.target.value
+  });
+  inputValidator(e)
+  
+}
 
 
   return ( 
@@ -39,7 +31,7 @@ useEffect(() => {
                   id="txtGuardianName"
                   name="name"
                   className="form-control"
-                  onChange={(e) => (setName(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
                   
                   pattern="[A-zÀ-ž]{2,32}"
@@ -56,9 +48,9 @@ useEffect(() => {
                 <input
                   type="text"
                   id="txtGuardianSurname"
-                  name="guardianSurname"
+                  name="surname"
                   className="form-control"
-                  onChange={(e) => (setSurname(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
@@ -73,10 +65,10 @@ useEffect(() => {
                 <input
                   type="text"
                   id="txtGuardianId"
-                  name="guardianId"
+                  name="personalCode"
                   className="form-control"
-                  onChange={(e) => (setPersonalCode(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  pattern="[0-9]{11}"
                   required
                 />
                 <span id='txtGuardianIdWarning'  className='warningmsg'></span>
@@ -89,10 +81,10 @@ useEffect(() => {
                 <input
                   type="text"
                   id="txtGuardianPhone"
-                  name="guardianPhone"
+                  name="phone"
                   className="form-control"
-                  onChange={(e) => (setPhone(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  pattern="[+]{1}[0-9]{11}"
                   required
                 />
                 <span id='txtGuardianPhoneWarning'  className='warningmsg'></span>     
@@ -105,10 +97,10 @@ useEffect(() => {
                 <input
                   type="text"
                   id="txtGuardianEmail"
-                  name="guardianEmail"
+                  name="email"
                   className="form-control"
-                  onChange={(e) => (setEmail(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                   required
                 />
                 <span id='txtGuardianEmailWarning'  className='warningmsg'></span>     
@@ -122,10 +114,10 @@ useEffect(() => {
                 <input
                   type="text"
                   id="txtGuardianAddress"
-                  name="guardianAddress"
+                  name="address"
                   className="form-control"
-                  onChange={(e) => (setAddress(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  
                   required
                 />
                 <span id='txtGuardianAddressWarning'  className='warningmsg'></span>     

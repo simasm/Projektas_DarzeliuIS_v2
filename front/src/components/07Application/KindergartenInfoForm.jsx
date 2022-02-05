@@ -2,32 +2,25 @@ import React, { useEffect, useState } from 'react';
 import inputValidator from "../08CommonComponents/InputValidator";
 
 
-export default function KindergartenInfoForm({setKindergartenDTO}) {
-  
-  const [name, setName] = useState('');
-  const [code, setCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [bankName, setBankName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [bankCode, setBankCode] = useState('');
-
+export default function KindergartenInfoForm({kindergartenData, setKindergartenData}) {
   
 
-
-
-  const kindergartenDTO = {name, code, address, phone, email, bankName, accountNumber, bankCode}
-  
-  useEffect(() => {
+  // useEffect(() => {
     
-    setKindergartenDTO(kindergartenDTO)
+  //   setKindergartenDTO(kindergartenDTO)
    
 
 
-  }, [kindergartenDTO.name, kindergartenDTO.code, kindergartenDTO.address, kindergartenDTO.phone, kindergartenDTO.email, kindergartenDTO.bankName, kindergartenDTO.accountNumber, kindergartenDTO.bankCode])
+  // }, [kindergartenDTO.name, kindergartenDTO.code, kindergartenDTO.address, kindergartenDTO.phone, kindergartenDTO.email, kindergartenDTO.bankName, kindergartenDTO.accountNumber, kindergartenDTO.bankCode])
   
     
+  const handleOnChange = (e) => {
+    setKindergartenData({
+      ...kindergartenData,
+      [e.target.name]: e.target.value
+    });
+    inputValidator(e)
+  }
   
   
   return(
@@ -47,11 +40,11 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenName"
-                  name="kindergartenName"
+                  name="name"
                   className="form-control"
-                  onChange={(e) => (setName(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
-                  pattern="[A-zÀ-ž]{2,32}"
+                  pattern="[A-zA-ž]{5,64}"
 
                   required
                 />
@@ -66,11 +59,11 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenCode"
-                  name="kindergartenCode"
+                  name="code"
                   className="form-control"
-                  onChange={(e) => (setCode(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
-                  pattern="[A-zÀ-ž]{2,32}"
+                  pattern="[0-9]{5,15}"
 
                   
                   required
@@ -86,11 +79,11 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenAddress"
-                  name="kindergartenAddress"
+                  name="address"
                   className="form-control"
-                  onChange={(e) => (setAddress(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
-                  pattern="[A-zÀ-ž]{2,32}"
+                  
 
                   required
                 />
@@ -105,11 +98,11 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenPhone"
-                  name="kindergartenPhone"
+                  name="phone"
                   className="form-control"
-                  onChange={(e) => (setPhone(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
-                  pattern="[A-zÀ-ž]{2,32}"
+                  pattern="[+]{1}[0-9]{11}"
 
                   required
                 />
@@ -124,11 +117,11 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenEmail"
-                  name="kindergartenEmail"
+                  name="email"
                   className="form-control"
-                  onChange={(e) => (setEmail(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   
-                  pattern="[A-zÀ-ž]{2,32}"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
 
                   
                   required
@@ -144,9 +137,9 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenBankName"
-                  name="kindergartenBankName"
+                  name="bankName"
                   className="form-control"
-                  onChange={(e) => (setBankName(e.target.value), inputValidator(e))}
+                  onChange={(e) => handleOnChange(e)}
                   pattern="[A-zÀ-ž]{2,32}"
 
                   
@@ -163,10 +156,10 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenAccountNumber"
-                  name="kindergartenAccountNumber"
+                  name="accountNumber"
                   className="form-control"
-                  onChange={(e) => (setAccountNumber(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  pattern="[A-Z]{2}[0-9]{9}"
 
                   
                   required
@@ -182,10 +175,10 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                 <input
                   type="text"
                   id="txtKindergartenBankCode"
-                  name="kindergartenBankCode"
+                  name="bankCode"
                   className="form-control"
-                  onChange={(e) => (setBankCode(e.target.value), inputValidator(e))}
-                  pattern="[A-zÀ-ž]{2,32}"
+                  onChange={(e) => handleOnChange(e)}
+                  pattern="[0-9]{5}"
 
                   
                   required

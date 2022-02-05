@@ -2,7 +2,7 @@ package it.akademija.registrycenter;
 
 import java.time.LocalDate;
 
-public class RegistrycenterInfo {
+public class RegistrycenterDetails {
 	
 	private String name;
 	
@@ -12,7 +12,7 @@ public class RegistrycenterInfo {
 	
 	private LocalDate dateOfBirth;	
 
-	public RegistrycenterInfo(String vardas, String pavarde, String asmensKodas, LocalDate gimimoData) {
+	public RegistrycenterDetails(String vardas, String pavarde, String asmensKodas, LocalDate gimimoData) {
 		super();
 		this.name = vardas;
 		this.surname = pavarde;
