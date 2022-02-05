@@ -2,6 +2,8 @@ package apiTest;
 
 import generalMethods.GeneralApiMethods;
 import io.restassured.filter.session.SessionFilter;
+import io.restassured.http.ContentType;
+import models.Kindergarten;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,23 +17,26 @@ public class ApiTest extends GeneralApiMethods {
 
     // log in with all available user roles
     @Test(dataProvider = "parameters")
-    public void logInTest(String username, String pwd, String role) {
-        SessionFilter sessionFilter = logIn(username, pwd);
+    public void api_shouldLogIn(String username, String pwd, String role) {
+
+        SessionFilter sessionFilter =
+                logIn(username, pwd);
+
         given().
               spec(reqSpec).
               filter(sessionFilter).
         when().
               get("api/users/user").
         then().
-              body("role", is(role)).
-              body("username", is(username));
+              body("role", equalTo(role)).
+              body("username", equalTo(username));
     }
 
-    // create 5 new users
+    // create 1 new user then delete
     @Test
-    public void createUserTest() {
+    public void api_shouldCreateNewUser() {
 
-        SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
+        logIn("admin@admin.lt", "admin@admin.lt");
 
         HashMap<String, Object> user = new HashMap<>();
         user.put("address", "gatve 33-14");
@@ -44,27 +49,55 @@ public class ApiTest extends GeneralApiMethods {
         user.put("surname", "Andriulis");
         user.put("username", "andriusd@andrius.lt");
 
-        createNewUser(user);
-
-
-        given().
-                spec(reqSpec).
-                filter(sessionFilter).
-                queryParam("page", 0).
-                queryParam("size", 10).
-        when().
-                get("api/users/admin/allusers").
+        createNewUser(user).
                 then().
-                body("content.username", hasItem(user.get("username")));
+                contentType("text/plain; charset=UTF-8").
+                statusCode(201).
+                body(equalTo("Naudotojas sukurtas sėkmingai!"));
 
         // delete user
-
+        deleteUser("andriusd@andrius.lt").
+                then().
+                contentType("text/plain; charset=UTF-8").
+                statusCode(200).
+                body(equalTo("Naudotojas ištrintas sėkmingai"));
 
     }
 
-    // get data on all users registered in the system
+    // create 1 new kindergarten then delete
     @Test
-    public void getAllUsers() {
+    public void api_shouldCreateNewKindergarten() {
+
+        logIn("manager@manager.lt", "manager@manager.lt");
+
+        Kindergarten kg = new Kindergarten();
+        kg.setAddress("gatve 13");
+        kg.setCapacityAgeGroup2to3(1);
+        kg.setCapacityAgeGroup3to6(2);
+        kg.setElderate("Antakalnio");
+        kg.setId("123456789");
+        kg.setName("AAMontessori");
+
+
+
+        createNewKindergarten(kg).
+                then().
+                contentType("text/plain; charset=UTF-8").
+                statusCode(200).
+                body(equalTo("Darželis sukurtas sėkmingai"));
+
+        // delete kindergarten
+        deleteKindergarten("123456789").
+                then().
+                statusCode(200).
+                contentType("text/plain; charset=UTF-8").
+                body(equalTo("Darželis ištrintas sėkmingai"));
+
+    }
+
+    // get info on all users registered in the system
+    @Test
+    public void api_shouldGetAllUsers() {
         SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
 
         given().

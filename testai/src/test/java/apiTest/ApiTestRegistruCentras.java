@@ -1,15 +1,13 @@
 package apiTest;
 
-import basetest.BaseApiTest;
+import generalMethods.GeneralApiMethods;
 import models.Child;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static generalMethods.GeneralApiMethods.getChildById;
 
-
-public class ApiTestRegistruCentras extends BaseApiTest {
+public class ApiTestRegistruCentras extends GeneralApiMethods {
 
     @Test (dataProvider = "parameters")
     public static void testGetChildById (String asmensKodas) {
@@ -18,7 +16,6 @@ public class ApiTestRegistruCentras extends BaseApiTest {
         Assert.assertEquals(child.getAsmensKodas(), asmensKodas);
 
     }
-
 
 
     @DataProvider
