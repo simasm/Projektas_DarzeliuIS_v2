@@ -89,4 +89,9 @@ p {
   display: block;
   float: right;
   color: rgb(134, 37, 37);
+  font-size: 12px;
+}
+
+.warnfield {
+  border: red;
 }

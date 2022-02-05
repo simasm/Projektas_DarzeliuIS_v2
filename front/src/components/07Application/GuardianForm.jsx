@@ -10,17 +10,7 @@ const [phone, setPhone] = useState('');
 const [email, setEmail] = useState('');
 const [address, setAddress] = useState('');
 
-// const validateText = (event) => {
-//   const target = event.target;
 
-//   if (target.validity.valueMissing && target.id === "txtGuardianName") {
-//     target.setCustomValidity("Būtina įvesti naudotojo prisijungimo vardą");
-//   } else if (target.validity.valueMissing && target.id === "password") {
-//     target.setCustomValidity("Būtina įvesti slaptažodį");
-//   } else {
-//     target.setCustomValidity("");
-//   }
-// };
 
 
 
@@ -40,7 +30,7 @@ useEffect(() => {
                 <h6 className="formHeader">Vaiko atstovo duomenys</h6>
               </div>
               
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtGuardianName">
                   Vardas <span className="fieldRequired">*</span>
                 </label>
@@ -49,17 +39,17 @@ useEffect(() => {
                   id="txtGuardianName"
                   name="name"
                   className="form-control"
-                  onChange={(e) => setName(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setName(e.target.value), inputValidator(e))}
+                  
                   
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
-                <span id='txtGuardianNameWarning'  className='warningmsg'></span>
+                <span id='txtGuardianNameWarning' className='warningmsg'></span>
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtGuardianSurname">
                   Pavardė <span className="fieldRequired">*</span>
                 </label>
@@ -68,8 +58,7 @@ useEffect(() => {
                   id="txtGuardianSurname"
                   name="guardianSurname"
                   className="form-control"
-                  onChange={(e) => setSurname(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setSurname(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
@@ -77,7 +66,7 @@ useEffect(() => {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtGuardianId">
                   Asmens kodas <span className="fieldRequired">*</span>
                 </label>
@@ -86,8 +75,7 @@ useEffect(() => {
                   id="txtGuardianId"
                   name="guardianId"
                   className="form-control"
-                  onChange={(e) => setPersonalCode(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setPersonalCode(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
@@ -103,15 +91,14 @@ useEffect(() => {
                   id="txtGuardianPhone"
                   name="guardianPhone"
                   className="form-control"
-                  onChange={(e) => setPhone(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setPhone(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
                 <span id='txtGuardianPhoneWarning'  className='warningmsg'></span>     
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtGuardianEmail">
                   El. paštas <span className="fieldRequired">*</span>
                 </label>
@@ -120,8 +107,7 @@ useEffect(() => {
                   id="txtGuardianEmail"
                   name="guardianEmail"
                   className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setEmail(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />
@@ -129,7 +115,7 @@ useEffect(() => {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtGuardianAddress">
                   Adresas <span className="fieldRequired">*</span>
                 </label>
@@ -138,8 +124,7 @@ useEffect(() => {
                   id="txtGuardianAddress"
                   name="guardianAddress"
                   className="form-control"
-                  onChange={(e) => setAddress(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setAddress(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
                   required
                 />

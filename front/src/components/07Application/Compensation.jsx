@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import ChildInfoForm from './ChildInfoForm';
-import CompensationSubmit from './CompensationSubmit';
 import GuardianForm from './GuardianForm';
 import KindergartenInfoForm from './KindergartenInfoForm';
 
+
+
 export default function Compensation() {
+ 
   const [idLength, setIdLength] = useState(0);  
 
   const [childDTO, setChildDTO] = useState({personalID: '', name: '', surname: '', dateOfBirth: '' });
@@ -14,6 +16,7 @@ export default function Compensation() {
 
   const [guardianDTO, setGuardianDTO] = useState({name: '', surname: '', personalCode: '', phone: '', email: '', address: ''})
 
+  
 
 
   const keys1 = Object.keys(childDTO)
@@ -51,10 +54,28 @@ export default function Compensation() {
 
     }
 
+    
+
     useEffect(() => {
 
-      let btnSubmit = document.getElementById('btnSubmit');
-  
+        const txtKindergartenNameWarning = document.getElementById('txtKindergartenNameWarning')
+        const txtKindergartenCodeWarning = document.getElementById('txtKindergartenCodeWarning')
+        const txtKindergartenAddressWarning = document.getElementById('txtKindergartenAddressWarning')
+        const txtKindergartenPhoneWarning = document.getElementById('txtKindergartenPhoneWarning')
+        const txtKindergartenEmailWarning = document.getElementById('txtKindergartenEmailWarning')
+        const txtKindergartenBankNameWarning = document.getElementById('txtKindergartenBankNameWarning')
+        const txtKindergartenAccountNumberWarning = document.getElementById('txtKindergartenAccountNumberWarning')
+        const txtKindergartenBankCodeWarning = document.getElementById('txtKindergartenBankCodeWarning')
+
+        const txtGuardianNameWarning = document.getElementById('txtGuardianNameWarning')
+        const txtGuardianSurnameWarning = document.getElementById('txtGuardianSurnameWarning')
+        const txtGuardianIdWarning = document.getElementById('txtGuardianIdWarning')
+        const txtGuardianPhoneWarning = document.getElementById('txtGuardianPhoneWarning')
+        const txtGuardianEmailWarning = document.getElementById('txtGuardianEmailWarning')
+        const txtGuardianAddressWarning = document.getElementById('txtGuardianAddressWarning')
+      
+        const btnSubmit = document.getElementById('btnSubmit');
+
       function checkIfAnyEmpty() {
       
          const emptyExists1 = keys1.map(k => childDTO[k]).some(val => val === '');
@@ -66,16 +87,45 @@ export default function Compensation() {
         return emptyExists;
   
       }
-  
-  
-       if (checkIfAnyEmpty() === true){
-         btnSubmit.disabled = true
-       } else {
-         btnSubmit.disabled = false
-       }
+
+ 
+
+      function checkIfAnyIncorrect() {
+
+        const incorrectExists = (
+        txtKindergartenNameWarning.textContent !== '' || 
+        txtKindergartenCodeWarning.textContent !== '' || 
+        txtKindergartenAddressWarning.textContent !== '' || 
+        txtKindergartenPhoneWarning.textContent !== '' || 
+        txtKindergartenEmailWarning.textContent !== '' || 
+        txtKindergartenBankNameWarning.textContent !== '' || 
+        txtKindergartenAccountNumberWarning.textContent !== '' ||
+        txtKindergartenBankCodeWarning.textContent !== '' || 
+
+        txtGuardianNameWarning.textContent !== '' ||
+        txtGuardianSurnameWarning.textContent !== '' ||
+        txtGuardianIdWarning.textContent !== '' ||
+        txtGuardianPhoneWarning.textContent !== '' ||
+        txtGuardianEmailWarning.textContent !== '' ||
+        txtGuardianAddressWarning.textContent !== '' 
+
+
+        )
+        
+        return incorrectExists;
+      }
+      
+      
+      if (checkIfAnyIncorrect() || checkIfAnyEmpty()){
+        btnSubmit.disabled = true;
+      } else {
+        btnSubmit.disabled = false;
+      }
   
   
     }, [compensationApplication])
+
+    
 
   
 
@@ -102,6 +152,7 @@ export default function Compensation() {
    const handleSubmit = () => {
            
             console.log('submitted')
+            console.log(guardianDTO)
     }
 
 
@@ -110,8 +161,7 @@ export default function Compensation() {
   return (
     
     <div className='container' > 
-      <div>{childDTO.personalID}</div>
-      <div>{kindergartenDTO.address}</div>
+      
 
         <div className="row">
             <div className="col-4">
@@ -120,18 +170,20 @@ export default function Compensation() {
 
             </div>
             <div className="col-4">
-            <KindergartenInfoForm setKindergartenDTO = {setKindergartenDTO}/>
+            <GuardianForm setGuardianDTO = {setGuardianDTO} />
 
             </div>
 
             <div className="col-4">
-            <GuardianForm setGuardianDTO = {setGuardianDTO}/>
+            
+            <KindergartenInfoForm setKindergartenDTO = {setKindergartenDTO} />
 
             </div>
 
          </div>
             
             <div className="container">
+              
                             
                 
                 <button className='btn btn-primary' id='btnSubmit' onClick={() => handleSubmit()}>submit</button>

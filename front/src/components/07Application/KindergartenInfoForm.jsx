@@ -13,10 +13,16 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
   const [accountNumber, setAccountNumber] = useState('');
   const [bankCode, setBankCode] = useState('');
 
+  
+
+
+
   const kindergartenDTO = {name, code, address, phone, email, bankName, accountNumber, bankCode}
   
   useEffect(() => {
+    
     setKindergartenDTO(kindergartenDTO)
+   
 
 
   }, [kindergartenDTO.name, kindergartenDTO.code, kindergartenDTO.address, kindergartenDTO.phone, kindergartenDTO.email, kindergartenDTO.bankName, kindergartenDTO.accountNumber, kindergartenDTO.bankCode])
@@ -33,7 +39,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
               <div className="pb-1">
                 <h6 className="formHeader">Darzelio duomenys</h6>
               </div>
-              <div className="form-group">
+              
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenName">
                   Ugdymo istaigos pavadinimas <span className="fieldRequired">*</span>
                 </label>
@@ -42,8 +49,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenName"
                   name="kindergartenName"
                   className="form-control"
-                  onChange={(e) => setName(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setName(e.target.value), inputValidator(e))}
+                  
                   pattern="[A-zÀ-ž]{2,32}"
 
                   required
@@ -52,7 +59,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
               
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenCode">
                   Ugdymo istaigos kodas <span className="fieldRequired">*</span>
                 </label>
@@ -61,8 +68,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenCode"
                   name="kindergartenCode"
                   className="form-control"
-                  onChange={(e) => setCode(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setCode(e.target.value), inputValidator(e))}
+                  
                   pattern="[A-zÀ-ž]{2,32}"
 
                   
@@ -72,7 +79,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenAddress">
                   Ugdymo istaigos adresas <span className="fieldRequired">*</span>
                 </label>
@@ -81,8 +88,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenAddress"
                   name="kindergartenAddress"
                   className="form-control"
-                  onChange={(e) => setAddress(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setAddress(e.target.value), inputValidator(e))}
+                  
                   pattern="[A-zÀ-ž]{2,32}"
 
                   required
@@ -91,7 +98,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenPhone">
                   Kontaktinis telefono numeris <span className="fieldRequired">*</span>
                 </label>
@@ -100,8 +107,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenPhone"
                   name="kindergartenPhone"
                   className="form-control"
-                  onChange={(e) => setPhone(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setPhone(e.target.value), inputValidator(e))}
+                  
                   pattern="[A-zÀ-ž]{2,32}"
 
                   required
@@ -110,7 +117,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenEmail">
                   El. pastas <span className="fieldRequired">*</span>
                 </label>
@@ -119,8 +126,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenEmail"
                   name="kindergartenEmail"
                   className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setEmail(e.target.value), inputValidator(e))}
+                  
                   pattern="[A-zÀ-ž]{2,32}"
 
                   
@@ -130,7 +137,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenBankName">
                   Banko pavadinimas <span className="fieldRequired">*</span>
                 </label>
@@ -139,8 +146,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenBankName"
                   name="kindergartenBankName"
                   className="form-control"
-                  onChange={(e) => setBankName(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setBankName(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
 
                   
@@ -150,7 +156,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenAccountNumber">
                   Saskaitos numeris <span className="fieldRequired">*</span>
                 </label>
@@ -159,8 +165,8 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenAccountNumber"
                   name="kindergartenAccountNumber"
                   className="form-control"
-                  onChange={(e) => setAccountNumber(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setAccountNumber(e.target.value), inputValidator(e))}
+                  pattern="[A-zÀ-ž]{2,32}"
 
                   
                   required
@@ -169,7 +175,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
 
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <label htmlFor="txtKindergartenBankCode">
                   Banko kodas <span className="fieldRequired">*</span>
                 </label>
@@ -178,8 +184,7 @@ export default function KindergartenInfoForm({setKindergartenDTO}) {
                   id="txtKindergartenBankCode"
                   name="kindergartenBankCode"
                   className="form-control"
-                  onChange={(e) => setBankCode(e.target.value)}
-                  onChange={(e) => inputValidator(e)}
+                  onChange={(e) => (setBankCode(e.target.value), inputValidator(e))}
                   pattern="[A-zÀ-ž]{2,32}"
 
                   

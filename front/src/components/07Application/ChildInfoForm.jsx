@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import apiEndpoint from '../10Services/endpoint';
-import swal from 'sweetalert';
+
 
 export default function ChildInfoForm({setChildDTO, setIdLength}) {
 
@@ -11,7 +11,7 @@ export default function ChildInfoForm({setChildDTO, setIdLength}) {
 
 const [childId, setChildId] = useState('')
 const [childData, setChildData] = useState({name: '', surname: '', dateOfBirth: ''});
-const [warningText, setWarningText] = useState('');
+
 
 
 
@@ -25,9 +25,10 @@ useEffect(() => {
     
     
   try {
-    const childDataResponse = await axios.get(apiEndpoint + `/api/registru-centras/51609260035`)
+    const childDataResponse = await axios.get(apiEndpoint + `/api/registru-centras/${childId}`)
     setChildData(childDataResponse.data)
     setChildDTO(childDataResponse.data)
+    warningmsg.textContent = ''
   } catch (error){
     if (error.response.status === 400){
      warningmsg.textContent = (`Toks asmens kodas registrų centre neegzistuoja.`)
@@ -39,10 +40,13 @@ useEffect(() => {
   
 }
 
-if (childId.length !== 11) {
+if (childId.length >= 1 && childId.length < 11) {
+  setChildData({name: '', surname: '', dateOfBirth: ''})
+  warningmsg.textContent = 'neteisingas formatas'
+} else if (childId.length === 0){
   setChildData({name: '', surname: '', dateOfBirth: ''})
   warningmsg.textContent = ''
-  
+
 } else {
   load()
   
