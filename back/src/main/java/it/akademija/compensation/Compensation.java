@@ -17,8 +17,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import it.akademija.user.ParentDetails;
+ 
 import it.akademija.user.User;
 
 @Entity
@@ -47,6 +46,8 @@ public class Compensation {
 	private String childSurname;
 
 	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
+	@NotEmpty(message = "Kodas privalomas")
+	@Column(unique=true)
 	private String childPersonalCode;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -10,4 +10,8 @@ public interface CompensationDAO extends JpaRepository<Compensation, Long>{
 	
 	Compensation findCompensationByMainGuardianParentDetailsPersonalCode(String personalCode);
 
+	Compensation findCompensationByChildPersonalCode(String childPersonalCode);
+	
+	void deleteCompensationByChildPersonalCode(String childPersonalCode);
+	
 }

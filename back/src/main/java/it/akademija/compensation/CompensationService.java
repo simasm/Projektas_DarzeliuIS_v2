@@ -76,4 +76,17 @@ public class CompensationService {
 			return "Tokios kompensacijos nera";
 	}
 	
+	@Transactional
+	public Compensation getCompensationApplicationByChildCode(String childCode) {
+		 
+			return	compensationDAO.findCompensationByChildPersonalCode(childCode);
+	 
+	}
+	
+	@Transactional
+	public void deleteCompensationApplicationByChildCode(String childCode) {
+		
+		  compensationDAO.deleteCompensationByChildPersonalCode(childCode);
+	}
+	
 }

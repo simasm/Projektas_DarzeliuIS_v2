@@ -84,17 +84,37 @@ public class CompensationControllerTest {
 	void managerCanRetrieveCompensationApplications() {
 		assertEquals(controller.getAllCopensationApplications().getStatusCode(),
 				HttpStatus.OK);
-		assertTrue(controller.getAllCopensationApplications()
-				.getBody()
-				.size() > 0 );
+		
 		
 	}
 	
 	@Test
 	@Order(5)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
-	void managerCanDeleteCompensationApplicationByUsername() {
+	void managerCanDeleteCompensationApplicationByChildCode() {
 		//assertEquals(controller.deleteCompensationApplicationByUsername(null))
+		
+		
+		int size = controller.getAllCopensationApplications()
+				.getBody()
+				.size();
+
+		
+		assertTrue(size > 0 );
+		System.out.println("TEST SIZE---------------"+ size);
+		
+		controller.deleteCompensationApplicationByChildCode(
+				data.getChildInfo().getPersonalID());
+		
+		assertTrue(controller.getAllCopensationApplications()
+				.getBody()
+				.size() < size );
+		System.out.println("TEST SIZE---------------"+
+				controller.getAllCopensationApplications()
+		.getBody()
+		.size());
+		
+		
 	}
 		
  
