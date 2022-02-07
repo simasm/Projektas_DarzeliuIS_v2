@@ -1,27 +1,10 @@
 package it.akademija.compensation;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDate;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import com.google.gson.Gson;
-
-import it.akademija.role.Role;
-import it.akademija.user.ParentDetails;
-import it.akademija.user.User;
+ 
 
 public class CompensationRestTest {
 
+	/*
 	@Autowired
 	private CompensationController controller;
 	
@@ -90,5 +73,5 @@ public class CompensationRestTest {
 	    }
 	      
 	}
-	
+	*/
 }

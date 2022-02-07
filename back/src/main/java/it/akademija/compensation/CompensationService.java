@@ -49,7 +49,7 @@ public class CompensationService {
 				compensation.setSubmittedAt();
 				
 				 
-		
+		 
 		return compensationDAO.saveAndFlush(compensation);
 	}
 	
@@ -63,5 +63,17 @@ public class CompensationService {
 		return compensationDAO.findAll();
 	}
 	
+	@Transactional
+	public String deleteCompensationApplicationByUsername(String username) {
+		Compensation compensaion = 
+				compensationDAO.findCompensationByMainGuardianUsername(username);
+		if(compensaion != null) {
+		  compensationDAO.delete(compensaion);
+		  return "Naudotojo " + username + " kompensacija su id " + compensaion.getId() +
+				  " istrinta";
+		}
+		else
+			return "Tokios kompensacijos nera";
+	}
 	
 }
