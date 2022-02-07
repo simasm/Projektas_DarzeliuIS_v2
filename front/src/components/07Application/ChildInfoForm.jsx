@@ -1,68 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import axios from 'axios';
-import apiEndpoint from '../10Services/endpoint';
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import axios from "axios";
+import apiEndpoint from "../10Services/endpoint";
+import InputValidator from "../08CommonComponents/InputValidator";
 
+export default function ChildInfoForm({ setChildDTO, setIdLength }) {
+  // /api/registru-centras/51609260036
+  // 51609260036
 
-export default function ChildInfoForm({setChildDTO, setIdLength}) {
+  const [childId, setChildId] = useState("");
+  const [childData, setChildData] = useState({
+    name: "",
+    surname: "",
+    dateOfBirth: "",
+  });
 
-// /api/registru-centras/51609260036
-// 51609260036
+  const applyRedBorder = (e) => {
+    const fieldId = e.target.id;
+    const spanId = fieldId + "Warning";
 
-const [childId, setChildId] = useState('')
-const [childData, setChildData] = useState({name: '', surname: '', dateOfBirth: ''});
+    const span = document.getElementById(spanId);
 
+    const field = document.getElementById(fieldId);
 
-
-
-
-
-useEffect(() => {
-  const warningmsg = document.getElementById('warningmsg')
-  
-
-  async function load(){
-    
-    
-  try {
-    const childDataResponse = await axios.get(apiEndpoint + `/api/registru-centras/${childId}`)
-    setChildData(childDataResponse.data)
-    setChildDTO(childDataResponse.data)
-    warningmsg.textContent = ''
-  } catch (error){
-    if (error.response.status === 400){
-     warningmsg.textContent = (`Toks asmens kodas registrų centre neegzistuoja.`)
+    if (span.textContent !== "") {
+      field.setAttribute("class", "form-control redborder");
+    } else {
+      field.setAttribute("class", "form-control");
     }
-  }
-  
-    
-  
-  
-}
+  };
 
-if (childId.length >= 1 && childId.length < 11) {
-  setChildData({name: '', surname: '', dateOfBirth: ''})
-  warningmsg.textContent = 'neteisingas formatas'
-} else if (childId.length === 0){
-  setChildData({name: '', surname: '', dateOfBirth: ''})
-  warningmsg.textContent = ''
+  const handleOnChange = (e) => {
+    setChildId(e.target.value);
+    setIdLength(e.target.value.length);
+    InputValidator(e);
+    applyRedBorder(e);
+  };
 
-} else {
-  load()
-  
-}
+  useEffect(() => {
+    const warningmsg = document.getElementById("txtChildPersonalCodeWarning");
+    const field = document.getElementById("txtChildPersonalCode");
 
-}, [childId])
+    async function load() {
+      try {
+        const childDataResponse = await axios.get(
+          apiEndpoint + `/api/registru-centras/${childId}`
+        );
+        setChildData(childDataResponse.data);
+        setChildDTO(childDataResponse.data);
+        warningmsg.textContent = "";
+      } catch (error) {
+        if (error.response.status >= 400) {
+          warningmsg.textContent = `Toks asmens kodas registrų centre neegzistuoja.`;
+          field.setAttribute("class", "form-control redborder");
+        }
+      }
+    }
 
-
-
-
-
-
+    if (childId.length !== 11) {
+      setChildData({ name: "", surname: "", dateOfBirth: "" });
+    } else {
+      load();
+    }
+  }, [childId]);
 
   return (
-        <div className="container">
-            
+    <div className="container">
       <div className="form">
         <div className="pb-1">
           <h6 className="formHeader">Vaiko duomenys</h6>
@@ -75,14 +78,13 @@ if (childId.length >= 1 && childId.length < 11) {
             type="text"
             id="txtChildPersonalCode"
             name="childPersonalCode"
-            className="form-control "
-            onChange={(e) => (setChildId(e.target.value), setIdLength(e.target.value.length))}
+            className="form-control"
+            onChange={(e) => handleOnChange(e)}
             maxLength={11}
             required
             pattern="[0-9]{11}"
-            
           />
-          <span id='warningmsg'></span>
+          <span id="txtChildPersonalCodeWarning" className="warningmsg"></span>
         </div>
 
         <div className="form-group mt-2">
@@ -94,7 +96,6 @@ if (childId.length >= 1 && childId.length < 11) {
             id="txtChildName"
             name="childName"
             className="form-control "
-            
             disabled
             pattern="[A-zÀ-ž]{2,32}"
             value={childData.name}
@@ -114,7 +115,7 @@ if (childId.length >= 1 && childId.length < 11) {
             pattern="[A-zÀ-ž]{2,32}"
           />
         </div>
-        
+
         {/** Gimimo data */}
         <div className="form-group mt-2">
           <label htmlFor="txtBirthdate">
@@ -126,12 +127,9 @@ if (childId.length >= 1 && childId.length < 11) {
             dateFormat="yyyy/MM/dd"
             disabled
             value={childData.dateOfBirth}
-            
           />
-          
         </div>
-            </div>
-        
- </div>
- )
+      </div>
+    </div>
+  );
 }

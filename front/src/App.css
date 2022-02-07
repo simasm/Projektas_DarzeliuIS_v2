@@ -95,3 +95,7 @@ p {
 .warnfield {
   border: red;
 }
+
+.redborder {
+  border: 3px solid rgb(141, 24, 24);
+}
