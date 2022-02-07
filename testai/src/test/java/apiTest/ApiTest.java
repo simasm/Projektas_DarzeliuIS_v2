@@ -2,11 +2,14 @@ package apiTest;
 
 import generalMethods.GeneralApiMethods;
 import io.restassured.filter.session.SessionFilter;
-import io.restassured.http.ContentType;
 import models.Kindergarten;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
@@ -17,19 +20,31 @@ public class ApiTest extends GeneralApiMethods {
 
     // log in with all available user roles
     @Test(dataProvider = "parameters")
-    public void api_shouldLogIn(String username, String pwd, String role) {
+    public void api_shouldLogInAndOut(String username, String pwd, String role) {
 
         SessionFilter sessionFilter =
                 logIn(username, pwd);
 
         given().
-              spec(reqSpec).
-              filter(sessionFilter).
+               spec(reqSpec).
+               filter(sessionFilter).
         when().
-              get("api/users/user").
+               get("api/users/user").
         then().
-              body("role", equalTo(role)).
-              body("username", equalTo(username));
+               body("role", equalTo(role)).
+               body("username", equalTo(username));
+
+        logOut();
+
+        // assert that logout was successful
+        given().
+               spec(reqSpec).
+               filter(sessionFilter).
+        when().
+               get("api/users/user").
+        then().
+               statusCode(401);
+
     }
 
     // create 1 new user then delete
@@ -81,34 +96,61 @@ public class ApiTest extends GeneralApiMethods {
 
 
         createNewKindergarten(kg).
-                then().
-                contentType("text/plain; charset=UTF-8").
-                statusCode(200).
-                body(equalTo("Darželis sukurtas sėkmingai"));
+        then().
+               contentType("text/plain; charset=UTF-8").
+               statusCode(200).
+               body(equalTo("Darželis sukurtas sėkmingai"));
 
         // delete kindergarten
         deleteKindergarten("123456789").
-                then().
-                statusCode(200).
-                contentType("text/plain; charset=UTF-8").
-                body(equalTo("Darželis ištrintas sėkmingai"));
+        then().
+               statusCode(200).
+               contentType("text/plain; charset=UTF-8").
+               body(equalTo("Darželis ištrintas sėkmingai"));
 
     }
+
+    // submit new application to kindergarten as USER
+    @Test
+    public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
+
+       logIn("user@user.lt", "user@user.lt");
+
+       submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json")))).
+       then().
+              statusCode(200).
+              body(equalTo("Prašymas sukurtas sėkmingai"));
+
+       // get id of submitted application
+       ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser().
+       then().
+              statusCode(200).
+              extract(). path("id");
+
+       // delete previously created application
+       deleteApplicationAsUserById(applicationId.get(0)).
+       then().
+              statusCode(200).
+              body(equalTo("Ištrinta sėkmingai"));
+
+    }
+
 
     // get info on all users registered in the system
     @Test
     public void api_shouldGetAllUsers() {
-        SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
 
-        given().
-                spec(reqSpec).
-                filter(sessionFilter).
-                queryParam("page", 0).
-                queryParam("size", 10).
-        when().
-                get("api/users/admin/allusers").
-        then().
-                body("content.size", not(0));
+       SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
+
+       given().
+               spec(reqSpec).
+               filter(sessionFilter).
+               queryParam("page", 0).
+               queryParam("size", 10).
+       when().
+               get("api/users/admin/allusers").
+       then().
+               body("content.size", not(0));
 
     }
 
@@ -116,11 +158,12 @@ public class ApiTest extends GeneralApiMethods {
 
     @DataProvider
     public Object[][] parameters() {
-        return new Object[][]{
-                {"user@user.lt", "user@user.lt", "USER"},
-                {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
-                {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
-        };
+
+       return new Object[][]{
+               {"user@user.lt", "user@user.lt", "USER"},
+               {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
+               {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
+       };
     }
 
 }

@@ -59,28 +59,9 @@ public class Kindergarten {
     }
 
     public enum elderate {
-        ANTAKALNIO,
-        FABIJONIŠKIŲ,
-        GRIGIŠKIŲ,
-        JUSTINIŠKIŲ,
-        KAROLINIŠKIŲ,
-        LAZDYNŲ,
-        NAUJAMIESČIO,
-        NAUJININKŲ,
-        NAUJOSIOS_VILNIOS,
-        PANERIŲ,
-        PAŠILAIČIŲ,
-        PILAITĖS,
-        RASŲ,
-        SENAMIESČIO,
-        ŠEŠKINĖS,
-        ŠNIPIŠKIŲ,
-        VERKIŲ,
-        VILKPĖDĖS,
-        VIRŠULIŠKIŲ,
-        VISOS_SENIŪNIJOS,
-        ŽIRMŪNŲ,
-        ŽVĖRYNO
+        ANTAKALNIO, FABIJONIŠKIŲ, GRIGIŠKIŲ, JUSTINIŠKIŲ, KAROLINIŠKIŲ, LAZDYNŲ, NAUJAMIESČIO, NAUJININKŲ,
+        NAUJOSIOS_VILNIOS, PANERIŲ, PAŠILAIČIŲ, PILAITĖS, RASŲ, SENAMIESČIO, ŠEŠKINĖS, ŠNIPIŠKIŲ, VERKIŲ,
+        VILKPĖDĖS, VIRŠULIŠKIŲ, VISOS_SENIŪNIJOS, ŽIRMŪNŲ, ŽVĖRYNO
 
     }
 }
