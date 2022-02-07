@@ -92,23 +92,23 @@ export default function Compensation() {
       "txtKindergartenBankCodeWarning"
     );
 
-    const txtGuardianNameWarning = document.getElementById(
-      "txtGuardianNameWarning"
+    const txtGuardianNameCompensationWarning = document.getElementById(
+      "txtGuardianNameCompensationWarning"
     );
-    const txtGuardianSurnameWarning = document.getElementById(
-      "txtGuardianSurnameWarning"
+    const txtGuardianSurnameCompensationWarning = document.getElementById(
+      "txtGuardianSurnameCompensationWarning"
     );
-    const txtGuardianIdWarning = document.getElementById(
-      "txtGuardianIdWarning"
+    const txtGuardianIdCompensationWarning = document.getElementById(
+      "txtGuardianIdCompensationWarning"
     );
-    const txtGuardianPhoneWarning = document.getElementById(
-      "txtGuardianPhoneWarning"
+    const txtGuardianPhoneCompensationWarning = document.getElementById(
+      "txtGuardianPhoneCompensationWarning"
     );
-    const txtGuardianEmailWarning = document.getElementById(
-      "txtGuardianEmailWarning"
+    const txtGuardianEmailCompensationWarning = document.getElementById(
+      "txtGuardianEmailCompensationWarning"
     );
-    const txtGuardianAddressWarning = document.getElementById(
-      "txtGuardianAddressWarning"
+    const txtGuardianAddressCompensationWarning = document.getElementById(
+      "txtGuardianAddressCompensationWarning"
     );
 
     const btnSubmit = document.getElementById("btnSubmit");
@@ -139,12 +139,12 @@ export default function Compensation() {
         txtKindergartenBankNameWarning.textContent !== "" ||
         txtKindergartenAccountNumberWarning.textContent !== "" ||
         txtKindergartenBankCodeWarning.textContent !== "" ||
-        txtGuardianNameWarning.textContent !== "" ||
-        txtGuardianSurnameWarning.textContent !== "" ||
-        txtGuardianIdWarning.textContent !== "" ||
-        txtGuardianPhoneWarning.textContent !== "" ||
-        txtGuardianEmailWarning.textContent !== "" ||
-        txtGuardianAddressWarning.textContent !== "";
+        txtGuardianNameCompensationWarning.textContent !== "" ||
+        txtGuardianSurnameCompensationWarning.textContent !== "" ||
+        txtGuardianIdCompensationWarning.textContent !== "" ||
+        txtGuardianPhoneCompensationWarning.textContent !== "" ||
+        txtGuardianEmailCompensationWarning.textContent !== "" ||
+        txtGuardianAddressCompensationWarning.textContent !== "";
 
       return incorrectExists;
     }

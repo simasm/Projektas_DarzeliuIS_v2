@@ -93,75 +93,99 @@ function InputValidator(event) {
 
   //###########################Compensation Application -> guardian form#######################################//
 
-  const txtGuardianNameWarning = document.getElementById(
-    "txtGuardianNameWarning"
+  const txtGuardianNameCompensationWarning = document.getElementById(
+    "txtGuardianNameCompensationWarning"
   );
-  const txtGuardianSurnameWarning = document.getElementById(
-    "txtGuardianSurnameWarning"
+  const txtGuardianSurnameCompensationWarning = document.getElementById(
+    "txtGuardianSurnameCompensationWarning"
   );
-  const txtGuardianIdWarning = document.getElementById("txtGuardianIdWarning");
-  const txtGuardianPhoneWarning = document.getElementById(
-    "txtGuardianPhoneWarning"
+  const txtGuardianIdCompensationWarning = document.getElementById(
+    "txtGuardianIdCompensationWarning"
   );
-  const txtGuardianEmailWarning = document.getElementById(
-    "txtGuardianEmailWarning"
+  const txtGuardianPhoneCompensationWarning = document.getElementById(
+    "txtGuardianPhoneCompensationWarning"
   );
-  const txtGuardianAddressWarning = document.getElementById(
-    "txtGuardianAddressWarning"
+  const txtGuardianEmailCompensationWarning = document.getElementById(
+    "txtGuardianEmailCompensationWarning"
+  );
+  const txtGuardianAddressCompensationWarning = document.getElementById(
+    "txtGuardianAddressCompensationWarning"
   );
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianName") {
-    txtGuardianNameWarning.textContent = "Netinkamo formato vardas";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianNameCompensation"
+  ) {
+    txtGuardianNameCompensationWarning.textContent = "Netinkamo formato vardas";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianName"
+    target.id === "txtGuardianNameCompensation"
   ) {
-    txtGuardianNameWarning.textContent = "";
+    txtGuardianNameCompensationWarning.textContent = "";
   }
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianSurname") {
-    txtGuardianSurnameWarning.textContent = "Netinkamo formato pavardė";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianSurnameCompensation"
+  ) {
+    txtGuardianSurnameCompensationWarning.textContent =
+      "Netinkamo formato pavardė";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianSurname"
+    target.id === "txtGuardianSurnameCompensation"
   ) {
-    txtGuardianSurnameWarning.textContent = "";
+    txtGuardianSurnameCompensationWarning.textContent = "";
   }
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianId") {
-    txtGuardianIdWarning.textContent = "Netinkamo formato asmens kodas";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianIdCompensation"
+  ) {
+    txtGuardianIdCompensationWarning.textContent =
+      "Netinkamo formato asmens kodas";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianId"
+    target.id === "txtGuardianIdCompensation"
   ) {
-    txtGuardianIdWarning.textContent = "";
+    txtGuardianIdCompensationWarning.textContent = "";
   }
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianPhone") {
-    txtGuardianPhoneWarning.textContent = "Netinkamo formato tel. nr";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianPhoneCompensation"
+  ) {
+    txtGuardianPhoneCompensationWarning.textContent =
+      "Netinkamo formato tel. nr";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianPhone"
+    target.id === "txtGuardianPhoneCompensation"
   ) {
-    txtGuardianPhoneWarning.textContent = "";
+    txtGuardianPhoneCompensationWarning.textContent = "";
   }
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianEmail") {
-    txtGuardianEmailWarning.textContent = "Netinkamo formato email";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianEmailCompensation"
+  ) {
+    txtGuardianEmailCompensationWarning.textContent = "Netinkamo formato email";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianEmail"
+    target.id === "txtGuardianEmailCompensation"
   ) {
-    txtGuardianEmailWarning.textContent = "";
+    txtGuardianEmailCompensationWarning.textContent = "";
   }
 
-  if (target.validity.patternMismatch && target.id === "txtGuardianAddress") {
-    txtGuardianAddressWarning.textContent = "Netinkamo formato adresas";
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtGuardianAddressCompensation"
+  ) {
+    txtGuardianAddressCompensationWarning.textContent =
+      "Netinkamo formato adresas";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtGuardianAddress"
+    target.id === "txtGuardianAddressCompensation"
   ) {
-    txtGuardianAddressWarning.textContent = "";
+    txtGuardianAddressCompensationWarning.textContent = "";
   }
 
   //###########################Compensation Application -> kindergarten form#######################################//
@@ -282,11 +306,14 @@ function InputValidator(event) {
     "txtChildPersonalCodeWarning"
   );
 
-  if (target.validity.patternMismatch && target.id === "txtChildPersonalCode") {
+  if (
+    target.validity.patternMismatch &&
+    target.id === "txtChildPersonalCodeCompensation"
+  ) {
     txtChildPersonalCodeWarning.textContent = "Netinkamo formato asmens kodas";
   } else if (
     !target.validity.patternMismatch &&
-    target.id === "txtChildPersonalCode"
+    target.id === "txtChildPersonalCodeCompensation"
   ) {
     txtChildPersonalCodeWarning.textContent = "";
   }

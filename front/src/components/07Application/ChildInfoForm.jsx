@@ -39,7 +39,7 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
 
   useEffect(() => {
     const warningmsg = document.getElementById("txtChildPersonalCodeWarning");
-    const field = document.getElementById("txtChildPersonalCode");
+    const field = document.getElementById("txtChildPersonalCodeCompensation");
 
     async function load() {
       try {
@@ -71,13 +71,13 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
           <h6 className="formHeader">Vaiko duomenys</h6>
         </div>
         <div className="form-group mt-2">
-          <label htmlFor="txtPersonalCode">
+          <label htmlFor="txtPersonalCodeCompensation">
             Asmens kodas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
-            id="txtChildPersonalCode"
-            name="childPersonalCode"
+            id="txtChildPersonalCodeCompensation"
+            name="childPersonalCodeCompensation"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             maxLength={11}
@@ -88,13 +88,13 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
         </div>
 
         <div className="form-group mt-2">
-          <label htmlFor="txtName">
+          <label htmlFor="txtNameCompensation">
             Vaiko vardas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
-            id="txtChildName"
-            name="childName"
+            id="txtChildNameCompensation"
+            name="childNameCompensation"
             className="form-control "
             disabled
             pattern="[A-zÀ-ž]{2,32}"
@@ -102,13 +102,13 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
           />
         </div>
         <div className="form-group mt-2">
-          <label htmlFor="txtSurname">
+          <label htmlFor="txtSurnameCompensation">
             Vaiko pavardė <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
-            id="txtChildSurname"
-            name="childSurname"
+            id="txtChildSurnameCompensation"
+            name="childSurnameCompensation"
             className="form-control"
             value={childData.surname}
             disabled
@@ -118,7 +118,7 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
 
         {/** Gimimo data */}
         <div className="form-group mt-2">
-          <label htmlFor="txtBirthdate">
+          <label htmlFor="txtBirthdateCompensation">
             Gimimo data <span className="fieldRequired">*</span>
           </label>
           <DatePicker

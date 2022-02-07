@@ -34,12 +34,12 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
       </div>
 
       <div className="form-group mt-2">
-        <label htmlFor="txtGuardianName">
+        <label htmlFor="txtGuardianNameCompensation">
           Vardas <span className="fieldRequired">*</span>
         </label>
         <input
           type="text"
-          id="txtGuardianName"
+          id="txtGuardianNameCompensation"
           name="name"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
@@ -47,7 +47,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           maxLength={32}
           required
         />
-        <span id="txtGuardianNameWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianNameCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
 
       <div className="form-group mt-2">
@@ -56,15 +59,18 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         </label>
         <input
           type="text"
-          id="txtGuardianSurname"
+          id="txtGuardianSurnameCompensation"
           name="surname"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="[A-Ž]{1}[A-zÀ-ž]{1,31}"
+          pattern="^[A-Z]+[a-zA-Z]*$"
           maxLength={32}
           required
         />
-        <span id="txtGuardianSurnameWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianSurnameCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
 
       <div className="form-group mt-2">
@@ -73,7 +79,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         </label>
         <input
           type="text"
-          id="txtGuardianId"
+          id="txtGuardianIdCompensation"
           name="personalCode"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
@@ -81,7 +87,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           maxLength={11}
           required
         />
-        <span id="txtGuardianIdWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianIdCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
 
       <div className="form-group">
@@ -90,7 +99,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         </label>
         <input
           type="text"
-          id="txtGuardianPhone"
+          id="txtGuardianPhoneCompensation"
           name="phone"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
@@ -98,7 +107,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           maxLength={12}
           required
         />
-        <span id="txtGuardianPhoneWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianPhoneCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
 
       <div className="form-group mt-2">
@@ -107,7 +119,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         </label>
         <input
           type="text"
-          id="txtGuardianEmail"
+          id="txtGuardianEmailCompensation"
           name="email"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
@@ -115,7 +127,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           maxLength={64}
           required
         />
-        <span id="txtGuardianEmailWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianEmailCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
 
       <div className="form-group mt-2">
@@ -124,7 +139,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         </label>
         <input
           type="text"
-          id="txtGuardianAddress"
+          id="txtGuardianAddressCompensation"
           name="address"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
@@ -132,7 +147,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           maxLength={64}
           required
         />
-        <span id="txtGuardianAddressWarning" className="warningmsg"></span>
+        <span
+          id="txtGuardianAddressCompensationWarning"
+          className="warningmsg"
+        ></span>
       </div>
     </div>
   );
