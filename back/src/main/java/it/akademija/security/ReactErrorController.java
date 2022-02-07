@@ -30,4 +30,6 @@ public class ReactErrorController implements ErrorController {
 		return ResponseEntity.ok(index);
 	}
 
+ 
+
 }

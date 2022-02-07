@@ -12,10 +12,12 @@ import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
 
 import inputValidator from "../08CommonComponents/InputValidator";
+import ChildInfoForm from "./ChildInfoForm";
 
 import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
 import { subYears } from "date-fns";
+
 
 registerLocale("lt", lt);
 
@@ -61,6 +63,7 @@ class CreateApplicationFormContainer extends Component {
       kindergartenList: [],
       additionalGuardianInput: false,
       registrationDisabled: false,
+
     };
     this.mainGuardianOnChange = this.mainGuardianOnChange.bind(this);
     this.additionalGuardianOnChange = this.additionalGuardianOnChange.bind(
@@ -125,7 +128,7 @@ class CreateApplicationFormContainer extends Component {
       return (
         <div className="form">         
             <h6 className="formHeader">Atstovas 1</h6>         
-          <div className="form-group mt-3">
+          <div className="form-group mt-2">
             <label htmlFor="txtName">
               Vardas <span className="fieldRequired">*</span>
             </label>
@@ -381,7 +384,26 @@ class CreateApplicationFormContainer extends Component {
         <div className="pb-1">
           <h6 className="formHeader">Vaiko duomenys</h6>
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
+          <label htmlFor="txtPersonalCode">
+            Asmens kodas <span className="fieldRequired">*</span>
+          </label>
+          <input
+            type="text"
+            id="txtChildPersonalCode"
+            name="childPersonalCode"
+            placeholder="Asmens kodas"
+            className="form-control"
+            value={this.state.childPersonalCode}
+            maxLength={11}
+            onChange={this.childOnChange}
+            onInvalid={(e) => inputValidator(e)}
+            disabled={this.state.registrationDisabled}
+            required
+            pattern="[0-9]{11}"
+          />
+        </div>
+        <div className="form-group mt-2">
           <label htmlFor="txtName">
             Vaiko vardas <span className="fieldRequired">*</span>
           </label>
@@ -394,7 +416,7 @@ class CreateApplicationFormContainer extends Component {
             value={this.state.childName}
             onChange={this.childOnChange}
             onInvalid={(e) => inputValidator(e)}
-            disabled={this.state.registrationDisabled}
+            disabled
             required
             pattern="[A-zÀ-ž]{2,32}"
           />
@@ -412,27 +434,9 @@ class CreateApplicationFormContainer extends Component {
             value={this.state.childSurname}
             onChange={this.childOnChange}
             onInvalid={(e) => inputValidator(e)}
-            disabled={this.state.registrationDisabled}
+            disabled
             required
             pattern="[A-zÀ-ž]{2,32}"
-          />
-        </div>
-        <div className="form-group mt-2">
-          <label htmlFor="txtPersonalCode">
-            Asmens kodas <span className="fieldRequired">*</span>
-          </label>
-          <input
-            type="text"
-            id="txtChildPersonalCode"
-            name="childPersonalCode"
-            placeholder="Asmens kodas"
-            className="form-control"
-            value={this.state.childPersonalCode}
-            onChange={this.childOnChange}
-            onInvalid={(e) => inputValidator(e)}
-            disabled={this.state.registrationDisabled}
-            required
-            pattern="[0-9]{11}"
           />
         </div>
         {/** Gimimo data */}
@@ -444,13 +448,14 @@ class CreateApplicationFormContainer extends Component {
             className="form-control"
             locale="lt"
             dateFormat="yyyy/MM/dd"
-            selected={this.state.birthdate}
+            placeholderText="Vaiko gimimo data"
+            //selected={this.state.birthdate}
             onChange={(e) => {
               this.setState({ birthdate: e });
             }}
             minDate={subYears(new Date(), 6)}
             maxDate={subYears(new Date(), 1)}
-            disabled={this.state.registrationDisabled}
+            disabled
           />
         </div>
       </div>
@@ -811,7 +816,7 @@ class CreateApplicationFormContainer extends Component {
   childOnChange(e) {
     inputValidator(e);
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   }
 
@@ -837,7 +842,8 @@ class CreateApplicationFormContainer extends Component {
       childSurname: this.state.childSurname,
       kindergartenChoises: this.state.kindergartenChoises,
       mainGuardian: this.state.mainGuardian,
-      priorities: this.state.priorities
+      priorities: this.state.priorities,
+      // childinfoID : (document.getElementById('txtChildPersonalCode')).value
     }
 
     if (!this.state.kindergartenChoises.kindergartenId1) {
@@ -847,7 +853,7 @@ class CreateApplicationFormContainer extends Component {
       });
     } else {
       http
-        .post(`${apiEndpoint}/api/prasymai/user/new`, data)
+        .post(`${apiEndpoint}/api/prasymai/user/new/`, data)
         .then((response) => {
           //console.log(response);
           swal({
@@ -880,12 +886,26 @@ class CreateApplicationFormContainer extends Component {
 
     return (
       <div className="container pt-4">
+        
         {
           this.drawMessageRegistrationNotAvailable(this.state.registrationDisabled)
         }
         <div className="form">
           <form onSubmit={this.submitHandle}>
             <div className="row">
+              <div className="col-4">
+
+                <div><ChildInfoForm/></div>
+
+                {/* Below code is not used anymore but I'm afraid to delete it just in case */}
+
+                {
+                 /** Vaiko forma */
+                //  this.childForm()
+                }
+                
+              </div>
+              
               <div className="col-4">
                 {
                   /** Atstovas 1 */
@@ -897,13 +917,6 @@ class CreateApplicationFormContainer extends Component {
                 {
                   /** Atstovas 2 */
                   this.userForm(false)
-                }
-              </div>
-
-              <div className="col-4">
-                {
-                  /** Vaiko forma */
-                  this.childForm()
                 }
               </div>
             </div>
