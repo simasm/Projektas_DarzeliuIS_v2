@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -21,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import it.akademija.user.User;
 
 @Entity
+@Table(uniqueConstraints= {@UniqueConstraint(columnNames= {"childPersonalCode"})})
 public class Compensation {
 	
 
@@ -47,8 +50,7 @@ public class Compensation {
 
 	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
 	@NotEmpty(message = "Kodas privalomas")
-	@Column(unique=true)
-	private String childPersonalCode;
+ 	private String childPersonalCode;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate childBirthdate;

@@ -55,7 +55,15 @@ public class CompensationController {
 	@ResponseBody
 	public ResponseEntity<Compensation> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
 		
-		Compensation compensation = compensationService.createNewCompensationApplication(data);
+		Compensation compensation = null;
+	
+		try {
+		compensation = compensationService.createNewCompensationApplication(data);
+		}
+		catch (Exception e) {
+				//jau egzistuoja vaiko id duomenu bazeje
+		}
+		
 		
 	   if(compensation != null)
 			return new ResponseEntity<>(compensation, HttpStatus.CREATED);

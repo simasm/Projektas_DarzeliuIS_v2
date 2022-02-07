@@ -60,11 +60,13 @@ public class CompensationControllerTest {
 	@Test 
 	@Order(2)
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
-	void controllerRespondsWith201() {
+	void controllerRespondsWith201And400() {
 	
 		
-		assertEquals(controller.createNewCompensationApplication(data)
-				.getStatusCode(), HttpStatus.CREATED);
+		assertEquals(HttpStatus.CREATED, controller.createNewCompensationApplication(data)
+				.getStatusCode());
+		assertEquals(HttpStatus.BAD_REQUEST, controller.createNewCompensationApplication(data)
+				.getStatusCode());
 				
 	}
 
@@ -101,7 +103,7 @@ public class CompensationControllerTest {
 
 		
 		assertTrue(size > 0 );
-		System.out.println("TEST SIZE---------------"+ size);
+	 
 		
 		controller.deleteCompensationApplicationByChildCode(
 				data.getChildInfo().getPersonalID());
@@ -109,10 +111,7 @@ public class CompensationControllerTest {
 		assertTrue(controller.getAllCopensationApplications()
 				.getBody()
 				.size() < size );
-		System.out.println("TEST SIZE---------------"+
-				controller.getAllCopensationApplications()
-		.getBody()
-		.size());
+ 
 		
 		
 	}
