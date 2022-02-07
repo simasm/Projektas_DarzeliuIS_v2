@@ -91,3 +91,11 @@ p {
 .marginBottomSide {
   margin-bottom: 20px;
 }
+
+.error {
+  border: 2px solid red;
+}
+
+.granted {
+  border: 1px solid green; 
+}
