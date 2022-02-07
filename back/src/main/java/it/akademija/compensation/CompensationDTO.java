@@ -57,118 +57,108 @@ public class CompensationDTO {
 
 
   class ChildInfo {
-	private String personalID;
-	private String name;
-	private String surname;
-	private String dateOfBirth;
-	
-	
-	
+	private ChildInfoData data = new ChildInfoData();
+
+
+
 	public ChildInfo(String personalID, String name, String surname, String dateOfBirth) {
 		super();
-		this.personalID = personalID;
-		this.name = name;
-		this.surname = surname;
-		this.dateOfBirth = dateOfBirth;
+		this.data.personalID = personalID;
+		this.data.name = name;
+		this.data.surname = surname;
+		this.data.dateOfBirth = dateOfBirth;
 	}
 	public String getPersonalID() {
-		return personalID;
+		return data.personalID;
 	}
 	public void setPersonalID(String personalID) {
-		this.personalID = personalID;
+		this.data.personalID = personalID;
 	}
 	public String getName() {
-		return name;
+		return data.name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.data.name = name;
 	}
 	public String getSurname() {
-		return surname;
+		return data.surname;
 	}
 	public void setSurname(String surname) {
-		this.surname = surname;
+		this.data.surname = surname;
 	}
 	public String getDateOfBirth() {
-		return dateOfBirth;
+		return data.dateOfBirth;
 	}
 	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		this.data.dateOfBirth = dateOfBirth;
 	}
 	
 }
 
   class KindergartenInfo {
-	private String name;
-	private String code;
-	private String address;
-	private String phone;
-	private String email;
-	private String bankName;
-	private String accountNumber;
-	private String bankCode;
-	
-	
-	
+	private KindergartenInfoData data = new KindergartenInfoData();
+
+
+
 	public KindergartenInfo(String name, String code, String address, String phone, String email, String bankName,
 			String accountNumber, String bankCode) {
 		super();
-		this.name = name;
-		this.code = code;
-		this.address = address;
-		this.phone = phone;
-		this.email = email;
-		this.bankName = bankName;
-		this.accountNumber = accountNumber;
-		this.bankCode = bankCode;
+		this.data.name = name;
+		this.data.code = code;
+		this.data.address = address;
+		this.data.phone = phone;
+		this.data.email = email;
+		this.data.bankName = bankName;
+		this.data.accountNumber = accountNumber;
+		this.data.bankCode = bankCode;
 	}
 	public String getName() {
-		return name;
+		return data.name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.data.name = name;
 	}
 	public String getCode() {
-		return code;
+		return data.code;
 	}
 	public void setCode(String code) {
-		this.code = code;
+		this.data.code = code;
 	}
 	public String getAddress() {
-		return address;
+		return data.address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		this.data.address = address;
 	}
 	public String getPhone() {
-		return phone;
+		return data.phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone;
+		this.data.phone = phone;
 	}
 	public String getEmail() {
-		return email;
+		return data.email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.data.email = email;
 	}
 	public String getBankName() {
-		return bankName;
+		return data.bankName;
 	}
 	public void setBankName(String bankName) {
-		this.bankName = bankName;
+		this.data.bankName = bankName;
 	}
 	public String getAccountNumber() {
-		return accountNumber;
+		return data.accountNumber;
 	}
 	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+		this.data.accountNumber = accountNumber;
 	}
 	public String getBankCode() {
-		return bankCode;
+		return data.bankCode;
 	}
 	public void setBankCode(String bankCode) {
-		this.bankCode = bankCode;
+		this.data.bankCode = bankCode;
 	}
 	
 	
@@ -176,60 +166,55 @@ public class CompensationDTO {
 }
 
   class GuardianInfo {
-	private String name;
-	private String surname;
-	private String personalCode;
-	private String phone;
-	private String email;
-	private String address;
-	
-	
-	
+	private GuardianInfoData data = new GuardianInfoData();
+
+
+
 	public GuardianInfo(String name, String surname, String personalCode, String phone, String email,
 			String address) {
 		super();
-		this.name = name;
-		this.surname = surname;
-		this.personalCode = personalCode;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
+		this.data.name = name;
+		this.data.surname = surname;
+		this.data.personalCode = personalCode;
+		this.data.phone = phone;
+		this.data.email = email;
+		this.data.address = address;
 	}
 	public String getName() {
-		return name;
+		return data.name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.data.name = name;
 	}
 	public String getSurname() {
-		return surname;
+		return data.surname;
 	}
 	public void setSurname(String surname) {
-		this.surname = surname;
+		this.data.surname = surname;
 	}
 	public String getPersonalCode() {
-		return personalCode;
+		return data.personalCode;
 	}
 	public void setPersonalCode(String personalCode) {
-		this.personalCode = personalCode;
+		this.data.personalCode = personalCode;
 	}
 	public String getPhone() {
-		return phone;
+		return data.phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone;
+		this.data.phone = phone;
 	}
 	public String getEmail() {
-		return email;
+		return data.email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.data.email = email;
 	}
 	public String getAddress() {
-		return address;
+		return data.address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		this.data.address = address;
 	}
 	
 	

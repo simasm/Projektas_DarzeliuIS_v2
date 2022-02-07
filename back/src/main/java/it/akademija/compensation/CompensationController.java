@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -44,14 +47,18 @@ public class CompensationController {
 	 * @return message
 	 */
 	@Secured({ "ROLE_USER" })
-	@PostMapping("/user/new")
-
+	 @RequestMapping(value = "/user/new", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create new application for compensation")
-	public ResponseEntity<String> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
+	@ResponseBody
+	public ResponseEntity<Compensation> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
 		
-		compensationService.createNewCompensationApplication(data);
+		Compensation compensation = compensationService.createNewCompensationApplication(data);
 		
-		return new ResponseEntity<>("Prasymas jau egzistuoja", HttpStatus.BAD_REQUEST);
+	   if(compensation != null)
+			return new ResponseEntity<>(compensation, HttpStatus.CREATED);
+		  else 
+		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
