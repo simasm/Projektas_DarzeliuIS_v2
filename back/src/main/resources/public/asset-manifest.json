@@ -1,5 +1,6 @@
 {
   "files": {
+
     "main.css": "/darzelis/static/css/main.0a7e6323.chunk.css",
     "main.js": "/darzelis/static/js/main.2a72e5cb.chunk.js",
     "main.js.map": "/darzelis/static/js/main.2a72e5cb.chunk.js.map",
@@ -16,13 +17,16 @@
     "static/css/2.f4556ed5.chunk.css.map": "/darzelis/static/css/2.f4556ed5.chunk.css.map",
     "static/css/main.0a7e6323.chunk.css.map": "/darzelis/static/css/main.0a7e6323.chunk.css.map",
     "static/js/2.be11b432.chunk.js.LICENSE.txt": "/darzelis/static/js/2.be11b432.chunk.js.LICENSE.txt",
+
     "static/media/VMS_VDIS_naudotojo_gidas.pdf": "/darzelis/static/media/VMS_VDIS_naudotojo_gidas.6e24cb1e.pdf"
   },
   "entrypoints": [
     "static/js/runtime-main.2a48942f.js",
     "static/css/2.f4556ed5.chunk.css",
+
     "static/js/2.be11b432.chunk.js",
     "static/css/main.0a7e6323.chunk.css",
     "static/js/main.2a72e5cb.chunk.js"
+
   ]
 }
