@@ -1,6 +1,6 @@
 package it.akademija.compensation;
 
-public class CompensationInfo {
+public class CompensationInfoDTO {
 
 	
 	

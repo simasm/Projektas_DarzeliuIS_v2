@@ -48,8 +48,6 @@ public class CompensationService {
 		
 				compensation.setSubmittedAt();
 				
-				 
-		 
 		return compensationDAO.saveAndFlush(compensation);
 	}
 	
@@ -83,6 +81,8 @@ public class CompensationService {
 	 
 	}
 	
+	
+	//to do return messasge
 	@Transactional
 	public void deleteCompensationApplicationByChildCode(String childCode) {
 		

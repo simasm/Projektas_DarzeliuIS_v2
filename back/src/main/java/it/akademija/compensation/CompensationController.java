@@ -49,7 +49,7 @@ public class CompensationController {
 	 * @return message
 	 */
 	@Secured({ "ROLE_USER" })
-	 @RequestMapping(value = "/user/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create new application for compensation")
 	@ResponseBody
@@ -95,16 +95,16 @@ public class CompensationController {
 				HttpStatus.OK);
 	}
 	
-	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
+	
 	/**
 	 * 
-	 * Retreive application for review viewing
+	 * Retrieve application for review viewing
 	 * 
 	 */
+	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
 	@GetMapping("/user")
-	@ApiOperation(value = "Retreive application for compensation for selected user for viewing") 
-	public ResponseEntity<Compensation> getCompensationApplicationForUser(String currentUsername,
-			CompensationDTO data) {
+	@ApiOperation(value = "Retrieve application for compensation for selected user for viewing") 
+	public ResponseEntity<Compensation> getCompensationApplicationForUser(String currentUsername) {
 		
 		
 		Compensation compensation = compensationService.getCompensationApplicationForUser( currentUsername);
@@ -119,7 +119,7 @@ public class CompensationController {
 	/* kol kas be paging */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager")
-	@ApiOperation(value = "Retreive all applications for compensation")
+	@ApiOperation(value = "Retrieve all applications for compensation")
 	public ResponseEntity<List<Compensation>> getAllCopensationApplications() {
 		
 		return new ResponseEntity<>(compensationService.getAllCompensationApplications(),
