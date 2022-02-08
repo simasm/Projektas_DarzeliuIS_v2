@@ -303,7 +303,7 @@ public class GeneralMethods extends BaseTest {
         }
     }
 
-    public void fillInTheApplication() throws IOException {
+    public void fillInTheApplication() throws IOException, InterruptedException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
         clickNavButtonNewApplication();
         clickDrpDnButtonRegistration();

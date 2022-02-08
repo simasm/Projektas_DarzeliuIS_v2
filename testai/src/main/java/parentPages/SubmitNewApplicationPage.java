@@ -1,10 +1,18 @@
 package parentPages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AbstractObjectPage;
+import utilities.ScrollToEnd;
+
+import java.time.Duration;
+
+import static utilities.ScrollToEnd.scrollToEnd;
 
 public class SubmitNewApplicationPage extends AbstractObjectPage {
 
@@ -164,17 +172,17 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
     }
 
     public void openKindergartenListDropdownPriorityOne() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+
         kindergartenPriorityOne.click();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", kindergartenPriorityOne);
-        js.executeScript("document.getElementById('react-select-2-option-0').click()");
+        WebElement drpDnPrioOne = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.id("react-select-2-option-0")));
+        drpDnPrioOne.click();
     }
 
-    public void clickButtonSubmitApplication() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)");
-        js.executeScript("arguments[0].scrollIntoView()", buttonSubmitApplication);
-        js.executeScript("arguments[0].click();", buttonSubmitApplication);
+    public void clickButtonSubmitApplication() throws InterruptedException {
+        scrollToEnd(driver);
+        buttonSubmitApplication.click();
     }
 
     // constructor

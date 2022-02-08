@@ -28,7 +28,7 @@ public class SubmitNewApplication extends GeneralMethods {
      */
 
     @Test(groups = "regression", priority = 1)
-    public void successfullySubmitNewApplication() throws IOException {
+    public void successfullySubmitNewApplication() throws IOException, InterruptedException {
         successfullyCreateNewKindergarten();
         doLogout();
 
