@@ -28,7 +28,6 @@ import { QueueContainer } from "./components/12Queue/QueueContainer";
 import UserDocumentContainer from "./components/13UserDocuments/UserDocumentContainer";
 import { ApplicationStatusContainer } from './components/04Admin/ApplicationStatusContainer';
 import EventJournalContainer from "./components/14EventJournal/EventJournalContainer";
-import Compensation from "./components/07Application/Compensation";
 
 var initState = {
   isAuthenticated: null,
@@ -203,13 +202,8 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/prasymai/registracija"
+                      path="/prasymai/naujas"
                       component={CreateApplicationFormContainer}
-                    />
-                    <Route
-                      exact
-                      path="/prasymai/kompensacija"
-                      component={Compensation}
                     />
                     <Route
                       exact

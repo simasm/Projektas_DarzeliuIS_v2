@@ -8,14 +8,15 @@
   font-size: 12px;
   font-weight: bold;
   vertical-align: text-top;
+  margin-top: 20px;
 }
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .nav-img {
@@ -35,8 +36,9 @@
 } */
 
 .swal-button--confirm {
-  background-color: #007bff;
+  background-color:#007bff;
 }
+
 
 /* Neveikia font-size: em */
 .swal-text {
@@ -49,17 +51,16 @@
   font-size: 0.875rem;
 }
 
-.form-group,
-.row {
+.form-group, .row {
   font-size: 0.875rem;
 }
 
 .table {
   font-size: 0.875rem;
+  
 }
 
-.pb-3,
-.py-3 {
+.pb-3, .py-3 {
   font-size: 1rem;
 }
 
@@ -67,8 +68,8 @@ p {
   font-size: 0.875rem;
 }
 
-.navbar-light.navbar-nav.nav-link.active {
-  font-size: 1rem;
+.navbar-light.navbar-nav.nav-link.active{
+  font-size:1rem;
 }
 
 .deleteColumn {
@@ -79,26 +80,14 @@ p {
   padding-top: 4%;
 }
 
-#warningmsg {
-  display: block;
-  float: right;
-  color: rgb(134, 37, 37);
+/* a.#navInstructions.nav-link {
+  background-color: #ffc107;
+} */
+
+.marginTopSide {
+  margin-top: 20px;
 }
 
-.warningmsg {
-  display: block;
-  float: right;
-  color: rgb(134, 37, 37);
-  font-size: 12px;
-}
-
-.warnfield {
-  border: red;
-}
-
-.redborder {
-  border: 3px solid rgb(141, 24, 24);
-}
-
-#btnSubmit {
+.marginBottomSide {
+  margin-bottom: 20px;
 }

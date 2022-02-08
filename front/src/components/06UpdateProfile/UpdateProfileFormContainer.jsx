@@ -74,12 +74,12 @@ export default class UpdateProfileFormContainer extends Component {
                 <div>
                     <div className="form-group">
                         <label htmlFor="txtName">Vardas <span className="fieldRequired">*</span></label>
-                        <input
+                        <input 
                             type="text"
                             id="txtName"
                             name="name"
                             placeholder="Vardas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.name}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -88,13 +88,13 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtSurname"
                             name="surname"
                             placeholder="Pavardė"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.surname}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -103,13 +103,13 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtEmail">El. paštas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtEmail"
                             name="email"
                             placeholder="El. paštas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.email}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -131,7 +131,7 @@ export default class UpdateProfileFormContainer extends Component {
                             id="txtName"
                             name="name"
                             placeholder="Vardas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.name}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -140,13 +140,13 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtSurname">Pavardė <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtSurname" class="marginTopSide">Pavardė <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtSurname"
                             name="surname"
                             placeholder="Pavardė"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.surname}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -155,13 +155,13 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtPersonalCode">Asmens kodas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtPersonalCode" class="marginTopSide">Asmens kodas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtPersonalCode"
                             name="personalCode"
                             placeholder="Asmens kodas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.personalCode}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -170,11 +170,11 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtTelNo">Telefonas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtTelNo" class="marginTopSide">Telefonas <span className="fieldRequired">*</span></label>
                         <div className="input-group">
                             <input
                                 type="tel"
-                                className="form-control"
+                                className="form-control mt-2"
                                 id="txtTelNo"
                                 name="phone"
                                 value={this.state.phone}
@@ -186,13 +186,13 @@ export default class UpdateProfileFormContainer extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtEmail">El. paštas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtEmail" class="marginTopSide">El. paštas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
                             id="txtEmail"
                             name="email"
                             placeholder="El. paštas"
-                            className="form-control"
+                            className="form-control mt-2"
                             value={this.state.email}
                             onChange={this.handleChange}
                             onInvalid={(e) => inputValidator(e)}
@@ -201,10 +201,10 @@ export default class UpdateProfileFormContainer extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="txtAddress">Adresas <span className="fieldRequired">*</span></label>
+                        <label htmlFor="txtAddress" class="marginTopSide">Adresas <span className="fieldRequired">*</span></label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control mt-2"
                             id="txtAddress"
                             name="address"
                             placeholder="Adresas"
@@ -385,7 +385,7 @@ export default class UpdateProfileFormContainer extends Component {
                         <form onSubmit={this.handleSubmit}>
                             {this.drawUpdateForm(this.state.role)}
 
-                            <button type="submit" id="btnSubmit" className="btn btn-primary">Išsaugoti</button>
+                            <button type="submit" id="btnSubmit" className="btn btn-primary marginTopSide">Išsaugoti</button>
 
                         </form>
                     </div>

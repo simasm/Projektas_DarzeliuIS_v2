@@ -117,6 +117,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ### Shell scripts ###
-.sh
+*.sh
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,eclipse
