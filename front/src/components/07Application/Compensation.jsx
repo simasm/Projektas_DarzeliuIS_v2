@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ChildInfoForm from "./ChildInfoForm";
 import GuardianForm from "./GuardianForm";
 import KindergartenInfoForm from "./KindergartenInfoForm";
+import apiEndpoint from "../10Services/endpoint";
 
 export default function Compensation() {
   const [idLength, setIdLength] = useState(0);
@@ -168,7 +170,11 @@ export default function Compensation() {
   }, [idLength]);
 
   const handleSubmit = () => {
-    console.log("submitted");
+    axios.post(
+      apiEndpoint + `/api/kompensacija/user/new`,
+      compensationApplication
+    );
+    alert("submitted");
     console.log(compensationApplication);
   };
 
