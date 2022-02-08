@@ -92,10 +92,11 @@ p {
   margin-bottom: 20px;
 }
 
-.error {
-  border: 2px solid red;
-}
-
-.granted {
-  border: 1px solid green; 
+.text-danger {
+  /* color: red;
+  font-weight: normal;
+  text-align: right; */
+  display: block;
+  float: right;
+  color: rgb(134, 37, 37);
 }

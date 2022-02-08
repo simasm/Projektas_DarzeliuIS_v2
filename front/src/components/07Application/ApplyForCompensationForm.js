@@ -11,46 +11,41 @@ const ApplyForCompensationForm = (props) => {
 
     const [kdTouched, setkdTouched] = useState({
         institutionName: false, institutionCode: false, institutionAddress: false, institutionTelephone: false,
-        institutionEmail: false, bankName: false, accountNumber: false, bankCode: false
+        institutionEmail: false, bankName: false, accountNumber: false, bankCode: false, name: false, surname: false,
+        personalCode: false, phone: false, email: false, address: false
     });
 
     const [kinderValid, setkinderValid] = useState({
         institutionName: false, institutionCode: false, institutionAddress: false, institutionTelephone: false,
-        institutionEmail: false, bankName: false, accountNumber: false, bankCode: false
+        institutionEmail: false, bankName: false, accountNumber: false, bankCode: false, name: false, surname: false,
+        personalCode: false, phone: false, email: false, address: false
     });
 
     const [kindergartenState, setKindergartenState] = useState({
         institutionName: "", institutionCode: "", institutionAddress: "", institutionTelephone: "",
-        institutionEmail: "", bankName: "", accountNumber: "", bankCode: ""
+        institutionEmail: "", bankName: "", accountNumber: "", bankCode: "", name: "", surname: "",
+        personalCode: "", phone: "", email: "", address: ""
     });
 
     const [kdErrorState, setKdErrorState] = useState({
-        kdNameError: "", kdCodeError: "", kdAddressError: "", kdTelephoneError: "",
-        kdEmailError: "", kdBankError: "", kdAccountError: "", kdBankCodeError: ""
+        institutionName: "", institutionCode: "", institutionAddress: "", institutionTelephone: "",
+        institutionEmail: "", bankName: "", accountNumber: "", bankCode: "", name: "", surname: "",
+        personalCode: "", phone: "", email: "", address: ""
     });
-
-    const [parentState, setParentState] = useState({
-        name: "", surname: "", personalCode: "",
-        phone: "", email: "", address: ""
-    })
 
     const focusHandler = e => {
         setkdTouched({ ...kdTouched, [e.target.name]: true });
-        console.log("focusHandler: name=" + e.target.name + " result=" + kdTouched[e.target.name]);
+        validateKindergarten(e);
+        //console.log("focusHandler: name=" + e.target.name + " result=" + kdTouched[e.target.name]);
     }
 
-    // const inputKindergartenChange = e => {
-    //     inputValidator(e);
-    //     setKindergartenState({
-    //         ...kindergartenState,
-    //         [e.target.name]: e.target.value
-    //     });
-    //     validateKindergarten(e);
-        
-    // };
+    const blurHandler = e => {
+        setkdTouched({ ...kdTouched, [e.target.name]: false });
+        setKdErrorState({ ...kdErrorState, [e.target.name]: "" });
+    }
+
     const inputKindergartenChange = e => {
         inputValidator(e);
-        
         setKindergartenState(kindergartenState => { // passing a function instead of just an object
             return {
                 ...kindergartenState,
@@ -65,74 +60,180 @@ const ApplyForCompensationForm = (props) => {
         var result = false;
 
         switch (name) {
+            case 'name':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[\w\sÀ-ž-".]{2,32}/) !== null && e.target.value.length < 33;
+                    if (e.target.value.length > 32) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas vardas" });
+                    else if (e.target.value.length < 2) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas vardas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
+            case 'surname':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[\w\sÀ-ž-".]{2,32}/) !== null && e.target.value.length < 33;
+                    if (e.target.value.length > 32) setKdErrorState({ ...kdErrorState, [name]: "Per ilga pavardė" });
+                    else if (e.target.value.length < 2) setKdErrorState({ ...kdErrorState, [name]: "Per trumpa pavardė" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
+            case 'personalCode':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[0-9]{11}/) !== null && e.target.value.length === 11;
+                    if (e.target.value.length > 11) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas asmens kodas" });
+                    else if (e.target.value.length < 11) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas asmens kodas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
+            case 'phone':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[+]{1}[0-9]{4,19}/) !== null;
+                    if (e.target.value.length > 19) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas numeris" });
+                    else if (e.target.value.length < 4) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas numeris" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
+            case 'email':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i) !== null;
+                    if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
+            case 'address':
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[ 0-9A-zÀ-ž-.]{2,64}/) !== null;
+                    if (e.target.value.length > 64) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas adresas" });
+                    else if (e.target.value.length < 2) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas adresas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'institutionName':
-                if(e.target.value.length === 0) setKdErrorState({...kdErrorState, kdNameError: "Laukelis tuščias"})
-                return (
-                    result = e.target.value.match(/[\w\sÀ-ž-".]{2,64}/) !== null && 
-                    e.target.value.length < 65,
-                    setkinderValid({ ...kinderValid, [name]: result }),
-                    setKdErrorState({...kdErrorState, kdNameError: "Netinkamas formatas"})
-                )
-                
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[\w\sÀ-ž-".]{2,64}/) !== null && e.target.value.length < 65;
+                    if (e.target.value.length >= 65) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas pavadinimas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'institutionCode':
-                return (
-                    result = e.target.value.match(/[\d]{9}|[\d]{7}/) !== null && 
-                    (e.target.value.length === 7 || e.target.value.length === 9),
-                    setkinderValid({ ...kinderValid, [name]: result })
-                   
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[\d]{9}|[\d]{7}/) !== null &&
+                        (e.target.value.length === 7 || e.target.value.length === 9);
+                    if (e.target.value.length > 9) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas kodas" });
+                    else if (e.target.value.length < 7) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas kodas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'institutionAddress':
-                return (
-                    result = e.target.value.match(/[\w\s\dĄ-ž-.]{2,64}/) !== null && 
-                    e.target.value.length < 65,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[\w\s\dĄ-ž-.]{2,64}/) !== null &&
+                        e.target.value.length < 65;
+                    if (e.target.value.length > 64) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas adresas" });
+                    else if (e.target.value.length < 2) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas adresas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'institutionTelephone':
-                return (
-                    result = e.target.value.match(/[+]{1}[0-9]{11}/) !== null && 
-                    e.target.value.length === 12,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[+]{1}[0-9]{4,19}/) !== null;
+                    if (e.target.value.length > 19) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas telefono numeris" });
+                    else if (e.target.value.length < 4) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas telefono numeris" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'institutionEmail':
-                return (
-                    result = e.target.value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/) !== null,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                // [a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}
+                // ^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$
+                else {
+                    result = e.target.value.match(/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i) !== null;
+                    if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'bankName':
-                return (
-                    result = e.target.value.match(/[À-ž\w\s]{2,32}/) !== null && 
-                    e.target.value.length < 33,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[À-ž\w\s]{2,32}/) !== null &&
+                        e.target.value.length < 33;
+                    if (e.target.value.length > 32) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas pavadinimas" });
+                    else if (e.target.value.length < 2) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas pavadinimas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'accountNumber':
-                return (
-                    result = e.target.value.match(/[A-Z]{2}[A-Z0-9]{18,32}/) !== null && 
-                    e.target.value.length < 33,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                // [A-Z]{2}[A-Z0-9]{18,32}
+                // [A-Z]{2}[A-Z0-9]{18}[A-Z0-9]{14}
+                else {
+                    result = e.target.value.match(/^[A-Z]{2}[A-Z0-9]{14,32}$/) !== null &&
+                        e.target.value.length < 35 && e.target.value.length > 15;
+                    if (e.target.value.length > 34) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas numeris" });
+                    else if (e.target.value.length < 16) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas numeris" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             case 'bankCode':
-                return (
-                    result = e.target.value.match(/[0-9]{5}/) !== null && 
-                    e.target.value.length < 6,
-                    setkinderValid({ ...kinderValid, [name]: result })
-                    
-                )
+                if (e.target.value.length === 0) {
+                    setKdErrorState({ ...kdErrorState, [name]: "Būtina užpildyti!" });
+                }
+                else {
+                    result = e.target.value.match(/[0-9]{5}/) !== null &&
+                        e.target.value.length === 5;
+                    if (e.target.value.length > 5) setKdErrorState({ ...kdErrorState, [name]: "Per ilgas kodas" });
+                    else if (e.target.value.length < 5) setKdErrorState({ ...kdErrorState, [name]: "Per trumpas kodas" });
+                    else if (result === false) setKdErrorState({ ...kdErrorState, [name]: "Netinkamas formatas" });
+                    else setKdErrorState({ ...kdErrorState, [name]: "" });
+                }
+                return (setkinderValid({ ...kinderValid, [name]: result }))
             default: return (result = false, console.log("validateKindergarten: default:" + result));
         }
-    }
-
-    const inputParentChange = e => {
-        inputValidator(e);
-        validateKindergarten(e);
-        setParentState({
-            ...parentState,
-            [e.target.name]: e.target.value
-        });
     }
 
     const submitHandle = e => {
@@ -140,7 +241,7 @@ const ApplyForCompensationForm = (props) => {
     }
 
     const kindergartenForm = () => {
-        console.log(kinderValid)
+        //console.log(kinderValid)
         return (
             <><h2>Darželio duomenys</h2>
                 <div className="form" onSubmit={submitHandle} >
@@ -151,18 +252,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.institutionName}
                             id="txtInstitutionName"
-                            style={kinderValid.institutionName || 
-                                  !kdTouched.institutionName ? 
-                                  { border: "1px solid lightgray" } : { border: "2px solid red" }}
+                            style={kinderValid.institutionName ||
+                                !kdTouched.institutionName ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="institutionName"
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern='[ A-zÀ-ž-".]{2,64}'
+                            pattern='[\w\sÀ-ž-".]{2,64}'
                             required
                         />
+                        <span className="text-danger">{kdErrorState.institutionName}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -171,18 +274,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.institutionCode}
                             id="txtInstitutionCode"
                             name="institutionCode"
-                            style={kinderValid.institutionCode || 
-                                !kdTouched.institutionCode ? 
+                            style={kinderValid.institutionCode ||
+                                !kdTouched.institutionCode ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onInput={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern="[0-9]{9}|[0-9]{7}"
+                            pattern="[\d]{9}|[\d]{7}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.institutionCode}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -191,18 +296,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.institutionAddress}
                             id="txtInstitutionAddress"
                             name="institutionAddress"
-                            style={kinderValid.institutionAddress || 
-                                !kdTouched.institutionAddress ? 
+                            style={kinderValid.institutionAddress ||
+                                !kdTouched.institutionAddress ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern="[ 0-9A-zÀ-ž-.]{2,64}"
+                            pattern="[\w\s\dĄ-ž-.]{2,64}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.institutionAddress}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -211,11 +318,12 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="tel"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.institutionTelephone}
                             id="txtInstitutionTelephone"
                             name="institutionTelephone"
-                            style={kinderValid.institutionTelephone || 
-                                !kdTouched.institutionTelephone ? 
+                            style={kinderValid.institutionTelephone ||
+                                !kdTouched.institutionTelephone ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
@@ -223,6 +331,7 @@ const ApplyForCompensationForm = (props) => {
                             pattern="[+]{1}[0-9]{4,19}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.institutionTelephone}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -231,18 +340,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.institutionEmail}
                             id="txtInstitutionEmail"
                             name="institutionEmail"
-                            style={kinderValid.institutionEmail || 
-                                !kdTouched.institutionEmail ? 
+                            style={kinderValid.institutionEmail ||
+                                !kdTouched.institutionEmail ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                            pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.institutionEmail}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -251,18 +362,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.bankName}
                             id="txtBankName"
                             name="bankName"
-                            style={kinderValid.bankName || 
-                                !kdTouched.bankName ? 
+                            style={kinderValid.bankName ||
+                                !kdTouched.bankName ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern="[ A-zÀ-ž]{2,32}"
+                            pattern="[À-ž\w\s]{2,32}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.bankName}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -271,18 +384,20 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.accountNumber}
                             id="txtAccountNumber"
                             name="accountNumber"
-                            style={kinderValid.accountNumber || 
-                                !kdTouched.accountNumber ? 
+                            style={kinderValid.accountNumber ||
+                                !kdTouched.accountNumber ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
                             onInvalid={(e) => inputValidator(e)}
-                            pattern="[A-Z]{2}[A-Z0-9]{18,32}"
+                            pattern="^[A-Z]{2}[A-Z0-9]{14,32}$"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.accountNumber}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtName">
@@ -291,11 +406,12 @@ const ApplyForCompensationForm = (props) => {
                         <input
                             type="text"
                             onFocus={focusHandler}
+                            onBlur={blurHandler}
                             value={kindergartenState.bankCode}
                             id="txtBankCode"
                             name="bankCode"
-                            style={kinderValid.bankCode || 
-                                !kdTouched.bankCode ? 
+                            style={kinderValid.bankCode ||
+                                !kdTouched.bankCode ?
                                 { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             className="form-control"
                             onChange={(e) => inputKindergartenChange(e)}
@@ -303,6 +419,7 @@ const ApplyForCompensationForm = (props) => {
                             pattern="[0-9]{5}"
                             required
                         />
+                        <span className="text-danger">{kdErrorState.bankCode}</span>
                     </div>
                     <div><button type="submit" class="btn btn-primary">Submit</button></div>
                     <h6><span className="fieldRequired">*</span> - simboliu pažymėti laukai privalo būti užpildyti</h6>
@@ -322,13 +439,20 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.name}
                             id="txtMainName"
+                            style={kinderValid.name ||
+                                !kdTouched.name ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="name"
                             className="form-control"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             required
-                            pattern="[A-zÀ-ž]{2,32}" />
+                            pattern='[\w\sÀ-ž-".]{2,32}' />
+                        <span className="text-danger">{kdErrorState.name}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtSurname">
@@ -336,13 +460,20 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.surname}
                             id="txtMainSurname"
+                            style={kinderValid.surname ||
+                                !kdTouched.surname ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="surname"
                             className="form-control"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             required
-                            pattern="[A-zÀ-ž]{2,32}" />
+                            pattern='[\w\sÀ-ž-".]{2,32}' />
+                        <span className="text-danger">{kdErrorState.surname}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtPersonalCode">
@@ -350,13 +481,20 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.personalCode}
                             id="txtMainPersonalCode"
+                            style={kinderValid.personalCode ||
+                                !kdTouched.personalCode ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="personalCode"
                             className="form-control"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             required
                             pattern="[0-9]{11}" />
+                        <span className="text-danger">{kdErrorState.personalCode}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtTelNo">
@@ -364,14 +502,21 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.phone}
                             id="txtMainPhone"
+                            style={kinderValid.phone ||
+                                !kdTouched.phone ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="phone"
                             className="form-control"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             required
                             pattern="[+]{1}[0-9]{4,19}"
                         />
+                        <span className="text-danger">{kdErrorState.phone}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtEmail">
@@ -379,14 +524,21 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.email}
                             id="txtMainEmail"
+                            style={kinderValid.email ||
+                                !kdTouched.email ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="email"
                             className="form-control"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                            pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$"
                         />
+                        <span className="text-danger">{kdErrorState.email}</span>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="txtAddress">
@@ -394,13 +546,20 @@ const ApplyForCompensationForm = (props) => {
                         </label>
                         <input
                             type="text"
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
+                            value={kindergartenState.address}
                             className="form-control"
                             id="txtMainAddress"
+                            style={kinderValid.address ||
+                                !kdTouched.address ?
+                                { border: "1px solid lightgray" } : { border: "2px solid red" }}
                             name="address"
-                            onChange={inputParentChange}
+                            onChange={inputKindergartenChange}
                             onInvalid={(e) => inputValidator(e)}
                             pattern="[ 0-9A-zÀ-ž-.]{2,64}"
                             required />
+                        <span className="text-danger">{kdErrorState.address}</span>
                     </div>
                 </div>
             </>
