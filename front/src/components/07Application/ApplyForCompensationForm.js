@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useHistory } from "react-router";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 //import swal from "sweetaleart";
@@ -8,6 +10,10 @@ import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
 
 const ApplyForCompensationForm = (props) => {
+
+    const history = useHistory();
+
+    const [disabledStatus, setDisabledStatus] = useState(false);
 
     const [kdTouched, setkdTouched] = useState({
         institutionName: false, institutionCode: false, institutionAddress: false, institutionTelephone: false,
@@ -32,6 +38,57 @@ const ApplyForCompensationForm = (props) => {
         institutionEmail: "", bankName: "", accountNumber: "", bankCode: "", name: "", surname: "",
         personalCode: "", phone: "", email: "", address: ""
     });
+
+    const keys1 = Object.keys(kinderValid);
+
+    const compensationApplication = {
+    
+        kindergartenInfo: {
+          name: kindergartenState.institutionName,
+          code: kindergartenState.institutionCode,
+          address: kindergartenState.institutionAddress,
+          phone: kindergartenState.institutionTelephone,
+          email: kindergartenState.institutionEmail,
+          bankName: kindergartenState.bankName,
+          accountNumber: kindergartenState.accountNumber,
+          bankCode: kindergartenState.bankCode
+        },
+    
+        guardianInfo: {
+          name: kindergartenState.name,
+          surname: kindergartenState.surname,
+          personalCode: kindergartenState.personalCode,
+          phone: kindergartenState.phone,
+          email: kindergartenState.email,
+          address: kindergartenState.address
+        },
+    };
+
+    useEffect(() => {
+        function checkIfAnyInvalid() {
+            const emptyExists1 = keys1
+              .map((k) => kinderValid[k])
+              .some((val) => val === false);
+      
+            return emptyExists1;
+        }
+        if (checkIfAnyInvalid()) {
+            setDisabledStatus(true);
+        } else {
+            setDisabledStatus(false);
+        }
+    }, [compensationApplication])
+
+    const handleSubmit = () => {
+        axios.post(
+          apiEndpoint + `/api/kompensacija/user/new`,
+          compensationApplication
+        );
+    
+        history.push("/");
+        alert("submitted");
+        console.log(compensationApplication);
+      };
 
     const focusHandler = e => {
         setkdTouched({ ...kdTouched, [e.target.name]: true });
@@ -236,15 +293,11 @@ const ApplyForCompensationForm = (props) => {
         }
     }
 
-    const submitHandle = e => {
-        e.preventDefault();
-    }
-
     const kindergartenForm = () => {
         //console.log(kinderValid)
         return (
             <><h2>Darželio duomenys</h2>
-                <div className="form" onSubmit={submitHandle} >
+                <div className="form">
                     <div className="mb-3">
                         <label htmlFor="txtName"  >
                             Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
@@ -421,7 +474,7 @@ const ApplyForCompensationForm = (props) => {
                         />
                         <span className="text-danger">{kdErrorState.bankCode}</span>
                     </div>
-                    <div><button type="submit" class="btn btn-primary">Submit</button></div>
+                    
                     <h6><span className="fieldRequired">*</span> - simboliu pažymėti laukai privalo būti užpildyti</h6>
                 </div>
             </>
@@ -571,7 +624,7 @@ const ApplyForCompensationForm = (props) => {
         <div className="container pt-4">
             <h2>Prašymas dėl kompensacijos</h2>
             <div className="form">
-                <form onSubmit={submitHandle}>
+                <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-4">
                             {
@@ -595,7 +648,7 @@ const ApplyForCompensationForm = (props) => {
                         </div>
                     </div>
                     <div className="row">
-
+                    <div><button type="submit" class="btn btn-primary" disabled={disabledStatus}>Submit</button></div>
                     </div>
                 </form>
             </div>
