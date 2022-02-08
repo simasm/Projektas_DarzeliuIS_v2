@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import inputValidator from "../08CommonComponents/InputValidator";
 
 export default function GuardianForm({ guardianData, setGuardianData }) {
@@ -43,7 +43,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           name="name"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="^[A-Z]+[a-zA-Z]*$"
+          pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
           maxLength={32}
           required
         />
@@ -63,7 +63,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           name="surname"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="^[A-Z]+[a-zA-Z]*$"
+          pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
           maxLength={32}
           required
         />

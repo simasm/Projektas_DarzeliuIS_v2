@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import ChildInfoForm from "./ChildInfoForm";
 import GuardianForm from "./GuardianForm";
 import KindergartenInfoForm from "./KindergartenInfoForm";
 import apiEndpoint from "../10Services/endpoint";
 
 export default function Compensation() {
+  const history = useHistory();
   const [idLength, setIdLength] = useState(0);
 
   const [childDTO, setChildDTO] = useState({
@@ -174,6 +176,8 @@ export default function Compensation() {
       apiEndpoint + `/api/kompensacija/user/new`,
       compensationApplication
     );
+
+    history.push("/");
     alert("submitted");
     console.log(compensationApplication);
   };

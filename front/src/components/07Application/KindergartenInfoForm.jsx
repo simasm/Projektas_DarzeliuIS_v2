@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import inputValidator from "../08CommonComponents/InputValidator";
 
 export default function KindergartenInfoForm({
   kindergartenData,
   setKindergartenData,
 }) {
-  // useEffect(() => {
-
-  //   setKindergartenDTO(kindergartenDTO)
-
-  // }, [kindergartenDTO.name, kindergartenDTO.code, kindergartenDTO.address, kindergartenDTO.phone, kindergartenDTO.email, kindergartenDTO.bankName, kindergartenDTO.accountNumber, kindergartenDTO.bankCode])
-
   const handleOnChange = (e) => {
     setKindergartenData({
       ...kindergartenData,
@@ -53,7 +47,7 @@ export default function KindergartenInfoForm({
             name="name"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[A-zA-ž]{5,64}"
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
             maxLength={64}
             required
           />
@@ -70,7 +64,7 @@ export default function KindergartenInfoForm({
             name="code"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{7,9}"
+            pattern="[0-9]{9}"
             maxLength={9}
             required
           />
@@ -87,7 +81,7 @@ export default function KindergartenInfoForm({
             name="address"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[A-zÀ-ž]{5,64}"
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
             maxLength={64}
             required
           />
@@ -142,7 +136,7 @@ export default function KindergartenInfoForm({
             name="bankName"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[A-zÀ-ž]{2,32}"
+            pattern="^[A-Z]+[a-zA-Z]*$"
             maxLength={32}
             required
           />
