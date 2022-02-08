@@ -57,7 +57,10 @@ public class GeneralMethods extends BaseTest {
 		  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 		  WebElement logoutElement = wait.until(
 				  ExpectedConditions.elementToBeClickable(By.id("btnLogout")));
-		  logoutElement.click();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,-400)");
+		js.executeScript("arguments[0].scrollIntoView()", logoutElement);
+		js.executeScript("arguments[0].click();", logoutElement);
 	 }
 
 	public Boolean verifyIfAdminIsLoggedIn() {

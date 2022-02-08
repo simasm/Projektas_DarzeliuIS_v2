@@ -19,7 +19,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://sextet.akademijait.vtmc.lt/darzelis/");
+        driver.get("https://sextet.akademijait.vtmc.lt/test-darzelis/");
     }
 
     @AfterClass(alwaysRun = true)

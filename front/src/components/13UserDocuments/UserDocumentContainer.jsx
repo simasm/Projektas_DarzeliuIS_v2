@@ -113,11 +113,11 @@ export default class UserDocumentContainer extends Component {
         if(this.state.showUploadForm) {
             return (
                 <div className="form">
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <h6 className="py-3">Pažyma privalo būti .pdf formato ir neužimti daugiau negu 1 MB vietos.</h6>
                         <input 
                             type="file"
-                            className="form-control-file"
+                            className="form-control"
                             id="inputUploadDocument"
                             onChange={this.uploadDocumentOnChange}
                         />

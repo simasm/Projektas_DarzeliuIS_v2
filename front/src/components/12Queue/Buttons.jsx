@@ -26,13 +26,13 @@ const Buttons = (props) => {
     } else {
 
         return (
-            <div className="row py-3">
+            <div className="d-grid-block gap-2 col-12 float-start marginTopSide marginBottomSide">
                
                     <button
                         value='On'
                         onClick={(e) => onClick(e)}
                         id="btnStartRegistration"
-                        className="btn btn-outline-primary btn-sm ml-3">
+                        className="btn btn-outline-primary btn-sm">
                         Pradėti registraciją
                     </button>
 
@@ -41,7 +41,7 @@ const Buttons = (props) => {
                         onClick={() => onProcess()}
                         id="btnFormQueue"
                         disabled={currentButtonValue === "Process"}
-                        className="btn btn-primary btn-sm mx-2">
+                        className="btn btn-primary btn-sm ms-2 me-2">
                         Formuoti eiles
                     </button>               
                
