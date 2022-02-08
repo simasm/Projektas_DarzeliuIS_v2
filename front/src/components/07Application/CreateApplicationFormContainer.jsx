@@ -16,6 +16,7 @@ import inputValidator from "../08CommonComponents/InputValidator";
 import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
 import { subYears } from "date-fns";
+import axios from "axios";
 
 registerLocale("lt", lt);
 
@@ -44,6 +45,7 @@ class CreateApplicationFormContainer extends Component {
       childName: "",
       childPersonalCode: "",
       childSurname: "",
+
       kindergartenChoises: {
         kindergartenId1: "",
         kindergartenId2: "",
@@ -61,6 +63,7 @@ class CreateApplicationFormContainer extends Component {
       kindergartenList: [],
       additionalGuardianInput: false,
       registrationDisabled: false,
+      submitState: false,
     };
     this.mainGuardianOnChange = this.mainGuardianOnChange.bind(this);
     this.additionalGuardianOnChange =
@@ -69,13 +72,21 @@ class CreateApplicationFormContainer extends Component {
     this.checkboxOnChange = this.checkboxOnChange.bind(this);
     this.submitHandle = this.submitHandle.bind(this);
   }
+  handleAdd = (e) => {
+    e.preventDefault();
+
+    this.setState({
+      ...this.state,
+      additionalGuardianInput: !this.state.additionalGuardianInput,
+    });
+  };
 
   componentDidMount() {
     /** Get registation status */
     http.get(`${apiEndpoint}/api/status`).then((response) => {
       //console.log(response.data.registrationActive);
       this.setState({
-        registrationDisabled: response.data.registrationActive,
+        registrationDisabled: !response.data.registrationActive,
       });
     });
 
@@ -118,29 +129,47 @@ class CreateApplicationFormContainer extends Component {
       });
   }
 
-  componentDidUpdate() {
-    if (this.state.childPersonalCode.length === 11) {
+  componentDidUpdate(prevProps, prevState) {
+    const childIdWarning = document.getElementById("childIdRegistration");
+    const submitWarning = document.getElementById("submitWarning");
+
+    if (
+      this.state.childPersonalCode.length === 11 &&
+      this.state.childPersonalCode !== prevState.childPersonalCode
+    ) {
       http
-        .get(apiEndpoint + `/api/registru-centras/51609260036`)
+        .get(
+          apiEndpoint + `/api/registru-centras/${this.state.childPersonalCode}`
+        )
         .then((response) => {
           this.setState({
             childName: response.data.name,
             childSurname: response.data.surname,
-            childPersonalCode: response.data.personalID,
             birthdate: response.data.dateOfBirth,
+            submitState: true,
           });
-        });
-    }
-  }
+          childIdWarning.textContent = "";
+          submitWarning.textContent = "";
+        })
+        .catch((error) => {
+          childIdWarning.textContent = "Neteisingas asmens kodas";
+          submitWarning.textContent = "Neteisingas asmens kodas";
 
-  componentDidUpdate() {
-    if (this.state.childPersonalCode.length < 11) {
+          this.setState({ submitState: false });
+        });
+    } else if (
+      this.state.childPersonalCode.length < 11 &&
+      this.state.childPersonalCode !== prevState.childPersonalCode
+    ) {
       this.setState({
         childName: "",
         childSurname: "",
         childPersonalCode: "",
         birthdate: "",
       });
+    } else if (this.state.childPersonalCode.length === 0) {
+      childIdWarning.textContent = "";
+      submitWarning.textContent = "";
     }
   }
 
@@ -275,11 +304,7 @@ class CreateApplicationFormContainer extends Component {
                 className="btn btn-primary btn-sm btn-block float-right my-1"
                 style={{ padding: "4px" }}
                 onClick={(e) => {
-                  this.setState({
-                    ...this.state,
-                    additionalGuardianInput:
-                      !this.state.additionalGuardianInput,
-                  });
+                  this.handleAdd(e);
                 }}
                 disabled={this.state.registrationDisabled}
               >
@@ -440,9 +465,10 @@ class CreateApplicationFormContainer extends Component {
             onInvalid={(e) => inputValidator(e)}
             disabled={this.state.registrationDisabled}
             required
-            pattern="[0-9]"
+            pattern="[0-9]{11}"
             maxLength={11}
           />
+          <span id="childIdRegistration" className="warningmsg"></span>
         </div>
 
         <div className="form-group">
@@ -485,6 +511,7 @@ class CreateApplicationFormContainer extends Component {
           </label>
           <input
             className="form-control"
+            placeholder="Vaiko gimimo data"
             value={this.state.birthdate}
             disabled
           />
@@ -868,7 +895,7 @@ class CreateApplicationFormContainer extends Component {
 
     const data = {
       additionalGuardian: this.state.additionalGuardian,
-      birthdate: this.state.birthdate.toLocaleDateString("en-CA"),
+      birthdate: this.state.birthdate,
       childName: this.state.childName,
       childPersonalCode: this.state.childPersonalCode,
       childSurname: this.state.childSurname,
@@ -924,6 +951,13 @@ class CreateApplicationFormContainer extends Component {
             <div className="row">
               <div className="col-4">
                 {
+                  /** Vaiko forma */
+                  this.childForm()
+                }
+              </div>
+
+              <div className="col-4">
+                {
                   /** Atstovas 1 */
                   this.userForm(true)
                 }
@@ -933,13 +967,6 @@ class CreateApplicationFormContainer extends Component {
                 {
                   /** Atstovas 2 */
                   this.userForm(false)
-                }
-              </div>
-
-              <div className="col-4">
-                {
-                  /** Vaiko forma */
-                  this.childForm()
                 }
               </div>
             </div>
@@ -960,10 +987,15 @@ class CreateApplicationFormContainer extends Component {
                 <button
                   type="submit"
                   className="btn btn-primary mt-3"
-                  disabled={this.state.registrationDisabled}
+                  disabled={
+                    this.state.registrationDisabled || !this.state.submitState
+                  }
                 >
                   Sukurti prašymą
                 </button>
+                <div>
+                  <span id="submitWarning" className="mt-2"></span>
+                </div>
               </div>
             </div>
           </form>

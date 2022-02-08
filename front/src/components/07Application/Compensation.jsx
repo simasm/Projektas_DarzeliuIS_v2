@@ -176,11 +176,7 @@ export default function Compensation() {
     <div className="container">
       <div className="row">
         <div className="col-4">
-          <ChildInfoForm
-            setChildDTO={setChildDTO}
-            childDTO={childDTO}
-            setIdLength={setIdLength}
-          />
+          <ChildInfoForm setChildDTO={setChildDTO} setIdLength={setIdLength} />
         </div>
         <div className="col-4">
           <GuardianForm
@@ -189,22 +185,25 @@ export default function Compensation() {
           />
         </div>
 
-        <div className="col-4">
+        <div className=" col-4">
           <KindergartenInfoForm
             kindergartenData={kindergartenData}
             setKindergartenData={setKindergartenData}
           />
         </div>
-      </div>
 
-      <div className="container">
-        <button
-          className="btn btn-primary"
-          id="btnSubmit"
-          onClick={() => handleSubmit()}
-        >
-          submit
-        </button>
+        <div className="container">
+          <div className="row justify-content-end me-4">
+            <button
+              className="btn btn-primary mt-4"
+              id="btnSubmit"
+              style={{ width: "100px" }}
+              onClick={() => handleSubmit()}
+            >
+              submit
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

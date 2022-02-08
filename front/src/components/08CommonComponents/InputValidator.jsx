@@ -302,20 +302,21 @@ function InputValidator(event) {
   }
 
   //###########################Compensation Application -> childinfoform#######################################//
-  const txtChildPersonalCodeWarning = document.getElementById(
-    "txtChildPersonalCodeWarning"
+  const txtChildPersonalCodeCompensationWarning = document.getElementById(
+    "txtChildPersonalCodeCompensationWarning"
   );
 
   if (
     target.validity.patternMismatch &&
     target.id === "txtChildPersonalCodeCompensation"
   ) {
-    txtChildPersonalCodeWarning.textContent = "Netinkamo formato asmens kodas";
+    txtChildPersonalCodeCompensationWarning.textContent =
+      "Netinkamo formato asmens kodas";
   } else if (
     !target.validity.patternMismatch &&
     target.id === "txtChildPersonalCodeCompensation"
   ) {
-    txtChildPersonalCodeWarning.textContent = "";
+    txtChildPersonalCodeCompensationWarning.textContent = "";
   }
 }
 

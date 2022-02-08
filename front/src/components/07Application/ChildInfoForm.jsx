@@ -38,7 +38,9 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
   };
 
   useEffect(() => {
-    const warningmsg = document.getElementById("txtChildPersonalCodeWarning");
+    const warningmsg = document.getElementById(
+      "txtChildPersonalCodeCompensationWarning"
+    );
     const field = document.getElementById("txtChildPersonalCodeCompensation");
 
     async function load() {
@@ -84,7 +86,10 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
             required
             pattern="[0-9]{11}"
           />
-          <span id="txtChildPersonalCodeWarning" className="warningmsg"></span>
+          <span
+            id="txtChildPersonalCodeCompensationWarning"
+            className="warningmsg"
+          ></span>
         </div>
 
         <div className="form-group mt-2">

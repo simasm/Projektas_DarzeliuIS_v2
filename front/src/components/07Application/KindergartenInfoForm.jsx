@@ -182,7 +182,8 @@ export default function KindergartenInfoForm({
             name="bankCode"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{5}"
+            pattern="[0-9]"
+            maxLength={5}
             required
           />
           <span
