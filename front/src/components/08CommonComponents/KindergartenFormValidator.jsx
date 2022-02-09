@@ -9,7 +9,7 @@ const KindergartenFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas pavadinimas",
@@ -22,7 +22,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.name;
 
     case "code":
-      if (!e.target.value.match(/[0-9]{9}/)) {
+      if (!e.target.value.match(/[\d]{9}|[\d]{7}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas darzelio kodas",
@@ -35,7 +35,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.code;
 
     case "address":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,31}$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas adresas",
@@ -48,7 +48,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.address;
 
     case "phone":
-      if (!e.target.value.match(/[+]{1}[0-9]{11}/)) {
+      if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas tel nr",
@@ -61,7 +61,9 @@ const KindergartenFormValidator = (
       return kindergartenValid.phone;
 
     case "email":
-      if (!e.target.value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/)) {
+      if (
+        !e.target.value.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}/)
+      ) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas email",
@@ -74,7 +76,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.email;
 
     case "bankName":
-      if (!e.target.value.match(/^[A-Z]+[a-zA-Z]*$/)) {
+      if (!e.target.value.match(/^[A-Z]+[a-zA-Z\s]*$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas banko pavadinimas",
@@ -87,7 +89,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.bankName;
 
     case "accountNumber":
-      if (!e.target.value.match(/[A-Z]{2}[0-9]{11}/)) {
+      if (!e.target.value.match(/^[A-Z]{2}[A-Z0-9]{14,32}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "blogas saskaitos nr",

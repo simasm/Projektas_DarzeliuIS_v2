@@ -48,15 +48,11 @@ export default function GuardianForm({
           placeholder="Vardas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
- 
-          pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
- 
           style={
             guardianValid.name
               ? { border: "1px solid lightgray" }
               : { border: "2px solid red" }
           }
- 
           maxLength={32}
           required
         />
@@ -74,15 +70,11 @@ export default function GuardianForm({
           placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
- 
-          pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
- 
           style={
             guardianValid.surname
               ? { border: "1px solid lightgray" }
               : { border: "2px solid red" }
           }
- 
           maxLength={32}
           required
         />
@@ -122,15 +114,11 @@ export default function GuardianForm({
           placeholder="+370xxxxxxxx"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
- 
-          pattern="[+]{1}[0-9]{11}|[852]{3}[0-9]{6}"
- 
           style={
             guardianValid.phone
               ? { border: "1px solid lightgray" }
               : { border: "2px solid red" }
           }
- 
           maxLength={12}
           required
         />
@@ -148,15 +136,11 @@ export default function GuardianForm({
           placeholder="example@mail.com"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
- 
-          pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}"
- 
           style={
             guardianValid.email
               ? { border: "1px solid lightgray" }
               : { border: "2px solid red" }
           }
- 
           maxLength={64}
           required
         />
@@ -174,15 +158,11 @@ export default function GuardianForm({
           placeholder="Adresas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
- 
-          pattern="[\s\dA-zÀ-ž-.]{5,64}"
- 
           style={
             guardianValid.address
               ? { border: "1px solid lightgray" }
               : { border: "2px solid red" }
           }
- 
           maxLength={64}
           required
         />

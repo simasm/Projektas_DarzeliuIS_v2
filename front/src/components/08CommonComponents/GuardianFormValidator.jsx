@@ -9,7 +9,7 @@ const GuardianFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "blogas vardas",
@@ -22,7 +22,7 @@ const GuardianFormValidator = (
       return guardianValid.name;
 
     case "surname":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "bloga pavarde",
@@ -48,7 +48,7 @@ const GuardianFormValidator = (
       return guardianValid.personalCode;
 
     case "phone":
-      if (!e.target.value.match(/[+]{1}[0-9]{11}/)) {
+      if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "blogas tel nr",
@@ -61,7 +61,9 @@ const GuardianFormValidator = (
       return guardianValid.phone;
 
     case "email":
-      if (!e.target.value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/)) {
+      if (
+        !e.target.value.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}/)
+      ) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "blogas email",
@@ -74,7 +76,7 @@ const GuardianFormValidator = (
       return guardianValid.email;
 
     case "address":
-      if (!e.target.value.match(/[A-zÀ-ž]{5,64}/)) {
+      if (!e.target.value.match(/[\s\dA-zÀ-ž-.]{5,64}/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "blogas adresas",
