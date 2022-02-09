@@ -210,7 +210,7 @@ export default function Compensation() {
               style={{ width: "100px" }}
               onClick={() => handleSubmit()}
             >
-              submit
+              Pateikti
             </button>
           </div>
         </div>
