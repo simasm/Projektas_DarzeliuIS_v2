@@ -17,6 +17,13 @@ export default function Compensation() {
     dateOfBirth: "",
   });
 
+  const [childInfoValid, setChildInfoValid] = useState({
+    personalID: true,
+    name: true,
+    surname: true,
+    dateOfBirth: true,
+  });
+
   const [kindergartenData, setKindergartenData] = useState({
     name: "",
     code: "",
@@ -28,6 +35,17 @@ export default function Compensation() {
     bankCode: "",
   });
 
+  const [kindergartenValid, setKindergartenValid] = useState({
+    name: true,
+    code: true,
+    address: true,
+    phone: true,
+    email: true,
+    bankName: true,
+    accountNumber: true,
+    bankCode: true,
+  });
+
   const [guardianData, setGuardianData] = useState({
     name: "",
     surname: "",
@@ -37,24 +55,24 @@ export default function Compensation() {
     address: "",
   });
 
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
+  const [guardianValid, setGuardianValid] = useState({
+    name: true,
+    surname: true,
+    personalCode: true,
+    phone: true,
+    email: true,
+    address: true,
+  });
 
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
-  };
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const keys1 = Object.keys(childDTO);
   const keys2 = Object.keys(kindergartenData);
   const keys3 = Object.keys(guardianData);
+
+  const childKeys = Object.keys(childInfoValid);
+  const guardianKeys = Object.keys(guardianValid);
+  const kindergartenKeys = Object.keys(kindergartenValid);
 
   const compensationApplication = {
     childInfo: {
@@ -86,30 +104,22 @@ export default function Compensation() {
   };
 
   useEffect(() => {
-    const warningIds = [
-      "txtKindergartenNameWarning",
-      "txtKindergartenCodeWarning",
-      "txtKindergartenAddressWarning",
-      "txtKindergartenPhoneWarning",
-      "txtKindergartenEmailWarning",
-      "txtKindergartenBankNameWarning",
-      "txtKindergartenAccountNumberWarning",
-      "txtKindergartenBankCodeWarning",
-      "txtGuardianNameCompensationWarning",
-      "txtGuardianSurnameCompensationWarning",
-      "txtGuardianIdCompensationWarning",
-      "txtGuardianPhoneCompensationWarning",
-      "txtGuardianEmailCompensationWarning",
-      "txtGuardianAddressCompensationWarning",
-    ];
-
     function checkIfAnyIncorrect() {
-      // return warningIds.every(
-      //   (id) => document.getElementById(id).textContent !== ""
-      return true;
-    }
+      const incorrectExists1 = childKeys
+        .map((k) => childInfoValid[k])
+        .some((val) => val === false);
+      const incorrectExists2 = guardianKeys
+        .map((k) => guardianValid[k])
+        .some((val) => val === false);
+      const incorrectExists3 = kindergartenKeys
+        .map((k) => kindergartenValid[k])
+        .some((val) => val === false);
 
-    const btnSubmit = document.getElementById("btnSubmit");
+      const incorrectExists =
+        incorrectExists1 || incorrectExists2 || incorrectExists3;
+
+      return incorrectExists;
+    }
 
     function checkIfAnyEmpty() {
       const emptyExists1 = keys1
@@ -128,9 +138,9 @@ export default function Compensation() {
     }
 
     if (checkIfAnyIncorrect() || checkIfAnyEmpty()) {
-      btnSubmit.disabled = true;
+      setBtnDisabled(true);
     } else {
-      btnSubmit.disabled = false;
+      setBtnDisabled(false);
     }
   }, [compensationApplication]);
 
@@ -163,14 +173,16 @@ export default function Compensation() {
           <ChildInfoForm
             setChildDTO={setChildDTO}
             setIdLength={setIdLength}
-            applyRedBorder={applyRedBorder}
+            setChildInfoValid={setChildInfoValid}
+            childInfoValid={childInfoValid}
           />
         </div>
         <div className="col-4">
           <GuardianForm
             guardianData={guardianData}
             setGuardianData={setGuardianData}
-            applyRedBorder={applyRedBorder}
+            guardianValid={guardianValid}
+            setGuardianValid={setGuardianValid}
           />
         </div>
 
@@ -178,7 +190,8 @@ export default function Compensation() {
           <KindergartenInfoForm
             kindergartenData={kindergartenData}
             setKindergartenData={setKindergartenData}
-            applyRedBorder={applyRedBorder}
+            setKindergartenValid={setKindergartenValid}
+            kindergartenValid={kindergartenValid}
           />
         </div>
 
@@ -189,6 +202,7 @@ export default function Compensation() {
               id="btnSubmit"
               style={{ width: "100px" }}
               onClick={() => handleSubmit()}
+              disabled={btnDisabled}
             >
               submit
             </button>

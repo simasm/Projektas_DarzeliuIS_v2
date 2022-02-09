@@ -4,6 +4,8 @@ import KindergartenFormValidator from "../08CommonComponents/KindergartenFormVal
 export default function KindergartenInfoForm({
   kindergartenData,
   setKindergartenData,
+  kindergartenValid,
+  setKindergartenValid,
 }) {
   const handleOnChange = (e) => {
     setKindergartenData({
@@ -29,17 +31,6 @@ export default function KindergartenInfoForm({
     bankName: "",
     accountNumber: "",
     bankCode: "",
-  });
-
-  const [kindergartenValid, setKindergartenValid] = useState({
-    name: true,
-    code: true,
-    address: true,
-    phone: true,
-    email: true,
-    bankName: true,
-    accountNumber: true,
-    bankCode: true,
   });
 
   return (

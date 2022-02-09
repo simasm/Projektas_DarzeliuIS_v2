@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import GuardianFormValidator from "../08CommonComponents/GuardianFormValidator";
 
-export default function GuardianForm({ guardianData, setGuardianData }) {
+export default function GuardianForm({
+  guardianData,
+  setGuardianData,
+  guardianValid,
+  setGuardianValid,
+}) {
   const handleOnChange = (e) => {
     setGuardianData({
       ...guardianData,
@@ -24,15 +29,6 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
     phone: "",
     email: "",
     address: "",
-  });
-
-  const [guardianValid, setGuardianValid] = useState({
-    name: true,
-    surname: true,
-    personalCode: true,
-    phone: true,
-    email: true,
-    address: true,
   });
 
   return (
