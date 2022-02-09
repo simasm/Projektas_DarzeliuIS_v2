@@ -1,31 +1,35 @@
-import React from "react";
-import inputValidator from "../08CommonComponents/InputValidator";
+import React, { useState } from "react";
+import GuardianFormValidator from "../08CommonComponents/GuardianFormValidator";
 
-export default function GuardianForm({ guardianData, setGuardianData }) {
+export default function GuardianForm({
+  guardianData,
+  setGuardianData,
+  guardianValid,
+  setGuardianValid,
+}) {
   const handleOnChange = (e) => {
     setGuardianData({
       ...guardianData,
       [e.target.name]: e.target.value,
     });
-    inputValidator(e);
 
-    applyRedBorder(e);
+    GuardianFormValidator(
+      e,
+      setGuardianWarning,
+      setGuardianValid,
+      guardianWarning,
+      guardianValid
+    );
   };
 
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
-
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
-  };
+  const [guardianWarning, setGuardianWarning] = useState({
+    name: "",
+    surname: "",
+    personalCode: "",
+    phone: "",
+    email: "",
+    address: "",
+  });
 
   return (
     <div className="form">
@@ -44,14 +48,19 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="Vardas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
+ 
           pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
+ 
+          style={
+            guardianValid.name
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
+ 
           maxLength={32}
           required
         />
-        <span
-          id="txtGuardianNameCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.name}</span>
       </div>
 
       <div className="form-group mt-2">
@@ -65,14 +74,19 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
+ 
           pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
+ 
+          style={
+            guardianValid.surname
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
+ 
           maxLength={32}
           required
         />
-        <span
-          id="txtGuardianSurnameCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.surname}</span>
       </div>
 
       <div className="form-group mt-2">
@@ -86,14 +100,15 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="41234567890"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="[0-9]{11}"
+          style={
+            guardianValid.personalCode
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
           maxLength={11}
           required
         />
-        <span
-          id="txtGuardianIdCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.personalCode}</span>
       </div>
 
       <div className="form-group">
@@ -107,14 +122,19 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="+370xxxxxxxx"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
+ 
           pattern="[+]{1}[0-9]{11}|[852]{3}[0-9]{6}"
+ 
+          style={
+            guardianValid.phone
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
+ 
           maxLength={12}
           required
         />
-        <span
-          id="txtGuardianPhoneCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.phone}</span>
       </div>
 
       <div className="form-group mt-2">
@@ -128,14 +148,19 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="example@mail.com"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
+ 
           pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}"
+ 
+          style={
+            guardianValid.email
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
+ 
           maxLength={64}
           required
         />
-        <span
-          id="txtGuardianEmailCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.email}</span>
       </div>
 
       <div className="form-group mt-2">
@@ -149,14 +174,19 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="Adresas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
+ 
           pattern="[\s\dA-zÀ-ž-.]{5,64}"
+ 
+          style={
+            guardianValid.address
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
+ 
           maxLength={64}
           required
         />
-        <span
-          id="txtGuardianAddressCompensationWarning"
-          className="warningmsg"
-        ></span>
+        <span className="warningmsg">{guardianWarning.address}</span>
       </div>
     </div>
   );

@@ -17,6 +17,13 @@ export default function Compensation() {
     dateOfBirth: "",
   });
 
+  const [childInfoValid, setChildInfoValid] = useState({
+    personalID: true,
+    name: true,
+    surname: true,
+    dateOfBirth: true,
+  });
+
   const [kindergartenData, setKindergartenData] = useState({
     name: "",
     code: "",
@@ -28,6 +35,17 @@ export default function Compensation() {
     bankCode: "",
   });
 
+  const [kindergartenValid, setKindergartenValid] = useState({
+    name: true,
+    code: true,
+    address: true,
+    phone: true,
+    email: true,
+    bankName: true,
+    accountNumber: true,
+    bankCode: true,
+  });
+
   const [guardianData, setGuardianData] = useState({
     name: "",
     surname: "",
@@ -37,9 +55,24 @@ export default function Compensation() {
     address: "",
   });
 
+  const [guardianValid, setGuardianValid] = useState({
+    name: true,
+    surname: true,
+    personalCode: true,
+    phone: true,
+    email: true,
+    address: true,
+  });
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
   const keys1 = Object.keys(childDTO);
   const keys2 = Object.keys(kindergartenData);
   const keys3 = Object.keys(guardianData);
+
+  const childKeys = Object.keys(childInfoValid);
+  const guardianKeys = Object.keys(guardianValid);
+  const kindergartenKeys = Object.keys(kindergartenValid);
 
   const compensationApplication = {
     childInfo: {
@@ -71,51 +104,22 @@ export default function Compensation() {
   };
 
   useEffect(() => {
-    const txtKindergartenNameWarning = document.getElementById(
-      "txtKindergartenNameWarning"
-    );
-    const txtKindergartenCodeWarning = document.getElementById(
-      "txtKindergartenCodeWarning"
-    );
-    const txtKindergartenAddressWarning = document.getElementById(
-      "txtKindergartenAddressWarning"
-    );
-    const txtKindergartenPhoneWarning = document.getElementById(
-      "txtKindergartenPhoneWarning"
-    );
-    const txtKindergartenEmailWarning = document.getElementById(
-      "txtKindergartenEmailWarning"
-    );
-    const txtKindergartenBankNameWarning = document.getElementById(
-      "txtKindergartenBankNameWarning"
-    );
-    const txtKindergartenAccountNumberWarning = document.getElementById(
-      "txtKindergartenAccountNumberWarning"
-    );
-    const txtKindergartenBankCodeWarning = document.getElementById(
-      "txtKindergartenBankCodeWarning"
-    );
+    function checkIfAnyIncorrect() {
+      const incorrectExists1 = childKeys
+        .map((k) => childInfoValid[k])
+        .some((val) => val === false);
+      const incorrectExists2 = guardianKeys
+        .map((k) => guardianValid[k])
+        .some((val) => val === false);
+      const incorrectExists3 = kindergartenKeys
+        .map((k) => kindergartenValid[k])
+        .some((val) => val === false);
 
-    const txtGuardianNameCompensationWarning = document.getElementById(
-      "txtGuardianNameCompensationWarning"
-    );
-    const txtGuardianSurnameCompensationWarning = document.getElementById(
-      "txtGuardianSurnameCompensationWarning"
-    );
-    const txtGuardianIdCompensationWarning = document.getElementById(
-      "txtGuardianIdCompensationWarning"
-    );
-    const txtGuardianPhoneCompensationWarning = document.getElementById(
-      "txtGuardianPhoneCompensationWarning"
-    );
-    const txtGuardianEmailCompensationWarning = document.getElementById(
-      "txtGuardianEmailCompensationWarning"
-    );
-    const txtGuardianAddressCompensationWarning = document.getElementById(
-      "txtGuardianAddressCompensationWarning"
-    );
+      const incorrectExists =
+        incorrectExists1 || incorrectExists2 || incorrectExists3;
 
-    const btnSubmit = document.getElementById("btnSubmit");
+      return incorrectExists;
+    }
 
     function checkIfAnyEmpty() {
       const emptyExists1 = keys1
@@ -133,30 +137,10 @@ export default function Compensation() {
       return emptyExists;
     }
 
-    function checkIfAnyIncorrect() {
-      const incorrectExists =
-        txtKindergartenNameWarning.textContent !== "" ||
-        txtKindergartenCodeWarning.textContent !== "" ||
-        txtKindergartenAddressWarning.textContent !== "" ||
-        txtKindergartenPhoneWarning.textContent !== "" ||
-        txtKindergartenEmailWarning.textContent !== "" ||
-        txtKindergartenBankNameWarning.textContent !== "" ||
-        txtKindergartenAccountNumberWarning.textContent !== "" ||
-        txtKindergartenBankCodeWarning.textContent !== "" ||
-        txtGuardianNameCompensationWarning.textContent !== "" ||
-        txtGuardianSurnameCompensationWarning.textContent !== "" ||
-        txtGuardianIdCompensationWarning.textContent !== "" ||
-        txtGuardianPhoneCompensationWarning.textContent !== "" ||
-        txtGuardianEmailCompensationWarning.textContent !== "" ||
-        txtGuardianAddressCompensationWarning.textContent !== "";
-
-      return incorrectExists;
-    }
-
     if (checkIfAnyIncorrect() || checkIfAnyEmpty()) {
-      btnSubmit.disabled = true;
+      setBtnDisabled(true);
     } else {
-      btnSubmit.disabled = false;
+      setBtnDisabled(false);
     }
   }, [compensationApplication]);
 
@@ -186,12 +170,19 @@ export default function Compensation() {
     <div className="container">
       <div className="row">
         <div className="col-4">
-          <ChildInfoForm setChildDTO={setChildDTO} setIdLength={setIdLength} />
+          <ChildInfoForm
+            setChildDTO={setChildDTO}
+            setIdLength={setIdLength}
+            setChildInfoValid={setChildInfoValid}
+            childInfoValid={childInfoValid}
+          />
         </div>
         <div className="col-4">
           <GuardianForm
             guardianData={guardianData}
             setGuardianData={setGuardianData}
+            guardianValid={guardianValid}
+            setGuardianValid={setGuardianValid}
           />
         </div>
 
@@ -199,6 +190,8 @@ export default function Compensation() {
           <KindergartenInfoForm
             kindergartenData={kindergartenData}
             setKindergartenData={setKindergartenData}
+            setKindergartenValid={setKindergartenValid}
+            kindergartenValid={kindergartenValid}
           />
         </div>
 
@@ -209,6 +202,7 @@ export default function Compensation() {
               id="btnSubmit"
               style={{ width: "100px" }}
               onClick={() => handleSubmit()}
+              disabled={btnDisabled}
             >
               Pateikti
             </button>

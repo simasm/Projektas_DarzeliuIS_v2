@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import apiEndpoint from "../10Services/endpoint";
-import InputValidator from "../08CommonComponents/InputValidator";
+import ChildInfoFormValidator from "../08CommonComponents/ChildInfoFormValidator";
 
-export default function ChildInfoForm({ setChildDTO, setIdLength }) {
+export default function ChildInfoForm({
+  setChildDTO,
+  setIdLength,
+  childInfoValid,
+  setChildInfoValid,
+}) {
   // /api/registru-centras/51609260036
   // 51609260036
+
+  const [childInfoWarning, setChildInfoWarning] = useState({
+    personalID: "",
+    name: "",
+    surname: "",
+    dateOfBirth: "",
+  });
 
   const [childId, setChildId] = useState("");
   const [childData, setChildData] = useState({
@@ -15,34 +27,19 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
     dateOfBirth: "",
   });
 
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
-
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
-  };
-
   const handleOnChange = (e) => {
     setChildId(e.target.value);
     setIdLength(e.target.value.length);
-    InputValidator(e);
-    applyRedBorder(e);
+    ChildInfoFormValidator(
+      e,
+      setChildInfoWarning,
+      childInfoWarning,
+      setChildInfoValid,
+      childInfoValid
+    );
   };
 
   useEffect(() => {
-    const warningmsg = document.getElementById(
-      "txtChildPersonalCodeCompensationWarning"
-    );
-    const field = document.getElementById("txtChildPersonalCodeCompensation");
-
     async function load() {
       try {
         const childDataResponse = await axios.get(
@@ -50,11 +47,14 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
         );
         setChildData(childDataResponse.data);
         setChildDTO(childDataResponse.data);
-        warningmsg.textContent = "";
+        setChildInfoWarning({ ...childInfoWarning, personalID: "" });
       } catch (error) {
         if (error.response.status >= 400) {
-          warningmsg.textContent = `Toks asmens kodas registrų centre neegzistuoja.`;
-          field.setAttribute("class", "form-control redborder");
+          setChildInfoValid({ ...childInfoValid, personalID: false });
+          setChildInfoWarning({
+            ...childInfoWarning,
+            personalID: "Toks Id neegzistuoja",
+          });
         }
       }
     }
@@ -84,13 +84,14 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             maxLength={11}
+            style={
+              childInfoValid.personalID
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             required
-            pattern="[0-9]{11}"
           />
-          <span
-            id="txtChildPersonalCodeCompensationWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{childInfoWarning.personalID}</span>
         </div>
 
         <div className="form-group mt-2">

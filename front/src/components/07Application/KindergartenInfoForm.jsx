@@ -1,34 +1,37 @@
-import React from "react";
-import inputValidator from "../08CommonComponents/InputValidator";
+import React, { useState } from "react";
+import KindergartenFormValidator from "../08CommonComponents/KindergartenFormValidator";
 
 export default function KindergartenInfoForm({
   kindergartenData,
   setKindergartenData,
+  kindergartenValid,
+  setKindergartenValid,
 }) {
   const handleOnChange = (e) => {
     setKindergartenData({
       ...kindergartenData,
       [e.target.name]: e.target.value,
     });
-    inputValidator(e);
 
-    applyRedBorder(e);
+    KindergartenFormValidator(
+      e,
+      setKindergartenWarning,
+      kindergartenWarning,
+      setKindergartenValid,
+      kindergartenValid
+    );
   };
 
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
-
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
-  };
+  const [kindergartenWarning, setKindergartenWarning] = useState({
+    name: "",
+    code: "",
+    address: "",
+    phone: "",
+    email: "",
+    bankName: "",
+    accountNumber: "",
+    bankCode: "",
+  });
 
   return (
     <div className="container">
@@ -49,10 +52,17 @@ export default function KindergartenInfoForm({
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
+ 
+            style={
+              kindergartenValid.name
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={64}
             required
           />
-          <span id="txtKindergartenNameWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.name}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -66,11 +76,19 @@ export default function KindergartenInfoForm({
             placeholder="123456789"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="[\d]{9}|[\d]{7}"
+ 
+            style={
+              kindergartenValid.code
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={9}
             required
           />
-          <span id="txtKindergartenCodeWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.code}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -84,14 +102,19 @@ export default function KindergartenInfoForm({
             placeholder="Adresas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
+ 
+            style={
+              kindergartenValid.address
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={64}
             required
           />
-          <span
-            id="txtKindergartenAddressWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{kindergartenWarning.address}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -106,11 +129,19 @@ export default function KindergartenInfoForm({
             placeholder="+370xxxxxxxx | 852xxxxxx"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="[+]{1}[0-9]{11}|[852]{3}[0-9]{6}"
+ 
+            style={
+              kindergartenValid.phone
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={12}
             required
           />
-          <span id="txtKindergartenPhoneWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.phone}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -124,11 +155,19 @@ export default function KindergartenInfoForm({
             placeholder="example@mail.com"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}"
+ 
+            style={
+              kindergartenValid.email
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={64}
             required
           />
-          <span id="txtKindergartenEmailWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.email}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -142,14 +181,19 @@ export default function KindergartenInfoForm({
             placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="^[A-Z]+[a-zA-Z\s]*$"
+ 
+            style={
+              kindergartenValid.bankName
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+ 
             maxLength={32}
             required
           />
-          <span
-            id="txtKindergartenBankNameWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{kindergartenWarning.bankName}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -163,14 +207,22 @@ export default function KindergartenInfoForm({
             placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
+ 
             pattern="^[A-Z]{2}[A-Z0-9]{14,32}$"
             maxLength={34}
+ 
+            style={
+              kindergartenValid.accountNumber
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+            maxLength={13}
+ 
             required
           />
-          <span
-            id="txtKindergartenAccountNumberWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">
+            {kindergartenWarning.accountNumber}
+          </span>
         </div>
 
         <div className="form-group mt-2">
@@ -184,14 +236,17 @@ export default function KindergartenInfoForm({
             placeholder="12345"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{5}"
+            style={
+              kindergartenValid.bankCode
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={5}
             required
           />
-          <span
-            id="txtKindergartenBankCodeWarning"
-            className="warningmsg"
-          ></span>   
+ 
+          <span className="warningmsg">{kindergartenWarning.bankCode}</span>
+ 
         </div>
       </div>
     </div>
