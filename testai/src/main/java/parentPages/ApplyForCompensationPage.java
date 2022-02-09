@@ -66,9 +66,11 @@ public class ApplyForCompensationPage extends AbstractObjectPage {
     @FindBy(id = "txtKindergartenBankCode")
     public WebElement kindergartenBankCode;
 
+
     //buttons
     @FindBy(id = "btnSubmit")
     public WebElement btnSubmit;
+
 
     //input - child info
     public void inputChildPersonalId(String value) {
@@ -147,7 +149,7 @@ public class ApplyForCompensationPage extends AbstractObjectPage {
         kindergartenBankCode.sendKeys(value);
     }
 
-    //buttons
+    //click button
     public void clickBtnSubmit() {
         btnSubmit.click();
     }

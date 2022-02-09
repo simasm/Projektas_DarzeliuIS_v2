@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 
 public class ApiTest extends GeneralApiMethods {
@@ -23,7 +24,7 @@ public class ApiTest extends GeneralApiMethods {
     public void api_shouldLogInAndOut(String username, String pwd, String role) {
 
         SessionFilter sessionFilter =
-                logIn(username, pwd);
+                logIn(username, pwd, reqSpec);
 
         given().
                spec(reqSpec).
@@ -34,7 +35,7 @@ public class ApiTest extends GeneralApiMethods {
                body("role", equalTo(role)).
                body("username", equalTo(username));
 
-        logOut();
+        logOut(reqSpec);
 
         // assert that logout was successful
         given().
@@ -51,27 +52,27 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewUser() {
 
-        logIn("admin@admin.lt", "admin@admin.lt");
+        logIn("admin@admin.lt", "admin@admin.lt", reqSpec);
 
         HashMap<String, Object> user = new HashMap<>();
-        user.put("address", "gatve 33-14");
+//        user.put("address", "gatve 33-14");
         user.put("email", "andriusd@andrius.lt");
         user.put("name", "Andrius");
         user.put("password", "andriusd@andrius.lt");
-        user.put("personalCode", "34512321234");
-        user.put("phone", "+37012312345");
+//        user.put("personalCode", "34512321234");
+//        user.put("phone", "+37012312345");
         user.put("role", "USER");
         user.put("surname", "Andriulis");
         user.put("username", "andriusd@andrius.lt");
 
-        createNewUser(user).
+        createNewUser(user, reqSpec).
                 then().
                 contentType("text/plain; charset=UTF-8").
                 statusCode(201).
                 body(equalTo("Naudotojas sukurtas sėkmingai!"));
 
         // delete user
-        deleteUser("andriusd@andrius.lt").
+        deleteUser("andriusd@andrius.lt", reqSpec).
                 then().
                 contentType("text/plain; charset=UTF-8").
                 statusCode(200).
@@ -83,7 +84,7 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewKindergarten() {
 
-        logIn("manager@manager.lt", "manager@manager.lt");
+        logIn("manager@manager.lt", "manager@manager.lt", reqSpec);
 
         Kindergarten kg = new Kindergarten();
         kg.setAddress("gatve 13");
@@ -95,14 +96,14 @@ public class ApiTest extends GeneralApiMethods {
 
 
 
-        createNewKindergarten(kg).
+        createNewKindergarten(kg, reqSpec).
         then().
                contentType("text/plain; charset=UTF-8").
                statusCode(200).
                body(equalTo("Darželis sukurtas sėkmingai"));
 
         // delete kindergarten
-        deleteKindergarten("123456789").
+        deleteKindergarten("123456789", reqSpec).
         then().
                statusCode(200).
                contentType("text/plain; charset=UTF-8").
@@ -114,21 +115,21 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
 
-       logIn("user@user.lt", "user@user.lt");
+       logIn("user@user.lt", "user@user.lt", reqSpec);
 
-       submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json")))).
+       submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json"))), reqSpec).
        then().
               statusCode(200).
               body(equalTo("Prašymas sukurtas sėkmingai"));
 
        // get id of submitted application
-       ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser().
+       ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser(reqSpec).
        then().
               statusCode(200).
               extract(). path("id");
 
        // delete previously created application
-       deleteApplicationAsUserById(applicationId.get(0)).
+       deleteApplicationAsUserById(applicationId.get(0), reqSpec).
        then().
               statusCode(200).
               body(equalTo("Ištrinta sėkmingai"));
@@ -140,7 +141,7 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldGetAllUsers() {
 
-       SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
+       SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt", reqSpec);
 
        given().
                spec(reqSpec).

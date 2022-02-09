@@ -10,8 +10,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.ChangeAndResetUserAccountFieldsAndPasswordPage;
 import pages.LoginPage;
+import parentPages.ApplyForCompensationPage;
 import parentPages.SubmitNewApplicationPage;
 import parentPages.UploadMedicalDocumentPDFPage;
+import parentTests.ApplyForCompensation;
 import specialistPages.CreateAndDeleteNewKindergartenPage;
 import utilities.FileReaderUtils;
 
@@ -59,8 +61,6 @@ public class GeneralMethods extends BaseTest {
         WebElement logoutElement = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("btnLogout")));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,-400)");
-        js.executeScript("arguments[0].scrollIntoView()", logoutElement);
         js.executeScript("arguments[0].click();", logoutElement);
     }
 
@@ -303,6 +303,35 @@ public class GeneralMethods extends BaseTest {
         }
     }
 
+    public void fillInCompensationForm(String childId) {
+        ApplyForCompensationPage compensationPage = new ApplyForCompensationPage(driver);
+        clickNavButtonNewApplication();
+        clickDrpDnButtonCompensation();
+
+        // fill child form
+        compensationPage.inputChildPersonalId(childId);
+
+        // fill guardian form
+        compensationPage.inputGuardianName("Andrius");
+        compensationPage.inputGuardianSurname("Andriulis");
+        compensationPage.inputGuardianPersonalId("54634565466");
+        compensationPage.inputGuardianPhone("+37054756754");
+        compensationPage.inputGuardianEmail("andrius@andriulis.lt");
+        compensationPage.inputGuardianAddress("Gatve");
+
+        // fill kindergarten form
+        compensationPage.inputKindergartenName("Pagrandukas");
+        compensationPage.inputKindergartenCode("456645645");
+        compensationPage.inputKindergartenAddress("Gerve");
+        compensationPage.inputKindergartenPhone("+37012312345");
+        compensationPage.inputKindergartenEmail("pagran@dukas.lt");
+        compensationPage.inputKindergartenBankName("Swedbank");
+        compensationPage.inputKindergartenAccountNumber("LT56445645645");
+        compensationPage.inputKindergartenBankCode("74566");
+
+        compensationPage.clickBtnSubmit();
+    }
+
     public void fillInTheApplication() throws IOException, InterruptedException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
         clickNavButtonNewApplication();
@@ -345,15 +374,17 @@ public class GeneralMethods extends BaseTest {
 
     public void applicationFormChildDetails() throws IOException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
-        List<String> formData = FileReaderUtils.getTestData("src/test/resources/parentAndChildDetails.txt");
-        String childName = formData.get(6);
-        String childSurname = formData.get(7);
-        String childPersonalCode = formData.get(8);
-        String childDateOfBirth = formData.get(9);
-        newApplication.inputChildName(childName);
-        newApplication.inputChildSurname(childSurname);
-        newApplication.inputChildPersonalCode(childPersonalCode);
-        newApplication.inputChildDateOfBirth(childDateOfBirth);
+        newApplication.inputChildPersonalCode("51609260091");
+
+//        List<String> formData = FileReaderUtils.getTestData("src/test/resources/parentAndChildDetails.txt");
+//        String childName = formData.get(6);
+//        String childSurname = formData.get(7);
+//        String childPersonalCode = formData.get(8);
+//        String childDateOfBirth = formData.get(9);
+//        newApplication.inputChildName(childName);
+//        newApplication.inputChildSurname(childSurname);
+
+//        newApplication.inputChildDateOfBirth(childDateOfBirth);
     }
 
     public void checkPrioritiesAndChooseAKindergarten() throws InterruptedException {
