@@ -4,7 +4,11 @@ import axios from "axios";
 import apiEndpoint from "../10Services/endpoint";
 import InputValidator from "../08CommonComponents/InputValidator";
 
-export default function ChildInfoForm({ setChildDTO, setIdLength }) {
+export default function ChildInfoForm({
+  setChildDTO,
+  setIdLength,
+  applyRedBorder,
+}) {
   // /api/registru-centras/51609260036
   // 51609260036
 
@@ -14,21 +18,6 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
     surname: "",
     dateOfBirth: "",
   });
-
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
-
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
-  };
 
   const handleOnChange = (e) => {
     setChildId(e.target.value);

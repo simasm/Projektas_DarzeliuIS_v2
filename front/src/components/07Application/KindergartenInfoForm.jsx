@@ -4,6 +4,7 @@ import inputValidator from "../08CommonComponents/InputValidator";
 export default function KindergartenInfoForm({
   kindergartenData,
   setKindergartenData,
+  applyRedBorder,
 }) {
   const handleOnChange = (e) => {
     setKindergartenData({
@@ -13,21 +14,6 @@ export default function KindergartenInfoForm({
     inputValidator(e);
 
     applyRedBorder(e);
-  };
-
-  const applyRedBorder = (e) => {
-    const fieldId = e.target.id;
-    const spanId = fieldId + "Warning";
-
-    const span = document.getElementById(spanId);
-
-    const field = document.getElementById(fieldId);
-
-    if (span.textContent !== "") {
-      field.setAttribute("class", "form-control redborder");
-    } else {
-      field.setAttribute("class", "form-control");
-    }
   };
 
   return (
