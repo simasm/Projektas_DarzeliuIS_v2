@@ -167,7 +167,7 @@ function InputValidator(event) {
     target.validity.patternMismatch &&
     target.id === "txtGuardianEmailCompensation"
   ) {
-    txtGuardianEmailCompensationWarning.textContent = "Netinkamo formato email";
+    txtGuardianEmailCompensationWarning.textContent = "Netinkamo formato el. paštas";
   } else if (
     !target.validity.patternMismatch &&
     target.id === "txtGuardianEmailCompensation"
@@ -254,7 +254,7 @@ function InputValidator(event) {
   }
 
   if (target.validity.patternMismatch && target.id === "txtKindergartenEmail") {
-    txtKindergartenEmailWarning.textContent = "Netinkamo formato el. pastas";
+    txtKindergartenEmailWarning.textContent = "Netinkamo formato el. paštas";
   } else if (
     !target.validity.patternMismatch &&
     target.id === "txtKindergartenEmail"
@@ -280,7 +280,7 @@ function InputValidator(event) {
     target.id === "txtKindergartenAccountNumber"
   ) {
     txtKindergartenAccountNumberWarning.textContent =
-      "Netinkamo formato saskaitos numeris";
+      "Netinkamo formato sąskaitos numeris";
   } else if (
     !target.validity.patternMismatch &&
     target.id === "txtKindergartenAccountNumber"

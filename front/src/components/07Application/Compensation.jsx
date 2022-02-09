@@ -198,13 +198,13 @@ export default function Compensation() {
         <div className="container">
           <div className="row justify-content-end me-4">
             <button
-              className="btn btn-primary mt-4"
+              className="btn position-relative btn-primary mt-4"
               id="btnSubmit"
               style={{ width: "100px" }}
               onClick={() => handleSubmit()}
               disabled={btnDisabled}
             >
-              submit
+              Pateikti
             </button>
           </div>
         </div>

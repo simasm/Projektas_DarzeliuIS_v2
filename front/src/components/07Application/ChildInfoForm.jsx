@@ -80,6 +80,7 @@ export default function ChildInfoForm({
             type="text"
             id="txtChildPersonalCodeCompensation"
             name="childPersonalCodeCompensation"
+            placeholder="31234567890"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             maxLength={11}
