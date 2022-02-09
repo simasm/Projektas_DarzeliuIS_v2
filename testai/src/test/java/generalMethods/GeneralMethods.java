@@ -21,6 +21,8 @@ import java.util.List;
 
 public class GeneralMethods extends BaseTest {
 
+
+
     protected static String adminLogins = "admin@admin.lt";
     protected static String specialistLogins = "manager@manager.lt";
     protected static String parentLogins = "user@user.lt";
@@ -571,4 +573,5 @@ public class GeneralMethods extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div[3]/input")));
         enterUserEmail.sendKeys(value);
     }
+
 }
