@@ -356,7 +356,7 @@ public class GeneralMethods extends BaseTest {
         newApplication.inputChildDateOfBirth(childDateOfBirth);
     }
 
-    public void checkPrioritiesAndChooseAKindergarten() throws IOException {
+    public void checkPrioritiesAndChooseAKindergarten() throws InterruptedException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
 
         // check priorities

@@ -85,12 +85,12 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
 
     public Boolean assertPrasymasRegistracijaiPageLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/form/div[1]/div[1]/div/h6"), "Atstovas 1"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//label[@for='kindergartenId1']"), "1 prioritetas *"));
     }
 
     public Boolean assertPrasymasKompensacijaiPageLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("/html/body/div[1]/div/div/div/div"), "ahoy"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//label[@for='txtGuardianNameCompensation']"), "Vardas *"));
     }
 
     // constructor
