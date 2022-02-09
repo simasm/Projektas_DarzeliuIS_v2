@@ -121,9 +121,10 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenEmail"
             name="email"
+            placeholder="example@mail.com"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}"
             maxLength={64}
             required
           />
@@ -138,9 +139,10 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankName"
             name="bankName"
+            placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-Z]+[a-zA-Z]*$"
+            pattern="^[A-Z]+[a-zA-Z\s]*$"
             maxLength={32}
             required
           />
@@ -158,10 +160,11 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenAccountNumber"
             name="accountNumber"
+            placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[A-Z]{2}[0-9]{11}"
-            maxLength={13}
+            pattern="^[A-Z]{2}[A-Z0-9]{14,32}$"
+            maxLength={34}
             required
           />
           <span
@@ -178,6 +181,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankCode"
             name="bankCode"
+            placeholder="12345"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             pattern="[0-9]{5}"

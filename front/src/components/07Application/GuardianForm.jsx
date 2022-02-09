@@ -41,6 +41,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianNameCompensation"
           name="name"
+          placeholder="Vardas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
@@ -61,6 +62,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianSurnameCompensation"
           name="surname"
+          placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
@@ -81,6 +83,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianIdCompensation"
           name="personalCode"
+          placeholder="41234567890"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           pattern="[0-9]{11}"
@@ -101,9 +104,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianPhoneCompensation"
           name="phone"
+          placeholder="+370xxxxxxxx"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="[+]{1}[0-9]{11}"
+          pattern="[+]{1}[0-9]{11}|[852]{3}[0-9]{6}"
           maxLength={12}
           required
         />
@@ -121,9 +125,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianEmailCompensation"
           name="email"
+          placeholder="example@mail.com"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+          pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}"
           maxLength={64}
           required
         />
