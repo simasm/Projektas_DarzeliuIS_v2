@@ -59,8 +59,9 @@ export default function ChildInfoForm({ setChildDTO, setIdLength }) {
       }
     }
 
-    if (childId.length !== 11) {
+    if (childId.length < 11 && childId.length > 0) {
       setChildData({ name: "", surname: "", dateOfBirth: "" });
+      warningmsg.textContent = 'Neteisingas asmens kodo formatas.'
     } else {
       load();
     }

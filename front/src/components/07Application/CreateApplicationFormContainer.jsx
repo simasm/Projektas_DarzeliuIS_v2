@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Select from "react-select";
 import { withRouter } from "react-router-dom";
 
-import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import lt from "date-fns/locale/lt";
@@ -15,8 +14,6 @@ import inputValidator from "../08CommonComponents/InputValidator";
 
 import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
-import { subYears } from "date-fns";
-import axios from "axios";
 
 registerLocale("lt", lt);
 
@@ -132,6 +129,7 @@ class CreateApplicationFormContainer extends Component {
   componentDidUpdate(prevProps, prevState) {
     const childIdWarning = document.getElementById("childIdRegistration");
     const submitWarning = document.getElementById("submitWarning");
+    // const childIdWarning2 = document.getElementById("childIdRegistration2");
 
     if (
       this.state.childPersonalCode.length === 11 &&
@@ -154,23 +152,21 @@ class CreateApplicationFormContainer extends Component {
         .catch((error) => {
           childIdWarning.textContent = "Neteisingas asmens kodas";
           submitWarning.textContent = "Neteisingas asmens kodas";
-
+          
           this.setState({ submitState: false });
         });
-    } else if (
-      this.state.childPersonalCode.length < 11 &&
-      this.state.childPersonalCode !== prevState.childPersonalCode
-    ) {
-      this.setState({
-        childName: "",
-        childSurname: "",
-        childPersonalCode: "",
-        birthdate: "",
-      });
-    } else if (this.state.childPersonalCode.length === 0) {
+    } 
+    else if (this.state.childPersonalCode.length === 0) {
       childIdWarning.textContent = "";
       submitWarning.textContent = "";
     }
+    else if (
+      this.state.childPersonalCode.length < 11
+    ) {
+      //console.log("Neteisingas asmens kodo formatas")
+      childIdWarning.textContent = "Neteisingas asmens kodo formatas"
+      submitWarning.textContent = "Neteisingas asmens kodo formatas"
+    } 
   }
 
   /** FORMOS */
@@ -181,7 +177,7 @@ class CreateApplicationFormContainer extends Component {
 
         <div className="form">         
             <h6 className="formHeader">Atstovas 1</h6>         
-          <div className="form-group mt-3">
+          <div className="form-group"style={{marginTop: "12px"}}>
             <label htmlFor="txtName">
               Vardas <span className="fieldRequired">*</span>
             </label>
@@ -471,7 +467,7 @@ class CreateApplicationFormContainer extends Component {
           <span id="childIdRegistration" className="warningmsg"></span>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtName">
             Vaiko vardas <span className="fieldRequired">*</span>
           </label>

@@ -43,7 +43,8 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           name="name"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
+          //pattern="^[A-ZĄ-Ž]{1}[\w\są-ž-]+$"
+          pattern="^([A-ZĄ-Ž]{1}[a-zą-ž]{1,31}|[A-ZĄ-Ž]{1}[a-zą-ž]+\s[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}|[A-ZĄ-Ž]{1}[a-zą-ž]+\s[A-ZĄ-Ž]{1}[a-zą-ž]+\s[A-ZĄ-Ž]{1}[a-zą-ž]{1,31})$"
           maxLength={32}
           required
         />
@@ -93,7 +94,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
         ></span>
       </div>
 
-      <div className="form-group">
+      <div className="form-group mt-2">
         <label htmlFor="txtGuardianPhone">
           Telefono numeris <span className="fieldRequired">*</span>
         </label>
