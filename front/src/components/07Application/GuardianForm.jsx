@@ -44,7 +44,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="Vardas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
+          pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
           maxLength={32}
           required
         />
@@ -65,7 +65,7 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="^[A-ZĄ-Ž]{1}[a-zą-ž]{1,31}$"
+          pattern="^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$"
           maxLength={32}
           required
         />
