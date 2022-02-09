@@ -12,7 +12,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas pavadinimas",
+          [targetName]: "Neteisingas pavadinimo formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -25,7 +25,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/[\d]{9}|[\d]{7}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas darzelio kodas",
+          [targetName]: "Neteisingas kodo formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -38,7 +38,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas adresas",
+          [targetName]: "Neteisingas adreso formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -51,7 +51,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas tel nr",
+          [targetName]: "Neteisingas telefono numerio formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -66,7 +66,7 @@ const KindergartenFormValidator = (
       ) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas email",
+          [targetName]: "Neteisingas el. pašto formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -79,7 +79,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/^[A-Z]+[a-zA-Z\s]*$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas banko pavadinimas",
+          [targetName]: "Neteisingas banko pavadinimo formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -92,7 +92,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/^[A-Z]{2}[A-Z0-9]{14,32}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas saskaitos nr",
+          [targetName]: "Neteisingas sąskaitos numerio formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {
@@ -105,7 +105,7 @@ const KindergartenFormValidator = (
       if (!e.target.value.match(/[0-9]{5}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
-          [targetName]: "blogas banko kodas",
+          [targetName]: "Neteisingas banko kodo formatas",
         });
         setKindergartenValid({ ...kindergartenValid, [targetName]: false });
       } else {

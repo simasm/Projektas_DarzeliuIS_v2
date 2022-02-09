@@ -8,7 +8,7 @@ const ChildInfoFormValidator = (
   if (!e.target.value.match(/[0-9]{11}/)) {
     setChildInfoWarning({
       ...childInfoWarning,
-      personalID: "blogas id",
+      personalID: "Neteisingas asmens kodo formatas",
     });
     setChildInfoValid({ ...childInfoValid, personalID: false });
   } else {

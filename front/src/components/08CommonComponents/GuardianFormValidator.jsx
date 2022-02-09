@@ -12,7 +12,7 @@ const GuardianFormValidator = (
       if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "blogas vardas",
+          [targetName]: "Neteisingas vardo formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {
@@ -25,7 +25,7 @@ const GuardianFormValidator = (
       if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "bloga pavarde",
+          [targetName]: "Neteisingas pavardės formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {
@@ -38,7 +38,7 @@ const GuardianFormValidator = (
       if (!e.target.value.match(/[0-9]{11}/)) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "blogas asmens kodas",
+          [targetName]: "Neteisingas asmens kodo formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {
@@ -51,7 +51,7 @@ const GuardianFormValidator = (
       if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "blogas tel nr",
+          [targetName]: "Neteisingas telefono numerio formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {
@@ -66,7 +66,7 @@ const GuardianFormValidator = (
       ) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "blogas email",
+          [targetName]: "Neteisingas el. pašto formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {
@@ -79,7 +79,7 @@ const GuardianFormValidator = (
       if (!e.target.value.match(/[\s\dA-zÀ-ž-.]{5,64}/)) {
         setGuardianWarning({
           ...guardianWarning,
-          [targetName]: "blogas adresas",
+          [targetName]: "Neteisingas adreso formatas",
         });
         setGuardianValid({ ...guardianValid, [targetName]: false });
       } else {

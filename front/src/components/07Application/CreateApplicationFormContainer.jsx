@@ -50,6 +50,15 @@ class CreateApplicationFormContainer extends Component {
         kindergartenId4: "",
         kindergartenId5: "",
       },
+      childInfoWarning: {
+        personalID: "",
+        name: "",
+        surname: "",
+        dateOfBirth: "",
+      },
+
+      childIdValid: true,
+
       priorities: {
         childIsAdopted: false,
         familyHasThreeOrMoreChildrenInSchools: false,
@@ -127,9 +136,6 @@ class CreateApplicationFormContainer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const childIdWarning = document.getElementById("childIdRegistration");
-    const submitWarning = document.getElementById("submitWarning");
-
     if (
       this.state.childPersonalCode.length === 11 &&
       this.state.childPersonalCode !== prevState.childPersonalCode
@@ -145,12 +151,16 @@ class CreateApplicationFormContainer extends Component {
             birthdate: response.data.dateOfBirth,
             submitState: true,
           });
-          childIdWarning.textContent = "";
-          submitWarning.textContent = "";
+          this.setState({ childInfoWarning: { personalID: "" } });
+          this.setState({ childIdValid: true });
         })
         .catch((error) => {
-          childIdWarning.textContent = "Neteisingas asmens kodas";
-          submitWarning.textContent = "Neteisingas asmens kodas";
+          this.setState({
+            childInfoWarning: {
+              personalID: "Tokio asmens kodo registrų centre nėra",
+            },
+          });
+          this.setState({ childIdValid: false });
 
           this.setState({ submitState: false });
         });
@@ -161,12 +171,9 @@ class CreateApplicationFormContainer extends Component {
       this.setState({
         childName: "",
         childSurname: "",
-        childPersonalCode: "",
         birthdate: "",
+        submitState: false,
       });
-    } else if (this.state.childPersonalCode.length === 0) {
-      childIdWarning.textContent = "";
-      submitWarning.textContent = "";
     }
   }
 
@@ -457,14 +464,20 @@ class CreateApplicationFormContainer extends Component {
             name="childPersonalCode"
             placeholder="Asmens kodas"
             className="form-control"
-            onChange={this.childOnChange}
+            style={
+              this.state.childIdValid
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
+            onChange={(e) => this.childOnChange(e)}
             onInvalid={(e) => inputValidator(e)}
             disabled={this.state.registrationDisabled}
             required
-            pattern="[0-9]{11}"
             maxLength={11}
           />
-          <span id="childIdRegistration" className="warningmsg"></span>
+          <span className="warningmsg">
+            {this.state.childInfoWarning.personalID}
+          </span>
         </div>
 
         <div className="form-group">
@@ -869,10 +882,17 @@ class CreateApplicationFormContainer extends Component {
 
   /** Vaiko formos onChange */
   childOnChange(e) {
-    inputValidator(e);
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    if (!e.target.value.match(/[0-9]{11}/)) {
+      this.setState({
+        childInfoWarning: { personalID: "Neteisingas asmens kodo formatas" },
+      });
+
+      this.setState({ childIdValid: false });
+    } else {
+      this.setState({ childInfoWarning: { personalID: "" } });
+      this.setState({ childIdValid: true });
+    }
+    this.setState({ childPersonalCode: e.target.value });
   }
 
   /** Checkbox onChange */
