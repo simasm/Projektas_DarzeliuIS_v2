@@ -104,9 +104,9 @@ export default function Compensation() {
     ];
 
     function checkIfAnyIncorrect() {
-      return warningIds.every(
-        (id) => document.getElementById(id).textContent !== ""
-      );
+      // return warningIds.every(
+      //   (id) => document.getElementById(id).textContent !== ""
+      return true;
     }
 
     const btnSubmit = document.getElementById("btnSubmit");

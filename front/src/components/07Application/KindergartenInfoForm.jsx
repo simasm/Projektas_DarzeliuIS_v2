@@ -1,20 +1,46 @@
-import React from "react";
-import inputValidator from "../08CommonComponents/InputValidator";
+import React, { useState } from "react";
+import KindergartenFormValidator from "../08CommonComponents/KindergartenFormValidator";
 
 export default function KindergartenInfoForm({
   kindergartenData,
   setKindergartenData,
-  applyRedBorder,
 }) {
   const handleOnChange = (e) => {
     setKindergartenData({
       ...kindergartenData,
       [e.target.name]: e.target.value,
     });
-    inputValidator(e);
 
-    applyRedBorder(e);
+    KindergartenFormValidator(
+      e,
+      setKindergartenWarning,
+      kindergartenWarning,
+      setKindergartenValid,
+      kindergartenValid
+    );
   };
+
+  const [kindergartenWarning, setKindergartenWarning] = useState({
+    name: "",
+    code: "",
+    address: "",
+    phone: "",
+    email: "",
+    bankName: "",
+    accountNumber: "",
+    bankCode: "",
+  });
+
+  const [kindergartenValid, setKindergartenValid] = useState({
+    name: true,
+    code: true,
+    address: true,
+    phone: true,
+    email: true,
+    bankName: true,
+    accountNumber: true,
+    bankCode: true,
+  });
 
   return (
     <div className="container">
@@ -33,11 +59,15 @@ export default function KindergartenInfoForm({
             name="name"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
+            style={
+              kindergartenValid.name
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={64}
             required
           />
-          <span id="txtKindergartenNameWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.name}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -50,11 +80,15 @@ export default function KindergartenInfoForm({
             name="code"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{9}"
+            style={
+              kindergartenValid.code
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={9}
             required
           />
-          <span id="txtKindergartenCodeWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.code}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -67,14 +101,15 @@ export default function KindergartenInfoForm({
             name="address"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
+            style={
+              kindergartenValid.address
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={64}
             required
           />
-          <span
-            id="txtKindergartenAddressWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{kindergartenWarning.address}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -88,11 +123,15 @@ export default function KindergartenInfoForm({
             name="phone"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[+]{1}[0-9]{11}"
+            style={
+              kindergartenValid.phone
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={12}
             required
           />
-          <span id="txtKindergartenPhoneWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.phone}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -105,11 +144,15 @@ export default function KindergartenInfoForm({
             name="email"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+            style={
+              kindergartenValid.email
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={64}
             required
           />
-          <span id="txtKindergartenEmailWarning" className="warningmsg"></span>
+          <span className="warningmsg">{kindergartenWarning.email}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -122,14 +165,15 @@ export default function KindergartenInfoForm({
             name="bankName"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-Z]+[a-zA-Z]*$"
+            style={
+              kindergartenValid.bankName
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={32}
             required
           />
-          <span
-            id="txtKindergartenBankNameWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{kindergartenWarning.bankName}</span>
         </div>
 
         <div className="form-group mt-2">
@@ -142,14 +186,17 @@ export default function KindergartenInfoForm({
             name="accountNumber"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[A-Z]{2}[0-9]{11}"
+            style={
+              kindergartenValid.accountNumber
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={13}
             required
           />
-          <span
-            id="txtKindergartenAccountNumberWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">
+            {kindergartenWarning.accountNumber}
+          </span>
         </div>
 
         <div className="form-group mt-2">
@@ -162,14 +209,15 @@ export default function KindergartenInfoForm({
             name="bankCode"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{5}"
+            style={
+              kindergartenValid.bankCode
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             maxLength={5}
             required
           />
-          <span
-            id="txtKindergartenBankCodeWarning"
-            className="warningmsg"
-          ></span>
+          <span className="warningmsg">{kindergartenWarning.bankCode}</span>
         </div>
       </div>
     </div>

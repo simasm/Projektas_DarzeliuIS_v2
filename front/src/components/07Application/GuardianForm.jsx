@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import inputValidator from "../08CommonComponents/InputValidator";
 import GuardianFormValidator from "../08CommonComponents/GuardianFormValidator";
 
 export default function GuardianForm({ guardianData, setGuardianData }) {

@@ -85,6 +85,9 @@ const GuardianFormValidator = (
         setGuardianValid({ ...guardianValid, [targetName]: true });
       }
       return guardianValid.address;
+
+    default:
+      return setGuardianValid({ ...guardianValid, [targetName]: true });
   }
 };
 export default GuardianFormValidator;

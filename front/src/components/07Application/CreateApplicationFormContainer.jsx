@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Select from "react-select";
 import { withRouter } from "react-router-dom";
 
-import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import lt from "date-fns/locale/lt";
@@ -15,8 +14,6 @@ import inputValidator from "../08CommonComponents/InputValidator";
 
 import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
-import { subYears } from "date-fns";
-import axios from "axios";
 
 registerLocale("lt", lt);
 
@@ -178,9 +175,8 @@ class CreateApplicationFormContainer extends Component {
   userForm(mainGuardian) {
     if (mainGuardian) {
       return (
-
-        <div className="form">         
-            <h6 className="formHeader">Atstovas 1</h6>         
+        <div className="form">
+          <h6 className="formHeader">Atstovas 1</h6>
           <div className="form-group mt-3">
             <label htmlFor="txtName">
               Vardas <span className="fieldRequired">*</span>
@@ -678,7 +674,7 @@ class CreateApplicationFormContainer extends Component {
           </span>
         </div>
         <div className="form-group mt-2">
-          <label htmlFor="kindergartenId2" >2 prioritetas</label>
+          <label htmlFor="kindergartenId2">2 prioritetas</label>
           <Select
             name="kindergartenId2"
             id="selKindergartenId2"
