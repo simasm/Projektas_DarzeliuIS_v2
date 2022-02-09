@@ -34,20 +34,21 @@ export default function KindergartenInfoForm({
     <div className="container">
       <div className="form">
         <div className="pb-1">
-          <h6 className="formHeader">Darzelio duomenys</h6>
+          <h6 className="formHeader">Darželio duomenys</h6>
         </div>
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenName">
-            Ugdymo istaigos pavadinimas <span className="fieldRequired">*</span>
+            Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
             id="txtKindergartenName"
             name="name"
+            placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
             maxLength={64}
             required
           />
@@ -56,15 +57,16 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenCode">
-            Ugdymo istaigos kodas <span className="fieldRequired">*</span>
+            Ugdymo įstaigos kodas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
             id="txtKindergartenCode"
             name="code"
+            placeholder="123456789"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[0-9]{9}"
+            pattern="[\d]{9}|[\d]{7}"
             maxLength={9}
             required
           />
@@ -73,15 +75,16 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenAddress">
-            Ugdymo istaigos adresas <span className="fieldRequired">*</span>
+            Ugdymo įstaigos adresas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
             id="txtKindergartenAddress"
             name="address"
+            placeholder="Adresas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,31}$"
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
             maxLength={64}
             required
           />
@@ -100,9 +103,10 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenPhone"
             name="phone"
+            placeholder="+370xxxxxxxx | 852xxxxxx"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            pattern="[+]{1}[0-9]{11}"
+            pattern="[+]{1}[0-9]{11}|[852]{3}[0-9]{6}"
             maxLength={12}
             required
           />
@@ -111,7 +115,7 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenEmail">
-            El. pastas <span className="fieldRequired">*</span>
+            El. paštas <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
@@ -148,7 +152,7 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenAccountNumber">
-            Saskaitos numeris <span className="fieldRequired">*</span>
+            Sąskaitos numeris <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"

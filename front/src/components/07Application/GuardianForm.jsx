@@ -141,9 +141,10 @@ export default function GuardianForm({ guardianData, setGuardianData }) {
           type="text"
           id="txtGuardianAddressCompensation"
           name="address"
+          placeholder="Adresas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
-          pattern="[A-zÀ-ž]{5,64}"
+          pattern="[\s\dA-zÀ-ž-.]{5,64}"
           maxLength={64}
           required
         />
