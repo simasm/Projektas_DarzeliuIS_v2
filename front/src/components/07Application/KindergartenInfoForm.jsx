@@ -191,7 +191,7 @@ export default function KindergartenInfoForm({
           <span
             id="txtKindergartenBankCodeWarning"
             className="warningmsg"
-          ></span>
+          ></span>   
         </div>
       </div>
     </div>
