@@ -5,6 +5,7 @@ import ChildInfoForm from "./ChildInfoForm";
 import GuardianForm from "./GuardianForm";
 import KindergartenInfoForm from "./KindergartenInfoForm";
 import apiEndpoint from "../10Services/endpoint";
+import swal from "sweetalert";
 
 export default function Compensation() {
   const history = useHistory();
@@ -156,14 +157,16 @@ export default function Compensation() {
   }, [idLength]);
 
   const handleSubmit = () => {
-    axios.post(
-      apiEndpoint + `/api/kompensacija/user/new`,
-      compensationApplication
-    );
-
-    history.push("/");
-    alert("submitted");
-    console.log(compensationApplication);
+    axios
+      .post(apiEndpoint + `/api/kompensacija/user/new`, compensationApplication)
+      .then((response) => {
+        history.push("/");
+        swal("Prašymas dėl kompensacijos sėkmingai pateiktas");
+        console.log(compensationApplication);
+      })
+      .catch((error) => {
+        swal("Pateikti nepavyko");
+      });
   };
 
   return (
