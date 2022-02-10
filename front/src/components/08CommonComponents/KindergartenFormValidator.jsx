@@ -22,7 +22,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.name;
 
     case "code":
-      if (!e.target.value.match(/[\d]{9}|[\d]{7}/)) {
+      if (e.target.value.match(/^[\d]{9}$|^[\d]{7}$/) === null) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas kodo formatas",
