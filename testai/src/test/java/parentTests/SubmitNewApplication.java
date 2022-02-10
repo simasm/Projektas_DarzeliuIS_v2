@@ -30,7 +30,7 @@ public class SubmitNewApplication extends GeneralMethods {
     @Test(groups = "regression", priority = 1)
     public void successfullySubmitNewApplication() throws IOException, InterruptedException {
         successfullyCreateNewKindergarten();
-        doLogout();
+        logOutUi();
 
         waitForLoginToLoad();
         LoginPage loginPage = new LoginPage(driver);
@@ -41,14 +41,14 @@ public class SubmitNewApplication extends GeneralMethods {
 
         // create a new user (parent) for this test
         createNewParent(2);
-        doLogout();
-        doLogin(createNewUserParentEmail, createNewUserParentEmail);
+        logOutUi();
+        logInUi(createNewUserParentEmail, createNewUserParentEmail);
 
         // fill in the application and submit it
         fillInTheApplication();
         applicationSuccessful();
         clickOkButton();
-        doLogout();
+        logOutUi();
     }
 
 
@@ -56,22 +56,22 @@ public class SubmitNewApplication extends GeneralMethods {
     public void deleteApplication() {
 
         waitForLoginToLoad();
-        doLogin(createNewUserParentEmail, createNewUserParentEmail);
+        logInUi(createNewUserParentEmail, createNewUserParentEmail);
 
         clickDeleteApplication();
         waitToAgreePopUp();
         clickOkButton();
-        doLogout();
+        logOutUi();
 
         // delete the kindergarten that was created for the test
-        doLogin(specialistLogins, specialistLogins);
+        logInUi(specialistLogins, specialistLogins);
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);
         createNewKindergarten.searchForTheNewlyCreatedKindergarten("123 Testinis");
         deleteNewKindergarten();
-        doLogout();
+        logOutUi();
 
         // delete test user
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         verifyIfAdminIsLoggedIn();
         deleteNewUser();
     }

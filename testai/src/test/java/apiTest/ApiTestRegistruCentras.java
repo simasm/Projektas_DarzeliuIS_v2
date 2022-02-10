@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 
 public class ApiTestRegistruCentras extends GeneralApiMethods {
 
-    @Test (dataProvider = "parameters")
-    public static void testGetChildById (String asmensKodas) {
-    Child child = getChildById(asmensKodas, reqSpec);
+    @Test(dataProvider = "parameters")
+    public static void testGetChildById(String asmensKodas) {
+        Child child = getChildById(asmensKodas, reqSpec);
         Assert.assertEquals(child.getAsmensKodas(), asmensKodas);
     }
 

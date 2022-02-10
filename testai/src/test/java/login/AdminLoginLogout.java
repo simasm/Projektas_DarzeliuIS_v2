@@ -21,13 +21,13 @@ public class AdminLoginLogout extends GeneralMethods {
     @Test(groups = "smoke")
     public void successfulLoginAndLogout() {
         // login
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
 
         // check if admin is logged in and can see the user list
         verifyIfAdminIsLoggedIn();
 
         // logout
-        doLogout();
+        logOutUi();
     }
 
     /**
@@ -51,7 +51,7 @@ public class AdminLoginLogout extends GeneralMethods {
         waitForLoginToLoad();
 
         //login with incorrect data
-        doLogin("adminNeteisingas@admin.lt", "adminNeteisingas@admin.lt");
+        logInUi("adminNeteisingas@admin.lt", "adminNeteisingas@admin.lt");
 
         // check if an error message appears
         checkErrorMessage();

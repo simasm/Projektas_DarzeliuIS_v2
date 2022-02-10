@@ -24,27 +24,27 @@ public class ApiTest extends GeneralApiMethods {
     public void api_shouldLogInAndOut(String username, String pwd, String role) {
 
         SessionFilter sessionFilter =
-                logIn(username, pwd, reqSpec);
+                logInApi(username, pwd, reqSpec);
 
         given().
-               spec(reqSpec).
-               filter(sessionFilter).
-        when().
-               get("api/users/user").
-        then().
-               body("role", equalTo(role)).
-               body("username", equalTo(username));
+                spec(reqSpec).
+                filter(sessionFilter).
+                when().
+                get("api/users/user").
+                then().
+                body("role", equalTo(role)).
+                body("username", equalTo(username));
 
-        logOut(reqSpec);
+        logOutApi(reqSpec);
 
         // assert that logout was successful
         given().
-               spec(reqSpec).
-               filter(sessionFilter).
-        when().
-               get("api/users/user").
-        then().
-               statusCode(401);
+                spec(reqSpec).
+                filter(sessionFilter).
+                when().
+                get("api/users/user").
+                then().
+                statusCode(401);
 
     }
 
@@ -52,7 +52,7 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewUser() {
 
-        logIn("admin@admin.lt", "admin@admin.lt", reqSpec);
+        logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
 
         HashMap<String, Object> user = new HashMap<>();
 //        user.put("address", "gatve 33-14");
@@ -84,7 +84,7 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewKindergarten() {
 
-        logIn("manager@manager.lt", "manager@manager.lt", reqSpec);
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
 
         Kindergarten kg = new Kindergarten();
         kg.setAddress("gatve 13");
@@ -95,19 +95,18 @@ public class ApiTest extends GeneralApiMethods {
         kg.setName("AAMontessori");
 
 
-
         createNewKindergarten(kg, reqSpec).
-        then().
-               contentType("text/plain; charset=UTF-8").
-               statusCode(200).
-               body(equalTo("Darželis sukurtas sėkmingai"));
+                then().
+                contentType("text/plain; charset=UTF-8").
+                statusCode(200).
+                body(equalTo("Darželis sukurtas sėkmingai"));
 
         // delete kindergarten
         deleteKindergarten("123456789", reqSpec).
-        then().
-               statusCode(200).
-               contentType("text/plain; charset=UTF-8").
-               body(equalTo("Darželis ištrintas sėkmingai"));
+                then().
+                statusCode(200).
+                contentType("text/plain; charset=UTF-8").
+                body(equalTo("Darželis ištrintas sėkmingai"));
 
     }
 
@@ -115,24 +114,24 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
 
-       logIn("user@user.lt", "user@user.lt", reqSpec);
+        logInApi("user@user.lt", "user@user.lt", reqSpec);
 
-       submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json"))), reqSpec).
-       then().
-              statusCode(200).
-              body(equalTo("Prašymas sukurtas sėkmingai"));
+        submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json"))), reqSpec).
+                then().
+                statusCode(200).
+                body(equalTo("Prašymas sukurtas sėkmingai"));
 
-       // get id of submitted application
-       ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser(reqSpec).
-       then().
-              statusCode(200).
-              extract(). path("id");
+        // get id of submitted application
+        ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser(reqSpec).
+                then().
+                statusCode(200).
+                extract().path("id");
 
-       // delete previously created application
-       deleteApplicationAsUserById(applicationId.get(0), reqSpec).
-       then().
-              statusCode(200).
-              body(equalTo("Ištrinta sėkmingai"));
+        // delete previously created application
+        deleteApplicationAsUserById(applicationId.get(0), reqSpec).
+                then().
+                statusCode(200).
+                body(equalTo("Ištrinta sėkmingai"));
 
     }
 
@@ -141,30 +140,29 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldGetAllUsers() {
 
-       SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt", reqSpec);
+        SessionFilter sessionFilter = logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
 
-       given().
-               spec(reqSpec).
-               filter(sessionFilter).
-               queryParam("page", 0).
-               queryParam("size", 10).
-       when().
-               get("api/users/admin/allusers").
-       then().
-               body("content.size", not(0));
+        given().
+                spec(reqSpec).
+                filter(sessionFilter).
+                queryParam("page", 0).
+                queryParam("size", 10).
+                when().
+                get("api/users/admin/allusers").
+                then().
+                body("content.size", not(0));
 
     }
-
 
 
     @DataProvider
     public Object[][] parameters() {
 
-       return new Object[][]{
-               {"user@user.lt", "user@user.lt", "USER"},
-               {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
-               {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
-       };
+        return new Object[][]{
+                {"user@user.lt", "user@user.lt", "USER"},
+                {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
+                {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
+        };
     }
 
 }

@@ -52,7 +52,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
 
     @Test(groups = {"smoke", "regression"})
     public void successfullyCreateAndDeleteNewParent() {
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         createNewParent(2);
         deleteNewUser();
     }

@@ -25,6 +25,6 @@ public class CreateAndDeleteNewKindergarten extends GeneralMethods {
     public void createAndDeleteNewKindergarten() {
         successfullyCreateNewKindergarten();
         deleteNewKindergarten();
-        doLogout();
+        logOutUi();
     }
 }

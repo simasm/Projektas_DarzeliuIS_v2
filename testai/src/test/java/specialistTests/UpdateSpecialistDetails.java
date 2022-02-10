@@ -25,8 +25,8 @@ public class UpdateSpecialistDetails extends GeneralMethods {
     public void successfullyChangeSpecialistDetails() {
         // create a new user (kindergarten specialist) for this test
         createNewKindergartenSpecialist(1);
-        doLogout();
-        doLogin(createNewUserSpecialistEmail, createNewUserSpecialistEmail);
+        logOutUi();
+        logInUi(createNewUserSpecialistEmail, createNewUserSpecialistEmail);
 
         // go to "Mano paskyra" page
         clickNavButtonSpecialistMyAccount();
@@ -84,7 +84,7 @@ public class UpdateSpecialistDetails extends GeneralMethods {
         resetUserPassword(createNewUserSpecialistEmail);
 
         // delete user after successful user details change
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         deleteNewUser();
     }
 

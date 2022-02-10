@@ -21,7 +21,7 @@ public class CheckIfAdminPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllAdminPages() {
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
 
         // check Naudotojai page
         verifyIfAdminIsLoggedIn();
@@ -44,6 +44,6 @@ public class CheckIfAdminPagesWork extends GeneralMethods {
         clickNavButtonAdminMyAccount();
         assertThatMyAccountPageHasLoaded();
 
-        doLogout();
+        logOutUi();
     }
 }
