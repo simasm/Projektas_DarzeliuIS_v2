@@ -50,7 +50,7 @@ public class RegistrycenterController {
 	 * @return name, surname, personalID, date of birth
 	 */
  	@Secured({ "ROLE_USER", "ROLE_ADMIN", "ROLE_MANAGER" })
- 	@RequestMapping(value = "/{childPersonalCode}", method = RequestMethod.GET)
+ 	@RequestMapping(value = "/{childPersonalCode}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
  	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Get full info about child from ID code")
 	@ResponseBody
