@@ -111,3 +111,11 @@ p {
 .redborder {
   border: 3px solid rgb(141, 24, 24);
 }
+
+.marginTop12 {
+  margin-top: 12px;
+}
+
+.marginTop10 {
+  margin-top: 10px;
+}

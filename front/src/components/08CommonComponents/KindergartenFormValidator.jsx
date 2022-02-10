@@ -76,7 +76,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.email;
 
     case "bankName":
-      if (!e.target.value.match(/^[A-Z]+[a-zA-Z\s]*$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž][\w\sÀ-ž-][^%_^$]+$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas banko pavadinimo formatas",

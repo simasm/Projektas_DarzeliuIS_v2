@@ -167,7 +167,7 @@ export default function KindergartenInfoForm({
                 ? { border: "1px solid lightgray" }
                 : { border: "2px solid red" }
             }
-            maxLength={32}
+            maxLength={24}
             required
           />
           <span className="warningmsg">{kindergartenWarning.bankName}</span>
@@ -184,7 +184,7 @@ export default function KindergartenInfoForm({
             placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            maxLength={34}
+            maxLength={18}
             style={
               kindergartenValid.accountNumber
                 ? { border: "1px solid lightgray" }

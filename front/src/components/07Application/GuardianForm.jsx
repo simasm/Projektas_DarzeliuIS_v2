@@ -103,7 +103,7 @@ export default function GuardianForm({
         <span className="warningmsg">{guardianWarning.personalCode}</span>
       </div>
 
-      <div className="form-group">
+      <div className="form-group mt-2">
         <label htmlFor="txtGuardianPhone">
           Telefono numeris <span className="fieldRequired">*</span>
         </label>

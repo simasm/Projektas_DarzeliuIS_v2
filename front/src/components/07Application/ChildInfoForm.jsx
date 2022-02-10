@@ -72,7 +72,7 @@ export default function ChildInfoForm({
         <div className="pb-1">
           <h6 className="formHeader">Vaiko duomenys</h6>
         </div>
-        <div className="form-group mt-2">
+        <div className="form-group marginTop10">
           <label htmlFor="txtPersonalCodeCompensation">
             Asmens kodas <span className="fieldRequired">*</span>
           </label>
