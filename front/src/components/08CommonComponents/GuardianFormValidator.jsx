@@ -9,7 +9,7 @@ const GuardianFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-][^%_0-9^$]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas vardo formatas",
@@ -22,7 +22,7 @@ const GuardianFormValidator = (
       return guardianValid.name;
 
     case "surname":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-]+$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-][^%_0-9^$]+$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas pavardės formatas",

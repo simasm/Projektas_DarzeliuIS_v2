@@ -184,7 +184,7 @@ class CreateApplicationFormContainer extends Component {
       return (
         <div className="form">
           <h6 className="formHeader">Atstovas 1</h6>
-          <div className="form-group mt-3">
+          <div className="form-group marginTop12">
             <label htmlFor="txtName">
               Vardas <span className="fieldRequired">*</span>
             </label>
@@ -480,7 +480,7 @@ class CreateApplicationFormContainer extends Component {
           </span>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mt-2">
           <label htmlFor="txtName">
             Vaiko vardas <span className="fieldRequired">*</span>
           </label>
