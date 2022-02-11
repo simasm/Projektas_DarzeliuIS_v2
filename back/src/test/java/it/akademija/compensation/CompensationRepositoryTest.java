@@ -68,7 +68,7 @@ public class CompensationRepositoryTest {
 		
 		
 		assertEquals(compensation,
-		 	compensationDAO.findCompensationByMainGuardianUsername("test@test.lt"));
+		 	compensationDAO.findCompensationsByMainGuardianUsername("test@test.lt").get(0));
 		
 		assertEquals(compensation,
 				compensationDAO

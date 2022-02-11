@@ -104,13 +104,13 @@ public class CompensationController {
 	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
 	@GetMapping("/user")
 	@ApiOperation(value = "Retrieve application for compensation for selected user for viewing") 
-	public ResponseEntity<Compensation> getCompensationApplicationForUser(String currentUsername) {
+	public ResponseEntity<List<Compensation>> getCompensationApplicationsForUser(String currentUsername) {
 		
 		
-		Compensation compensation = compensationService.getCompensationApplicationForUser( currentUsername);
+		List<Compensation> compensations = compensationService.getCompensationApplicationForUser( currentUsername);
 		
-		if (compensation != null) 
-			return new ResponseEntity<Compensation>(compensation, HttpStatus.OK);
+		if (compensations != null) 
+			return new ResponseEntity<>(compensations, HttpStatus.OK);
 		
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
