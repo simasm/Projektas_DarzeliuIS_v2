@@ -54,7 +54,7 @@ export default function ChildInfoForm({
           setChildInfoValid({ ...childInfoValid, personalID: false });
           setChildInfoWarning({
             ...childInfoWarning,
-            personalID: "Toks Id neegzistuoja",
+            personalID: "Tokio asmens kodo registrų centre nėra",
           });
         }
       }
