@@ -1,19 +1,15 @@
 package it.akademija.registrycenter;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
 
 @Service
 public class RegistrycenterService {
@@ -23,6 +19,7 @@ public class RegistrycenterService {
 
 	public RegistrycenterDetailsDTO getDataByID(String id) {
 
+		/*
 		URL urlObject = null;
 		try {
 			urlObject = new URL(url + id);
@@ -40,7 +37,7 @@ public class RegistrycenterService {
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
 				return null;
 
-			reader = new InputStreamReader(connection.getInputStream());
+			reader = new InputStreamReader(connection.getInputStream(), Charset.forName("UTF-8"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,7 +47,29 @@ public class RegistrycenterService {
 			return new Gson().fromJson(reader, RegistrycenterDetailsDTO.class);
 
 		} else
-			return null;
-	}
+			return null;*/
+		
+		JSONObject json = null;
+		
+		 try {
+			json = new JSONObject(IOUtils.toString(new URL(url + id), Charset.forName("UTF-8")));
+		} catch (JSONException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 if(json != null && json.getString("vardas").length() > 0)
+		 
+			return new RegistrycenterDetailsDTO(json.getString("vardas"),
+					json.getString("pavarde"),
+					json.getString("asmensKodas"),
+					json.getString("gimimoData"));
+ 		 
+		 else 
+			 return null;
+				
 
+	}
+		
+		
 }
