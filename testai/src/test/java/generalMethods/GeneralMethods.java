@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.ChangeAndResetUserAccountFieldsAndPasswordPage;
 import pages.LoginPage;
+import parentPages.ApplyForCompensationPage;
 import parentPages.SubmitNewApplicationPage;
 import parentPages.UploadMedicalDocumentPDFPage;
 import specialistPages.CreateAndDeleteNewKindergartenPage;
@@ -38,7 +39,7 @@ public class GeneralMethods extends BaseTest {
 
     // LOGIN/ LOGOUT METHODS
 
-    public void doLogin(String username, String password) {
+    public void logInUi(String username, String password) {
         LoginPage loginPage = new LoginPage(driver);
         waitForLoginToLoad();
         loginPage.enterUsername(username);
@@ -46,7 +47,7 @@ public class GeneralMethods extends BaseTest {
         loginPage.clickLoginButton();
     }
 
-    public void doLoginAsAdmin() {
+    public void uiLogInAsAdmin() {
         LoginPage loginPage = new LoginPage(driver);
         waitForLoginToLoad();
         loginPage.enterUsername(adminLogins);
@@ -54,13 +55,11 @@ public class GeneralMethods extends BaseTest {
         loginPage.clickLoginButton();
     }
 
-    public void doLogout() {
+    public void logOutUi() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement logoutElement = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("btnLogout")));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,-400)");
-        js.executeScript("arguments[0].scrollIntoView()", logoutElement);
         js.executeScript("arguments[0].click();", logoutElement);
     }
 
@@ -78,7 +77,7 @@ public class GeneralMethods extends BaseTest {
 
     // create new admin
     public void createNewAdmin(int index) {
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         verifyIfAdminIsLoggedIn();
 
         // select user role
@@ -110,7 +109,7 @@ public class GeneralMethods extends BaseTest {
 
     // create new kindergarten specialist
     public void createNewKindergartenSpecialist(int index) {
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         verifyIfAdminIsLoggedIn();
 
         // select user role
@@ -158,7 +157,7 @@ public class GeneralMethods extends BaseTest {
         waitToPressOKPopUp();
 
         // logout after deleting the user
-        doLogout();
+        logOutUi();
     }
 
     // CHANGE USER DETAILS (MANO PASKYRA PAGE)
@@ -189,14 +188,14 @@ public class GeneralMethods extends BaseTest {
         assertThatUserPasswordWasUpdated();
         changeAccountDetails.clickOkButtonPasswordChanged();
 
-        doLogout();
+        logOutUi();
 
         // check if user can login with changed password
         waitForLoginToLoad();
-        doLogin(userLogin, newPassword);
+        logInUi(userLogin, newPassword);
 
         // logout
-        doLogout();
+        logOutUi();
     }
 
     public void resetUserPassword(String userLogin) {
@@ -209,7 +208,7 @@ public class GeneralMethods extends BaseTest {
         clickDoneButtonForgotPassword();
 
         // login as admin
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
 
         // reset password that needs to be reset (the button "Atkurti" becomes grey when it needs to be reset)
         clickResetPasswordButton();
@@ -220,10 +219,10 @@ public class GeneralMethods extends BaseTest {
         changeAccountDetails.clickOkButtonPasswordIsReset();
 
         // logout and check if user can login with original password
-        doLogout();
+        logOutUi();
         waitForLoginToLoad();
-        doLogin(userLogin, userLogin);
-        doLogout();
+        logInUi(userLogin, userLogin);
+        logOutUi();
     }
 
     public void clickChangeUserDetails() {
@@ -239,7 +238,7 @@ public class GeneralMethods extends BaseTest {
     public void successfullyCreateNewKindergarten() {
 
         // login as kindergarten specialist
-        doLogin(specialistLogins, specialistLogins);
+        logInUi(specialistLogins, specialistLogins);
 
         // wait for the page to load and check if the kindergarten specialist is logged in
         verifyIfSpecialistIsLoggedIn();
@@ -288,9 +287,9 @@ public class GeneralMethods extends BaseTest {
         // check if registration is open
         if (registrationClosed()) {
             driver.findElement(By.id("btnStartRegistration")).click();
-            doLogout();
+            logOutUi();
         } else {
-            doLogout();
+            logOutUi();
         }
     }
 
@@ -301,6 +300,36 @@ public class GeneralMethods extends BaseTest {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
+    }
+
+    public void fillInCompensationForm(String childId) {
+        ApplyForCompensationPage compensationPage = new ApplyForCompensationPage(driver);
+        clickNavButtonNewApplication();
+        clickDrpDnButtonCompensation();
+
+        // fill child form
+        compensationPage.inputChildPersonalId(childId);
+
+        // fill guardian form
+        compensationPage.inputGuardianName("Andrius");
+        compensationPage.inputGuardianSurname("Andriulis");
+        compensationPage.inputGuardianPersonalId("54634565466");
+        compensationPage.inputGuardianPhone("+37054756754");
+        compensationPage.inputGuardianEmail("andrius@andriulis.lt");
+        compensationPage.inputGuardianAddress("Gatve");
+
+        // fill kindergarten form
+        compensationPage.inputKindergartenName("Pagrandukas");
+        compensationPage.inputKindergartenCode("456645645");
+        compensationPage.inputKindergartenAddress("Gerve");
+        compensationPage.inputKindergartenPhone("+37012312345");
+        compensationPage.inputKindergartenEmail("pagran@dukas.lt");
+        compensationPage.inputKindergartenBankName("Swedbank");
+        compensationPage.inputKindergartenAccountNumber("LT1234567891234567");
+        compensationPage.inputKindergartenBankCode("12345");
+
+        compensationPage.clickBtnSubmit();
+
     }
 
     public void fillInTheApplication() throws IOException, InterruptedException {
@@ -345,18 +374,20 @@ public class GeneralMethods extends BaseTest {
 
     public void applicationFormChildDetails() throws IOException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
-        List<String> formData = FileReaderUtils.getTestData("src/test/resources/parentAndChildDetails.txt");
-        String childName = formData.get(6);
-        String childSurname = formData.get(7);
-        String childPersonalCode = formData.get(8);
-        String childDateOfBirth = formData.get(9);
-        newApplication.inputChildName(childName);
-        newApplication.inputChildSurname(childSurname);
-        newApplication.inputChildPersonalCode(childPersonalCode);
-        newApplication.inputChildDateOfBirth(childDateOfBirth);
+        newApplication.inputChildPersonalCode("51609260091");
+
+//        List<String> formData = FileReaderUtils.getTestData("src/test/resources/parentAndChildDetails.txt");
+//        String childName = formData.get(6);
+//        String childSurname = formData.get(7);
+//        String childPersonalCode = formData.get(8);
+//        String childDateOfBirth = formData.get(9);
+//        newApplication.inputChildName(childName);
+//        newApplication.inputChildSurname(childSurname);
+
+//        newApplication.inputChildDateOfBirth(childDateOfBirth);
     }
 
-    public void checkPrioritiesAndChooseAKindergarten() throws IOException {
+    public void checkPrioritiesAndChooseAKindergarten() throws InterruptedException {
         SubmitNewApplicationPage newApplication = new SubmitNewApplicationPage(driver);
 
         // check priorities

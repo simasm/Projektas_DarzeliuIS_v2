@@ -21,7 +21,7 @@ public class CheckIfParentPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllParentPages() {
-        doLogin(parentLogins, parentLogins);
+        logInUi(parentLogins, parentLogins);
 
         // check if Mano prasymai page loads
         CheckIfAllUsersPagesLoad checkPages = new CheckIfAllUsersPagesLoad(driver);
@@ -49,6 +49,6 @@ public class CheckIfParentPagesWork extends GeneralMethods {
         clickNavButtonMyAccountParent();
         assertThatMyAccountPageHasLoaded();
 
-        doLogout();
+        logOutUi();
     }
 }

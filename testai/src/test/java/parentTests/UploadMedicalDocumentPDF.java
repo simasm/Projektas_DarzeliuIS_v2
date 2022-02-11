@@ -32,10 +32,10 @@ public class UploadMedicalDocumentPDF extends GeneralMethods {
     @Test(groups = "regression")
     public void successfullyUploadAndDeletePDF() {
         // create test user (parent)
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         createNewParent(2);
-        doLogout();
-        doLogin(createNewUserParentEmail, createNewUserParentEmail);
+        logOutUi();
+        logInUi(createNewUserParentEmail, createNewUserParentEmail);
 
         // go to "Mano pazymos" page
         clickNavButtonMyDocumentsParent();
@@ -53,10 +53,10 @@ public class UploadMedicalDocumentPDF extends GeneralMethods {
 
         // delete document
         deletePDF();
-        doLogout();
+        logOutUi();
 
         // delete the user created for this test
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         deleteNewUser();
     }
 }

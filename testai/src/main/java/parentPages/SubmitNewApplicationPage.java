@@ -8,11 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AbstractObjectPage;
-import utilities.ScrollToEnd;
 
 import java.time.Duration;
-
-import static utilities.ScrollToEnd.scrollToEnd;
 
 public class SubmitNewApplicationPage extends AbstractObjectPage {
 
@@ -171,8 +168,10 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
         priorityFive.click();
     }
 
-    public void openKindergartenListDropdownPriorityOne() {
+    public void openKindergartenListDropdownPriorityOne() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+        Thread.sleep(200);
 
         kindergartenPriorityOne.click();
         WebElement drpDnPrioOne = wait.until(
@@ -181,7 +180,8 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
     }
 
     public void clickButtonSubmitApplication() throws InterruptedException {
-        scrollToEnd(driver);
+        driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+        Thread.sleep(200);
         buttonSubmitApplication.click();
     }
 

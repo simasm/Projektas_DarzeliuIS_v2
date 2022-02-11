@@ -25,8 +25,8 @@ public class UpdateAdminDetails extends GeneralMethods {
     public void successfullyChangeAdminDetails() {
         // create a new user (admin) for this test
         createNewAdmin(0);
-        doLogout();
-        doLogin(createNewUserAdminEmail, createNewUserAdminEmail);
+        logOutUi();
+        logInUi(createNewUserAdminEmail, createNewUserAdminEmail);
 
         // go to "Mano paskyra" page
         clickNavButtonAdminMyAccount();
@@ -84,7 +84,7 @@ public class UpdateAdminDetails extends GeneralMethods {
         resetUserPassword(createNewUserAdminEmail);
 
         // delete user after successful user details change
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         deleteNewUser();
 //	  doLogout();
     }

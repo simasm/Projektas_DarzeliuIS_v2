@@ -25,10 +25,10 @@ public class UpdateParentDetails extends GeneralMethods {
     @Test(groups = "regression", priority = 1)
     public void successfullyChangeParentDetails() {
         // create a new user (parent) for this test
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         createNewParent(2);
-        doLogout();
-        doLogin(createNewUserParentEmail, createNewUserParentEmail);
+        logOutUi();
+        logInUi(createNewUserParentEmail, createNewUserParentEmail);
 
         // go to "Mano paskyra" page
         clickNavButtonMyAccountParent();
@@ -90,7 +90,7 @@ public class UpdateParentDetails extends GeneralMethods {
         resetUserPassword(createNewUserParentEmail);
 
         // delete user after successful user details change
-        doLoginAsAdmin();
+        uiLogInAsAdmin();
         deleteNewUser();
     }
 

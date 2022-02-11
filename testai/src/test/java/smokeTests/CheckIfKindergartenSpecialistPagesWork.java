@@ -22,7 +22,7 @@ public class CheckIfKindergartenSpecialistPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllSpecialistPages() {
-        doLogin(specialistLogins, specialistLogins);
+        logInUi(specialistLogins, specialistLogins);
 
         // check if Darzeliu sarasas page loads
         verifyIfSpecialistIsLoggedIn();
@@ -41,6 +41,6 @@ public class CheckIfKindergartenSpecialistPagesWork extends GeneralMethods {
         clickNavButtonSpecialistMyAccount();
         assertThatMyAccountPageHasLoaded();
 
-        doLogout();
+        logOutUi();
     }
 }

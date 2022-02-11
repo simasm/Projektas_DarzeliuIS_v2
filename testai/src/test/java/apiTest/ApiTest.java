@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 
 public class ApiTest extends GeneralApiMethods {
@@ -23,27 +24,27 @@ public class ApiTest extends GeneralApiMethods {
     public void api_shouldLogInAndOut(String username, String pwd, String role) {
 
         SessionFilter sessionFilter =
-                logIn(username, pwd);
+                logInApi(username, pwd, reqSpec);
 
         given().
-               spec(reqSpec).
-               filter(sessionFilter).
-        when().
-               get("api/users/user").
-        then().
-               body("role", equalTo(role)).
-               body("username", equalTo(username));
+                spec(reqSpec).
+                filter(sessionFilter).
+                when().
+                get("api/users/user").
+                then().
+                body("role", equalTo(role)).
+                body("username", equalTo(username));
 
-        logOut();
+        logOutApi(reqSpec);
 
         // assert that logout was successful
         given().
-               spec(reqSpec).
-               filter(sessionFilter).
-        when().
-               get("api/users/user").
-        then().
-               statusCode(401);
+                spec(reqSpec).
+                filter(sessionFilter).
+                when().
+                get("api/users/user").
+                then().
+                statusCode(401);
 
     }
 
@@ -51,27 +52,27 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewUser() {
 
-        logIn("admin@admin.lt", "admin@admin.lt");
+        logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
 
         HashMap<String, Object> user = new HashMap<>();
-        user.put("address", "gatve 33-14");
+//        user.put("address", "gatve 33-14");
         user.put("email", "andriusd@andrius.lt");
         user.put("name", "Andrius");
         user.put("password", "andriusd@andrius.lt");
-        user.put("personalCode", "34512321234");
-        user.put("phone", "+37012312345");
+//        user.put("personalCode", "34512321234");
+//        user.put("phone", "+37012312345");
         user.put("role", "USER");
         user.put("surname", "Andriulis");
         user.put("username", "andriusd@andrius.lt");
 
-        createNewUser(user).
+        createNewUser(user, reqSpec).
                 then().
                 contentType("text/plain; charset=UTF-8").
                 statusCode(201).
                 body(equalTo("Naudotojas sukurtas sėkmingai!"));
 
         // delete user
-        deleteUser("andriusd@andrius.lt").
+        deleteUser("andriusd@andrius.lt", reqSpec).
                 then().
                 contentType("text/plain; charset=UTF-8").
                 statusCode(200).
@@ -83,7 +84,7 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldCreateNewKindergarten() {
 
-        logIn("manager@manager.lt", "manager@manager.lt");
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
 
         Kindergarten kg = new Kindergarten();
         kg.setAddress("gatve 13");
@@ -94,19 +95,18 @@ public class ApiTest extends GeneralApiMethods {
         kg.setName("AAMontessori");
 
 
-
-        createNewKindergarten(kg).
-        then().
-               contentType("text/plain; charset=UTF-8").
-               statusCode(200).
-               body(equalTo("Darželis sukurtas sėkmingai"));
+        createNewKindergarten(kg, reqSpec).
+                then().
+                contentType("text/plain; charset=UTF-8").
+                statusCode(200).
+                body(equalTo("Darželis sukurtas sėkmingai"));
 
         // delete kindergarten
-        deleteKindergarten("123456789").
-        then().
-               statusCode(200).
-               contentType("text/plain; charset=UTF-8").
-               body(equalTo("Darželis ištrintas sėkmingai"));
+        deleteKindergarten("123456789", reqSpec).
+                then().
+                statusCode(200).
+                contentType("text/plain; charset=UTF-8").
+                body(equalTo("Darželis ištrintas sėkmingai"));
 
     }
 
@@ -114,24 +114,24 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
 
-       logIn("user@user.lt", "user@user.lt");
+        logInApi("user@user.lt", "user@user.lt", reqSpec);
 
-       submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json")))).
-       then().
-              statusCode(200).
-              body(equalTo("Prašymas sukurtas sėkmingai"));
+        submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json"))), reqSpec).
+                then().
+                statusCode(200).
+                body(equalTo("Prašymas sukurtas sėkmingai"));
 
-       // get id of submitted application
-       ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser().
-       then().
-              statusCode(200).
-              extract(). path("id");
+        // get id of submitted application
+        ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser(reqSpec).
+                then().
+                statusCode(200).
+                extract().path("id");
 
-       // delete previously created application
-       deleteApplicationAsUserById(applicationId.get(0)).
-       then().
-              statusCode(200).
-              body(equalTo("Ištrinta sėkmingai"));
+        // delete previously created application
+        deleteApplicationAsUserById(applicationId.get(0), reqSpec).
+                then().
+                statusCode(200).
+                body(equalTo("Ištrinta sėkmingai"));
 
     }
 
@@ -140,30 +140,29 @@ public class ApiTest extends GeneralApiMethods {
     @Test
     public void api_shouldGetAllUsers() {
 
-       SessionFilter sessionFilter = logIn("admin@admin.lt", "admin@admin.lt");
+        SessionFilter sessionFilter = logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
 
-       given().
-               spec(reqSpec).
-               filter(sessionFilter).
-               queryParam("page", 0).
-               queryParam("size", 10).
-       when().
-               get("api/users/admin/allusers").
-       then().
-               body("content.size", not(0));
+        given().
+                spec(reqSpec).
+                filter(sessionFilter).
+                queryParam("page", 0).
+                queryParam("size", 10).
+                when().
+                get("api/users/admin/allusers").
+                then().
+                body("content.size", not(0));
 
     }
-
 
 
     @DataProvider
     public Object[][] parameters() {
 
-       return new Object[][]{
-               {"user@user.lt", "user@user.lt", "USER"},
-               {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
-               {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
-       };
+        return new Object[][]{
+                {"user@user.lt", "user@user.lt", "USER"},
+                {"admin@admin.lt", "admin@admin.lt", "ADMIN"},
+                {"manager@manager.lt", "manager@manager.lt", "MANAGER"}
+        };
     }
 
 }
