@@ -51,8 +51,8 @@ public class CompensationService {
 		return compensationDAO.saveAndFlush(compensation);
 	}
 	
-	public Compensation getCompensationApplicationForUser (String currentUsername) {
-		return compensationDAO.findCompensationByMainGuardianUsername(currentUsername);
+	public List<Compensation> getCompensationApplicationForUser (String currentUsername) {
+		return compensationDAO.findCompensationsByMainGuardianUsername(currentUsername);
 	}
 	@Transactional(readOnly = true)
 	public List<Compensation> getAllCompensationApplications() {
@@ -62,16 +62,17 @@ public class CompensationService {
 	}
 	
 	@Transactional
-	public String deleteCompensationApplicationByUsername(String username) {
-		Compensation compensaion = 
-				compensationDAO.findCompensationByMainGuardianUsername(username);
-		if(compensaion != null) {
-		  compensationDAO.delete(compensaion);
-		  return "Naudotojo " + username + " kompensacija su id " + compensaion.getId() +
-				  " istrinta";
+	public String deleteCompensationsApplicationByUsername(String username) {
+		List<Compensation> compensations = 
+				compensationDAO.findCompensationsByMainGuardianUsername(username);
+		if(compensations != null) {
+		 compensations.forEach(compensation->compensationDAO.delete(compensation));
+		 	
+		 return "Naudotojo kompensaciju prasymai istrinti";
+		  
 		}
-		else
-			return "Tokios kompensacijos nera";
+		 
+			return "Naudotojas neturi kompensaciju prasymu";
 	}
 	
 	@Transactional
