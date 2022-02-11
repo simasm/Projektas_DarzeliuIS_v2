@@ -40,16 +40,16 @@ public class Compensation {
 	
 	@NotEmpty(message = "Vardas privalomas!")
 	@Size(min = 2, max = 70)
-	@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
+	//@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
 	private String childName;
 
 	@NotEmpty(message = "Pavardė privaloma!")
 	@Size(min = 2, max = 70)
-	@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
+	//@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
 	private String childSurname;
 
 	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
-	@NotEmpty(message = "Kodas privalomas")
+	//@NotEmpty(message = "Kodas privalomas")
  	private String childPersonalCode;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -63,14 +63,42 @@ public class Compensation {
 	
  
 	
+	public Compensation(
+			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) String childName,
+			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) String childSurname,
+			@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|") String childPersonalCode, LocalDate childBirthdate,
+			User mainGuardian, String kindergartenId,
+			@NotBlank(message = "Pavadinimas privalomas") String kindergartenName,
+			@NotBlank(message = "Adresas privalomas") String kindergartenAddress,
+			@NotBlank(message = "Telefonas privalomas") String kindergartenPhoneNumber,
+			@Email @NotEmpty(message = "El. paštas privalomas") String kindergartenEmail,
+			@NotBlank(message = "Banko pavadinimas privalomas") String kindergartenBankName,
+			@NotBlank(message = "Banko saskaitos numeris privalomas") String kindergartenBankAccountNumber,
+			@NotBlank(message = "Banko kodas privalomas") String kindergartenBankCode) {
+		super();
+		this.childName = childName;
+		this.childSurname = childSurname;
+		this.childPersonalCode = childPersonalCode;
+		this.childBirthdate = childBirthdate;
+		this.mainGuardian = mainGuardian;
+		this.kindergartenId = kindergartenId;
+		this.kindergartenName = kindergartenName;
+		this.kindergartenAddress = kindergartenAddress;
+		this.kindergartenPhoneNumber = kindergartenPhoneNumber;
+		this.kindergartenEmail = kindergartenEmail;
+		this.kindergartenBankName = kindergartenBankName;
+		this.kindergartenBankAccountNumber = kindergartenBankAccountNumber;
+		this.kindergartenBankCode = kindergartenBankCode;
+	}
+
 	//kindergarten ifno
 	 
 	@Column(name = "kindergarten_id")
-	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{9}$|", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų")
+	//@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{9}$|", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų")
 	private String kindergartenId;
 
 	@NotBlank(message = "Pavadinimas privalomas")
-	@Pattern(regexp = "\\S[\\s\\S]{2,49}")
+	//@Pattern(regexp = "\\S[\\s\\S]{2,49}")
 	private String kindergartenName;
 
 	@Column
@@ -87,7 +115,7 @@ public class Compensation {
 	private String kindergartenEmail;
 	
 	@NotBlank(message = "Banko pavadinimas privalomas")
-	@Pattern(regexp = "\\S[\\s\\S]{2,49}")
+	//@Pattern(regexp = "\\S[\\s\\S]{2,49}")
 	private String kindergartenBankName;
 
 	
@@ -103,35 +131,7 @@ public class Compensation {
 		
 	}
 
-	public Compensation(
-			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) @Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$") String childName,
-			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) @Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$") String childSurname,
-			@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|") String childPersonalCode, LocalDate birthdate,
-			User mainGuardian,
-			@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{9}$|", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų") String kindergartenId,
-			@NotBlank(message = "Pavadinimas privalomas") @Pattern(regexp = "\\S[\\s\\S]{2,49}") String kindergartenName,
-			@NotBlank(message = "Adresas privalomas") String kindergartenAddress,
-			@NotBlank(message = "Telefonas privalomas")  String kindergartenPhoneNumber,
-			@Email @NotEmpty(message = "El. paštas privalomas") String kindergartenEmail,
-			@NotBlank(message = "Banko pavadinimas privalomas") @Pattern(regexp = "\\S[\\s\\S]{2,49}") String kindergartenBankName,
-			@NotBlank(message = "Banko saskaitos numeris privalomas") String kindergartenBankAccountNumber,
-			@NotBlank(message = "Banko kodas privalomas") String kindergartenBankCode) {
-		super();
-		this.childName = childName;
-		this.childSurname = childSurname;
-		this.childPersonalCode = childPersonalCode;
-		this.childBirthdate = birthdate;
-		this.mainGuardian = mainGuardian;
-		this.kindergartenId = kindergartenId;
-		this.kindergartenName = kindergartenName;
-		this.kindergartenAddress = kindergartenAddress;
-		this.kindergartenPhoneNumber = kindergartenPhoneNumber;
-		this.kindergartenEmail = kindergartenEmail;
-		this.kindergartenBankName = kindergartenBankName;
-		this.kindergartenBankAccountNumber = kindergartenBankAccountNumber;
-		this.kindergartenBankCode = kindergartenBankCode;
-	 
-	}
+	
 
 
 
