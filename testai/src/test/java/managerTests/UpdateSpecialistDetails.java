@@ -1,4 +1,4 @@
-package specialistTests;
+package managerTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
@@ -24,9 +24,9 @@ public class UpdateSpecialistDetails extends GeneralMethods {
     @Test(groups = "regression", priority = 1)
     public void successfullyChangeSpecialistDetails() {
         // create a new user (kindergarten specialist) for this test
-        createNewKindergartenSpecialist(1);
+        createNewManager(1);
         logOutUi();
-        logInUi(createNewUserSpecialistEmail, createNewUserSpecialistEmail);
+        logInUi(createNewUserManagerEmail, createNewUserManagerEmail);
 
         // go to "Mano paskyra" page
         clickNavButtonSpecialistMyAccount();
@@ -57,7 +57,7 @@ public class UpdateSpecialistDetails extends GeneralMethods {
 
     @Test(groups = "regression", priority = 2)
     public void successfullyChangeSpecialistPassword() {
-        changeUserPassword(createNewUserSpecialistEmail);
+        changeUserPassword(createNewUserManagerEmail);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UpdateSpecialistDetails extends GeneralMethods {
 
     @Test(groups = "regression", priority = 3)
     public void successfullyResetSpecialistPasswordToOriginal() {
-        resetUserPassword(createNewUserSpecialistEmail);
+        resetUserPassword(createNewUserManagerEmail);
 
         // delete user after successful user details change
         uiLogInAsAdmin();

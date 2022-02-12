@@ -1,4 +1,4 @@
-package specialistTests;
+package managerTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;

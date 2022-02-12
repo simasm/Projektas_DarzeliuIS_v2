@@ -79,14 +79,14 @@ http://localhost:8081/darzelis/swagger-ui/
 
 ### Break down into end to end tests
 
-There are 7 different test packages: adminTests, specialistTests, parentTests, login, smokeTests, generalMethods and basetest. First 3 are the main ones, generalMethods holds reusable code for different test cases and basetest is for set up (getting Chrome driver and application link) and closing all tests after running them.
+There are 7 different test packages: adminTests, managerTests, parentTests, login, smokeTests, generalMethods and basetest. First 3 are the main ones, generalMethods holds reusable code for different test cases and basetest is for set up (getting Chrome driver and application link) and closing all tests after running them.
 
 ```
 adminTests package tests:
 - create and delete new user (all three roles)
 - update admin details (change user information, password, reset password)
 
-specialistTests package tests:
+managerTests package tests:
 - create and delete new kindergarten
 - update specialist details (change user information, password, reset password)
 

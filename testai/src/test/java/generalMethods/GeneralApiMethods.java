@@ -3,6 +3,7 @@ package generalMethods;
 import basetest.BaseApiTest;
 import com.google.gson.Gson;
 import io.restassured.filter.session.SessionFilter;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.Child;
@@ -46,7 +47,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         body(user).
-                        when().
+                when().
                         post("api/users/admin/createuser");
     }
 
@@ -57,7 +58,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         pathParam("username", userName).
-                        when().
+                when().
                         delete("api/users/admin/delete/{username}");
     }
 
@@ -68,7 +69,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         body(kindergarten).
-                        when().
+                when().
                         post("api/darzeliai/manager/createKindergarten");
     }
 
@@ -79,20 +80,21 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         pathParam("id", id).
-                        when().
+                when().
                         delete("api/darzeliai/manager/delete/{id}");
     }
 
 
     // get child by personal id from Registru Centras API
     public static Child getChildById(String asmensKodas, RequestSpecification reqSpec) {
-        Response response = given().
+        Response response =
+        given().
                 spec(reqSpec).
                 baseUri("https://darzelis.akademijait.vtmc.lt/registru-centras/vaikai/").
                 pathParam("asmensKodas", asmensKodas).
-                when().
+        when().
                 get("/{asmensKodas}").
-                then().
+        then().
                 extract().response();
 
         Gson gson = new Gson();
@@ -107,7 +109,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         body(json).
-                        when().
+                when().
                         post("api/prasymai/user/new");
     }
 
@@ -118,7 +120,7 @@ public class GeneralApiMethods extends BaseApiTest {
                 given().
                         spec(reqSpec).
                         filter(sessionFilter).
-                        when().
+                when().
                         get("api/prasymai/user");
     }
 
@@ -130,7 +132,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         pathParam("applicationId", applicationId).
-                        when().
+                when().
                         delete("api/prasymai/user/delete/{applicationId}");
     }
 
@@ -143,7 +145,7 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         pathParam("childPersonalCode", childId).
-                        when().
+                when().
                         get("api/kompensacija/{childPersonalCode}");
     }
 
@@ -155,8 +157,80 @@ public class GeneralApiMethods extends BaseApiTest {
                         spec(reqSpec).
                         filter(sessionFilter).
                         pathParam("childCode", childId).
-                        when().
+                when().
                         delete("api/kompensacija/manager/{childCode}");
+    }
+
+    // check if application process is open
+    // requires prior login as any role
+    public static Boolean isRegistrationActive(RequestSpecification reqSpec) {
+          String body =
+                given().
+                        spec(reqSpec).
+                        filter(sessionFilter).
+                when().
+                        get("api/status").
+                then().extract().body().asString();
+        JsonPath jsonPath = JsonPath.from(body);
+        return jsonPath.getBoolean("registrationActive");
+
+    }
+
+    // open registration to kindergartens
+    // requires prior login as MANAGER
+    public static Response openRegistration(RequestSpecification reqSpec) {
+        return
+                given().
+                        spec(reqSpec).
+                        filter(sessionFilter).
+                when().
+                        post("api/status/true");
+    }
+
+    // close registration to kindergartens
+    // requires prior login as MANAGER
+    public static Response closeRegistration(RequestSpecification reqSpec) {
+        return
+                given().
+                        spec(reqSpec).
+                        filter(sessionFilter).
+                when().
+                        post("api/status/false");
+    }
+
+    // process queue
+    // requires prior login as MANAGER
+    public static Response processQueue(RequestSpecification reqSpec) {
+       return
+               given().
+                       spec(reqSpec).
+                       filter(sessionFilter).
+               when().
+                       post("api/queue/process");
+    }
+
+    // confirm queue
+    // requires prior login as MANAGER
+    public static Response confirmQueue(RequestSpecification reqSpec) {
+        return
+                given().
+                        spec(reqSpec).
+                        filter(sessionFilter).
+                when().
+                        post("api/queue/confirm");
+    }
+
+    // get all application in queue
+    // requires prior log in as MANAGER
+    public static Response getApplicationQueue(RequestSpecification reqSpec) {
+        return
+                given().
+                        spec(reqSpec).
+                        filter(sessionFilter).
+                        queryParam("page", 0).
+                        queryParam("size", 10).
+               when().
+                        get("api/eile/manager/queue");
     }
 
 }

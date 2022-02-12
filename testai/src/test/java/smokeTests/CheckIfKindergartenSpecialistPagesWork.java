@@ -22,10 +22,10 @@ public class CheckIfKindergartenSpecialistPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllSpecialistPages() {
-        logInUi(specialistLogins, specialistLogins);
+        logInUi(managerLogins, managerLogins);
 
         // check if Darzeliu sarasas page loads
-        verifyIfSpecialistIsLoggedIn();
+        verifyIfManagerIsLoggedIn();
         CheckIfAllUsersPagesLoad checkPages = new CheckIfAllUsersPagesLoad(driver);
         checkPages.assertDarzeliuSarasasPageTitle();
 
