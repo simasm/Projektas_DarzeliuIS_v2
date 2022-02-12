@@ -48,7 +48,6 @@ public class ApplyForCompensation extends GeneralMethods {
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
 
-        ApplyForCompensationPage compensationPage = new ApplyForCompensationPage(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
         // create new USER for this test
@@ -69,7 +68,6 @@ public class ApplyForCompensation extends GeneralMethods {
 
         fillInCompensationForm(childId);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='dialog']/div[1]"))); // wait for popup
-        assertEquals(compensationPage.popUp.getText(), "Prašymas dėl kompensacijos sėkmingai pateiktas");
         clickOkButton();
         logOutUi();
 

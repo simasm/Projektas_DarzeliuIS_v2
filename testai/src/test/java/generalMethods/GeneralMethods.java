@@ -13,7 +13,7 @@ import pages.LoginPage;
 import parentPages.ApplyForCompensationPage;
 import parentPages.SubmitNewApplicationPage;
 import parentPages.UploadMedicalDocumentPDFPage;
-import specialistPages.CreateAndDeleteNewKindergartenPage;
+import managerPages.CreateAndDeleteNewKindergartenPage;
 import utilities.FileReaderUtils;
 
 import java.io.IOException;
@@ -23,10 +23,10 @@ import java.util.List;
 public class GeneralMethods extends BaseTest {
 
     protected static String adminLogins = "admin@admin.lt";
-    protected static String specialistLogins = "manager@manager.lt";
+    protected static String managerLogins = "manager@manager.lt";
     protected static String parentLogins = "user@user.lt";
     protected String createNewUserAdminEmail = "admin123@admin.lt";
-    protected String createNewUserSpecialistEmail = "manager123@manager.lt";
+    protected String createNewUserManagerEmail = "manager123@manager.lt";
     protected String createNewUserParentEmail = "user123@parent.lt";
     private String newUserName = "Jonas";
     private String newUserSurname = "Jonaitis";
@@ -68,7 +68,7 @@ public class GeneralMethods extends BaseTest {
         return wait.until(ExpectedConditions.textToBe(By.id("navAdminUserList"), "Naudotojai"));
     }
 
-    public Boolean verifyIfSpecialistIsLoggedIn() {
+    public Boolean verifyIfManagerIsLoggedIn() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.textToBe(By.id("navManagerKindergartenList"), "Darželių sąrašas"));
     }
@@ -108,7 +108,7 @@ public class GeneralMethods extends BaseTest {
     }
 
     // create new kindergarten specialist
-    public void createNewKindergartenSpecialist(int index) {
+    public void createNewManager(int index) {
         uiLogInAsAdmin();
         verifyIfAdminIsLoggedIn();
 
@@ -117,7 +117,7 @@ public class GeneralMethods extends BaseTest {
         dropdownUserRole.selectByIndex(index);
 
         CreateAndDeleteNewUserPage createNewUserPage = new CreateAndDeleteNewUserPage(driver);
-        createNewUserPage.enterEmail(createNewUserSpecialistEmail);
+        createNewUserPage.enterEmail(createNewUserManagerEmail);
         createNewUserPage.enterName(newUserName);
         createNewUserPage.enterSurname(newUserSurname);
 
@@ -238,10 +238,10 @@ public class GeneralMethods extends BaseTest {
     public void successfullyCreateNewKindergarten() {
 
         // login as kindergarten specialist
-        logInUi(specialistLogins, specialistLogins);
+        logInUi(managerLogins, managerLogins);
 
         // wait for the page to load and check if the kindergarten specialist is logged in
-        verifyIfSpecialistIsLoggedIn();
+        verifyIfManagerIsLoggedIn();
 
         // input new kindergarten details
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);

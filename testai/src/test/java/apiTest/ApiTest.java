@@ -15,6 +15,7 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
+import static org.testng.Assert.assertTrue;
 
 
 public class ApiTest extends GeneralApiMethods {
@@ -41,9 +42,9 @@ public class ApiTest extends GeneralApiMethods {
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
-                when().
+        when().
                 get("api/users/user").
-                then().
+        then().
                 statusCode(401);
 
     }
@@ -116,7 +117,7 @@ public class ApiTest extends GeneralApiMethods {
 
         logInApi("user@user.lt", "user@user.lt", reqSpec);
 
-        submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application.json"))), reqSpec).
+        submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application1.json"))), reqSpec).
                 then().
                 statusCode(200).
                 body(equalTo("Prašymas sukurtas sėkmingai"));
@@ -132,7 +133,6 @@ public class ApiTest extends GeneralApiMethods {
                 then().
                 statusCode(200).
                 body(equalTo("Ištrinta sėkmingai"));
-
     }
 
 
@@ -147,11 +147,15 @@ public class ApiTest extends GeneralApiMethods {
                 filter(sessionFilter).
                 queryParam("page", 0).
                 queryParam("size", 10).
-                when().
+        when().
                 get("api/users/admin/allusers").
-                then().
+        then().
                 body("content.size", not(0));
+    }
 
+    @Test
+    public void isRegistrationActiveTest() {
+        assertTrue(isRegistrationActive(reqSpec), "Registration is open:");
     }
 
 

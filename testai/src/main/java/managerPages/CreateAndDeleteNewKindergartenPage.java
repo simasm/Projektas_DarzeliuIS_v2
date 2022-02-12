@@ -1,4 +1,4 @@
-package specialistPages;
+package managerPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

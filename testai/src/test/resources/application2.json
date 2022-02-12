@@ -1,0 +1,38 @@
+{
+  "additionalGuardian": {
+    "name": "",
+    "surname": "",
+    "personalCode": "",
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
+  "birthdate": "2016-09-26",
+  "childName": "BVienuolika",
+  "childPersonalCode": "51609260002",
+  "childSurname": "Taškų",
+  "kindergartenChoises": {
+    "kindergartenId1": "190032931",
+    "kindergartenId2": "",
+    "kindergartenId3": "",
+    "kindergartenId4": "",
+    "kindergartenId5": ""
+  },
+  "mainGuardian": {
+    "name": "user",
+    "surname": "user",
+    "personalCode": "12345678987",
+    "phone": "+37061398876",
+    "email": "user@user.lt",
+    "address": "Address 1",
+    "username": "user@user.lt",
+    "role": "USER"
+  },
+  "priorities": {
+    "childIsAdopted": false,
+    "familyHasThreeOrMoreChildrenInSchools": false,
+    "guardianDisability": false,
+    "guardianInSchool": true,
+    "livesInVilnius": true
+  }
+}

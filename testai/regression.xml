@@ -13,7 +13,7 @@
             <package name="login"/>
             <package name="adminTests"/>
             <package name="parentTests"/>
-            <package name="specialistTests"/>
+            <package name="managerTests"/>
         </packages>
     </test>
 

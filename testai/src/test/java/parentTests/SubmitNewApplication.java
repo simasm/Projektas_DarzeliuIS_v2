@@ -3,7 +3,7 @@ package parentTests;
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-import specialistPages.CreateAndDeleteNewKindergartenPage;
+import managerPages.CreateAndDeleteNewKindergartenPage;
 
 import java.io.IOException;
 
@@ -64,7 +64,7 @@ public class SubmitNewApplication extends GeneralMethods {
         logOutUi();
 
         // delete the kindergarten that was created for the test
-        logInUi(specialistLogins, specialistLogins);
+        logInUi(managerLogins, managerLogins);
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);
         createNewKindergarten.searchForTheNewlyCreatedKindergarten("123 Testinis");
         deleteNewKindergarten();
