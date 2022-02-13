@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
+import it.akademija.compensation.Compensation;
+import it.akademija.compensation.CompensationService;
 import it.akademija.document.DocumentDAO;
 import it.akademija.journal.JournalService;
 import it.akademija.role.Role;
@@ -35,6 +37,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private ApplicationService applicationService;
+	
+	@Autowired 
+	private CompensationService compensationService;
 
 	@Autowired
 	private UserPasswordResetRequestsDAO userPasswordResetRequestsDAO;
@@ -116,12 +121,16 @@ public class UserService implements UserDetailsService {
 		} else if (user.getRole().equals(Role.USER)) {
 
 			Set<Application> submittedApplications = user.getUserApplications();
+		//	List<Compensation> submittedCompensations = compensationService.getCompensationApplicationForUser(username);
 
 			for (Application application : submittedApplications) {
 
 				applicationService.detachAdditionalGuardian(application);
 				applicationService.updateAvailablePlacesInKindergarten(application);
 			}
+		 
+				compensationService.deleteCompensationsApplicationByUsername(username);
+	 
 
 			documentDao.deleteByUploaderId(user.getUserId());
 		}

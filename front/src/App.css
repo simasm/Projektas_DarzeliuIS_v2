@@ -90,4 +90,32 @@ p {
 
 .marginBottomSide {
   margin-bottom: 20px;
+
+}
+
+#warningmsg {
+  display: block;
+  float: right;
+  color: rgb(134, 37, 37);
+}
+
+.warningmsg {
+  display: block;
+  float: right;
+  color: rgb(134, 37, 37);
+  font-size: 12px;
+}
+
+
+
+.redborder {
+  border: 3px solid rgb(141, 24, 24);
+}
+
+.marginTop12 {
+  margin-top: 12px;
+}
+
+.marginTop10 {
+  margin-top: 10px;
 }
