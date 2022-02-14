@@ -145,8 +145,7 @@ const Pagination = (props) => {
                 <div className="col"></div>
                 <div className="col">
                   <input
-                    className="page-link"
-                    style={{ width: "60px", height: "35px" }}
+                    className="page-link paginationPageInputBox"
                     placeholder="#"
                     maxLength={3}
                     value={isNaN(pageToHop) ? 1 : pageToHop}

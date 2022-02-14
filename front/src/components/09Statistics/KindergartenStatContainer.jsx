@@ -71,16 +71,15 @@ export class KindergartenStatContainer extends Component {
         <div className="row pt-2">
           <div className="col-12">
             <KindergartenStatTable darzeliai={darzeliai} />
-
-            <div className="d-flex justify-content-center">
-              <Pagination
-                itemsCount={totalElements}
-                pageSize={pageSize}
-                onPageChange={this.handlePageChange}
-                currentPage={this.state.currentPage}
-              />
-            </div>
           </div>
+        </div>
+        <div className="d-flex justify-content-center">
+          <Pagination
+            itemsCount={totalElements}
+            pageSize={pageSize}
+            onPageChange={this.handlePageChange}
+            currentPage={this.state.currentPage}
+          />
         </div>
       </div>
     );

@@ -26,7 +26,9 @@
 .no-top-border th {
   border: none;
 }
-
+.d-flex {
+  font-size: 1rem;
+}
 /* #capacityAgeGroup2to3 {
   text-align: center;
 }
@@ -119,4 +121,9 @@ p {
 
 .page-link:focus {
   box-shadow: none;
+}
+
+.paginationPageInputBox {
+  width: 60px;
+  height: 38px;
 }

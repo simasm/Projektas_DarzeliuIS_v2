@@ -74,12 +74,9 @@ export class EventJournalContainer extends Component {
 
         <div className="d-flex justify-content-center">
           <Pagination
-            itemClass="page-item"
-            linkClass="page-link"
             currentPage={this.state.currentPage}
             pageSize={this.state.pageSize}
             itemsCount={this.state.totalElements}
-            pageRangeDisplayed={15}
             onPageChange={this.handlePageChange.bind(this)}
           />
         </div>
