@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import '../../App.css';
 
+import ManagerDropdownList from '.././08CommonComponents/ManagerDropdownList';
 import LogoutContainer from './LogoutContainer';
 
 function Navigation(props) {
@@ -26,14 +27,22 @@ function Navigation(props) {
                                 <NavLink className="nav-link" id="navManagerKindergartenList" to={"/darzeliai"}>Darželių sąrašas</NavLink>
                             </li>
 
-                            <li className="nav-item me-2">
+                            <li className="nav-item mr-2">
+                                <ManagerDropdownList />
+                            </li>
+
+                            {/* <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerApplicationQueue" to={"/eile"}>Prašymų eilė</NavLink>
                             </li>
 
                             <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerApplicationStats" to={"/statistika"}>Prašymų statistika</NavLink>
+                            </li> */}
+
+                            <li className="nav-item me-2">
+                                <NavLink className="nav-link" id="navManagerMyAccount" to={"/visos_pazymos"}>Pažymos</NavLink>
                             </li>
-                            
+
                             <li className="nav-item me-2">
                                 <NavLink className="nav-link" id="navManagerMyAccount" to={"/profilis/atnaujinti"}>Mano paskyra</NavLink>
                             </li>

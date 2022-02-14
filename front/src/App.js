@@ -29,6 +29,8 @@ import UserDocumentContainer from "./components/13UserDocuments/UserDocumentCont
 import { ApplicationStatusContainer } from './components/04Admin/ApplicationStatusContainer';
 import EventJournalContainer from "./components/14EventJournal/EventJournalContainer";
 import Compensation from "./components/07Application/Compensation";
+import MedicalCertificates from "./components/13UserDocuments/MedicalCertificates";
+import ManagerCompensations from "./components/02Main/ManagerCompensations"
 
 var initState = {
   isAuthenticated: null,
@@ -158,6 +160,16 @@ function App() {
                       exact
                       path="/home"
                       component={KindergartenContainer}
+                    />
+                    <Route
+                      exact
+                      path="/kompensacijos"
+                      component={ManagerCompensations}
+                    />
+                    <Route
+                      exact
+                      path="/visos_pazymos"
+                      component={MedicalCertificates}
                     />
                     <Route
                       exact
