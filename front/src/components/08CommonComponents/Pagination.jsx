@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 import _ from "lodash";
 
 import "../../App.css";
@@ -8,6 +12,7 @@ const Pagination = (props) => {
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
   const pagesCount = Math.ceil(itemsCount / pageSize);
   const [pages, setPages] = useState([]);
+  const [pageToHop, setPageToHop] = useState(1);
 
   useEffect(() => {
     if (pagesCount >= 6) {
@@ -20,8 +25,20 @@ const Pagination = (props) => {
   if (pagesCount === 1) return null;
 
   const handleSubmit = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && Number(e.target.value) <= pagesCount) {
       onPageChange(Number(e.target.value));
+    } else if (e.key === "Enter" && Number(e.target.value) > pagesCount) {
+      setPageToHop(pagesCount);
+      onPageChange(pagesCount);
+    }
+  };
+
+  const onSearchClick = () => {
+    if (pageToHop <= pagesCount) {
+      onPageChange(pageToHop);
+    } else if (pageToHop > pagesCount) {
+      setPageToHop(pagesCount);
+      onPageChange(pagesCount);
     }
   };
 
@@ -29,106 +46,204 @@ const Pagination = (props) => {
     onPageChange(currentPage - 1);
   };
 
-  return (
-    <div className="d-flex justify-content-center">
-      <nav>
-        <ul className="pagination">
-          <li className={"page-item"}>
-            <a
-              href="#0"
-              className="page-link"
-              onClick={() => handlePrevious(currentPage)}
-            >
-              &lt;
-            </a>
-          </li>
+  const handleNext = (currentPage) => {
+    if (currentPage === pagesCount) {
+      currentPage = pagesCount - 1;
+    }
 
-          {/* VIENETAS */}
-          <li className={1 === currentPage ? "page-item active" : "page-item"}>
-            <a href="#0" className="page-link" onClick={() => onPageChange(1)}>
-              1
-            </a>
-          </li>
-          {/* VIENETAS */}
+    onPageChange(currentPage + 1);
+  };
 
-          {/* BODIS */}
-          {pages.map((page) => (
+  if (pagesCount > 6) {
+    return (
+      <div className="d-flex justify-content-center">
+        <nav>
+          <ul className="pagination">
+            {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
+            <li className="page-item">
+              <button
+                className="page-link"
+                onClick={() => handlePrevious(currentPage)}
+                disabled={currentPage === 1 ? true : false}
+              >
+                &lt;
+              </button>
+            </li>
+            {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
+
+            {/* VIENETAS */}
+
             <li
-              key={page}
+              className={1 === currentPage ? "page-item active" : "page-item"}
+            >
+              <button className="page-link" onClick={() => onPageChange(1)}>
+                1
+              </button>
+            </li>
+            {/* VIENETAS */}
+
+            {/* BODIS */}
+            {pages.map((page) => (
+              <li
+                key={page}
+                className={
+                  page === currentPage ? "page-item active" : "page-item"
+                }
+              >
+                <button
+                  onClick={() => onPageChange(page)}
+                  className="page-link"
+                >
+                  {page}
+                </button>
+              </li>
+            ))}
+            {/* BODIS */}
+
+            {/* TARPAS */}
+
+            {currentPage < 6 || currentPage === pagesCount ? (
+              <li className="page-item">
+                <button className="page-link">&lt;...&gt;</button>
+              </li>
+            ) : (
+              <li className="page-item active">
+                <button className="page-link">&lt;{currentPage}&gt;</button>
+              </li>
+            )}
+
+            {/* TARPAS */}
+
+            {/* PASKUTINIS */}
+            <li
               className={
-                page === currentPage ? "page-item active" : "page-item"
+                Number(pagesCount) === currentPage
+                  ? "page-item active"
+                  : "page-item"
               }
             >
-              <a
-                href="#0"
-                onClick={() => onPageChange(page)}
+              <button
                 className="page-link"
+                onClick={() => onPageChange(pagesCount)}
               >
-                {page}
-              </a>
+                {pagesCount}
+              </button>
             </li>
-          ))}
-          {/* BODIS */}
-
-          {/* TARPAS */}
-
-          {currentPage < 6 || currentPage === Number(pagesCount) ? (
+            {/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
             <li className="page-item">
-              <a className="page-link">&lt;...&gt;</a>
+              <button
+                className="page-link"
+                onClick={() => handleNext(currentPage)}
+                disabled={currentPage === pagesCount ? true : false}
+              >
+                &gt;
+              </button>
             </li>
-          ) : (
-            <li className="page-item active">
-              <a className="page-link">&lt;{currentPage}&gt;</a>
-            </li>
-          )}
 
-          {/* TARPAS */}
-
-          {/* PASKUTINIS */}
-          <li
-            className={
-              Number(pagesCount) === currentPage
-                ? "page-item active"
-                : "page-item"
-            }
-          >
-            <a
-              className="page-link"
-              href="#0"
-              onClick={() => onPageChange(Number(pagesCount))}
-            >
-              {pagesCount}
-            </a>
-          </li>
-
-          <li className={"page-item"}>
-            <a
-              href="#0"
-              className="page-link"
-              onClick={() => onPageChange(currentPage + 1)}
-            >
-              &gt;
-            </a>
-          </li>
-
-          <li className="page-item">
-            <div className="row">
-              <div className="col"></div>
-              <div className="col">
-                <input
-                  className="page-link"
-                  style={{ width: "60px", height: "37px" }}
-                  placeholder="#"
-                  maxLength={3}
-                  onKeyPress={(e) => handleSubmit(e)}
-                />
+            <li className="page-item">
+              <div className="row">
+                <div className="col"></div>
+                <div className="col">
+                  <input
+                    className="page-link"
+                    style={{ width: "60px", height: "35px" }}
+                    placeholder="#"
+                    maxLength={3}
+                    value={isNaN(pageToHop) ? 1 : pageToHop}
+                    onChange={(e) => setPageToHop(Number(e.target.value))}
+                    onKeyPress={(e) => handleSubmit(e)}
+                  />
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+            </li>
+            <li>
+              <div className="col page-link" onClick={() => onSearchClick()}>
+                <FontAwesomeIcon icon={faSearch} />
+              </div>
+            </li>
+
+            {/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+          </ul>
+        </nav>
+      </div>
+    );
+  } else {
+    return (
+      <div className="d-flex justify-content-center">
+        <nav>
+          <ul className="pagination">
+            {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
+
+            <li className={"page-item"}>
+              <button
+                className="page-link"
+                onClick={() => handlePrevious(currentPage)}
+                disabled={currentPage === 1 ? true : false}
+              >
+                &lt;
+              </button>
+            </li>
+            {/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
+
+            {/* VIENETAS */}
+            <li
+              className={1 === currentPage ? "page-item active" : "page-item"}
+            >
+              <button className="page-link" onClick={() => onPageChange(1)}>
+                1
+              </button>
+            </li>
+            {/* VIENETAS */}
+
+            {/* BODIS */}
+            {pages.map((page) => (
+              <li
+                key={page}
+                className={
+                  page === currentPage ? "page-item active" : "page-item"
+                }
+              >
+                <button
+                  onClick={() => onPageChange(page)}
+                  className="page-link"
+                >
+                  {page}
+                </button>
+              </li>
+            ))}
+            {/* BODIS */}
+
+            {/* PASKUTINIS */}
+            <li
+              className={
+                Number(pagesCount) === currentPage
+                  ? "page-item active"
+                  : "page-item"
+              }
+            >
+              <button
+                className="page-link"
+                onClick={() => onPageChange(pagesCount)}
+              >
+                {pagesCount}
+              </button>
+            </li>
+            {/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+            <li className="page-item">
+              <button
+                className="page-link"
+                onClick={() => onPageChange(currentPage + 1)}
+                disabled={currentPage === pagesCount ? true : false}
+              >
+                &gt;
+              </button>
+            </li>
+            {/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 };
 
 Pagination.propTypes = {

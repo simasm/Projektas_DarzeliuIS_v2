@@ -118,21 +118,5 @@ p {
 }
 
 .page-link:focus {
-  outline: none;
-  border: none;
-}
-
-.page-item:focus {
-  outline: none;
-  border: none;
-}
-
-.page-item:focus {
-  outline: none;
-  border: none;
-}
-
-.page-item active:focus {
-  outline: none;
-  border: none;
+  box-shadow: none;
 }
