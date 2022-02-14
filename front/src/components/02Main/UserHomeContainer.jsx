@@ -59,7 +59,7 @@ export class UserHomeContainer extends Component {
 
             <div className="container pt-4" >
 
-                <h6 className="pl-2 pt-3">Man</h6>
+                <h5 className="pl-2 pt-3">Mano prašymai</h5>
 
                 <div className="row pt-2">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12">

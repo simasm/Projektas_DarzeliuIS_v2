@@ -45,7 +45,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianNameCompensation"
           name="name"
-          placeholder="Vardas"
+          //placeholder="Vardas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -67,7 +67,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianSurnameCompensation"
           name="surname"
-          placeholder="Pavardė"
+        //  placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -89,7 +89,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianIdCompensation"
           name="personalCode"
-          placeholder="41234567890"
+         // placeholder="41234567890"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -133,7 +133,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianEmailCompensation"
           name="email"
-          placeholder="example@mail.com"
+        //  placeholder="example@mail.com"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -155,7 +155,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianAddressCompensation"
           name="address"
-          placeholder="Adresas"
+        //  placeholder="Adresas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
