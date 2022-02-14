@@ -48,7 +48,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenName"
             name="name"
-            placeholder="Pavadinimas"
+          //  placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -70,7 +70,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenCode"
             name="code"
-            placeholder="123456789"
+           // placeholder="123456789"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -92,7 +92,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenAddress"
             name="address"
-            placeholder="Adresas"
+           // placeholder="Adresas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -137,7 +137,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenEmail"
             name="email"
-            placeholder="example@mail.com"
+           // placeholder="example@mail.com"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -159,7 +159,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankName"
             name="bankName"
-            placeholder="Pavadinimas"
+            //placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -181,10 +181,10 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenAccountNumber"
             name="accountNumber"
-            placeholder="LTXXXXXXXXXXXXXXXXXX"
+            //placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            maxLength={18}
+            maxLength={34}
             style={
               kindergartenValid.accountNumber
                 ? { border: "1px solid lightgray" }
@@ -205,7 +205,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankCode"
             name="bankCode"
-            placeholder="12345"
+           // placeholder="12345"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
