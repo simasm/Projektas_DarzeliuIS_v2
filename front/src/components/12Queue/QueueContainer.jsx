@@ -312,13 +312,11 @@ export class QueueContainer extends Component {
           {totalPages > 1 && (
             <div className="d-flex justify-content-center">
               <Pagination
-                itemClass="page-item"
-                linkClass="page-link"
-                activePage={this.state.currentPage}
-                itemsCountPerPage={this.state.pageSize}
-                totalItemsCount={this.state.totalElements}
+                currentPage={this.state.currentPage}
+                pageSize={this.state.pageSize}
+                itemsCount={this.state.totalElements}
                 pageRangeDisplayed={15}
-                onChange={this.handlePageChange.bind(this)}
+                onPageChange={this.handlePageChange.bind(this)}
               />
             </div>
           )}
