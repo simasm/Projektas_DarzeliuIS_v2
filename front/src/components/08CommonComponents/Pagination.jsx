@@ -104,7 +104,9 @@ const Pagination = (props) => {
 
             {currentPage < 6 || currentPage === pagesCount ? (
               <li className="page-item">
-                <button className="page-link">&lt;...&gt;</button>
+                <button className="page-link nohoverbtn" disabled>
+                  &lt;...&gt;
+                </button>
               </li>
             ) : (
               <li className="page-item active">

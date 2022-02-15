@@ -127,3 +127,11 @@ p {
   width: 60px;
   height: 38px;
 }
+
+.nohoverbtn:hover {
+  background-color: rgba(180, 190, 211, 0.171);
+}
+
+.nohoverbtn {
+  background-color: rgba(180, 190, 211, 0.171);
+}

@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/darzelis/static/css/main.e6630e80.chunk.css",
-    "main.js": "/darzelis/static/js/main.00a320ea.chunk.js",
-    "main.js.map": "/darzelis/static/js/main.00a320ea.chunk.js.map",
-    "runtime-main.js": "/darzelis/static/js/runtime-main.01749dbf.js",
-    "runtime-main.js.map": "/darzelis/static/js/runtime-main.01749dbf.js.map",
+    "main.css": "/darzelis/static/css/main.90ba6e43.chunk.css",
+    "main.js": "/darzelis/static/js/main.d32c83a4.chunk.js",
+    "main.js.map": "/darzelis/static/js/main.d32c83a4.chunk.js.map",
+    "runtime-main.js": "/darzelis/static/js/runtime-main.91cacd32.js",
+    "runtime-main.js.map": "/darzelis/static/js/runtime-main.91cacd32.js.map",
     "static/css/2.f4556ed5.chunk.css": "/darzelis/static/css/2.f4556ed5.chunk.css",
-    "static/js/2.eed78080.chunk.js": "/darzelis/static/js/2.eed78080.chunk.js",
-    "static/js/2.eed78080.chunk.js.map": "/darzelis/static/js/2.eed78080.chunk.js.map",
-    "static/js/3.4ff73326.chunk.js": "/darzelis/static/js/3.4ff73326.chunk.js",
-    "static/js/3.4ff73326.chunk.js.map": "/darzelis/static/js/3.4ff73326.chunk.js.map",
+    "static/js/2.8ae8c9fd.chunk.js": "/darzelis/static/js/2.8ae8c9fd.chunk.js",
+    "static/js/2.8ae8c9fd.chunk.js.map": "/darzelis/static/js/2.8ae8c9fd.chunk.js.map",
+    "static/js/3.4bbaf9b0.chunk.js": "/darzelis/static/js/3.4bbaf9b0.chunk.js",
+    "static/js/3.4bbaf9b0.chunk.js.map": "/darzelis/static/js/3.4bbaf9b0.chunk.js.map",
     "index.html": "/darzelis/index.html",
-    "precache-manifest.f2df94cf920186bb276593dfe72824a6.js": "/darzelis/precache-manifest.f2df94cf920186bb276593dfe72824a6.js",
+    "precache-manifest.da1e6016894d2343804e2beb6448c5c6.js": "/darzelis/precache-manifest.da1e6016894d2343804e2beb6448c5c6.js",
     "service-worker.js": "/darzelis/service-worker.js",
     "static/css/2.f4556ed5.chunk.css.map": "/darzelis/static/css/2.f4556ed5.chunk.css.map",
-    "static/css/main.e6630e80.chunk.css.map": "/darzelis/static/css/main.e6630e80.chunk.css.map",
-    "static/js/2.eed78080.chunk.js.LICENSE.txt": "/darzelis/static/js/2.eed78080.chunk.js.LICENSE.txt",
+    "static/css/main.90ba6e43.chunk.css.map": "/darzelis/static/css/main.90ba6e43.chunk.css.map",
+    "static/js/2.8ae8c9fd.chunk.js.LICENSE.txt": "/darzelis/static/js/2.8ae8c9fd.chunk.js.LICENSE.txt",
     "static/media/VMS_VDIS_naudotojo_gidas.pdf": "/darzelis/static/media/VMS_VDIS_naudotojo_gidas.6e24cb1e.pdf"
   },
   "entrypoints": [
-    "static/js/runtime-main.01749dbf.js",
+    "static/js/runtime-main.91cacd32.js",
     "static/css/2.f4556ed5.chunk.css",
-    "static/js/2.eed78080.chunk.js",
-    "static/css/main.e6630e80.chunk.css",
-    "static/js/main.00a320ea.chunk.js"
+    "static/js/2.8ae8c9fd.chunk.js",
+    "static/css/main.90ba6e43.chunk.css",
+    "static/js/main.d32c83a4.chunk.js"
   ]
 }
