@@ -148,7 +148,7 @@ const Pagination = (props) => {
                     className="page-link paginationPageInputBox"
                     placeholder="#"
                     maxLength={3}
-                    value={isNaN(pageToHop) ? 1 : pageToHop}
+                    value={isNaN(pageToHop) ? setPageToHop(1) : pageToHop}
                     onChange={(e) => setPageToHop(Number(e.target.value))}
                     onKeyPress={(e) => handleSubmit(e)}
                   />
