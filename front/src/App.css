@@ -106,8 +106,6 @@ p {
   font-size: 12px;
 }
 
-
-
 .redborder {
   border: 3px solid rgb(141, 24, 24);
 }
@@ -118,4 +116,9 @@ p {
 
 .marginTop10 {
   margin-top: 10px;
+}
+
+.table-style {
+  font-size: 18px;
+  vertical-align: middle;
 }
