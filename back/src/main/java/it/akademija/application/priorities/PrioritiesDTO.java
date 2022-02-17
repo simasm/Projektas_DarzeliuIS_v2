@@ -3,6 +3,8 @@ package it.akademija.application.priorities;
 public class PrioritiesDTO {	
 	
 	private boolean livesInVilnius;
+	
+	private boolean livesInVilniusLonger;
 
 	private boolean childIsAdopted;
 
@@ -16,10 +18,11 @@ public class PrioritiesDTO {
 		
 	}
 
-	public PrioritiesDTO(boolean livesInVilnius, boolean childIsAdopted, boolean familyHasThreeOrMoreChildrenInSchools,
+	public PrioritiesDTO(boolean livesInVilnius, boolean livesInVilniusLonger, boolean childIsAdopted, boolean familyHasThreeOrMoreChildrenInSchools,
 			boolean guardianInSchool, boolean guardianDisability) {
 		super();
 		this.livesInVilnius = livesInVilnius;
+		this.livesInVilniusLonger = livesInVilniusLonger;
 		this.childIsAdopted = childIsAdopted;
 		this.familyHasThreeOrMoreChildrenInSchools = familyHasThreeOrMoreChildrenInSchools;
 		this.guardianInSchool = guardianInSchool;
@@ -32,6 +35,14 @@ public class PrioritiesDTO {
 
 	public void setLivesInVilnius(boolean livesInVilnius) {
 		this.livesInVilnius = livesInVilnius;
+	}
+	
+	public boolean isLivesInVilniusLonger() {
+		return livesInVilniusLonger;
+	}
+
+	public void setLivesInVilniusLonger(boolean livesInVilniusLonger) {
+		this.livesInVilniusLonger = livesInVilniusLonger;
 	}
 
 	public boolean isChildIsAdopted() {
@@ -66,8 +77,4 @@ public class PrioritiesDTO {
 		this.guardianDisability = guardianDisability;
 	}
 	
-	
-	
-	
-
 }
