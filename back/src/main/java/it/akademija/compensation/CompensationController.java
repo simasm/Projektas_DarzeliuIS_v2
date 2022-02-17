@@ -1,5 +1,7 @@
 package it.akademija.compensation;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -26,6 +28,7 @@ import io.swagger.annotations.ApiParam;
  
  import it.akademija.journal.JournalService;
 import it.akademija.kindergarten.KindergartenController;
+import it.akademija.user.UserInfo;
 
 @RestController
 @Api(value = "application for compensation")
@@ -53,7 +56,7 @@ public class CompensationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create new application for compensation")
 	@ResponseBody
-	public ResponseEntity<Compensation> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
+	public ResponseEntity<CompensationDetails> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
 		
 		Compensation compensation = null;
 	
@@ -66,7 +69,30 @@ public class CompensationController {
 		
 		
 	   if(compensation != null)
-			return new ResponseEntity<>(compensation, HttpStatus.CREATED);
+			return new ResponseEntity<>(new CompensationDetails(
+					compensation.getId(),
+					compensation.getSubmittedAt(),
+					compensation.getChildSurname(),
+					compensation.getChildPersonalCode(),
+					compensation.getChildBirthdate(),
+					
+					new UserInfo(compensation.getMainGuardian().getRole().name(),
+							compensation.getMainGuardian().getName(),
+							compensation.getMainGuardian().getSurname(),
+							compensation.getMainGuardian().getParentDetails().getPersonalCode(),
+							compensation.getMainGuardian().getParentDetails().getAddress(),
+							compensation.getMainGuardian().getParentDetails().getPhone(),
+							compensation.getMainGuardian().getEmail(),
+							compensation.getMainGuardian().getUsername()),
+					
+					compensation.getKindergartenId(),
+					compensation.getKindergartenName(),
+					compensation.getKindergartenAddress(),
+					compensation.getKindergartenPhoneNumber(),
+					compensation.getKindergartenEmail(),
+					compensation.getKindergartenBankName(),
+					compensation.getKindergartenBankAccountNumber(),
+					compensation.getKindergartenBankCode()), HttpStatus.CREATED);
 		  else 
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
@@ -86,13 +112,46 @@ public class CompensationController {
 	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
 	@GetMapping("/{childPersonalCode}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Compensation> getCompensationApplicationByChildCode(
+	public ResponseEntity<CompensationDetails> getCompensationApplicationByChildCode(
 			@PathVariable
 			String childPersonalCode ) {
 		
-		return new ResponseEntity<>(compensationService.
-				getCompensationApplicationByChildCode(childPersonalCode),
-				HttpStatus.OK);
+		Compensation compensation = compensationService.
+				getCompensationApplicationByChildCode(childPersonalCode);
+		
+		   if(compensation != null)
+				return new ResponseEntity<>(new CompensationDetails(
+						compensation.getId(),
+						compensation.getSubmittedAt(),
+						compensation.getChildSurname(),
+						compensation.getChildPersonalCode(),
+						compensation.getChildBirthdate(),
+						
+						new UserInfo(compensation.getMainGuardian().getRole().name(),
+								compensation.getMainGuardian().getName(),
+								compensation.getMainGuardian().getSurname(),
+								compensation.getMainGuardian().getParentDetails().getPersonalCode(),
+								compensation.getMainGuardian().getParentDetails().getAddress(),
+								compensation.getMainGuardian().getParentDetails().getPhone(),
+								compensation.getMainGuardian().getEmail(),
+								compensation.getMainGuardian().getUsername()),
+						
+						compensation.getKindergartenId(),
+						compensation.getKindergartenName(),
+						compensation.getKindergartenAddress(),
+						compensation.getKindergartenPhoneNumber(),
+						compensation.getKindergartenEmail(),
+						compensation.getKindergartenBankName(),
+						compensation.getKindergartenBankAccountNumber(),
+						compensation.getKindergartenBankCode()), HttpStatus.OK);
+			  else 
+			 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				
+				
+			 
+		
+		
+		
 	}
 	
 	
@@ -104,15 +163,54 @@ public class CompensationController {
 	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
 	@GetMapping("/user")
 	@ApiOperation(value = "Retrieve application for compensation for selected user for viewing") 
-	public ResponseEntity<List<Compensation>> getCompensationApplicationsForUser(String currentUsername) {
+	public ResponseEntity<List<CompensationDetails>> 
+			getCompensationApplicationsForUser(String currentUsername) {
 		
 		
-		List<Compensation> compensations = compensationService.getCompensationApplicationForUser( currentUsername);
+		List<Compensation> compensations = compensationService.
+						getCompensationApplicationForUser( currentUsername);
 		
-		if (compensations != null) 
-			return new ResponseEntity<>(compensations, HttpStatus.OK);
+		if(compensations != null) {
+			
+			List<CompensationDetails> compensationDetails = new ArrayList<>();
 		
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			for(Compensation compensation : compensations) {
+					compensationDetails.add( new CompensationDetails(
+							compensation.getId(),
+							compensation.getSubmittedAt(),
+							compensation.getChildSurname(),
+							compensation.getChildPersonalCode(),
+							compensation.getChildBirthdate(),
+							
+							new UserInfo(compensation.getMainGuardian().getRole().name(),
+									compensation.getMainGuardian().getName(),
+									compensation.getMainGuardian().getSurname(),
+									compensation.getMainGuardian().getParentDetails().getPersonalCode(),
+									compensation.getMainGuardian().getParentDetails().getAddress(),
+									compensation.getMainGuardian().getParentDetails().getPhone(),
+									compensation.getMainGuardian().getEmail(),
+									compensation.getMainGuardian().getUsername()),
+							
+							compensation.getKindergartenId(),
+							compensation.getKindergartenName(),
+							compensation.getKindergartenAddress(),
+							compensation.getKindergartenPhoneNumber(),
+							compensation.getKindergartenEmail(),
+							compensation.getKindergartenBankName(),
+							compensation.getKindergartenBankAccountNumber(),
+							compensation.getKindergartenBankCode()));	
+					
+		
+		
+		
+			}
+		
+		return new ResponseEntity<>(compensationDetails, HttpStatus.OK);
+		}
+		else 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			   
+			
 	}
 	
 	
@@ -120,12 +218,53 @@ public class CompensationController {
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager")
 	@ApiOperation(value = "Retrieve all applications for compensation")
-	public ResponseEntity<List<Compensation>> getAllCopensationApplications() {
+	public ResponseEntity<List<CompensationDetails>> getAllCopensationApplications() {
+		List<Compensation> compensations = compensationService
+				.getAllCompensationApplications();
+
+	if(compensations != null) {
 		
-		return new ResponseEntity<>(compensationService.getAllCompensationApplications(),
-				HttpStatus.OK);
- 	}
+		List<CompensationDetails> compensationDetails = new ArrayList<>();
 	
+		for(Compensation compensation : compensations) {
+				compensationDetails.add( new CompensationDetails(
+						compensation.getId(),
+						compensation.getSubmittedAt(),
+						compensation.getChildSurname(),
+						compensation.getChildPersonalCode(),
+						compensation.getChildBirthdate(),
+						
+						new UserInfo(compensation.getMainGuardian().getRole().name(),
+								compensation.getMainGuardian().getName(),
+								compensation.getMainGuardian().getSurname(),
+								compensation.getMainGuardian().getParentDetails().getPersonalCode(),
+								compensation.getMainGuardian().getParentDetails().getAddress(),
+								compensation.getMainGuardian().getParentDetails().getPhone(),
+								compensation.getMainGuardian().getEmail(),
+								compensation.getMainGuardian().getUsername()),
+						
+						compensation.getKindergartenId(),
+						compensation.getKindergartenName(),
+						compensation.getKindergartenAddress(),
+						compensation.getKindergartenPhoneNumber(),
+						compensation.getKindergartenEmail(),
+						compensation.getKindergartenBankName(),
+						compensation.getKindergartenBankAccountNumber(),
+						compensation.getKindergartenBankCode()));	
+				
+	
+	
+		
+			}
+		
+		return new ResponseEntity<>(compensationDetails, HttpStatus.OK);
+		}
+		else 
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			   
+			
+	}
+
 	/*
 	pagingas to do
 	
