@@ -16,7 +16,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
      * 4. Logout
      */
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression"})
     public void successfullyCreateAndDeleteNewAdmin() {
         createNewAdmin(0);
         deleteNewUser();
@@ -33,7 +33,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
      * 4. Logout
      */
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression"})
     public void successfullyCreateAndDeleteNewKindergartenSpecialist() {
         createNewManager(1);
         deleteNewUser();
@@ -50,7 +50,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
      * 4. Logout
      */
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression"})
     public void successfullyCreateAndDeleteNewParent() {
         uiLogInAsAdmin();
         createNewParent(2);

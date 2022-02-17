@@ -1,12 +1,11 @@
 package managerTests;
 
-import generalMethods.GeneralApiMethods;
+import generalMethods.ApiGeneralMethods;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -15,9 +14,14 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static generalMethods.ApiAdminMethods.createNewUser;
+import static generalMethods.ApiAdminMethods.deleteUser;
+import static generalMethods.ApiManagerMethods.*;
+import static generalMethods.ApiUserMethods.submitNewApplication;
 import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertTrue;
 
-public class QueuePriority extends GeneralApiMethods {
+public class QueuePriority extends ApiGeneralMethods {
 
     /**
      * Test steps API:
@@ -32,7 +36,7 @@ public class QueuePriority extends GeneralApiMethods {
     public void queuePriority() throws IOException {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
@@ -74,7 +78,7 @@ public class QueuePriority extends GeneralApiMethods {
                 body(equalTo("Naudotojas sukurtas sėkmingai!"));
         logOutApi(reqSpec);
 
-        // submit 2 applications with 2 USER accounts
+        // submit 3 applications with 2 USER accounts
         logInApi("andriusd@andrius.lt", "andriusd@andrius.lt", reqSpec);
         submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application1.json"))), reqSpec).
                 then().
@@ -99,8 +103,8 @@ public class QueuePriority extends GeneralApiMethods {
         processQueue(reqSpec);
 
         // assert queue was formed with correct priorities
-        // API doesn't include priority weight in response, so assert is done manually
-        // first child was submitted with higher priority weight(14 > 11 > 10), should be first in queue
+        // API doesn't include priority weight in response, assert is done manually
+        // applications were submitted with descending priority weight (14 > 11 > 10), first submitted should be first in queue
         int firstChildPosInWaitingList = getApplicationQueue(reqSpec).
                 then().
                 statusCode(200).
@@ -110,7 +114,7 @@ public class QueuePriority extends GeneralApiMethods {
                 then().
                 statusCode(200).
                 extract().path("content[1].numberInWaitingList");
-        Assert.assertTrue(firstChildPosInWaitingList < secondChildPosInWaitingList, "Highest priority child is first in queue");
+        assertTrue(firstChildPosInWaitingList < secondChildPosInWaitingList, "Highest priority child is first in queue");
         logOutApi(reqSpec);
 
         // delete users created for this test, applications will also be deleted
@@ -118,6 +122,5 @@ public class QueuePriority extends GeneralApiMethods {
         deleteUser("andriusd@andrius.lt", reqSpec);
         deleteUser("benas@benas.lt", reqSpec);
         logOutApi(reqSpec);
-
     }
 }

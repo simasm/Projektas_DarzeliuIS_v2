@@ -1,5 +1,7 @@
 package parentTests;
 
+import generalMethods.ApiAdminMethods;
+import generalMethods.ApiManagerMethods;
 import generalMethods.GeneralMethods;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -11,15 +13,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import parentPages.ApplyForCompensationPage;
 
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static generalMethods.GeneralApiMethods.*;
+import static generalMethods.ApiAdminMethods.createNewUser;
+import static generalMethods.ApiAdminMethods.deleteUser;
+import static generalMethods.ApiGeneralMethods.logInApi;
+import static generalMethods.ApiGeneralMethods.logOutApi;
+import static generalMethods.ApiManagerMethods.deleteCompensationApplicationByChildId;
+import static generalMethods.ApiManagerMethods.getCompensationApplicationByChildId;
 import static org.hamcrest.Matchers.equalTo;
-import static org.testng.Assert.assertEquals;
 
 public class ApplyForCompensation extends GeneralMethods {
 
@@ -43,7 +48,7 @@ public class ApplyForCompensation extends GeneralMethods {
     @Test(groups = "regression", priority = 1, dataProvider = "parameters")
     public void successfullyApplyForCompensation(String childId) {
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();

@@ -1,6 +1,7 @@
 package apiTest;
 
-import generalMethods.GeneralApiMethods;
+import generalMethods.ApiGeneralMethods;
+import generalMethods.ApiUserMethods;
 import io.restassured.filter.session.SessionFilter;
 import models.Kindergarten;
 import org.testng.annotations.DataProvider;
@@ -12,13 +13,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static generalMethods.ApiAdminMethods.createNewUser;
+import static generalMethods.ApiAdminMethods.deleteUser;
+import static generalMethods.ApiManagerMethods.*;
+import static generalMethods.ApiUserMethods.deleteApplicationAsUserById;
+import static generalMethods.ApiUserMethods.submitNewApplication;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
-import static org.testng.Assert.assertTrue;
 
 
-public class ApiTest extends GeneralApiMethods {
+public class ApiTest extends ApiGeneralMethods {
 
     // log in with all available user roles
     @Test(dataProvider = "parameters")
@@ -30,9 +35,9 @@ public class ApiTest extends GeneralApiMethods {
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
-                when().
+        when().
                 get("api/users/user").
-                then().
+        then().
                 body("role", equalTo(role)).
                 body("username", equalTo(username));
 
@@ -46,7 +51,6 @@ public class ApiTest extends GeneralApiMethods {
                 get("api/users/user").
         then().
                 statusCode(401);
-
     }
 
     // create 1 new user then delete
@@ -56,12 +60,9 @@ public class ApiTest extends GeneralApiMethods {
         logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
 
         HashMap<String, Object> user = new HashMap<>();
-//        user.put("address", "gatve 33-14");
         user.put("email", "andriusd@andrius.lt");
         user.put("name", "Andrius");
         user.put("password", "andriusd@andrius.lt");
-//        user.put("personalCode", "34512321234");
-//        user.put("phone", "+37012312345");
         user.put("role", "USER");
         user.put("surname", "Andriulis");
         user.put("username", "andriusd@andrius.lt");
@@ -78,7 +79,6 @@ public class ApiTest extends GeneralApiMethods {
                 contentType("text/plain; charset=UTF-8").
                 statusCode(200).
                 body(equalTo("Naudotojas ištrintas sėkmingai"));
-
     }
 
     // create 1 new kindergarten then delete
@@ -95,7 +95,6 @@ public class ApiTest extends GeneralApiMethods {
         kg.setId("123456789");
         kg.setName("AAMontessori");
 
-
         createNewKindergarten(kg, reqSpec).
                 then().
                 contentType("text/plain; charset=UTF-8").
@@ -108,22 +107,28 @@ public class ApiTest extends GeneralApiMethods {
                 statusCode(200).
                 contentType("text/plain; charset=UTF-8").
                 body(equalTo("Darželis ištrintas sėkmingai"));
-
     }
 
     // submit new application to kindergarten as USER
     @Test
     public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
 
-        logInApi("user@user.lt", "user@user.lt", reqSpec);
+        // open registration if needed
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
+        if(!isRegistrationActive(reqSpec)) {
+            openRegistration(reqSpec);
+        }
+        logOutApi(reqSpec);
 
+        // submit application
+        logInApi("user@user.lt", "user@user.lt", reqSpec);
         submitNewApplication(new String(Files.readAllBytes(Paths.get("src/test/resources/application1.json"))), reqSpec).
                 then().
                 statusCode(200).
                 body(equalTo("Prašymas sukurtas sėkmingai"));
 
         // get id of submitted application
-        ArrayList<Integer> applicationId = getApplicationsOfLoggedInUser(reqSpec).
+        ArrayList<Integer> applicationId = ApiUserMethods.getApplicationsOfLoggedInUser(reqSpec).
                 then().
                 statusCode(200).
                 extract().path("id");
@@ -133,6 +138,11 @@ public class ApiTest extends GeneralApiMethods {
                 then().
                 statusCode(200).
                 body(equalTo("Ištrinta sėkmingai"));
+
+        // close registration
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
+        closeRegistration(reqSpec);
+        logOutApi(reqSpec);
     }
 
 
@@ -151,11 +161,6 @@ public class ApiTest extends GeneralApiMethods {
                 get("api/users/admin/allusers").
         then().
                 body("content.size", not(0));
-    }
-
-    @Test
-    public void isRegistrationActiveTest() {
-        assertTrue(isRegistrationActive(reqSpec), "Registration is open:");
     }
 
 

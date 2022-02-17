@@ -1,4 +1,4 @@
-package login;
+package adminTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
@@ -28,6 +28,7 @@ public class AdminLoginLogout extends GeneralMethods {
 
         // logout
         logOutUi();
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package smokeTests;
+package parentTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;

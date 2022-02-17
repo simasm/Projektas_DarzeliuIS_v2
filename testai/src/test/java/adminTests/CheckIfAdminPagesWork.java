@@ -1,4 +1,4 @@
-package smokeTests;
+package adminTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;

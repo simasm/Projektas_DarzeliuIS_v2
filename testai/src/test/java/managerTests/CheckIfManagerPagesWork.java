@@ -1,10 +1,10 @@
-package smokeTests;
+package managerTests;
 
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
 import smokeTestPages.CheckIfAllUsersPagesLoad;
 
-public class CheckIfKindergartenSpecialistPagesWork extends GeneralMethods {
+public class CheckIfManagerPagesWork extends GeneralMethods {
 
     /**
      * Test scenario:

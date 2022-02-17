@@ -10,8 +10,9 @@
             </run>
         </groups>
         <packages>
-            <package name="login"/>
-            <package name="smokeTests"/>
+            <package name="adminTests"/>
+            <package name="managerTests"/>
+            <package name="parentTests"/>
         </packages>
     </test>
 

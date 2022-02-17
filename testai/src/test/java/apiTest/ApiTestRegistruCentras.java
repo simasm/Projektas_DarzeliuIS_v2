@@ -1,18 +1,19 @@
 package apiTest;
 
-import generalMethods.GeneralApiMethods;
+import generalMethods.ApiGeneralMethods;
 import models.Child;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 
-public class ApiTestRegistruCentras extends GeneralApiMethods {
+
+public class ApiTestRegistruCentras extends ApiGeneralMethods {
 
     @Test(dataProvider = "parameters")
     public static void testGetChildById(String asmensKodas) {
         Child child = getChildById(asmensKodas, reqSpec);
-        Assert.assertEquals(child.getAsmensKodas(), asmensKodas);
+        assertEquals(child.getAsmensKodas(), asmensKodas);
     }
 
 
