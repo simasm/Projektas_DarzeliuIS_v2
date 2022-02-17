@@ -37,6 +37,7 @@ public class CompensationService {
 				data.getChildInfo().getPersonalID(),
 				LocalDate.parse(data.getChildInfo().getDateOfBirth()),
 				mainGuardian,
+				data.getGuardianInfo(),
 				data.getKindergartenInfo().getCode(),
 				data.getKindergartenInfo().getName(),
 				data.getKindergartenInfo().getAddress(),

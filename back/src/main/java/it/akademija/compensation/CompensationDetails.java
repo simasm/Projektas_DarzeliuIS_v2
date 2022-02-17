@@ -14,7 +14,7 @@ public class CompensationDetails {
 	private String childPersonalCode;
 	private LocalDate childBirthdate;
 	
-	private UserInfo mainGuardian;
+	private GuardianInfo mainGuardian;
 	
 	private String kindergartenId;
 	private String kindergartenName;
@@ -27,7 +27,7 @@ public class CompensationDetails {
 	
 	
 	public CompensationDetails(Long id, LocalDate submittedAt, String childSurname, String childPersonalCode,
-			LocalDate childBirthdate, UserInfo mainGuardian, String kindergartenId, String kindergartenName,
+			LocalDate childBirthdate, GuardianInfo mainGuardian, String kindergartenId, String kindergartenName,
 			String kindergartenAddress, String kindergartenPhoneNumber, String kindergartenEmail,
 			String kindergartenBankName, String kindergartenBankAccountNumber, String kindergartenBankCode) {
 		super();
@@ -101,12 +101,12 @@ public class CompensationDetails {
 	}
 
 
-	public UserInfo getMainGuardian() {
+	public GuardianInfo getMainGuardian() {
 		return mainGuardian;
 	}
 
 
-	public void setMainGuardian(UserInfo mainGuardian) {
+	public void setMainGuardian(GuardianInfo mainGuardian) {
 		this.mainGuardian = mainGuardian;
 	}
 

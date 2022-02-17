@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
  
@@ -28,7 +29,9 @@ import io.swagger.annotations.ApiParam;
  
  import it.akademija.journal.JournalService;
 import it.akademija.kindergarten.KindergartenController;
+import it.akademija.role.Role;
 import it.akademija.user.UserInfo;
+import it.akademija.user.UserService;
 
 @RestController
 @Api(value = "application for compensation")
@@ -42,6 +45,8 @@ public class CompensationController {
 	
 	@Autowired
 	private JournalService journalService;
+	
+	 
 	
 	
 	/**
@@ -69,7 +74,9 @@ public class CompensationController {
 		}
 		
 		
-	   if(compensation != null)
+	   if(compensation != null)  {
+			String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+			
 			return new ResponseEntity<>(new CompensationDetails(
 					compensation.getId(),
 					compensation.getSubmittedAt(),
@@ -77,14 +84,7 @@ public class CompensationController {
 					compensation.getChildPersonalCode(),
 					compensation.getChildBirthdate(),
 					
-					new UserInfo(compensation.getMainGuardian().getRole().name(),
-							compensation.getMainGuardian().getName(),
-							compensation.getMainGuardian().getSurname(),
-							compensation.getMainGuardian().getParentDetails().getPersonalCode(),
-							compensation.getMainGuardian().getParentDetails().getAddress(),
-							compensation.getMainGuardian().getParentDetails().getPhone(),
-							compensation.getMainGuardian().getEmail(),
-							compensation.getMainGuardian().getUsername()),
+					compensation.getGuardianInfo(),
 					
 					compensation.getKindergartenId(),
 					compensation.getKindergartenName(),
@@ -94,6 +94,7 @@ public class CompensationController {
 					compensation.getKindergartenBankName(),
 					compensation.getKindergartenBankAccountNumber(),
 					compensation.getKindergartenBankCode()), HttpStatus.CREATED);
+	   }
 		  else 
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
@@ -121,6 +122,9 @@ public class CompensationController {
 				getCompensationApplicationByChildCode(childPersonalCode);
 		
 		   if(compensation != null)
+		   {
+			   
+			   
 				return new ResponseEntity<>(new CompensationDetails(
 						compensation.getId(),
 						compensation.getSubmittedAt(),
@@ -128,14 +132,8 @@ public class CompensationController {
 						compensation.getChildPersonalCode(),
 						compensation.getChildBirthdate(),
 						
-						new UserInfo(compensation.getMainGuardian().getRole().name(),
-								compensation.getMainGuardian().getName(),
-								compensation.getMainGuardian().getSurname(),
-								compensation.getMainGuardian().getParentDetails().getPersonalCode(),
-								compensation.getMainGuardian().getParentDetails().getAddress(),
-								compensation.getMainGuardian().getParentDetails().getPhone(),
-								compensation.getMainGuardian().getEmail(),
-								compensation.getMainGuardian().getUsername()),
+						compensation.getGuardianInfo(),
+						
 						
 						compensation.getKindergartenId(),
 						compensation.getKindergartenName(),
@@ -145,6 +143,7 @@ public class CompensationController {
 						compensation.getKindergartenBankName(),
 						compensation.getKindergartenBankAccountNumber(),
 						compensation.getKindergartenBankCode()), HttpStatus.OK);
+		   }
 			  else 
 			 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 				
@@ -183,14 +182,7 @@ public class CompensationController {
 							compensation.getChildPersonalCode(),
 							compensation.getChildBirthdate(),
 							
-							new UserInfo(compensation.getMainGuardian().getRole().name(),
-									compensation.getMainGuardian().getName(),
-									compensation.getMainGuardian().getSurname(),
-									compensation.getMainGuardian().getParentDetails().getPersonalCode(),
-									compensation.getMainGuardian().getParentDetails().getAddress(),
-									compensation.getMainGuardian().getParentDetails().getPhone(),
-									compensation.getMainGuardian().getEmail(),
-									compensation.getMainGuardian().getUsername()),
+							compensation.getGuardianInfo(),
 							
 							compensation.getKindergartenId(),
 							compensation.getKindergartenName(),
@@ -235,14 +227,7 @@ public class CompensationController {
 						compensation.getChildPersonalCode(),
 						compensation.getChildBirthdate(),
 						
-						new UserInfo(compensation.getMainGuardian().getRole().name(),
-								compensation.getMainGuardian().getName(),
-								compensation.getMainGuardian().getSurname(),
-								compensation.getMainGuardian().getParentDetails().getPersonalCode(),
-								compensation.getMainGuardian().getParentDetails().getAddress(),
-								compensation.getMainGuardian().getParentDetails().getPhone(),
-								compensation.getMainGuardian().getEmail(),
-								compensation.getMainGuardian().getUsername()),
+						compensation.getGuardianInfo(),
 						
 						compensation.getKindergartenId(),
 						compensation.getKindergartenName(),

@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.role.Role;
-import it.akademija.user.ParentDetails;
+import it.akademija.compensation.GuardianInfo;
 import it.akademija.user.ParentDetailsDAO;
 import it.akademija.user.User;
 import it.akademija.user.UserDAO;
@@ -33,14 +34,14 @@ public class CompensationRepositoryTest {
 	private ParentDetailsDAO parentDetailsDAO;
 	
 	@Test
+	@Transactional
 	public void repositorySavesAndDeletes() {
 		
 
-		ParentDetails parentDetails = new ParentDetails("48602257896", "Test", "Test", "test@test.lt", "Adresas 1",
-				"+37063502254");
+ 
 
 		User mainGuardian = userDAO.save(
-				new User(Role.USER, "Test", "Test", "test@test.lt", parentDetails, "test@test.lt", "test@test.lt"));
+				new User(Role.USER, "Test", "Test", "test@test.lt", null, "test@test.lt", "test@test.lt"));
 		
 		Compensation compensation = new Compensation(
 				"Testvvardas",
@@ -48,6 +49,12 @@ public class CompensationRepositoryTest {
 				"51701011234",
 				LocalDate.of(2017,1, 1),
 				mainGuardian,
+				new GuardianInfo( "Test",
+						"Test",
+						"48602257896",
+						"+37063502254",
+						"test@test.lt",
+						"Adresas 1"),
 				"302295680",
 				"Testprivatus",
 				"Vysniu gatve 13",
@@ -73,11 +80,13 @@ public class CompensationRepositoryTest {
 		assertEquals(compensation,
 				compensationDAO
 				.findCompensationByMainGuardianParentDetailsPersonalCode(
-						 parentDetails.getPersonalCode()));
+						"48602257896"));
 		
 		compensationDAO.deleteById(compensation.getId());
 		 
 		assertTrue(compensationDAO.findAll().isEmpty());
+		
+		userDAO.delete(mainGuardian);
 		
 	}
 
