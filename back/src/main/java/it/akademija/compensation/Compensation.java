@@ -19,7 +19,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
- 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import it.akademija.user.User;
 
 @Entity
@@ -59,6 +61,7 @@ public class Compensation {
 	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User mainGuardian;	
 
 	//kindergarten ifno

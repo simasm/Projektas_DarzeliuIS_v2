@@ -61,7 +61,8 @@ public class CompensationController {
 		Compensation compensation = null; 
 	
 		try {
-		compensation = compensationService.createNewCompensationApplication(data);
+			compensation = compensationService.createNewCompensationApplication(data);
+	
 		}
 		catch (Exception e) {
 				//jau egzistuoja vaiko id duomenu bazeje

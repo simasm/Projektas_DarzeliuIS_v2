@@ -5,18 +5,28 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.App;
+import it.akademija.role.Role;
+import it.akademija.user.ParentDetails;
+import it.akademija.user.User;
+import it.akademija.user.UserDAO;
+import it.akademija.user.UserService;
 
 @SpringBootTest(classes = { App.class,
 		CompensationController.class },
@@ -30,6 +40,17 @@ public class CompensationControllerTest {
 	
 	@Autowired
 	private CompensationService service;
+	
+	@Autowired
+	private UserDAO userDAO;
+	
+	@Autowired
+	private UserService userService;
+	
+	
+	private User testUser = null;
+
+	private boolean testCompCreated = false;
 	
  
 	private CompensationDTO data = new CompensationDTO (
@@ -47,8 +68,8 @@ public class CompensationControllerTest {
 							"1234"),
 		new GuardianInfo("test",
 						 "test",
-						 "123455123",
-						 "1234124",
+						 "12345512355",
+						 "+1234124",
 						 "test@test.lt",
 						 "testaddr")
 		
@@ -58,6 +79,37 @@ public class CompensationControllerTest {
 	@Order(1)
 	public void contextLoads() {
 		assertNotNull(controller);
+		assertNotNull(userDAO);
+	 
+	}
+	
+	@PostConstruct
+	@Transactional
+	void initTestCompensationUploadTestUserAndDeleteTestCompensationIfTestsFailed() {
+		
+		User user = new User();
+		user.setRole(Role.USER);
+		user.setName("test");
+		user.setSurname("test");
+		user.setPassword("test@test.lt");
+		user.setEmail("test@test.lt");
+		user.setUsername("test@test.lt");
+		
+		ParentDetails upd = new ParentDetails ();
+		upd.setAddress("testaddr");
+		upd.setEmail( "test@test.lt");
+		upd.setName("test");
+		upd.setPersonalCode("12345512355");
+		upd.setPhone("+1234124");
+		upd.setSurname("test");
+		upd.setUser(user);
+		
+		user.setParentDetails(upd);
+
+		user = userDAO.saveAndFlush(user);
+		testUser = user;
+	
+		
 	}
 	
 	@Test 
@@ -66,18 +118,31 @@ public class CompensationControllerTest {
 	void controllerRespondsWith201And400() {
 	
 		
-		System.out.println("\n"+"EXISTS BY CHILD CODE: "+service.existsByChildCode("12345678911"));
-		ResponseEntity<CompensationDetails> cresponse = null;
-			
-		controller.getCompensationApplicationByChildCode("12345678911");
 		
 		
-		if(cresponse == null)
+ 	   System.out.println("\n"+"EXISTS BY CHILD CODE: "+service.existsByChildCode("12345678911"));
+	
+		//delete previous record if tests have failed to do so before
+		ResponseEntity<CompensationDetails> cresponse = 
+				controller.getCompensationApplicationByChildCode("12345678911");
+
+		if(cresponse.getStatusCode().equals(HttpStatus.OK)) {
 			controller.deleteCompensationApplicationByChildCode("12345678911");
+			
+		}
 		
+		System.out.println("\n"+"EXISTS BY CHILD CODE: "+service.existsByChildCode("12345678911"));
+		
+		
+		var response =  controller.createNewCompensationApplication(data);
+		System.out.println("RRESPONSE " +response);
+		System.out.println("RRESPONSE " +response.getBody().getChildPersonalCode());
+		System.out.println("RRESPONSE " +response.getStatusCodeValue());
 		assertEquals(HttpStatus.CREATED,
-				 controller.createNewCompensationApplication(data)
-				.getStatusCode());
+				response.getStatusCode());
+		
+		testCompCreated = true;
+		
 		
 		//jei irasas kartojasi, nesukuriamas 
 		assertEquals(HttpStatus.BAD_REQUEST, 
@@ -118,6 +183,8 @@ public class CompensationControllerTest {
 		assertEquals(data.getChildInfo().getPersonalID(),
 				compensation.getChildPersonalCode());
 				
+		
+		
 	}
 	 
 	
@@ -143,7 +210,23 @@ public class CompensationControllerTest {
 				.size() < size );
  
 	}
+	
+ 
+	@PreDestroy
+	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
+	void deleteTestUserAndTestComp() {
 		
+		if(testUser != null)
+			userService.deleteUser(testUser.getUsername());
+		
+		if(testCompCreated)
+			controller.deleteCompensationApplicationByChildCode(
+					data.getChildInfo()
+						.getPersonalID());
+			
+		
+		
+	}
 
 	
 	/* to do  
