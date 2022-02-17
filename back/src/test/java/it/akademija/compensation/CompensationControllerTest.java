@@ -65,6 +65,8 @@ public class CompensationControllerTest {
 		assertEquals(HttpStatus.CREATED,
 				 controller.createNewCompensationApplication(data)
 				.getStatusCode());
+		
+		//jei irasas kartojasi, nesukuriamas 
 		assertEquals(HttpStatus.BAD_REQUEST, 
 				 controller.createNewCompensationApplication(data)
 				.getStatusCode());
@@ -96,7 +98,7 @@ public class CompensationControllerTest {
 	@Order(5)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER", "ADMIN"})
 	void getsCompensationApplicationByChildCode() {
-		Compensation compensation = null;
+		CompensationDetails compensation = null;
 		compensation = controller.getCompensationApplicationByChildCode(
 				data.getChildInfo().getPersonalID()).getBody();
 		assertNotNull(compensation);
