@@ -58,7 +58,7 @@ public class CompensationController {
 	@ResponseBody
 	public ResponseEntity<CompensationDetails> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
 		
-		Compensation compensation = null;
+		Compensation compensation = null; 
 	
 		try {
 		compensation = compensationService.createNewCompensationApplication(data);

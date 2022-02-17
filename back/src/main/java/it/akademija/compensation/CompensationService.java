@@ -90,4 +90,9 @@ public class CompensationService {
 		  compensationDAO.deleteCompensationByChildPersonalCode(childCode);
 	}
 	
+	@Transactional 
+	public boolean existsByChildCode(String childCode) {
+	    return compensationDAO.existsCompensationByChildPersonalCode(childCode);
+	}
+	
 }

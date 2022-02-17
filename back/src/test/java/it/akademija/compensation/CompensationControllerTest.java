@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -26,6 +27,9 @@ public class CompensationControllerTest {
 	
 	@Autowired
 	private CompensationController controller;
+	
+	@Autowired
+	private CompensationService service;
 	
  
 	private CompensationDTO data = new CompensationDTO (
@@ -61,6 +65,15 @@ public class CompensationControllerTest {
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void controllerRespondsWith201And400() {
 	
+		
+		System.out.println("\n"+"EXISTS BY CHILD CODE: "+service.existsByChildCode("12345678911"));
+		ResponseEntity<CompensationDetails> cresponse = null;
+			
+		controller.getCompensationApplicationByChildCode("12345678911");
+		
+		
+		if(cresponse == null)
+			controller.deleteCompensationApplicationByChildCode("12345678911");
 		
 		assertEquals(HttpStatus.CREATED,
 				 controller.createNewCompensationApplication(data)
