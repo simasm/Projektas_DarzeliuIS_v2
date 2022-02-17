@@ -77,10 +77,7 @@ public class CompensationRepositoryTest {
 		assertEquals(compensation,
 		 	compensationDAO.findCompensationsByMainGuardianUsername("test@test.lt").get(0));
 		
-		assertEquals(compensation,
-				compensationDAO
-				.findCompensationByMainGuardianParentDetailsPersonalCode(
-						"48602257896"));
+	 
 		
 		compensationDAO.deleteById(compensation.getId());
 		 
