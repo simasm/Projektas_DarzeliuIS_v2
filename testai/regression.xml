@@ -10,10 +10,10 @@
             </run>
         </groups>
         <packages>
-            <package name="login"/>
             <package name="adminTests"/>
             <package name="parentTests"/>
             <package name="managerTests"/>
+            <package name="commonElementTests"/>
         </packages>
     </test>
 

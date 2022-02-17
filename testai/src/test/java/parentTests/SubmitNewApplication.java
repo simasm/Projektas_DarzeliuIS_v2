@@ -1,11 +1,23 @@
 package parentTests;
 
+import generalMethods.ApiManagerMethods;
 import generalMethods.GeneralMethods;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import managerPages.CreateAndDeleteNewKindergartenPage;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-import managerPages.CreateAndDeleteNewKindergartenPage;
 
 import java.io.IOException;
+import java.util.Arrays;
+
+import static generalMethods.ApiGeneralMethods.logInApi;
+import static generalMethods.ApiGeneralMethods.logOutApi;
+import static generalMethods.ApiManagerMethods.isRegistrationActive;
+import static generalMethods.ApiManagerMethods.openRegistration;
 
 public class SubmitNewApplication extends GeneralMethods {
 
@@ -29,6 +41,20 @@ public class SubmitNewApplication extends GeneralMethods {
 
     @Test(groups = "regression", priority = 1)
     public void successfullySubmitNewApplication() throws IOException, InterruptedException {
+
+        RequestSpecification reqSpec = new RequestSpecBuilder().
+                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+                setContentType(ContentType.JSON).
+                addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
+                build();
+
+        // check if registration is open; if not - open it;
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
+        if(!isRegistrationActive(reqSpec)) {
+            openRegistration(reqSpec);
+        }
+        logOutApi(reqSpec);
+
         successfullyCreateNewKindergarten();
         logOutUi();
 
@@ -42,9 +68,9 @@ public class SubmitNewApplication extends GeneralMethods {
         // create a new user (parent) for this test
         createNewParent(2);
         logOutUi();
-        logInUi(createNewUserParentEmail, createNewUserParentEmail);
 
         // fill in the application and submit it
+        logInUi(createNewUserParentEmail, createNewUserParentEmail);
         fillInTheApplication();
         applicationSuccessful();
         clickOkButton();

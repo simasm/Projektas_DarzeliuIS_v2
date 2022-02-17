@@ -2,6 +2,7 @@ package generalMethods;
 
 import adminPages.CreateAndDeleteNewUserPage;
 import basetest.BaseTest;
+import managerPages.CreateAndDeleteNewKindergartenPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,6 @@ import pages.LoginPage;
 import parentPages.ApplyForCompensationPage;
 import parentPages.SubmitNewApplicationPage;
 import parentPages.UploadMedicalDocumentPDFPage;
-import managerPages.CreateAndDeleteNewKindergartenPage;
 import utilities.FileReaderUtils;
 
 import java.io.IOException;
@@ -192,7 +192,7 @@ public class GeneralMethods extends BaseTest {
 
         logOutUi();
 
-        // check if user can login with changed password
+        // check if user can log in with changed password
         waitForLoginToLoad();
         logInUi(userLogin, newPassword);
 
