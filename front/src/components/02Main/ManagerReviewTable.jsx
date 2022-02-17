@@ -9,11 +9,11 @@ const ManagerReviewTable = () => {
 
     //console.log("Gauti duomenys: \n" + JSON.stringify(compState));
     return (
-        <div class="container pt-4">
+        <div className="container pt-4">
             <h3 style={{ fontWeight: 400 }}>Kompensacijos prašymas</h3>
-            <div class="row pt-2">
+            <div class="row pt-3">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <h4 style={{ textAlign: "center" }}>Vaiko duomenys</h4>
+                    <h4 style={{ textAlign: "left" }}>Vaiko duomenys</h4>
                     <table className='table'>
                         <thead>
                             <tr>
@@ -37,9 +37,9 @@ const ManagerReviewTable = () => {
                 </div>
             </div>
 
-            <div class="row pt-2">
+            <div className="row pt-5">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <h4 style={{ textAlign: "center" }}>Vaiko atstovo duomenys</h4>
+                    <h4 style={{ textAlign: "left" }}>Vaiko atstovo duomenys</h4>
                     <table className='table'>
                         <thead>
                             <tr>
@@ -67,9 +67,9 @@ const ManagerReviewTable = () => {
                 </div>
             </div>
 
-            <div class="row pt-2">
+            <div className="row pt-5">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <h4 style={{ textAlign: "center" }}>Ugdymo įstaigos duomenys</h4>
+                    <h4 style={{ textAlign: "left" }}>Ugdymo įstaigos duomenys</h4>
                     <table className='table'>
                         <thead>
                             <tr>
@@ -100,7 +100,9 @@ const ManagerReviewTable = () => {
                     </table> 
                 </div>
             </div>
+            <div className='row pt-4'>
 
+            </div>
             <Link className='text-decoration-none' type="button" to={`/kompensacijos`}>
                         <button className="btn btn-outline-secondary" >Atgal</button>
             </Link>
