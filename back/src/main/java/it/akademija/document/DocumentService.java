@@ -1,6 +1,7 @@
 package it.akademija.document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,11 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.akademija.user.User;
+import it.akademija.user.UserDAO;
+
 @Service
 public class DocumentService {
 
 	@Autowired
 	DocumentDAO documentDao;
+	
+	@Autowired
+	UserDAO userDao;
 
 	@Transactional
 	public DocumentEntity getDocumentById(long id) {
@@ -34,6 +41,21 @@ public class DocumentService {
 
 		return documentDao.findAll().stream().filter(x -> x.getUploaderId() == id).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public List<DocumentEntity> getAllExistingDocuments(){
+		List<DocumentEntity> list = new ArrayList<>();
+		documentDao.findAll().forEach(list::add);
+		
+		return list;
+	}
+	
+	public User getUserByUploaderId(long uploaderId) {
+		return userDao.findById(uploaderId).get();
+	}
+	
+	
+	
 
 	@Transactional
 	public Boolean uploadDocument(MultipartFile file, String name, long uploaderId) {

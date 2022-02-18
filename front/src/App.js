@@ -26,9 +26,10 @@ import { UserHomeContainer } from "./components/02Main/UserHomeContainer";
 import { KindergartenStatContainer } from "./components/09Statistics/KindergartenStatContainer";
 import { QueueContainer } from "./components/12Queue/QueueContainer";
 import UserDocumentContainer from "./components/13UserDocuments/UserDocumentContainer";
-import { ApplicationStatusContainer } from './components/04Admin/ApplicationStatusContainer';
+import { ApplicationStatusContainer } from "./components/04Admin/ApplicationStatusContainer";
 import EventJournalContainer from "./components/14EventJournal/EventJournalContainer";
 import Compensation from "./components/07Application/Compensation";
+import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsContainer";
 
 var initState = {
   isAuthenticated: null,
@@ -72,7 +73,6 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
-
     if (state.isAuthenticated === null) {
       http
         .get(`${apiEndpoint}/api/loggedUserRole`)
@@ -83,21 +83,24 @@ function App() {
           });
         })
         .catch((error) => {
-          const unexpectedError = error.response &&
-                                  error.response.status >= 400 &&
-                                  error.response.status < 500;
-                                  
-          if (!unexpectedError || (error.response && error.response.status === 404))
-          {
+          const unexpectedError =
+            error.response &&
+            error.response.status >= 400 &&
+            error.response.status < 500;
+
+          if (
+            !unexpectedError ||
+            (error.response && error.response.status === 404)
+          ) {
             swal("Įvyko klaida, puslapis nurodytu adresu nepasiekiamas");
             dispatch({
               type: "ERROR",
             });
-          }
-          else dispatch({
-            type: "ERROR",
-            payload: error.response.status,
-          });
+          } else
+            dispatch({
+              type: "ERROR",
+              payload: error.response.status,
+            });
         });
     }
   }, [state.isAuthenticated]);
@@ -119,7 +122,7 @@ function App() {
                       path="/statistika"
                       component={KindergartenStatContainer}
                     />
-                     <Route
+                    <Route
                       exact
                       path="/prasymai/statusas"
                       component={ApplicationStatusContainer}
@@ -169,6 +172,13 @@ function App() {
                       path="/darzeliai"
                       component={KindergartenContainer}
                     />
+
+                    <Route
+                      exact
+                      path="/pazymos"
+                      component={SubmittedDocsContainer}
+                    />
+
                     <Route exact path="/eile" component={QueueContainer} />
                     <Route
                       exact
@@ -216,10 +226,10 @@ function App() {
                       path="/profilis/atnaujinti"
                       component={UpdateProfileFormContainer}
                     />
-                    <Route 
+                    <Route
                       exact
                       path="/pazymos"
-                      component={UserDocumentContainer} 
+                      component={UserDocumentContainer}
                     />
                     <Route path="*" component={NotFound} />
                   </Switch>
@@ -237,20 +247,20 @@ function App() {
           </AuthContext.Provider>
         );
     }
-  } else if (state.isAuthenticated === false){
+  } else if (state.isAuthenticated === false) {
     return (
       <div>
         <AuthContext.Provider value={{ state, dispatch }}>
-            <Switch>
-               <Route exact path="/login" component={Login} />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route> 
-            </Switch>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route path="*">
+              <Redirect to="/login" />
+            </Route>
+          </Switch>
         </AuthContext.Provider>
       </div>
-    );}
-  else return <Spinner />;
+    );
+  } else return <Spinner />;
 }
 
 export default App;

@@ -25,6 +25,7 @@ import it.akademija.application.ApplicationController;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
+import it.akademija.user.User;
 import it.akademija.user.UserService;
 
 @RestController
@@ -43,7 +44,7 @@ public class DocumentController {
 	@Autowired
 	private JournalService journalService;
 
-	@Secured("ROLE_USER")
+	@Secured({ "ROLE_USER", "ROLE_MANAGER" })
 	@GetMapping(path = "/get/{id}")
 	public byte[] getDocumentFileById(@ApiParam(value = "id") @PathVariable Long id) {
 
@@ -74,7 +75,7 @@ public class DocumentController {
 		}
 	}
 
-	@Secured("ROLE_USER")
+	@Secured({ "ROLE_USER", "ROLE_MANAGER" })
 	@DeleteMapping(path = "/delete/{id}")
 	public ResponseEntity<String> deleteDocument(@ApiParam(value = "id") @PathVariable final long id) {
 
@@ -87,8 +88,8 @@ public class DocumentController {
 	@GetMapping(path = "/documents")
 	public List<DocumentViewmodel> getLoggedUserDocuments() {
 
-		List<DocumentEntity> docEntityList = documentService.getDocumentsByUploaderId(userService
-				.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getUserId());
+		List<DocumentEntity> docEntityList = 
+				documentService.getDocumentsByUploaderId(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getUserId());
 
 		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
 
@@ -98,5 +99,27 @@ public class DocumentController {
 		}
 		return docViewmodelList;
 	}
+	
+	
+	
+	@Secured("ROLE_MANAGER")
+	@GetMapping(path = "/documents/all")
+	public List<DocumentViewmodel> getAllExistingDocuments() {
+		
+		List<DocumentEntity> docEntityList = documentService.getAllExistingDocuments();
+		
+		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
+		
+		for (DocumentEntity doc : docEntityList) {
+			User user = documentService.getUserByUploaderId(doc.getUploaderId());
+			
+			
+
+			docViewmodelList.add(new DocumentViewmodel(doc.getId(), user.getName(), user.getSurname(), doc.getName(), doc.getUploadDate()));
+		}
+		return docViewmodelList;
+	}
+	
+
 
 }
