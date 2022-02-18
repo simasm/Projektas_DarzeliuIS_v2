@@ -37,6 +37,7 @@ public class CompensationService {
 				data.getChildInfo().getPersonalID(),
 				LocalDate.parse(data.getChildInfo().getDateOfBirth()),
 				mainGuardian,
+				data.getGuardianInfo(),
 				data.getKindergartenInfo().getCode(),
 				data.getKindergartenInfo().getName(),
 				data.getKindergartenInfo().getAddress(),
@@ -88,6 +89,11 @@ public class CompensationService {
 	public void deleteCompensationApplicationByChildCode(String childCode) {
 		
 		  compensationDAO.deleteCompensationByChildPersonalCode(childCode);
+	}
+	
+	@Transactional 
+	public boolean existsByChildCode(String childCode) {
+	    return compensationDAO.existsCompensationByChildPersonalCode(childCode);
 	}
 	
 }

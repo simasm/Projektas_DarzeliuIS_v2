@@ -64,7 +64,6 @@ public class UserRESTTest {
 	@Test
 
 	@Order(1)
-
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	public void testPostDeleteUserMethod() throws Exception {
 		ParentDetails details = new ParentDetails();

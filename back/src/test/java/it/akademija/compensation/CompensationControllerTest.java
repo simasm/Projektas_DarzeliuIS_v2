@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.PreDestroy;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -12,10 +14,14 @@ import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
-
 import it.akademija.App;
+import it.akademija.user.User;
+import it.akademija.user.UserDAO;
+import it.akademija.user.UserService;
+import it.akademija.compensation.GuardianInfo;
 
 @SpringBootTest(classes = { App.class,
 		CompensationController.class },
@@ -26,6 +32,20 @@ public class CompensationControllerTest {
 	
 	@Autowired
 	private CompensationController controller;
+	
+	@Autowired
+	private CompensationService service;
+	
+	@Autowired
+	private UserDAO userDAO;
+	
+	@Autowired
+	private UserService userService;
+	
+	
+	private User testUser = null;
+
+	private boolean testCompCreated = false;
 	
  
 	private CompensationDTO data = new CompensationDTO (
@@ -41,10 +61,10 @@ public class CompensationControllerTest {
 							"Testbankas",
 							"TBANK1",
 							"1234"),
-		new GuardianInfo("test",
+		new  GuardianInfo("test",
 						 "test",
-						 "123455123",
-						 "1234124",
+						 "12345512355",
+						 "+1234124",
 						 "test@test.lt",
 						 "testaddr")
 		
@@ -54,7 +74,39 @@ public class CompensationControllerTest {
 	@Order(1)
 	public void contextLoads() {
 		assertNotNull(controller);
+	 
+	 
 	}
+	
+	/*
+	@PostConstruct
+	@Transactional
+	void initTestCompensationUpload() {
+		
+		User user = new User();
+		user.setRole(Role.USER);
+		user.setName("test");
+		user.setSurname("test");
+		user.setPassword("test@test.lt");
+		user.setEmail("test@test.lt");
+		user.setUsername("test@test.lt");
+		
+		ParentDetails upd = new ParentDetails ();
+		upd.setAddress("testaddr");
+		upd.setEmail( "test@test.lt");
+		upd.setName("test");
+		upd.setPersonalCode("12345512355");
+		upd.setPhone("+1234124");
+		upd.setSurname("test");
+		upd.setUser(user);
+		
+		user.setParentDetails(upd);
+
+		user = userDAO.saveAndFlush(user);
+		testUser = user;
+	
+		
+	}*/
 	
 	@Test 
 	@Order(2)
@@ -62,9 +114,16 @@ public class CompensationControllerTest {
 	void controllerRespondsWith201And400() {
 	
 		
+ 
+		var response =  controller.createNewCompensationApplication(data);
+	 
 		assertEquals(HttpStatus.CREATED,
-				 controller.createNewCompensationApplication(data)
-				.getStatusCode());
+				response.getStatusCode());
+		
+		testCompCreated = true;
+		
+		
+		//jei irasas kartojasi, nesukuriamas 
 		assertEquals(HttpStatus.BAD_REQUEST, 
 				 controller.createNewCompensationApplication(data)
 				.getStatusCode());
@@ -96,13 +155,15 @@ public class CompensationControllerTest {
 	@Order(5)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER", "ADMIN"})
 	void getsCompensationApplicationByChildCode() {
-		Compensation compensation = null;
+		CompensationDetails compensation = null;
 		compensation = controller.getCompensationApplicationByChildCode(
 				data.getChildInfo().getPersonalID()).getBody();
 		assertNotNull(compensation);
 		assertEquals(data.getChildInfo().getPersonalID(),
 				compensation.getChildPersonalCode());
 				
+		
+		
 	}
 	 
 	
@@ -128,7 +189,23 @@ public class CompensationControllerTest {
 				.size() < size );
  
 	}
+	
+ 
+	@PreDestroy
+	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
+	void deleteTestUserAndTestComp() {
 		
+		if(testUser != null)
+			userService.deleteUser(testUser.getUsername());
+		
+		if(testCompCreated)
+			controller.deleteCompensationApplicationByChildCode(
+					data.getChildInfo()
+						.getPersonalID());
+			
+		
+		
+	}
 
 	
 	/* to do  
