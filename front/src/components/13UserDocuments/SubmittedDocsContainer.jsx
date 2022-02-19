@@ -4,23 +4,30 @@ import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
 import Pagination from "../08CommonComponents/Pagination";
+import SearchBox from "./../08CommonComponents/SeachBox";
 
 function SubmittedDocsContainer() {
   const [docs, setDocs] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
-    getDocuments(currentPage);
+    getDocuments(currentPage, "");
   }, []);
 
-  const getDocuments = (currentPage) => {
+  const getDocuments = (currentPage, uploaderSurname) => {
     let page = currentPage - 1;
 
     if (page < 0) page = 0;
 
     var uri = `${apiEndpoint}/api/documents/page?page=${page}&size=${pageSize}`;
+
+    if (uploaderSurname !== "") {
+      uri = `${apiEndpoint}/api/documents/manager/page/${uploaderSurname}?page=${page}&size=${pageSize}`;
+    }
 
     http
       .get(uri)
@@ -40,7 +47,7 @@ function SubmittedDocsContainer() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    getDocuments(page);
+    getDocuments(page, searchQuery);
   };
 
   const handleDelete = (document) => {
@@ -94,6 +101,13 @@ function SubmittedDocsContainer() {
       });
   };
 
+  const handleSearch = (e) => {
+    const uploaderSurname = e.currentTarget.value;
+    setSearchQuery(uploaderSurname);
+    getDocuments(1, uploaderSurname);
+    console.log(uploaderSurname);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -106,6 +120,13 @@ function SubmittedDocsContainer() {
 
       <div className="row formHeader">
         <div className="col-6">
+          <div>
+            <SearchBox
+              value={searchQuery}
+              onSearch={handleSearch}
+              placeholder={"Ieškokite pagal pavardę"}
+            />
+          </div>
           {
             //**UserDocumentList */
             <SubmittedDocumentsListTable

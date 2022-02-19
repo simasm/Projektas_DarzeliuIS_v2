@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.akademija.journal.JournalEntry;
+import it.akademija.kindergarten.Kindergarten;
 import it.akademija.user.User;
 import it.akademija.user.UserDAO;
 
@@ -62,6 +63,12 @@ public class DocumentService {
 		return documentDao.getAllDocuments(pageable);
 	}
 	
+	@Transactional(readOnly = true)
+	public Page<DocumentEntity> GetDocumentPageFilteredByUploaderSurname(String uploaderSurname, Pageable pageable) {
+
+		return documentDao.findByUploaderSurname(uploaderSurname, pageable);
+
+	}
 	
 	
 

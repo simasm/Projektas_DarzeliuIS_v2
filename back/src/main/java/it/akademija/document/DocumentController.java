@@ -3,6 +3,8 @@ package it.akademija.document;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ import it.akademija.journal.JournalEntry;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
+import it.akademija.kindergarten.Kindergarten;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
 
@@ -122,11 +125,30 @@ public class DocumentController {
 			@RequestParam("page") int page, 
 			  @RequestParam("size") int size) {	
 		
-		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
 						
-		Pageable pageable = PageRequest.of(page, size, Sort.by(order));
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
 
 		return new ResponseEntity<>(documentService.getAllDocuments(pageable), HttpStatus.OK);
+	}
+	
+	
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping("/manager/page/{uploaderSurname}")
+	public ResponseEntity<Page<DocumentEntity>> GetDocumentPageFilteredByUploaderSurname(@PathVariable String uploaderSurname,
+			@RequestParam("page") int page, @RequestParam("size") int size) {
+
+		
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
+
+		return new ResponseEntity<>(documentService.GetDocumentPageFilteredByUploaderSurname(uploaderSurname, pageable),
+				HttpStatus.OK);
 	}
 
 }
