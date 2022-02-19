@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.akademija.journal.JournalEntry;
 import it.akademija.user.User;
 import it.akademija.user.UserDAO;
 
@@ -54,17 +57,23 @@ public class DocumentService {
 		return userDao.findById(uploaderId).get();
 	}
 	
+	@Transactional(readOnly = true)
+	public Page<DocumentEntity> GetAllDocuments(Pageable pageable) {
+		return documentDao.getAllDocuments(pageable);
+	}
+	
 	
 	
 
 	@Transactional
 	public Boolean uploadDocument(MultipartFile file, String name, long uploaderId) {
-
+			User user = userDao.findById(uploaderId).get();
+		
 		if (file.getSize() <= 1024000 && file.getContentType().equals("application/pdf")) {
 
 			try {
 				DocumentEntity doc = new DocumentEntity(name, file.getContentType(), file.getBytes(), file.getSize(),
-						uploaderId, LocalDate.now());
+						uploaderId, LocalDate.now(), user.getName(), user.getSurname());
 				documentDao.save(doc);
 			} catch (Exception e) {
 				e.printStackTrace();

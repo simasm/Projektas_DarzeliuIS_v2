@@ -6,6 +6,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -20,8 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.ApplicationController;
+import it.akademija.journal.JournalEntry;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
@@ -104,22 +110,32 @@ public class DocumentController {
 	
 	@Secured("ROLE_MANAGER")
 	@GetMapping(path = "/documents/all")
-	public List<DocumentViewmodel> getAllExistingDocuments() {
+	public List<DocumentEntity> getAllExistingDocuments() {
 		
 		List<DocumentEntity> docEntityList = documentService.getAllExistingDocuments();
 		
-		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
-		
-		for (DocumentEntity doc : docEntityList) {
-			User user = documentService.getUserByUploaderId(doc.getUploaderId());
-			
-			
-
-			docViewmodelList.add(new DocumentViewmodel(doc.getId(), user.getName(), user.getSurname(), doc.getName(), doc.getUploadDate()));
-		}
-		return docViewmodelList;
+//		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
+//		
+//		for (DocumentEntity doc : docEntityList) {
+//			
+//
+//			docViewmodelList.add(new DocumentViewmodel(doc.getId(), doc.getUploaderName(), doc.getUploaderSurname(), doc.getName(), doc.getUploadDate()));
+//		}
+		return documentService.getAllExistingDocuments();
 	}
 	
-
+//	@Secured({ "ROLE_ADMIN" })
+//	@GetMapping(path = "/admin/getjournal/page")
+//	@ApiOperation(value = "Show all journal entries", notes = "Showing all journal entries")
+//	public ResponseEntity<Page<JournalEntry>> getJournalEntriesPage(
+//			@RequestParam("page") int page, 
+//			  @RequestParam("size") int size) {	
+//		
+//		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "eventTime");
+//						
+//		Pageable pageable = PageRequest.of(page, size, Sort.by(order));
+//
+//		return new ResponseEntity<>(journalService.getAllJournalEntries(pageable), HttpStatus.OK);
+//	}
 
 }

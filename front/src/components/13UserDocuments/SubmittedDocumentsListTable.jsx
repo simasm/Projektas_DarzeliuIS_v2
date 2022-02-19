@@ -20,7 +20,7 @@ export default function SubmittedDocumentsListTable({
     {
       key: "name",
       label: "Pavadinimas",
-      content: (document) => <span>{document.docName}</span>,
+      content: (document) => <span>{document.name}</span>,
     },
     {
       key: "uploadDate",
