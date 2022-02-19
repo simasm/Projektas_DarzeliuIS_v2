@@ -112,30 +112,21 @@ public class DocumentController {
 	@GetMapping(path = "/documents/all")
 	public List<DocumentEntity> getAllExistingDocuments() {
 		
-		List<DocumentEntity> docEntityList = documentService.getAllExistingDocuments();
 		
-//		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
-//		
-//		for (DocumentEntity doc : docEntityList) {
-//			
-//
-//			docViewmodelList.add(new DocumentViewmodel(doc.getId(), doc.getUploaderName(), doc.getUploaderSurname(), doc.getName(), doc.getUploadDate()));
-//		}
 		return documentService.getAllExistingDocuments();
 	}
 	
-//	@Secured({ "ROLE_ADMIN" })
-//	@GetMapping(path = "/admin/getjournal/page")
-//	@ApiOperation(value = "Show all journal entries", notes = "Showing all journal entries")
-//	public ResponseEntity<Page<JournalEntry>> getJournalEntriesPage(
-//			@RequestParam("page") int page, 
-//			  @RequestParam("size") int size) {	
-//		
-//		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "eventTime");
-//						
-//		Pageable pageable = PageRequest.of(page, size, Sort.by(order));
-//
-//		return new ResponseEntity<>(journalService.getAllJournalEntries(pageable), HttpStatus.OK);
-//	}
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping(path = "/page")
+	public ResponseEntity<Page<DocumentEntity>> getDocumentPages(
+			@RequestParam("page") int page, 
+			  @RequestParam("size") int size) {	
+		
+		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+						
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order));
+
+		return new ResponseEntity<>(documentService.getAllDocuments(pageable), HttpStatus.OK);
+	}
 
 }

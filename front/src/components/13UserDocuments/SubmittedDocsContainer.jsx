@@ -3,27 +3,32 @@ import SubmittedDocumentsListTable from "./SubmittedDocumentsListTable";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
+import Pagination from "../08CommonComponents/Pagination";
 
 function SubmittedDocsContainer() {
-  const [documentList, setDocumentList] = useState([]);
+  const [docs, setDocs] = useState([]);
+  const [totalElements, setTotalElements] = useState(0);
+  const [pageSize, setPageSize] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const mapDocumentsToViewmodel = (docList) => {
-    const docViewmodelList = docList.map((document) => ({
-      id: document.documentId,
-      uploaderName: document.uploaderName,
-      uploaderSurname: document.uploaderSurname,
-      docName: document.name,
-      uploadDate: document.uploadDate,
-    }));
-    return docViewmodelList;
-  };
+  useEffect(() => {
+    getDocuments(currentPage);
+  }, []);
 
-  const getDocuments = () => {
+  const getDocuments = (currentPage) => {
+    let page = currentPage - 1;
+
+    if (page < 0) page = 0;
+
+    var uri = `${apiEndpoint}/api/documents/page?page=${page}&size=${pageSize}`;
+
     http
-      .get(`${apiEndpoint}/api/documents/documents/all`)
+      .get(uri)
       .then((response) => {
         console.log(response.data);
-        setDocumentList(response.data);
+        setDocs(response.data.content);
+        setTotalElements(response.data.totalElements);
+        setCurrentPage(response.data.number + 1);
       })
       .catch((error) => {
         alert({
@@ -33,10 +38,10 @@ function SubmittedDocsContainer() {
       });
   };
 
-  useEffect(() => {
-    getDocuments();
-    console.log(documentList);
-  }, []);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    getDocuments(page);
+  };
 
   const handleDelete = (document) => {
     swal({
@@ -48,7 +53,7 @@ function SubmittedDocsContainer() {
         http
           .delete(`${apiEndpoint}/api/documents/delete/${document.id}`)
           .then((response) => {
-            getDocuments();
+            getDocuments(currentPage);
             swal({
               text: "Pažyma buvo sėkmingai ištrinta",
               button: "Gerai",
@@ -82,7 +87,6 @@ function SubmittedDocsContainer() {
         link.remove();
       })
       .catch((error) => {
-        //console.log(error);
         swal({
           text: "Įvyko klaida atsisiunčiant pažymą.",
           buttons: "Gerai",
@@ -95,7 +99,7 @@ function SubmittedDocsContainer() {
       <div className="row">
         <div className="col">
           <h6 className="py-3">
-            <b>VISOS PAZYMOS</b>
+            <b>Visos pažymos</b>
           </h6>
         </div>
       </div>
@@ -105,12 +109,20 @@ function SubmittedDocsContainer() {
           {
             //**UserDocumentList */
             <SubmittedDocumentsListTable
-              documents={documentList}
+              documents={docs}
               onDelete={handleDelete}
               onDownload={handleDownload}
             />
           }
         </div>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Pagination
+          currentPage={currentPage}
+          pageSize={pageSize}
+          itemsCount={totalElements}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

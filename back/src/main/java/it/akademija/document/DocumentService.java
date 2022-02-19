@@ -58,7 +58,7 @@ public class DocumentService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<DocumentEntity> GetAllDocuments(Pageable pageable) {
+	public Page<DocumentEntity> getAllDocuments(Pageable pageable) {
 		return documentDao.getAllDocuments(pageable);
 	}
 	
