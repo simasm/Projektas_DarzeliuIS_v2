@@ -9,7 +9,7 @@ const GuardianFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-][^%_0-9^$]+$/)) {
+      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[a-zA-Z\s-']*$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas vardo formatas",
@@ -22,7 +22,7 @@ const GuardianFormValidator = (
       return guardianValid.name;
 
     case "surname":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\w\sÀ-ž-][^%_0-9^$]+$/)) {
+      if (!e.target.value.match(/^^[A-ZĄ-Ž]{1}[a-zA-Z\s-']*$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas pavardės formatas",
@@ -48,7 +48,7 @@ const GuardianFormValidator = (
       return guardianValid.personalCode;
 
     case "phone":
-      if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
+      if (!e.target.value.match(/[+]{1}[370]{3}[0-9]{8}/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas telefono numerio formatas",

@@ -108,14 +108,13 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenPhone">
-            Kontaktinis telefono numeris{" "}
-            <span className="fieldRequired">*</span>
+            Telefono numeris <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
             id="txtKindergartenPhone"
             name="phone"
-            placeholder="+370xxxxxxxx | 852xxxxxx"
+            placeholder="+370xxxxxxxx"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -184,7 +183,7 @@ export default function KindergartenInfoForm({
             //placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            maxLength={34}
+            maxLength={20}
             style={
               kindergartenValid.accountNumber
                 ? { border: "1px solid lightgray" }

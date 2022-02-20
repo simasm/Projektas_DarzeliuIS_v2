@@ -192,7 +192,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainName"
               name="name"
-              placeholder="Vardas"
               className="form-control"
               value={this.state.mainGuardian.name}
               onChange={this.mainGuardianOnChange}
@@ -210,7 +209,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainSurname"
               name="surname"
-              placeholder="Pavardė"
               className="form-control"
               value={this.state.mainGuardian.surname}
               onChange={this.mainGuardianOnChange}
@@ -228,7 +226,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainPersonalCode"
               name="personalCode"
-              placeholder="Asmens kodas"
               className="form-control"
               value={this.state.mainGuardian.personalCode}
               onChange={this.mainGuardianOnChange}
@@ -247,7 +244,7 @@ class CreateApplicationFormContainer extends Component {
                 type="tel"
                 id="txtMainPhone"
                 name="phone"
-                placeholder="+37012345678"
+                placeholder="+370xxxxxxxx"
                 className="form-control"
                 value={this.state.mainGuardian.phone}
                 onChange={this.mainGuardianOnChange}
@@ -266,7 +263,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainEmail"
               name="email"
-              placeholder="El. paštas"
               className="form-control"
               value={this.state.mainGuardian.email}
               onChange={this.mainGuardianOnChange}
@@ -285,7 +281,6 @@ class CreateApplicationFormContainer extends Component {
               className="form-control"
               id="txtMainAddress"
               name="address"
-              placeholder="Adresas"
               value={this.state.mainGuardian.address}
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
@@ -323,7 +318,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalName"
               name="name"
-              placeholder="Vardas"
               className="form-control"
               value={this.state.additionalGuardian.name}
               onChange={this.additionalGuardianOnChange}
@@ -344,7 +338,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalSurname"
               name="surname"
-              placeholder="Pavardė"
               className="form-control"
               value={this.state.additionalGuardian.surname}
               onChange={this.additionalGuardianOnChange}
@@ -365,7 +358,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalPersonalCode"
               name="personalCode"
-              placeholder="Asmens kodas"
               className="form-control"
               value={this.state.additionalGuardian.personalCode}
               onChange={this.additionalGuardianOnChange}
@@ -387,7 +379,7 @@ class CreateApplicationFormContainer extends Component {
                 type="tel"
                 id="txtAdditionalPhone"
                 name="phone"
-                placeholder="+37012345678"
+                placeholder="+370xxxxxxxx"
                 className="form-control"
                 value={this.state.additionalGuardian.phone}
                 onChange={this.additionalGuardianOnChange}
@@ -409,7 +401,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalEmail"
               name="email"
-              placeholder="El. paštas"
               className="form-control"
               value={this.state.additionalGuardian.email}
               onChange={this.additionalGuardianOnChange}
@@ -431,7 +422,6 @@ class CreateApplicationFormContainer extends Component {
               className="form-control"
               id="txtAdditionalAddress"
               name="address"
-              placeholder="Adresas"
               value={this.state.additionalGuardian.address}
               onChange={this.additionalGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
@@ -462,7 +452,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildPersonalCode"
             name="childPersonalCode"
-            placeholder="Asmens kodas"
             className="form-control"
             style={
               this.state.childIdValid
@@ -488,7 +477,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildName"
             name="childName"
-            placeholder="Vaiko vardas"
             className="form-control"
             value={this.state.childName}
             disabled
@@ -504,7 +492,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildSurname"
             name="childSurname"
-            placeholder="Vaiko pavardė"
             className="form-control"
             value={this.state.childSurname}
             disabled
@@ -520,7 +507,6 @@ class CreateApplicationFormContainer extends Component {
           </label>
           <input
             className="form-control"
-            placeholder="Vaiko gimimo data"
             value={this.state.birthdate}
             disabled
           />
