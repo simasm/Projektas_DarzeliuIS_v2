@@ -9,7 +9,7 @@ import SearchBox from "./../08CommonComponents/SeachBox";
 function SubmittedDocsContainer() {
   const [docs, setDocs] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchQuery, setSearchQuery] = useState("");
