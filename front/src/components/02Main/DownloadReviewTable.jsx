@@ -1,14 +1,47 @@
-import React from 'react';
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf";
 import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 import './../../App.css';
+import { useHistory } from "react-router-dom";
 
-const ManagerReviewTable = () => {
+const DownloadReviewTable = () => {
     const { compState, setCompState } = React.useContext(ManagerCompesationContext);
-    
-    //const { id } = useParams();
+    const [back, setBack ] = useState(false);
+    let history = useHistory();
+    useEffect(() => {
+        handleDownloadPdf();
+        history.push("/kompensacijos");
+        setTimeout(() => {
+            setBackOnScreen();
+        }, 3000);
 
-    //console.log("Gauti duomenys: \n" + JSON.stringify(compState));
+    }, []);
+
+    const setBackOnScreen = () => {
+        console.log("setting backAppear to true");
+        setBack(true);
+        // history.push("/kompensacijos");
+    }
+
+    const handleDownloadPdf = async () => {
+        const input = document.getElementById('divToPrint');
+        //console.log("element:\n" + input);
+        const canvas = await html2canvas(input);
+
+        const data = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF();
+        const imgProperties = pdf.getImageProperties(data);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight =
+            (imgProperties.height * pdfWidth) / imgProperties.width;
+        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        let filename = compState.map(item => item.childName + '-' + item.childSurname + '-' + item.submittedAt);
+        pdf.save(filename);
+    };
+
     return (
         <div id="divToPrint" className="container pt-4">
             <h3 style={{ fontWeight: 400 }}>Kompensacijos prašymas</h3>
@@ -34,7 +67,7 @@ const ManagerReviewTable = () => {
                                 </tr>
                             )}
                         </tbody>
-                    </table>  
+                    </table>
                 </div>
             </div>
 
@@ -64,7 +97,7 @@ const ManagerReviewTable = () => {
                                 </tr>
                             )}
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
 
@@ -98,17 +131,23 @@ const ManagerReviewTable = () => {
                                 </tr>
                             )}
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
             <div className='row pt-4'>
 
             </div>
-            <Link className='text-decoration-none' type="button" to={`/kompensacijos`}>
+            <div>
+                {back === true ? (
+                    <Link className='text-decoration-none' type="button" to={`/kompensacijos`}>
                         <button className="btn btn-outline-secondary" >Atgal</button>
-            </Link>
+                    </Link>
+                ) : (
+                    null
+                )}
+            </div>
         </div>
     );
 }
 
-export default ManagerReviewTable;
+export default DownloadReviewTable;

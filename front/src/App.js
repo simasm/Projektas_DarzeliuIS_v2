@@ -34,6 +34,7 @@ import Compensation from "./components/07Application/Compensation";
 import MedicalCertificates from "./components/13UserDocuments/MedicalCertificates";
 import ManagerCompensations from "./components/02Main/ManagerCompensations"
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
+import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
 
 var initState = {
   isAuthenticated: null,
@@ -171,6 +172,11 @@ function App() {
                       exact
                       path="/kompensacijos/:id"
                       component={ManagerReviewTable}
+                    />
+                    <Route
+                      exact
+                      path="/download_kompensacijos/:id"
+                      component={DownloadReviewTable}
                     />
                     <Route
                       exact
