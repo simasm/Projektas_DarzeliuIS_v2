@@ -959,6 +959,9 @@ class CreateApplicationFormContainer extends Component {
   render() {
     return (
       <div className="container pt-4">
+        <div>
+          <h6 className="pl-5 pt-3">Prašymas dėl registracijos</h6>
+        </div>
         {this.drawMessageRegistrationNotAvailable(
           this.state.registrationDisabled
         )}

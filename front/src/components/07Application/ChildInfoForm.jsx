@@ -70,10 +70,10 @@ export default function ChildInfoForm({
   return (
     <div className="container">
       <div className="form">
-        <div className="pb-1">
-          <h6 className="formHeader">Vaiko duomenys</h6>
+        <div>
+          <h6 className="formHeader pb-2">Vaiko duomenys</h6>
         </div>
-        <div className="form-group marginTop10">
+        <div className="form-group">
           <label htmlFor="txtPersonalCodeCompensation">
             Asmens kodas <span className="fieldRequired">*</span>
           </label>
@@ -81,7 +81,7 @@ export default function ChildInfoForm({
             type="text"
             id="txtChildPersonalCodeCompensation"
             name="childPersonalCodeCompensation"
-           // placeholder="31234567890"
+            // placeholder="31234567890"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             maxLength={11}

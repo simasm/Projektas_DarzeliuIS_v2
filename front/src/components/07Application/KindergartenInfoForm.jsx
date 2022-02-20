@@ -36,11 +36,11 @@ export default function KindergartenInfoForm({
   return (
     <div className="container">
       <div className="form">
-        <div className="pb-1">
-          <h6 className="formHeader">Darželio duomenys</h6>
+        <div>
+          <h6 className="formHeader pb-2">Darželio duomenys</h6>
         </div>
 
-        <div className="form-group mt-2">
+        <div className="form-group">
           <label htmlFor="txtKindergartenName">
             Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
           </label>
@@ -48,7 +48,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenName"
             name="name"
-          //  placeholder="Pavadinimas"
+            //  placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -70,7 +70,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenCode"
             name="code"
-           // placeholder="123456789"
+            // placeholder="123456789"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -92,7 +92,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenAddress"
             name="address"
-           // placeholder="Adresas"
+            // placeholder="Adresas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -137,7 +137,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenEmail"
             name="email"
-           // placeholder="example@mail.com"
+            // placeholder="example@mail.com"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -205,7 +205,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankCode"
             name="bankCode"
-           // placeholder="12345"
+            // placeholder="12345"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={

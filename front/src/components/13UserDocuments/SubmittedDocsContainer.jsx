@@ -9,7 +9,7 @@ import SearchBox from "./../08CommonComponents/SeachBox";
 function SubmittedDocsContainer() {
   const [docs, setDocs] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,7 +60,7 @@ function SubmittedDocsContainer() {
         http
           .delete(`${apiEndpoint}/api/documents/delete/${document.id}`)
           .then((response) => {
-            getDocuments(currentPage);
+            getDocuments(1, searchQuery);
             swal({
               text: "Pažyma buvo sėkmingai ištrinta",
               button: "Gerai",
@@ -105,16 +105,13 @@ function SubmittedDocsContainer() {
     const uploaderSurname = e.currentTarget.value;
     setSearchQuery(uploaderSurname);
     getDocuments(1, uploaderSurname);
-    console.log(uploaderSurname);
   };
 
   return (
-    <div className="container">
+    <div className="container pt-4">
       <div className="row">
         <div className="col">
-          <h6 className="py-3">
-            <b>Visos pažymos</b>
-          </h6>
+          <h6 className="pl-2 pt-3">Visos pažymos</h6>
         </div>
       </div>
 
@@ -124,7 +121,7 @@ function SubmittedDocsContainer() {
             <SearchBox
               value={searchQuery}
               onSearch={handleSearch}
-              placeholder={"Ieškokite pagal pavardę"}
+              placeholder={"Ieškokite pagal pavardę..."}
             />
           </div>
           {
@@ -135,15 +132,15 @@ function SubmittedDocsContainer() {
               onDownload={handleDownload}
             />
           }
+          <div className="d-flex justify-content-center">
+            <Pagination
+              currentPage={currentPage}
+              pageSize={pageSize}
+              itemsCount={totalElements}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <Pagination
-          currentPage={currentPage}
-          pageSize={pageSize}
-          itemsCount={totalElements}
-          onPageChange={handlePageChange}
-        />
       </div>
     </div>
   );

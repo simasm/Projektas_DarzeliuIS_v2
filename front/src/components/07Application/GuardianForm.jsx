@@ -33,11 +33,11 @@ export default function GuardianForm({
 
   return (
     <div className="form">
-      <div className="pb-1">
-        <h6 className="formHeader">Vaiko atstovo duomenys</h6>
+      <div>
+        <h6 className="formHeader pb-2">Vaiko atstovo duomenys</h6>
       </div>
 
-      <div className="form-group mt-2">
+      <div className="form-group">
         <label htmlFor="txtGuardianNameCompensation">
           Vardas <span className="fieldRequired">*</span>
         </label>
@@ -67,7 +67,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianSurnameCompensation"
           name="surname"
-        //  placeholder="Pavardė"
+          //  placeholder="Pavardė"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -89,7 +89,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianIdCompensation"
           name="personalCode"
-         // placeholder="41234567890"
+          // placeholder="41234567890"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -133,7 +133,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianEmailCompensation"
           name="email"
-        //  placeholder="example@mail.com"
+          //  placeholder="example@mail.com"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
@@ -155,7 +155,7 @@ export default function GuardianForm({
           type="text"
           id="txtGuardianAddressCompensation"
           name="address"
-        //  placeholder="Adresas"
+          //  placeholder="Adresas"
           className="form-control"
           onChange={(e) => handleOnChange(e)}
           style={
