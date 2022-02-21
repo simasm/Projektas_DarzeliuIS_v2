@@ -12,7 +12,7 @@ const DownloadReviewTable = () => {
     let history = useHistory();
     useEffect(() => {
         handleDownloadPdf();
-        history.push("/kompensacijos");
+        //history.push("/kompensacijos");
         setTimeout(() => {
             setBackOnScreen();
         }, 3000);
@@ -34,10 +34,10 @@ const DownloadReviewTable = () => {
 
         const pdf = new jsPDF();
         const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfWidth = pdf.internal.pageSize.getWidth()*0.9;
         const pdfHeight =
             (imgProperties.height * pdfWidth) / imgProperties.width;
-        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.addImage(data, 'PNG', 10, 10, pdfWidth, pdfHeight);
         let filename = compState.map(item => item.childName + '-' + item.childSurname + '-' + item.submittedAt);
         pdf.save(filename);
     };
