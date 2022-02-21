@@ -15,11 +15,14 @@ const Pagination = (props) => {
   const [pageToHop, setPageToHop] = useState(1);
 
   useEffect(() => {
-    if (pagesCount >= 6) {
-      setPages(_.range(2, 6));
-    } else if (pagesCount < 6) {
-      setPages(_.range(2, pagesCount));
-    }
+    // if (pagesCount >= 6) {
+    //   setPages(_.range(2, 6));
+    // } else if (pagesCount < 6) {
+    //   setPages(_.range(2, pagesCount));
+    // }
+
+    setPages(_.range(2,pagesCount));
+    
   }, [pagesCount]);
 
   if (pagesCount === 1 || pagesCount === 0) return null;
@@ -81,9 +84,26 @@ const Pagination = (props) => {
               </button>
             </li>
             {/* VIENETAS */}
+ 
+  
+            {/* TARPAS 1*/}
+      
+            {currentPage > 6   ? (
+              <li className="page-item">
+                <button className="page-link nohoverbtn" disabled>
+                  &lt;...&gt;
+                </button>
+              </li>
+            ) : (
+              <></>
+            )}
+  
+       
+
+            {/* TARPAS1 */}
 
             {/* BODIS */}
-            {pages.map((page) => (
+            {pages.filter(page => (page - currentPage < 5) && (page - currentPage > -5) ).map((page) => (
               <li
                 key={page}
                 className={
@@ -98,24 +118,24 @@ const Pagination = (props) => {
                 </button>
               </li>
             ))}
-            {/* BODIS */}
-
-            {/* TARPAS */}
-
-            {currentPage < 6 || currentPage === pagesCount ? (
+            {/* BODIS  */}
+ 
+        
+            {/* TARPAS 2*/}
+      
+            {currentPage < 6   ? (
               <li className="page-item">
                 <button className="page-link nohoverbtn" disabled>
                   &lt;...&gt;
                 </button>
               </li>
             ) : (
-              <li className="page-item active">
-                <button className="page-link">&lt;{currentPage}&gt;</button>
-              </li>
+              <></>
             )}
+            
+            {/* TARPAS2 */}
 
-            {/* TARPAS */}
-
+ 
             {/* PASKUTINIS */}
             <li
               className={
