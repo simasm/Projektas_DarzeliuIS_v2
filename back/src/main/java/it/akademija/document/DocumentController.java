@@ -3,9 +3,15 @@ package it.akademija.document;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -20,11 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.ApplicationController;
+import it.akademija.journal.JournalEntry;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
+import it.akademija.kindergarten.Kindergarten;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
 
@@ -104,22 +113,42 @@ public class DocumentController {
 	
 	@Secured("ROLE_MANAGER")
 	@GetMapping(path = "/documents/all")
-	public List<DocumentViewmodel> getAllExistingDocuments() {
+	public List<DocumentEntity> getAllExistingDocuments() {
 		
-		List<DocumentEntity> docEntityList = documentService.getAllExistingDocuments();
 		
-		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
-		
-		for (DocumentEntity doc : docEntityList) {
-			User user = documentService.getUserByUploaderId(doc.getUploaderId());
-			
-			
-
-			docViewmodelList.add(new DocumentViewmodel(doc.getId(), user.getName(), user.getSurname(), doc.getName(), doc.getUploadDate()));
-		}
-		return docViewmodelList;
+		return documentService.getAllExistingDocuments();
 	}
 	
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping(path = "/page")
+	public ResponseEntity<Page<DocumentEntity>> getDocumentPages(
+			@RequestParam("page") int page, 
+			  @RequestParam("size") int size) {	
+		
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
+						
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
 
+		return new ResponseEntity<>(documentService.getAllDocuments(pageable), HttpStatus.OK);
+	}
+	
+	
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping("/manager/page/{uploaderSurname}")
+	public ResponseEntity<Page<DocumentEntity>> GetDocumentPageFilteredByUploaderSurname(@PathVariable String uploaderSurname,
+			@RequestParam("page") int page, @RequestParam("size") int size) {
+
+		
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
+
+		return new ResponseEntity<>(documentService.GetDocumentPageFilteredByUploaderSurname(uploaderSurname, pageable),
+				HttpStatus.OK);
+	}
 
 }

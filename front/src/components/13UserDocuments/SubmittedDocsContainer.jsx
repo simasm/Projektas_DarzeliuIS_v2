@@ -3,26 +3,39 @@ import SubmittedDocumentsListTable from "./SubmittedDocumentsListTable";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
+import Pagination from "../08CommonComponents/Pagination";
+import SearchBox from "./../08CommonComponents/SeachBox";
 
 function SubmittedDocsContainer() {
-  const [documentList, setDocumentList] = useState([]);
+  const [docs, setDocs] = useState([]);
+  const [totalElements, setTotalElements] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const mapDocumentsToViewmodel = (docList) => {
-    const docViewmodelList = docList.map((document) => ({
-      id: document.documentId,
-      uploaderName: document.uploaderName,
-      uploaderSurname: document.uploaderSurname,
-      docName: document.name,
-      uploadDate: document.uploadDate,
-    }));
-    return docViewmodelList;
-  };
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const getDocuments = () => {
+  useEffect(() => {
+    getDocuments(currentPage, "");
+  }, []);
+
+  const getDocuments = (currentPage, uploaderSurname) => {
+    let page = currentPage - 1;
+
+    if (page < 0) page = 0;
+
+    var uri = `${apiEndpoint}/api/documents/page?page=${page}&size=${pageSize}`;
+
+    if (uploaderSurname !== "") {
+      uri = `${apiEndpoint}/api/documents/manager/page/${uploaderSurname}?page=${page}&size=${pageSize}`;
+    }
+
     http
-      .get(`${apiEndpoint}/api/documents/documents/all`)
+      .get(uri)
       .then((response) => {
-        setDocumentList(mapDocumentsToViewmodel(response.data));
+        console.log(response.data);
+        setDocs(response.data.content);
+        setTotalElements(response.data.totalElements);
+        setCurrentPage(response.data.number + 1);
       })
       .catch((error) => {
         alert({
@@ -32,10 +45,10 @@ function SubmittedDocsContainer() {
       });
   };
 
-  useEffect(() => {
-    getDocuments();
-    console.log(documentList);
-  }, []);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    getDocuments(page, searchQuery);
+  };
 
   const handleDelete = (document) => {
     swal({
@@ -47,7 +60,7 @@ function SubmittedDocsContainer() {
         http
           .delete(`${apiEndpoint}/api/documents/delete/${document.id}`)
           .then((response) => {
-            getDocuments();
+            getDocuments(1, searchQuery);
             swal({
               text: "Pažyma buvo sėkmingai ištrinta",
               button: "Gerai",
@@ -75,13 +88,12 @@ function SubmittedDocsContainer() {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `${doc.docName}`);
+        link.setAttribute("download", `${doc.name}`);
         document.body.appendChild(link);
         link.click();
         link.remove();
       })
       .catch((error) => {
-        //console.log(error);
         swal({
           text: "Įvyko klaida atsisiunčiant pažymą.",
           buttons: "Gerai",
@@ -89,30 +101,60 @@ function SubmittedDocsContainer() {
       });
   };
 
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <h6 className="py-3">
-            <b>VISOS PAZYMOS</b>
-          </h6>
+  const handleSearch = (e) => {
+    const uploaderSurname = e.currentTarget.value;
+    setSearchQuery(uploaderSurname);
+    getDocuments(1, uploaderSurname);
+  };
+  if (totalElements > 0) {
+    return (
+      <div className="container pt-4">
+        <div className="row">
+          <div className="col">
+            <h6 className="pl-2 pt-3">Visos pažymos</h6>
+          </div>
         </div>
-      </div>
 
-      <div className="row formHeader">
-        <div className="col-6">
-          {
-            //**UserDocumentList */
-            <SubmittedDocumentsListTable
-              documents={documentList}
-              onDelete={handleDelete}
-              onDownload={handleDownload}
-            />
-          }
+        <div className="row formHeader">
+          <div className="col-6">
+            <div>
+              <SearchBox
+                value={searchQuery}
+                onSearch={handleSearch}
+                placeholder={"Ieškokite pagal pavardę..."}
+              />
+            </div>
+            {
+              //**UserDocumentList */
+              <SubmittedDocumentsListTable
+                documents={docs}
+                onDelete={handleDelete}
+                onDownload={handleDownload}
+              />
+            }
+            <div className="d-flex justify-content-center">
+              <Pagination
+                currentPage={currentPage}
+                pageSize={pageSize}
+                itemsCount={totalElements}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="container pt-4">
+        <div className="row">
+          <div className="col">
+            <h6 className="pl-2 pt-3">Nėra pateiktų pažymų</h6>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default SubmittedDocsContainer;

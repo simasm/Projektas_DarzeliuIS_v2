@@ -6,7 +6,7 @@
  
 	<groupId>it.akademija</groupId>
 	<artifactId>darzelis</artifactId>
-	<version>kris57-test</version>
+	<version>test-kris70</version>
 	<packaging>war</packaging>
  
 	<name>DarzeliuIS</name>

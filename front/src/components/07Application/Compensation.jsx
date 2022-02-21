@@ -170,7 +170,10 @@ export default function Compensation() {
   };
 
   return (
-    <div className="container">
+    <div className="container pt-4">
+      <div>
+        <h6 className="ps-4 pt-3">Prašymas dėl kompensacijos</h6>
+      </div>
       <div className="row">
         <div className="col-4">
           <ChildInfoForm

@@ -22,7 +22,7 @@ const Pagination = (props) => {
     }
   }, [pagesCount]);
 
-  if (pagesCount === 1) return null;
+  if (pagesCount === 1 || pagesCount === 0) return null;
 
   const handleSubmit = (e) => {
     if (e.key === "Enter" && Number(e.target.value) <= pagesCount) {
