@@ -50,7 +50,7 @@ public class ApplicationRepositoryTest {
 		User mainGuardian = userDAO.save(
 				new User(Role.USER, "Test", "Test", "test@test.lt", parentDetails, "test@test.lt", "test@test.lt"));
 
-		Priorities priorities = new Priorities(true, true, false, false, false);
+		Priorities priorities = new Priorities(true, true, false, false, false, false);
 
 		Kindergarten first = kindergartenDAO
 				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12));
@@ -87,7 +87,7 @@ public class ApplicationRepositoryTest {
 		User mainGuardian2 = userDAO.save(
 				new User(Role.USER, "Test", "Test", "test1@test.lt", parentDetail2, "test1@test.lt", "test1@test.lt"));
 
-		Priorities priorities2 = new Priorities(true, false, false, false, false);
+		Priorities priorities2 = new Priorities(true, false, false, false, false, false);
 
 		Kindergarten first2 = kindergartenDAO
 				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12));

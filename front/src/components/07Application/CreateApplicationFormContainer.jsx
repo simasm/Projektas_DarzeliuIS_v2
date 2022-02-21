@@ -65,6 +65,7 @@ class CreateApplicationFormContainer extends Component {
         guardianDisability: false,
         guardianInSchool: false,
         livesInVilnius: false,
+        livesInVilniusLonger: false,
       },
       kindergartenList: [],
       additionalGuardianInput: false,
@@ -72,12 +73,12 @@ class CreateApplicationFormContainer extends Component {
       submitState: false,
     };
     this.mainGuardianOnChange = this.mainGuardianOnChange.bind(this);
-    this.additionalGuardianOnChange =
-      this.additionalGuardianOnChange.bind(this);
+    this.additionalGuardianOnChange = this.additionalGuardianOnChange.bind(this);
     this.childOnChange = this.childOnChange.bind(this);
     this.checkboxOnChange = this.checkboxOnChange.bind(this);
     this.submitHandle = this.submitHandle.bind(this);
   }
+
   handleAdd = (e) => {
     e.preventDefault();
 
@@ -86,7 +87,7 @@ class CreateApplicationFormContainer extends Component {
       additionalGuardianInput: !this.state.additionalGuardianInput,
     });
   };
-
+  
   componentDidMount() {
     /** Get registation status */
     http.get(`${apiEndpoint}/api/status`).then((response) => {
@@ -560,6 +561,22 @@ class CreateApplicationFormContainer extends Component {
             Vaiko deklaruojama gyvenamoji vieta yra Vilniaus miesto savivaldybė
           </label>
         </div>
+
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="livesInVilniusLonger"
+            id="chkLivesInVilniusLonger"
+            checked={this.state.priorities.livesInVilniusLonger && this.state.priorities.livesInVilnius? true:false}
+            onChange={this.checkboxOnChange}
+            disabled={this.state.registrationDisabled || !this.state.priorities.livesInVilnius}
+          />
+          <label className="form-check-label" htmlFor="livesInVilniusLonger">
+            Vaiko vieno iš tėvų deklaruojama gyvenamoji vieta Vilniaus savivaldybėje yra ne mažiau nei 2 metai.
+          </label>
+        </div>
+
         <div className="form-check">
           <input
             type="checkbox"
@@ -913,6 +930,12 @@ class CreateApplicationFormContainer extends Component {
         [e.target.name]: e.target.checked,
       },
     });
+
+    if (this.state.priorities.livesInVilnius !== false) {
+      this.setState({
+        livesInVilniusLonger : true
+      })
+    }
   }
 
   /** Handle submit */

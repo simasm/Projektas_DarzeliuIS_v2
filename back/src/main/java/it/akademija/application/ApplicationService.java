@@ -101,7 +101,7 @@ public class ApplicationService {
 
 		PrioritiesDTO prioritiesDto = data.getPriorities();
 
-		Priorities priorities = prioritiesDao.save(new Priorities(prioritiesDto.isLivesInVilnius(),
+		Priorities priorities = prioritiesDao.save(new Priorities(prioritiesDto.isLivesInVilnius(), prioritiesDto.isLivesInVilniusLonger(),
 				prioritiesDto.isChildIsAdopted(), prioritiesDto.isFamilyHasThreeOrMoreChildrenInSchools(),
 				prioritiesDto.isGuardianInSchool(), prioritiesDto.isGuardianDisability()));
 
