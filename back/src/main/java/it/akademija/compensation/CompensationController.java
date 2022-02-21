@@ -214,9 +214,9 @@ public class CompensationController {
 	}
 	
 	
-	/* kol kas be paging */
+	/* list  be paging  */
 	@Secured({ "ROLE_MANAGER" })
-	@GetMapping("/manager")
+	@GetMapping("/manager/list")
 	@ApiOperation(value = "Retrieve all applications for compensation")
 	public ResponseEntity<List<CompensationDetails>> getAllCopensationApplications() {
 		List<Compensation> compensations = compensationService
@@ -258,9 +258,9 @@ public class CompensationController {
 			   
 			
 	}
-
 	 
-	
+	 
+	/*page*/
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager")
 	@ApiOperation(value = "Get a page from all submitted applications")
