@@ -6,7 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,9 +93,36 @@ public class CompensationService {
 		  compensationDAO.deleteCompensationByChildPersonalCode(childCode);
 	}
 	
-	@Transactional 
-	public boolean existsByChildCode(String childCode) {
+ 	public boolean existsByChildCode(String childCode) {
 	    return compensationDAO.existsCompensationByChildPersonalCode(childCode);
+	}
+
+	
+	public Page<CompensationDetails> getPageFromCompensationApplications(Pageable pageable) {
+		 
+		 var compensationPage =  compensationDAO.findAll(pageable);
+		 
+		 Page<CompensationDetails> 	compensationDetailsPage = compensationPage.map(  
+				compensation-> new CompensationDetails(
+						compensation.getId(),
+						compensation.getSubmittedAt(),
+						compensation.getChildName(),
+						compensation.getChildSurname(),
+						compensation.getChildPersonalCode(),
+						compensation.getChildBirthdate(),
+						
+						compensation.getGuardianInfo(),
+						
+						compensation.getKindergartenId(),
+						compensation.getKindergartenName(),
+						compensation.getKindergartenAddress(),
+						compensation.getKindergartenPhoneNumber(),
+						compensation.getKindergartenEmail(),
+						compensation.getKindergartenBankName(),
+						compensation.getKindergartenBankAccountNumber(),
+						compensation.getKindergartenBankCode()));	 
+		
+		 return compensationDetailsPage;
 	}
 	
 }
