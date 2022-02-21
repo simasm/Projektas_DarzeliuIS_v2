@@ -48,7 +48,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.address;
 
     case "phone":
-      if (!e.target.value.match(/[+]{1}[0-9]{11}|[852]{3}[0-9]{6}/)) {
+      if (!e.target.value.match(/[+]{1}[370]{3}[0-9]{8}/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas telefono numerio formatas",
@@ -89,7 +89,9 @@ const KindergartenFormValidator = (
       return kindergartenValid.bankName;
 
     case "accountNumber":
-      if (!e.target.value.match(/^[A-Z]{2}[A-Z0-9]{14,50}$/)) {
+
+      if (!e.target.value.match(/^[LT]{2}[0-9]{18}$/)) {
+
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas sąskaitos numerio formatas",

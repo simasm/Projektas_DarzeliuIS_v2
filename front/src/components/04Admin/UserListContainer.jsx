@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import swal from "sweetalert";
-import Pagination from "react-js-pagination";
+//import Pagination from "react-js-pagination";
+
+import Pagination from "../08CommonComponents/Pagination";
 
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
@@ -13,7 +15,7 @@ export class UserListContainer extends Component {
     super(props);
     this.state = {
       naudotojai: [],
-      pageSize: 10,
+      pageSize: 4,
       currentPage: 1,
       totalPages: 0,
       totalElements: 0,
@@ -41,7 +43,7 @@ export class UserListContainer extends Component {
           passwordResetRequests: response.data,
         });
       })
-      .catch(() => { });
+      .catch(() => {});
 
     http
       .get(uri)
@@ -57,7 +59,7 @@ export class UserListContainer extends Component {
           currentPage: response.data.number + 1,
         });
       })
-      .catch(() => { });
+      .catch(() => {});
   }
 
   checkIfUserIsRequestingPassword(UID, passList) {
@@ -100,7 +102,7 @@ export class UserListContainer extends Component {
 
             this.getUserInfo(page);
           })
-          .catch(() => { });
+          .catch(() => {});
       }
     });
   };
@@ -125,7 +127,7 @@ export class UserListContainer extends Component {
               button: "Gerai",
             });
           })
-          .catch(() => { });
+          .catch(() => {});
       }
     });
   };
@@ -158,18 +160,19 @@ export class UserListContainer extends Component {
           onRestorePassword={this.handleRestorePassword}
         />
 
-        {totalPages > 1 && <div className="d-flex justify-content-center">
-          <Pagination
-            itemClass="page-item"
-            linkClass="page-link"
-            activePage={this.state.currentPage}
-            itemsCountPerPage={this.state.pageSize}
-            totalItemsCount={this.state.totalElements}
-            pageRangeDisplayed={15}
-            onChange={this.handlePageChange.bind(this)}
-          />
-        </div>
-        }
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-center">
+            <Pagination
+              itemClass="page-item"
+              linkClass="page-link"
+              currentPage={this.state.currentPage}
+              pageSize={this.state.pageSize}
+              itemsCount={this.state.totalElements}
+              pageRangeDisplayed={15}
+              onPageChange={this.handlePageChange.bind(this)}
+            />
+          </div>
+        )}
       </React.Fragment>
     );
   }

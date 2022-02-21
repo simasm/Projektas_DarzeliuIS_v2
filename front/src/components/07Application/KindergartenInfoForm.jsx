@@ -36,11 +36,11 @@ export default function KindergartenInfoForm({
   return (
     <div className="container">
       <div className="form">
-        <div className="pb-1">
-          <h6 className="formHeader">Darželio duomenys</h6>
+        <div>
+          <h6 className="formHeader pb-2">Darželio duomenys</h6>
         </div>
 
-        <div className="form-group mt-2">
+        <div className="form-group">
           <label htmlFor="txtKindergartenName">
             Ugdymo įstaigos pavadinimas <span className="fieldRequired">*</span>
           </label>
@@ -48,7 +48,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenName"
             name="name"
-          //  placeholder="Pavadinimas"
+            //  placeholder="Pavadinimas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -70,7 +70,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenCode"
             name="code"
-           // placeholder="123456789"
+            // placeholder="123456789"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -92,7 +92,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenAddress"
             name="address"
-           // placeholder="Adresas"
+            // placeholder="Adresas"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -108,14 +108,13 @@ export default function KindergartenInfoForm({
 
         <div className="form-group mt-2">
           <label htmlFor="txtKindergartenPhone">
-            Kontaktinis telefono numeris{" "}
-            <span className="fieldRequired">*</span>
+            Telefono numeris <span className="fieldRequired">*</span>
           </label>
           <input
             type="text"
             id="txtKindergartenPhone"
             name="phone"
-            placeholder="+370xxxxxxxx | 852xxxxxx"
+            placeholder="+370xxxxxxxx"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -137,7 +136,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenEmail"
             name="email"
-           // placeholder="example@mail.com"
+            // placeholder="example@mail.com"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={
@@ -184,7 +183,7 @@ export default function KindergartenInfoForm({
             //placeholder="LTXXXXXXXXXXXXXXXXXX"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
-            maxLength={34}
+            maxLength={20}
             style={
               kindergartenValid.accountNumber
                 ? { border: "1px solid lightgray" }
@@ -205,7 +204,7 @@ export default function KindergartenInfoForm({
             type="text"
             id="txtKindergartenBankCode"
             name="bankCode"
-           // placeholder="12345"
+            // placeholder="12345"
             className="form-control"
             onChange={(e) => handleOnChange(e)}
             style={

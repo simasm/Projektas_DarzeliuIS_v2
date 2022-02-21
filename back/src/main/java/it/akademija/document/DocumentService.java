@@ -1,19 +1,30 @@
 package it.akademija.document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import it.akademija.journal.JournalEntry;
+import it.akademija.kindergarten.Kindergarten;
+import it.akademija.user.User;
+import it.akademija.user.UserDAO;
 
 @Service
 public class DocumentService {
 
 	@Autowired
 	DocumentDAO documentDao;
+	
+	@Autowired
+	UserDAO userDao;
 
 	@Transactional
 	public DocumentEntity getDocumentById(long id) {
@@ -34,15 +45,42 @@ public class DocumentService {
 
 		return documentDao.findAll().stream().filter(x -> x.getUploaderId() == id).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public List<DocumentEntity> getAllExistingDocuments(){
+		List<DocumentEntity> list = new ArrayList<>();
+		documentDao.findAll().forEach(list::add);
+		
+		return list;
+	}
+	
+	public User getUserByUploaderId(long uploaderId) {
+		return userDao.findById(uploaderId).get();
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<DocumentEntity> getAllDocuments(Pageable pageable) {
+		return documentDao.getAllDocuments(pageable);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<DocumentEntity> GetDocumentPageFilteredByUploaderSurname(String uploaderSurname, Pageable pageable) {
+
+		return documentDao.findByUploaderSurname(uploaderSurname, pageable);
+
+	}
+	
+	
 
 	@Transactional
 	public Boolean uploadDocument(MultipartFile file, String name, long uploaderId) {
-
+			User user = userDao.findById(uploaderId).get();
+		
 		if (file.getSize() <= 1024000 && file.getContentType().equals("application/pdf")) {
 
 			try {
 				DocumentEntity doc = new DocumentEntity(name, file.getContentType(), file.getBytes(), file.getSize(),
-						uploaderId, LocalDate.now());
+						uploaderId, LocalDate.now(), user.getName(), user.getSurname());
 				documentDao.save(doc);
 			} catch (Exception e) {
 				e.printStackTrace();
