@@ -10,6 +10,7 @@ public class CompensationDetails {
 	
 	private Long id;
 	private LocalDate submittedAt;
+	private String childName;
 	private String childSurname;
 	private String childPersonalCode;
 	private LocalDate childBirthdate;
@@ -26,7 +27,7 @@ public class CompensationDetails {
 	private String kindergartenBankCode;
 	
 	
-	public CompensationDetails(Long id, LocalDate submittedAt, String childSurname, String childPersonalCode,
+	public CompensationDetails(Long id, LocalDate submittedAt, String childName , String childSurname, String childPersonalCode,
 			LocalDate childBirthdate, GuardianInfo mainGuardian, String kindergartenId, String kindergartenName,
 			String kindergartenAddress, String kindergartenPhoneNumber, String kindergartenEmail,
 			String kindergartenBankName, String kindergartenBankAccountNumber, String kindergartenBankCode) {
@@ -34,6 +35,7 @@ public class CompensationDetails {
 		this.id = id;
 		this.submittedAt = submittedAt;
 		this.childSurname = childSurname;
+		this.childName = childName;
 		this.childPersonalCode = childPersonalCode;
 		this.childBirthdate = childBirthdate;
 		
@@ -68,6 +70,18 @@ public class CompensationDetails {
 
 	public void setSubmittedAt(LocalDate submittedAt) {
 		this.submittedAt = submittedAt;
+	}
+	
+	
+
+
+	public String getChildName() {
+		return childName;
+	}
+
+
+	public void setChildName(String childName) {
+		this.childName = childName;
 	}
 
 

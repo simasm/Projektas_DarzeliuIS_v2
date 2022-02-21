@@ -80,6 +80,7 @@ public class CompensationController {
 			return new ResponseEntity<>(new CompensationDetails(
 					compensation.getId(),
 					compensation.getSubmittedAt(),
+					compensation.getChildName(),
 					compensation.getChildSurname(),
 					compensation.getChildPersonalCode(),
 					compensation.getChildBirthdate(),
@@ -128,6 +129,7 @@ public class CompensationController {
 				return new ResponseEntity<>(new CompensationDetails(
 						compensation.getId(),
 						compensation.getSubmittedAt(),
+						compensation.getChildName(),
 						compensation.getChildSurname(),
 						compensation.getChildPersonalCode(),
 						compensation.getChildBirthdate(),
@@ -178,6 +180,7 @@ public class CompensationController {
 					compensationDetails.add( new CompensationDetails(
 							compensation.getId(),
 							compensation.getSubmittedAt(),
+							compensation.getChildName(),
 							compensation.getChildSurname(),
 							compensation.getChildPersonalCode(),
 							compensation.getChildBirthdate(),
@@ -223,6 +226,7 @@ public class CompensationController {
 				compensationDetails.add( new CompensationDetails(
 						compensation.getId(),
 						compensation.getSubmittedAt(),
+						compensation.getChildName(),
 						compensation.getChildSurname(),
 						compensation.getChildPersonalCode(),
 						compensation.getChildBirthdate(),
