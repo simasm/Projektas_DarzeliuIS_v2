@@ -166,7 +166,7 @@ export default function KindergartenInfoForm({
                 ? { border: "1px solid lightgray" }
                 : { border: "2px solid red" }
             }
-            maxLength={24}
+            maxLength={50}
             required
           />
           <span className="warningmsg">{kindergartenWarning.bankName}</span>

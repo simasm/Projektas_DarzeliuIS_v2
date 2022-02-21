@@ -89,7 +89,9 @@ const KindergartenFormValidator = (
       return kindergartenValid.bankName;
 
     case "accountNumber":
+
       if (!e.target.value.match(/^[LT]{2}[0-9]{18}$/)) {
+
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas sąskaitos numerio formatas",

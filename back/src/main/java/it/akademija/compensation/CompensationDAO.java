@@ -9,8 +9,7 @@ public interface CompensationDAO extends JpaRepository<Compensation, Long>{
 	boolean existsCompensationByChildPersonalCode(String childPersonalCode);
 	
 	List<Compensation> findCompensationsByMainGuardianUsername(String username);
-	
-	Compensation findCompensationByMainGuardianParentDetailsPersonalCode(String personalCode);
+
 
 	Compensation findCompensationByChildPersonalCode(String childPersonalCode);
 	
