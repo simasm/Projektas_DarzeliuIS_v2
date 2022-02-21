@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -81,24 +82,7 @@ public class CompensationController {
 	   if(compensation != null)  {
 			String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 			
-			return new ResponseEntity<>(new CompensationDetails(
-					compensation.getId(),
-					compensation.getSubmittedAt(),
-					compensation.getChildName(),
-					compensation.getChildSurname(),
-					compensation.getChildPersonalCode(),
-					compensation.getChildBirthdate(),
-					
-					compensation.getGuardianInfo(),
-					
-					compensation.getKindergartenId(),
-					compensation.getKindergartenName(),
-					compensation.getKindergartenAddress(),
-					compensation.getKindergartenPhoneNumber(),
-					compensation.getKindergartenEmail(),
-					compensation.getKindergartenBankName(),
-					compensation.getKindergartenBankAccountNumber(),
-					compensation.getKindergartenBankCode()), HttpStatus.CREATED);
+			return new ResponseEntity<>(CompensationService.compensationToDTO(compensation), HttpStatus.CREATED);
 	   }
 		  else 
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -107,7 +91,7 @@ public class CompensationController {
 	
 	@Secured({ "ROLE_MANAGER", "ROLE_ADMIN"})
 	@ApiOperation(value="delete compensation application")
-	@RequestMapping(value ="/manager/{childCode}", method = RequestMethod.DELETE)
+	@RequestMapping(value ="/manager/delete/{childCode}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteCompensationApplicationByChildCode(@ApiParam(value="child code")
 			@PathVariable String childCode) {
@@ -130,25 +114,7 @@ public class CompensationController {
 		   {
 			   
 			   
-				return new ResponseEntity<>(new CompensationDetails(
-						compensation.getId(),
-						compensation.getSubmittedAt(),
-						compensation.getChildName(),
-						compensation.getChildSurname(),
-						compensation.getChildPersonalCode(),
-						compensation.getChildBirthdate(),
-						
-						compensation.getGuardianInfo(),
-						
-						
-						compensation.getKindergartenId(),
-						compensation.getKindergartenName(),
-						compensation.getKindergartenAddress(),
-						compensation.getKindergartenPhoneNumber(),
-						compensation.getKindergartenEmail(),
-						compensation.getKindergartenBankName(),
-						compensation.getKindergartenBankAccountNumber(),
-						compensation.getKindergartenBankCode()), HttpStatus.OK);
+				return new ResponseEntity<>(CompensationService.compensationToDTO(compensation), HttpStatus.OK);
 		   }
 			  else 
 			 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -181,27 +147,8 @@ public class CompensationController {
 			List<CompensationDetails> compensationDetails = new ArrayList<>();
 		
 			for(Compensation compensation : compensations) {
-					compensationDetails.add( new CompensationDetails(
-							compensation.getId(),
-							compensation.getSubmittedAt(),
-							compensation.getChildName(),
-							compensation.getChildSurname(),
-							compensation.getChildPersonalCode(),
-							compensation.getChildBirthdate(),
-							
-							compensation.getGuardianInfo(),
-							
-							compensation.getKindergartenId(),
-							compensation.getKindergartenName(),
-							compensation.getKindergartenAddress(),
-							compensation.getKindergartenPhoneNumber(),
-							compensation.getKindergartenEmail(),
-							compensation.getKindergartenBankName(),
-							compensation.getKindergartenBankAccountNumber(),
-							compensation.getKindergartenBankCode()));	
-					
-		
-		
+					compensationDetails.add(CompensationService.compensationToDTO(compensation));	
+
 		
 			}
 		
@@ -225,29 +172,10 @@ public class CompensationController {
 	if(compensations != null) {
 		
 		List<CompensationDetails> compensationDetails = new ArrayList<>();
+		
 	
 		for(Compensation compensation : compensations) {
-				compensationDetails.add( new CompensationDetails(
-						compensation.getId(),
-						compensation.getSubmittedAt(),
-						compensation.getChildName(),
-						compensation.getChildSurname(),
-						compensation.getChildPersonalCode(),
-						compensation.getChildBirthdate(),
-						
-						compensation.getGuardianInfo(),
-						
-						compensation.getKindergartenId(),
-						compensation.getKindergartenName(),
-						compensation.getKindergartenAddress(),
-						compensation.getKindergartenPhoneNumber(),
-						compensation.getKindergartenEmail(),
-						compensation.getKindergartenBankName(),
-						compensation.getKindergartenBankAccountNumber(),
-						compensation.getKindergartenBankCode()));	
-				
-	
-	
+				compensationDetails.add(CompensationService.compensationToDTO(compensation) );	
 		
 			}
 		
@@ -262,13 +190,14 @@ public class CompensationController {
 	 
 	/*page*/
 	@Secured({ "ROLE_MANAGER" })
-	@GetMapping("/manager")
+	@GetMapping("/manager/page")
 	@ApiOperation(value = "Get a page from all submitted applications")
 	public Page<CompensationDetails>  getPageCompensationApplications (@RequestParam("page") int page,
 	@RequestParam("size") int size) {
 		
 		
-		Pageable compensation = PageRequest.of(page, size);
+		Sort.Order order = new Sort.Order(Sort.Direction.ASC, "childName").ignoreCase();
+		Pageable compensation = PageRequest.of(page, size, Sort.by(order));
 		return compensationService.getPageFromCompensationApplications(compensation);
 	}
 	

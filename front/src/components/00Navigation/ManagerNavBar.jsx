@@ -32,36 +32,8 @@ function Navigation(props) {
                                 <ManagerDropdownList />
                             </li>
 
-                            {/* <li className="nav-item me-2">
-                                <NavLink className="nav-link" id="navManagerApplicationQueue" to={"/eile"}>Prašymų eilė</NavLink>
-                            </li>
-
-                            <li className="nav-item me-2">
-                                <NavLink className="nav-link" id="navManagerApplicationStats" to={"/statistika"}>Prašymų statistika</NavLink>
-                            </li> */}
-
-                            <li className="nav-item me-2">
-                                <NavLink className="nav-link" id="navManagerMyAccount" to={"/visos_pazymos"}>Pažymos</NavLink>
-                            </li>
-
-                            <li className="nav-item me-2">
-                                <NavLink className="nav-link" id="navManagerMyAccount" to={"/profilis/atnaujinti"}>Mano paskyra</NavLink>
-                            </li>
-
-                            <li className="nav-item nav-item me-2" id="navManagerLogout">
-                                <LogoutContainer />
-                            </li>
-
-                        </ul>
-
-                    </div>
-                </div>
-            </nav>
-            <div>{props.children}</div>
-        </div >
-
-    );
-
+            
+ 
 
               <li className="nav-item me-2">
                 <NavLink

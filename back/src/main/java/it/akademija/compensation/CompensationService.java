@@ -102,27 +102,31 @@ public class CompensationService {
 		 
 		 var compensationPage =  compensationDAO.findAll(pageable);
 		 
-		 Page<CompensationDetails> 	compensationDetailsPage = compensationPage.map(  
-				compensation-> new CompensationDetails(
-						compensation.getId(),
-						compensation.getSubmittedAt(),
-						compensation.getChildName(),
-						compensation.getChildSurname(),
-						compensation.getChildPersonalCode(),
-						compensation.getChildBirthdate(),
-						
-						compensation.getGuardianInfo(),
-						
-						compensation.getKindergartenId(),
-						compensation.getKindergartenName(),
-						compensation.getKindergartenAddress(),
-						compensation.getKindergartenPhoneNumber(),
-						compensation.getKindergartenEmail(),
-						compensation.getKindergartenBankName(),
-						compensation.getKindergartenBankAccountNumber(),
-						compensation.getKindergartenBankCode()));	 
+	 
+		 return compensationPage.map( CompensationService::compensationToDTO);	
+	}
+			
+	
+	public static CompensationDetails compensationToDTO(Compensation compensation) {
 		
-		 return compensationDetailsPage;
+		return  new CompensationDetails(
+					compensation.getId(),
+					compensation.getSubmittedAt(),
+					compensation.getChildName(),
+					compensation.getChildSurname(),
+					compensation.getChildPersonalCode(),
+					compensation.getChildBirthdate(),
+					
+					compensation.getGuardianInfo(),
+					
+					compensation.getKindergartenId(),
+					compensation.getKindergartenName(),
+					compensation.getKindergartenAddress(),
+					compensation.getKindergartenPhoneNumber(),
+					compensation.getKindergartenEmail(),
+					compensation.getKindergartenBankName(),
+					compensation.getKindergartenBankAccountNumber(),
+					compensation.getKindergartenBankCode());
 	}
 	
 }
