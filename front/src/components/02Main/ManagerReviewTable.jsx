@@ -5,10 +5,7 @@ import './../../App.css';
 
 const ManagerReviewTable = () => {
     const { compState, setCompState } = React.useContext(ManagerCompesationContext);
-    
-    //const { id } = useParams();
 
-    //console.log("Gauti duomenys: \n" + JSON.stringify(compState));
     return (
         <div id="divToPrint" className="container pt-4">
             <h3 style={{ fontWeight: 400 }}>Kompensacijos prašymas</h3>
