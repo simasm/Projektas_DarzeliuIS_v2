@@ -106,44 +106,55 @@ function SubmittedDocsContainer() {
     setSearchQuery(uploaderSurname);
     getDocuments(1, uploaderSurname);
   };
-
-  return (
-    <div className="container pt-4">
-      <div className="row">
-        <div className="col">
-          <h6 className="pl-2 pt-3">Visos pažymos</h6>
-        </div>
-      </div>
-
-      <div className="row formHeader">
-        <div className="col-6">
-          <div>
-            <SearchBox
-              value={searchQuery}
-              onSearch={handleSearch}
-              placeholder={"Ieškokite pagal pavardę..."}
-            />
-          </div>
-          {
-            //**UserDocumentList */
-            <SubmittedDocumentsListTable
-              documents={docs}
-              onDelete={handleDelete}
-              onDownload={handleDownload}
-            />
-          }
-          <div className="d-flex justify-content-center">
-            <Pagination
-              currentPage={currentPage}
-              pageSize={pageSize}
-              itemsCount={totalElements}
-              onPageChange={handlePageChange}
-            />
+  if (totalElements > 0) {
+    return (
+      <div className="container pt-4">
+        <div className="row">
+          <div className="col">
+            <h6 className="pl-2 pt-3">Visos pažymos</h6>
           </div>
         </div>
+
+        <div className="row formHeader">
+          <div className="col-6">
+            <div>
+              <SearchBox
+                value={searchQuery}
+                onSearch={handleSearch}
+                placeholder={"Ieškokite pagal pavardę..."}
+              />
+            </div>
+            {
+              //**UserDocumentList */
+              <SubmittedDocumentsListTable
+                documents={docs}
+                onDelete={handleDelete}
+                onDownload={handleDownload}
+              />
+            }
+            <div className="d-flex justify-content-center">
+              <Pagination
+                currentPage={currentPage}
+                pageSize={pageSize}
+                itemsCount={totalElements}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="container pt-4">
+        <div className="row">
+          <div className="col">
+            <h6 className="pl-2 pt-3">Nėra pateiktų pažymų</h6>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default SubmittedDocsContainer;

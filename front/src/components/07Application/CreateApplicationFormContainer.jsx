@@ -193,7 +193,11 @@ class CreateApplicationFormContainer extends Component {
               id="txtMainName"
               name="name"
               className="form-control"
-              value={this.state.mainGuardian.name}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.name
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -210,7 +214,11 @@ class CreateApplicationFormContainer extends Component {
               id="txtMainSurname"
               name="surname"
               className="form-control"
-              value={this.state.mainGuardian.surname}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.surname
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -227,7 +235,11 @@ class CreateApplicationFormContainer extends Component {
               id="txtMainPersonalCode"
               name="personalCode"
               className="form-control"
-              value={this.state.mainGuardian.personalCode}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.personalCode
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -246,7 +258,11 @@ class CreateApplicationFormContainer extends Component {
                 name="phone"
                 placeholder="+370xxxxxxxx"
                 className="form-control"
-                value={this.state.mainGuardian.phone}
+                value={
+                  this.state.registrationDisabled
+                    ? ""
+                    : this.state.mainGuardian.phone
+                }
                 onChange={this.mainGuardianOnChange}
                 onInvalid={(e) => inputValidator(e)}
                 disabled={this.state.registrationDisabled}
@@ -264,7 +280,11 @@ class CreateApplicationFormContainer extends Component {
               id="txtMainEmail"
               name="email"
               className="form-control"
-              value={this.state.mainGuardian.email}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.email
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -281,7 +301,11 @@ class CreateApplicationFormContainer extends Component {
               className="form-control"
               id="txtMainAddress"
               name="address"
-              value={this.state.mainGuardian.address}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.address
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
