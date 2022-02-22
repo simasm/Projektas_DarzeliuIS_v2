@@ -8,7 +8,6 @@ import swal from "sweetalert";
 import { Link } from "react-router-dom";
 import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 import "./../../App.css";
-import ManagerReviewTable from "./ManagerReviewTable";
 import Pagination from "../08CommonComponents/Pagination";
 
 const ManagerCompensations = () => {
@@ -17,6 +16,7 @@ const ManagerCompensations = () => {
   );
 
   const [compensations, setCompensations] = useState([]);
+  const [shouldReload, setShouldReload] = useState(false);
 
   const [pageState, setPagestate] = useState({
     pageSize: 10,
@@ -32,7 +32,7 @@ const ManagerCompensations = () => {
     axios
       .get(
         apiEndpoint +
-          `/api/kompensacija/manager/page?page=${currentPage}&size=${pageState.pageSize}`
+        `/api/kompensacija/manager/page?page=${currentPage}&size=${pageState.pageSize}`
       )
       .then((response) => {
         console.log(JSON.stringify(response));
@@ -53,14 +53,34 @@ const ManagerCompensations = () => {
           button: "Gerai",
         });
       });
-  }, [currentPage]);
+  }, [currentPage, shouldReload]);
 
   const spawnReview = (id) => {
     let kompensacija = compensations.filter((comp) => comp.id === id);
     setCompState(kompensacija);
   };
 
-  const printRef = React.useRef();
+  const handleEntryDelete = (childPersonalCode) => {
+    swal({
+      text: "Ar tikrai norite ištrinti šį kompensacijos prašymą?",
+      buttons: ["Ne", "Taip"],
+      dangerMode: true,
+    }).then((actionConfirmed) => {
+      if (actionConfirmed) {
+        axios
+          .delete(apiEndpoint +
+            `/api/kompensacija/manager/delete/${childPersonalCode}`)
+          .then((response) => {
+            swal({
+              text: "Kompensacijos prašymas ištrintas",
+              button: "Gerai",
+            });
+            setShouldReload(!shouldReload);
+          })
+          .catch(() => {});
+      }
+    });
+  }
 
   const handleDownloadPdf = async (id) => {
     let kompensacija = compensations.filter((comp) => comp.id === id);
@@ -101,10 +121,14 @@ const ManagerCompensations = () => {
                         type="button"
                         to={`/kompensacijos/${item.id}`}
                       >
-                        <button className="btn btn-outline-secondary">
+                        <button id="btnReviewCompensations" className="btn btn-outline-secondary">
                           Peržiūrėti
                         </button>
                       </Link>
+
+                      <button id="btnDeleteCompensation" onClick={() => handleEntryDelete(item.childPersonalCode)} className="btn btn-outline-danger px-2">
+                        Ištrinti
+                      </button>
 
                       <Link
                         className="text-decoration-none px-2"
@@ -112,7 +136,7 @@ const ManagerCompensations = () => {
                         type="button"
                         to={`/download_kompensacijos/${item.id}`}
                       >
-                        <button className="btn btn-outline-secondary">
+                        <button id="btnDownloadCompensations" className="btn btn-outline-secondary">
                           Atsisiųsti
                         </button>
                       </Link>

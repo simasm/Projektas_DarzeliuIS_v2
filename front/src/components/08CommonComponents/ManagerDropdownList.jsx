@@ -9,14 +9,17 @@ function ManagerDropdownList() {
 
     const options = [
         {
+            id: 'drop-one',
             regType: 'Registracijų eilė',
             path: '/eile'
         },
         {
+            id: 'drop-two',
             regType: 'Registracijų statistika',
             path: '/statistika'
         },
         {
+            id: 'drop-three',
             regType: 'Kompensacijos',
             path: '/kompensacijos'
         }
@@ -34,14 +37,14 @@ function ManagerDropdownList() {
             onMouseLeave={() => setIsActive(false)}>
 
             <div className="nav-link dropdown-btn btnnoselect"
-                id="navUserNewApplication"
+                id="navManagerRequests"
                 onClick={handleSetActive}>
                 Prašymai
             </div>
             {isActive && (
                 <div className="dropdown-content">
                     {options.map(option => (
-                        <div key={option.regType} onClick={() => {
+                        <div id={option.id} key={option.regType} onClick={() => {
                             setIsActive(false);
                             history.push(option.path)
                         }}
