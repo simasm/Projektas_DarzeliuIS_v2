@@ -125,7 +125,7 @@ function KindergartenInputForm() {
             onInvalid={validateField}
             required
             pattern="\d{9}"
-            placeholder="123456789"
+            maxLength={9}
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite įstaigos (darželio) kodą (9 skaitmenys)"
@@ -146,7 +146,7 @@ function KindergartenInputForm() {
             onInvalid={validateField}
             required
             pattern="\S[\s\S]{2,49}"
-            placeholder="3-50 simbolių"
+            maxLength={50}
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio pavadinimą (nuo 3 iki 50 simbolių)"
@@ -169,6 +169,7 @@ function KindergartenInputForm() {
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio adresą"
+            maxLength={128}
           />
         </div>
 

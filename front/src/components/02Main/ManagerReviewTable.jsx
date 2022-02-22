@@ -1,12 +1,10 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 import "./../../App.css";
 
 const ManagerReviewTable = () => {
-  const { compState, setCompState } = React.useContext(
-    ManagerCompesationContext
-  );
+  const { compState } = React.useContext(ManagerCompesationContext);
 
   return (
     <div id="divToPrint" className="container pt-4">
@@ -20,7 +18,7 @@ const ManagerReviewTable = () => {
         </Link>
         &nbsp; &gt; Prašymo peržiūra
       </div>
-      <div class="row pt-3">
+      <div className="row pt-3">
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
           <h4 style={{ textAlign: "left" }}>Vaiko duomenys</h4>
           <table className="table">

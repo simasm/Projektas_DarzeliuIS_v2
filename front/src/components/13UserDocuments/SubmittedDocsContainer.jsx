@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function SubmittedDocsContainer() {
   const [docs, setDocs] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -116,14 +116,6 @@ function SubmittedDocsContainer() {
           </Link>
           &nbsp; &gt; &nbsp; Visos pažymos
         </div>
-
-        {/* <div class="container pt-4">
-        <div>
-          <Link to="/" className="nounderlinelink">
-            Pradinis puslapis
-          </Link>
-          &nbsp; &gt; &nbsp;Prašymai dėl kompensacijos
-        </div> */}
 
         <div className="row formHeader">
           <div className="col-6">

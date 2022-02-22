@@ -88,6 +88,7 @@ export default class UpdateProfileFormContainer extends Component {
               onInvalid={(e) => inputValidator(e)}
               required
               pattern="[A-zÀ-ž]{2,32}"
+              maxLength={32}
             />
           </div>
           <div className="form-group">
@@ -104,6 +105,7 @@ export default class UpdateProfileFormContainer extends Component {
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              maxLength={32}
               pattern="[A-zÀ-ž]{2,32}"
             />
           </div>
@@ -122,12 +124,13 @@ export default class UpdateProfileFormContainer extends Component {
               onInvalid={(e) => inputValidator(e)}
               required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+              maxLength={128}
             />
           </div>
         </div>
       );
     } else {
-    /** User form */
+      /** User form */
       return (
         <div>
           <div className="form-group">
@@ -144,6 +147,7 @@ export default class UpdateProfileFormContainer extends Component {
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              maxLength={32}
               pattern="[A-zÀ-ž]{2,32}"
             />
           </div>
@@ -161,6 +165,7 @@ export default class UpdateProfileFormContainer extends Component {
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              maxLength={32}
               pattern="[A-zÀ-ž]{2,32}"
             />
           </div>
@@ -178,6 +183,7 @@ export default class UpdateProfileFormContainer extends Component {
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              maxLength={11}
               pattern="[0-9]{11}"
             />
           </div>
@@ -196,6 +202,7 @@ export default class UpdateProfileFormContainer extends Component {
                 onInvalid={(e) => inputValidator(e)}
                 placeholder="+37012345678"
                 required
+                maxLength={12}
                 pattern="[+]{1}[0-9]{4,19}"
               ></input>
             </div>
@@ -214,6 +221,7 @@ export default class UpdateProfileFormContainer extends Component {
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              maxLength={64}
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
             />
           </div>
@@ -230,6 +238,7 @@ export default class UpdateProfileFormContainer extends Component {
               value={this.state.address}
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
+              maxLength={128}
               required
             />
           </div>
@@ -292,32 +301,25 @@ export default class UpdateProfileFormContainer extends Component {
                 type="password"
                 id="txtOldPassword"
                 name="oldPassword"
-                className="form-control"
-                placeholder="Senas slaptažodis"
+                className="form-control mt-2"
                 value={this.state.oldPassword}
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 required
               />
             </div>
-            <div className="">
+            <div className="form-group mt-3">
               <label htmlFor="txtNewPassword">
                 Įveskite naują slaptažodį{" "}
                 <span className="fieldRequired">*</span>
               </label>
             </div>
-            <div className=" form-group">
-              <p className="text-primary">
-                Dėmesio! Slaptažodis turi būti ne mažiau 8 simbolių ilgio,
-                turėti bent vieną didžiąją ir mažąją raides ir bent vieną
-                skaičių.
-              </p>
+            <div className="form-group mt-3">
               <input
                 type="password"
                 id="txtNewPassword"
                 name="newPassword"
-                className="form-control"
-                placeholder="Naujas slaptažodis"
+                className="form-control mt-2"
                 value={this.state.newPassword}
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
@@ -325,7 +327,7 @@ export default class UpdateProfileFormContainer extends Component {
                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
               />
             </div>
-            <div className=" form-group">
+            <div className="form-group mt-3">
               <label htmlFor="txtRepeatNewPassword">
                 Pakartokite naują slaptažodį{" "}
                 <span className="fieldRequired">*</span>
@@ -334,17 +336,21 @@ export default class UpdateProfileFormContainer extends Component {
                 type="password"
                 id="txtNewPasswordRepeat"
                 name="newPasswordRepeat"
-                className="form-control"
-                placeholder="Pakartokite naują slaptažodį"
+                className="form-control mt-2"
                 value={this.state.newPasswordRepeat}
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 required
                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
               />
+              <p className="text-primary">
+                Dėmesio! Slaptažodis turi būti ne mažiau 8 simbolių ilgio,
+                turėti bent vieną didžiąją ir mažąją raides ir bent vieną
+                skaičių.
+              </p>
             </div>
             <div className=" form-group">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary mt-3">
                 Išsaugoti
               </button>
             </div>

@@ -58,7 +58,7 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
-                  id="navManagerNotes"
+                  id="navManagerDocuments"
                   to={"/pazymos"}
                 >
                   Pažymos
