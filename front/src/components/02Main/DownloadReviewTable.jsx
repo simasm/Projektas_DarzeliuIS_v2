@@ -4,17 +4,13 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 import "./../../App.css";
-import { useHistory } from "react-router-dom";
 
 const DownloadReviewTable = () => {
-  const { compState, setCompState } = React.useContext(
-    ManagerCompesationContext
-  );
+  const { compState } = React.useContext(ManagerCompesationContext);
   const [back, setBack] = useState(false);
-  let history = useHistory();
   useEffect(() => {
     handleDownloadPdf();
-    //history.push("/kompensacijos");
+
     setTimeout(() => {
       setBackOnScreen();
     }, 3000);
@@ -23,12 +19,11 @@ const DownloadReviewTable = () => {
   const setBackOnScreen = () => {
     console.log("setting backAppear to true");
     setBack(true);
-    // history.push("/kompensacijos");
   };
 
   const handleDownloadPdf = async () => {
     const input = document.getElementById("divToPrint");
-    //console.log("element:\n" + input);
+
     const canvas = await html2canvas(input);
 
     const data = canvas.toDataURL("image/png");
@@ -60,7 +55,7 @@ const DownloadReviewTable = () => {
         </div>
       ) : null}
       <h3>Kompensacijos prašymas</h3>
-      <div class="row pt-3">
+      <div className="row pt-3">
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
           <h4 style={{ textAlign: "left" }}>Vaiko duomenys</h4>
           <table className="table">

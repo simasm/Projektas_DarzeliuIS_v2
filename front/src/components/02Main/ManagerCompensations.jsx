@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-//import { PDFDownloadLink, Document, Page } from '@react-pdf/renderer'
-
 import apiEndpoint from "../10Services/endpoint";
 import axios from "axios";
 import swal from "sweetalert";
@@ -11,9 +9,7 @@ import "./../../App.css";
 import Pagination from "../08CommonComponents/Pagination";
 
 const ManagerCompensations = () => {
-  const { compState, setCompState } = React.useContext(
-    ManagerCompesationContext
-  );
+  const { setCompState } = React.useContext(ManagerCompesationContext);
 
   const [compensations, setCompensations] = useState([]);
   const [shouldReload, setShouldReload] = useState(false);
@@ -95,14 +91,14 @@ const ManagerCompensations = () => {
 
   return (
     <div>
-      <div class="container pt-4">
+      <div className="container pt-4">
         <div className="pl-2 pt-3">
           <Link to="/" className="nounderlinelink">
             Pradinis puslapis
           </Link>
           &nbsp; &gt; &nbsp;Prašymai dėl kompensacijos
         </div>
-        <div class="row pt-5 ">
+        <div className="row pt-5 ">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">
             <table className="table">
               <thead>
