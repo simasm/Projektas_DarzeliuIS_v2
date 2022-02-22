@@ -32,10 +32,9 @@ const ManagerCompensations = () => {
     axios
       .get(
         apiEndpoint +
-        `/api/kompensacija/manager/page?page=${currentPage}&size=${pageState.pageSize}`
+          `/api/kompensacija/manager/page?page=${currentPage}&size=${pageState.pageSize}`
       )
       .then((response) => {
-        console.log(JSON.stringify(response));
         setCompensations(response.data.content);
         setPagestate({
           ...pageState,
@@ -68,8 +67,10 @@ const ManagerCompensations = () => {
     }).then((actionConfirmed) => {
       if (actionConfirmed) {
         axios
-          .delete(apiEndpoint +
-            `/api/kompensacija/manager/delete/${childPersonalCode}`)
+          .delete(
+            apiEndpoint +
+              `/api/kompensacija/manager/delete/${childPersonalCode}`
+          )
           .then((response) => {
             swal({
               text: "Kompensacijos prašymas ištrintas",
@@ -80,7 +81,7 @@ const ManagerCompensations = () => {
           .catch(() => {});
       }
     });
-  }
+  };
 
   const handleDownloadPdf = async (id) => {
     let kompensacija = compensations.filter((comp) => comp.id === id);
@@ -95,8 +96,13 @@ const ManagerCompensations = () => {
   return (
     <div>
       <div class="container pt-4">
-        <h6 className="pl-2 pt-3">Prašymai dėl kompensacijos</h6>
-        <div class="row pt-2">
+        <div className="pl-2 pt-3">
+          <Link to="/" className="nounderlinelink">
+            Pradinis puslapis
+          </Link>
+          &nbsp; &gt; &nbsp;Prašymai dėl kompensacijos
+        </div>
+        <div class="row pt-5 ">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">
             <table className="table">
               <thead>
@@ -121,12 +127,21 @@ const ManagerCompensations = () => {
                         type="button"
                         to={`/kompensacijos/${item.id}`}
                       >
-                        <button id="btnReviewCompensations" className="btn btn-outline-secondary">
+                        <button
+                          id="btnReviewCompensations"
+                          className="btn btn-outline-secondary"
+                        >
                           Peržiūrėti
                         </button>
                       </Link>
 
-                      <button id="btnDeleteCompensation" onClick={() => handleEntryDelete(item.childPersonalCode)} className="btn btn-outline-danger px-2">
+                      <button
+                        id="btnDeleteCompensation"
+                        onClick={() =>
+                          handleEntryDelete(item.childPersonalCode)
+                        }
+                        className="btn btn-outline-danger px-2"
+                      >
                         Ištrinti
                       </button>
 
@@ -136,7 +151,10 @@ const ManagerCompensations = () => {
                         type="button"
                         to={`/download_kompensacijos/${item.id}`}
                       >
-                        <button id="btnDownloadCompensations" className="btn btn-outline-secondary">
+                        <button
+                          id="btnDownloadCompensations"
+                          className="btn btn-outline-secondary"
+                        >
                           Atsisiųsti
                         </button>
                       </Link>
