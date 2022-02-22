@@ -22,7 +22,12 @@ public class BcryptPepperEncoder extends BCryptPasswordEncoder {
 	 */
 	@Override
 	public String encode(CharSequence rawPassword) {
+		
+	 
 		return super.encode(rawPassword + pepper);
+		 
+		
+		 
 	}
 
 	/**
@@ -35,6 +40,10 @@ public class BcryptPepperEncoder extends BCryptPasswordEncoder {
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
 				
+		 
 		return super.matches(rawPassword + pepper, encodedPassword);
+		 
+
+	 
 	}
 }
