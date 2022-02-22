@@ -187,6 +187,14 @@
 			<version>2.8.6</version>
 		</dependency>
  
+<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on Argon2-->
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.70</version>
+</dependency>
+
+ 
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
