@@ -118,7 +118,7 @@ p {
 .marginTop10 {
   margin-top: 10px;
 }
- 
+
 .page-link:focus {
   box-shadow: none;
 }
@@ -135,9 +135,12 @@ p {
 .nohoverbtn {
   background-color: rgba(180, 190, 211, 0.171);
 }
- 
+
 .table-style {
   font-size: 18px;
   vertical-align: middle;
 }
 
+.nounderlinelink {
+  text-decoration: none;
+}
