@@ -123,7 +123,7 @@ const Pagination = (props) => {
         
             {/* TARPAS 2*/}
       
-            {currentPage < 6   ? (
+            {currentPage < pagesCount - 6  ? (
               <li className="page-item">
                 <button className="page-link nohoverbtn" disabled>
                   &lt;...&gt;
