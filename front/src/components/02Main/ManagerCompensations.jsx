@@ -55,29 +55,7 @@ const ManagerCompensations = () => {
     setCompState(kompensacija);
   };
 
-  const handleEntryDelete = (childPersonalCode) => {
-    swal({
-      text: "Ar tikrai norite ištrinti šį kompensacijos prašymą?",
-      buttons: ["Ne", "Taip"],
-      dangerMode: true,
-    }).then((actionConfirmed) => {
-      if (actionConfirmed) {
-        axios
-          .delete(
-            apiEndpoint +
-              `/api/kompensacija/manager/delete/${childPersonalCode}`
-          )
-          .then((response) => {
-            swal({
-              text: "Kompensacijos prašymas ištrintas",
-              button: "Gerai",
-            });
-            setShouldReload(!shouldReload);
-          })
-          .catch(() => {});
-      }
-    });
-  };
+ 
 
   const handleDownloadPdf = async (id) => {
     let kompensacija = compensations.filter((comp) => comp.id === id);
@@ -131,15 +109,7 @@ const ManagerCompensations = () => {
                         </button>
                       </Link>
 
-                      <button
-                        id="btnDeleteCompensation"
-                        onClick={() =>
-                          handleEntryDelete(item.childPersonalCode)
-                        }
-                        className="btn btn-outline-danger px-2"
-                      >
-                        Ištrinti
-                      </button>
+                    
 
                       <Link
                         className="text-decoration-none px-2"
