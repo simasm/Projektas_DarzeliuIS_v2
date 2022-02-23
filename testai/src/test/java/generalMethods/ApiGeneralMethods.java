@@ -1,6 +1,7 @@
 package generalMethods;
 
 import basetest.BaseApiTest;
+import basetest.BaseTest;
 import com.google.gson.Gson;
 import io.restassured.filter.session.SessionFilter;
 import io.restassured.response.Response;
@@ -21,7 +22,7 @@ public class ApiGeneralMethods extends BaseApiTest {
                 formParam("username", username).
                 formParam("password", pwd).
                 filter(sessionFilter).
-                when().
+        when().
                 post("login");
         return sessionFilter;
     }
@@ -31,7 +32,7 @@ public class ApiGeneralMethods extends BaseApiTest {
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
-                when().
+        when().
                 post("logout");
     }
 

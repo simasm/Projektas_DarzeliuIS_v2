@@ -327,7 +327,7 @@ public class GeneralMethods extends BaseTest {
         compensationPage.inputKindergartenPhone("+37012312345");
         compensationPage.inputKindergartenEmail("pagran@dukas.lt");
         compensationPage.inputKindergartenBankName("Swedbank");
-        compensationPage.inputKindergartenAccountNumber("LT1234567891234567");
+        compensationPage.inputKindergartenAccountNumber("LT123456789123456789");
         compensationPage.inputKindergartenBankCode("12345");
 
         compensationPage.clickBtnSubmit();
@@ -556,9 +556,11 @@ public class GeneralMethods extends BaseTest {
     public void clickNavButtonSpecialistMyAccount() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement navMyAccountSpecialist = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.id("navManagerMyAccount")));
+                ExpectedConditions.presenceOfElementLocated(By.linkText("Mano paskyra")));
         navMyAccountSpecialist.click();
     }
+
+
 
     public void clickDeleteUserButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
@@ -592,7 +594,7 @@ public class GeneralMethods extends BaseTest {
     public void clickNavButtonApplicationQueue() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement navApplicationQueue = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.id("navManagerApplicationQueue")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Registracijų eilė']")));
         navApplicationQueue.click();
     }
 

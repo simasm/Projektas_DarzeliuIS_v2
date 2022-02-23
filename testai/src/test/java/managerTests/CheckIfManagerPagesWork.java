@@ -29,13 +29,20 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
         CheckIfAllUsersPagesLoad checkPages = new CheckIfAllUsersPagesLoad(driver);
         checkPages.assertDarzeliuSarasasPageTitle();
 
-        // check if Prasymu eile loads
+        // check if Registraciju eile loads
+        checkPages.clickNavManagerPrasymai();
         clickNavButtonApplicationQueue();
         checkPages.assertPrasymuEilePageTitle();
 
-        // check if Prasymu statistika page loads
-        checkPages.clickNavPrasymuStatistikaSpecialist();
+        // check if Registraciju statistika page loads
+        checkPages.clickNavManagerPrasymai();
+        checkPages.clickNavManagerRegistracijuStatistika();
         checkPages.assertPrasymuStatistikaPageTitle();
+
+        // check if Kompensacijos page loads
+        checkPages.clickNavManagerPrasymai();
+        checkPages.clickNavManagerKompensacijos();
+        checkPages.assertKompensacijosaPageTitle();
 
         // check if Mano paskyra page loads
         clickNavButtonSpecialistMyAccount();

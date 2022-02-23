@@ -1,6 +1,5 @@
 package parentTests;
 
-import generalMethods.ApiManagerMethods;
 import generalMethods.GeneralMethods;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -43,7 +42,7 @@ public class SubmitNewApplication extends GeneralMethods {
     public void successfullySubmitNewApplication() throws IOException, InterruptedException {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();

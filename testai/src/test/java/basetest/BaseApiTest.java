@@ -10,14 +10,12 @@ import org.testng.annotations.BeforeSuite;
 import java.util.Arrays;
 
 public class BaseApiTest {
-
     protected static RequestSpecification reqSpec;
 
     @BeforeSuite
-    public static void setUp() {
-
+    protected void apiSetUp() {
         reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
