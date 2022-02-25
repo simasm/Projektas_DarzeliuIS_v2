@@ -420,6 +420,7 @@ export default class UpdateProfileFormContainer extends Component {
 
     return (
       <div className="container pt-4">
+
         <h6 className="py-3">Redaguoti duomenis</h6>
 
         <div className="row">

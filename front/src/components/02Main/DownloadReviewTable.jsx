@@ -37,12 +37,13 @@ const DownloadReviewTable = () => {
       (item) =>
         item.childName + "-" + item.childSurname + "-" + item.submittedAt
     );
+    console.log("PDF Download: " + JSON.stringify(compState));
     pdf.save(filename);
   };
 
   return (
     <div id="divToPrint" className="container pt-4">
-      {back === true ? (
+      {/* {back === true ? (
         <div>
           <Link to="/" className="nounderlinelink">
             Pradinis puslapis
@@ -53,7 +54,7 @@ const DownloadReviewTable = () => {
           </Link>
           &nbsp; &gt; Prašymo peržiūra
         </div>
-      ) : null}
+      ) : null} */}
       <h3>Kompensacijos prašymas</h3>
       <div className="row pt-3">
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">

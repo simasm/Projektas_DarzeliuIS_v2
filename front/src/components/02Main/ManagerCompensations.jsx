@@ -8,6 +8,7 @@ import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 import "./../../App.css";
 import Pagination from "../08CommonComponents/Pagination";
 
+
 const ManagerCompensations = () => {
   const { setCompState } = React.useContext(ManagerCompesationContext);
 
@@ -80,6 +81,7 @@ const ManagerCompensations = () => {
   };
 
   const handleDownloadPdf = async (id) => {
+    console.log(" handleDownloadPdf: " + id);
     let kompensacija = compensations.filter((comp) => comp.id === id);
     setCompState(kompensacija);
   };
@@ -91,12 +93,14 @@ const ManagerCompensations = () => {
 
   return (
     <div>
+
       <div className="container pt-4">
         <div className="pl-2 pt-3">
-          <Link to="/" className="nounderlinelink">
+          {/* <Link to="/" className="nounderlinelink">
             Pradinis puslapis
           </Link>
-          &nbsp; &gt; &nbsp;Prašymai dėl kompensacijos
+          &nbsp; &gt; &nbsp; */}
+          <h3>Prašymai dėl kompensacijos</h3>
         </div>
         <div className="row pt-5 ">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -145,7 +149,7 @@ const ManagerCompensations = () => {
                         className="text-decoration-none px-2"
                         onClick={() => handleDownloadPdf(item.id)}
                         type="button"
-                        to={`/download_kompensacijos/${item.id}`}
+                        to={`/kompensacijos/download/${item.id}`}
                       >
                         <button
                           id="btnDownloadCompensations"

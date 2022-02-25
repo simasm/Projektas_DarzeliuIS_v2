@@ -5,7 +5,6 @@ import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
 import Pagination from "../08CommonComponents/Pagination";
 import SearchBox from "./../08CommonComponents/SeachBox";
-import { Link } from "react-router-dom";
 
 function SubmittedDocsContainer() {
   const [docs, setDocs] = useState([]);
@@ -110,13 +109,14 @@ function SubmittedDocsContainer() {
   if (totalElements > 0) {
     return (
       <div className="container pt-4">
-        <div className="pl-2 pt-3">
+
+        {/* <div className="pl-2 pt-3">
           <Link to="/" className="nounderlinelink">
             Pradinis puslapis
           </Link>
           &nbsp; &gt; &nbsp; Visos pažymos
-        </div>
-
+        </div> */}
+        
         <div className="row formHeader">
           <div className="col-6">
             <div>
@@ -149,11 +149,13 @@ function SubmittedDocsContainer() {
   } else {
     return (
       <div className="container pt-4">
+
         <div className="pl-2 pt-3">
-          <Link to="/" className="nounderlinelink">
+          {/* <Link to="/" className="nounderlinelink">
             Pradinis puslapis
           </Link>
-          &nbsp; &gt; &nbsp; Visos pažymos
+          &nbsp; &gt; &nbsp; */}
+          <h3>Visos pažymos</h3>
         </div>
 
         <h6 className="pl-2 pt-5">Nėra pateiktų pažymų</h6>
