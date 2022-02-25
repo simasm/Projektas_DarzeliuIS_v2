@@ -33,6 +33,7 @@
     "familyHasThreeOrMoreChildrenInSchools": false,
     "guardianDisability": false,
     "guardianInSchool": true,
-    "livesInVilnius": true
+    "livesInVilnius": true,
+    "livesInVilniusLonger": false
   }
 }

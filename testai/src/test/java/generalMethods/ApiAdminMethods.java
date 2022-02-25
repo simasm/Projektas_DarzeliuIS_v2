@@ -1,6 +1,6 @@
 package generalMethods;
 
-import basetest.BaseApiTest;
+import basetest.BaseTest;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -8,11 +8,10 @@ import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
-public class ApiAdminMethods extends BaseApiTest {
+public class ApiAdminMethods extends BaseTest {
 
     // requires prior login as admin to get session ID
     public static Response createNewUser(HashMap<String, Object> user, RequestSpecification reqSpec) {
-
         return
                 given().
                         spec(reqSpec).

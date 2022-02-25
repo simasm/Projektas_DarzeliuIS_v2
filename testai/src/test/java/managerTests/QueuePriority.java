@@ -36,7 +36,7 @@ public class QueuePriority extends ApiGeneralMethods {
     public void queuePriority() throws IOException {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
@@ -104,7 +104,7 @@ public class QueuePriority extends ApiGeneralMethods {
 
         // assert queue was formed with correct priorities
         // API doesn't include priority weight in response, assert is done manually
-        // applications were submitted with descending priority weight (14 > 11 > 10), first submitted should be first in queue
+        // applications were submitted with descending priority weight (15 > 11 > 10), first submitted should be first in queue
         int firstChildPosInWaitingList = getApplicationQueue(reqSpec).
                 then().
                 statusCode(200).

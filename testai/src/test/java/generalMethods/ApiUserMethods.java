@@ -1,41 +1,40 @@
 package generalMethods;
 
+import basetest.BaseTest;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static generalMethods.ApiGeneralMethods.sessionFilter;
 import static io.restassured.RestAssured.given;
 
-public class ApiUserMethods {
+public class ApiUserMethods extends BaseTest {
     // submit new application to kindergarten
-    // requires prior login as USER
     public static Response submitNewApplication(String json, RequestSpecification reqSpec) {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         body(json).
                 when().
                         post("api/prasymai/user/new");
     }
 
     // get all applications submitted by user, return application ID
-    // requires prior login as USER
     public static Response getApplicationsOfLoggedInUser(RequestSpecification reqSpec) {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                 when().
                         get("api/prasymai/user");
     }
 
     // delete application by ID
-    // requires prior login as USER
     public static Response deleteApplicationAsUserById(int applicationId, RequestSpecification reqSpec) {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         pathParam("applicationId", applicationId).
                 when().
                         delete("api/prasymai/user/delete/{applicationId}");

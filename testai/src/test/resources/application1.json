@@ -8,7 +8,7 @@
     "address": ""
   },
   "birthdate": "2016-09-26",
-  "childName": "AKeturiolika",
+  "childName": "APenkiolika",
   "childPersonalCode": "51609260001",
   "childSurname": "Taškų",
   "kindergartenChoises": {
@@ -33,6 +33,7 @@
     "familyHasThreeOrMoreChildrenInSchools": true,
     "guardianDisability": true,
     "guardianInSchool": true,
-    "livesInVilnius": true
+    "livesInVilnius": true,
+    "livesInVilniusLonger": true
   }
 }

@@ -1,13 +1,12 @@
 package parentTests;
 
-import generalMethods.ApiAdminMethods;
-import generalMethods.ApiManagerMethods;
 import generalMethods.GeneralMethods;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import managerPages.CompensationPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,8 +22,8 @@ import static generalMethods.ApiAdminMethods.deleteUser;
 import static generalMethods.ApiGeneralMethods.logInApi;
 import static generalMethods.ApiGeneralMethods.logOutApi;
 import static generalMethods.ApiManagerMethods.deleteCompensationApplicationByChildId;
-import static generalMethods.ApiManagerMethods.getCompensationApplicationByChildId;
 import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertTrue;
 
 public class ApplyForCompensation extends GeneralMethods {
 
@@ -47,15 +46,16 @@ public class ApplyForCompensation extends GeneralMethods {
 
     @Test(groups = "regression", priority = 1, dataProvider = "parameters")
     public void successfullyApplyForCompensation(String childId) {
+
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        // create new USER for this test
+        // Create new USER for this test
         HashMap<String, Object> user = new HashMap<>();
         user.put("email", "andriusd@andrius.lt");
         user.put("name", "Andrius");
@@ -76,19 +76,33 @@ public class ApplyForCompensation extends GeneralMethods {
         clickOkButton();
         logOutUi();
 
-        // assert application was submitted then delete it
-        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
-        getCompensationApplicationByChildId(childId, reqSpec).
-                then().
-                statusCode(200).
-                body("childPersonalCode", equalTo(childId));
+        // View application as manager
+        CompensationPage compensationPage = new CompensationPage(driver);
 
+        logInUi("manager@manager.lt", "manager@manager.lt");
+        wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonPrasymai));
+        compensationPage.clickButtonPrasymai();
+        wait.until(ExpectedConditions.elementToBeClickable(compensationPage.navManagerKompensacijos));
+        compensationPage.clickNavManagerKompensacijos();
+        wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonPerziureti));
+        compensationPage.clickPerziureti();
+        assertTrue(driver.findElement(By.xpath("//div[@class='pl-2 pt-3']")).getText().contains("Prašymo peržiūra"), "'Prasymas' page loaded");
+        compensationPage.clickAtgal();
+
+        // Download application
+        wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonAtsisiusti));
+        compensationPage.clickAtsisiusti();
+        wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonAtgal));
+        compensationPage.clickAtgal();
+        logOutUi();
+
+        // Delete application
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
         deleteCompensationApplicationByChildId(childId, reqSpec).
                 then().
-                statusCode(204);
-        logOutApi(reqSpec);
+                        statusCode(204);
 
-        // delete USER created for this test
+        // Delete USER created for this test
         logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
         deleteUser("andriusd@andrius.lt", reqSpec).
                 then().

@@ -1,19 +1,21 @@
 package generalMethods;
 
+import basetest.BaseTest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.Kindergarten;
 
+import static generalMethods.ApiGeneralMethods.sessionFilter;
 import static io.restassured.RestAssured.given;
 
-public class ApiManagerMethods {
+public class ApiManagerMethods extends BaseTest {
     // requires prior login as MANAGER to get session ID
     public static Response createNewKindergarten(Kindergarten kindergarten, RequestSpecification reqSpec) {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         body(kindergarten).
                 when().
                         post("api/darzeliai/manager/createKindergarten");
@@ -24,7 +26,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         pathParam("id", id).
                 when().
                         delete("api/darzeliai/manager/delete/{id}");
@@ -36,7 +38,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         pathParam("childPersonalCode", childId).
                 when().
                         get("api/kompensacija/{childPersonalCode}");
@@ -48,10 +50,10 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         pathParam("childCode", childId).
                 when().
-                        delete("api/kompensacija/manager/{childCode}");
+                        delete("api/kompensacija/manager/delete/{childCode}");
     }
 
     // check if application process is open
@@ -60,7 +62,7 @@ public class ApiManagerMethods {
           String body =
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                 when().
                         get("api/status").
                 then().extract().body().asString();
@@ -75,7 +77,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                 when().
                         post("api/status/true");
     }
@@ -86,7 +88,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                 when().
                         post("api/status/false");
     }
@@ -97,7 +99,7 @@ public class ApiManagerMethods {
        return
                given().
                        spec(reqSpec).
-                       filter(ApiGeneralMethods.sessionFilter).
+                       filter(sessionFilter).
                when().
                        post("api/queue/process");
     }
@@ -108,7 +110,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                 when().
                         post("api/queue/confirm");
     }
@@ -119,7 +121,7 @@ public class ApiManagerMethods {
         return
                 given().
                         spec(reqSpec).
-                        filter(ApiGeneralMethods.sessionFilter).
+                        filter(sessionFilter).
                         queryParam("page", 0).
                         queryParam("size", 10).
                when().

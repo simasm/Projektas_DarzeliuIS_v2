@@ -22,8 +22,14 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     @FindBy(id = "navAdminEventLog")
     public WebElement navIvykiuZurnalas;
 
-    @FindBy(id = "navManagerApplicationStats")
-    public WebElement navPrasymuStatistikaKindergartenSpecialist;
+    @FindBy (id = "navManagerApplications")
+    public WebElement navManagerPrasymai;
+
+    @FindBy (xpath = "//div[text()='Registracijų statistika']")
+    public WebElement navManagerRegistracijuStatistika;
+
+    @FindBy (xpath = "//div[text()='Kompensacijos']")
+    public WebElement navManagerKompensacijos;
 
     @FindBy(id = "navUserApplicationStats")
     public WebElement navPrasymuStatistikaParent;
@@ -32,8 +38,8 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         navPrasymuStatistikaAdmin.click();
     }
 
-    public void clickNavPrasymuStatistikaSpecialist() {
-        navPrasymuStatistikaKindergartenSpecialist.click();
+    public void clickNavManagerRegistracijuStatistika() {
+        navManagerRegistracijuStatistika.click();
     }
 
     public void clickNavPrasymuStatistikaParent() {
@@ -48,6 +54,14 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         navIvykiuZurnalas.click();
     }
 
+    public void clickNavManagerPrasymai() {
+        navManagerPrasymai.click();
+    }
+
+    public void clickNavManagerKompensacijos() {
+        navManagerKompensacijos.click();
+    }
+
     public Boolean assertNaudotojaiPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*/div/h6"), "Naujo naudotojo sukūrimas"));
@@ -56,6 +70,12 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     public Boolean assertPrasymuStatistikaPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų statistika"));
+    }
+
+    // TODO update when breadcrumbs are done or page is updated with unique way to identify it
+    public void assertKompensacijosPageTitle() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='pl-2 pt-3']/a")));
     }
 
     public Boolean assertPrasymuRedagavimasPageTitle() {

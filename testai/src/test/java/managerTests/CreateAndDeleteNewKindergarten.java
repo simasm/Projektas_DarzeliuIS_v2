@@ -21,7 +21,7 @@ public class CreateAndDeleteNewKindergarten extends GeneralMethods {
      * 6. Logout
      */
 
-    @Test
+    @Test (groups = "regression")
     public void createAndDeleteNewKindergarten() {
         successfullyCreateNewKindergarten();
         deleteNewKindergarten();

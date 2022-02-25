@@ -7,10 +7,6 @@ import pages.AbstractObjectPage;
 
 public class ApplyForCompensationPage extends AbstractObjectPage {
 
-    //popup
-    @FindBy(xpath = "//div[@role='dialog']/div[1]")
-    public WebElement popUp;
-
     // fields - child info
     @FindBy(id = "txtChildPersonalCodeCompensation")
     public WebElement childPersonalId;
