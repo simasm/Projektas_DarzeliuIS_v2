@@ -24,8 +24,8 @@ public class ApiTestRegistruCentras extends ApiGeneralMethods {
             build();
 
 
-    @Test(dataProvider = "parameters")
-    public static void testGetChildById(String asmensKodas, RequestSpecification reqSpec) {
+    @Test(groups = "smoke", dataProvider = "parameters")
+    public void testGetChildById(String asmensKodas) {
         Child child = getChildById(asmensKodas, reqSpec);
         assertEquals(child.getAsmensKodas(), asmensKodas);
     }
@@ -35,7 +35,7 @@ public class ApiTestRegistruCentras extends ApiGeneralMethods {
     public Object[][] parameters() {
         return new Object[][]{
                 {"51609260014"},
-                {"51609260069"}
+                {"51609260189"}
         };
     }
 }

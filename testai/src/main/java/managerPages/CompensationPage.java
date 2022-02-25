@@ -21,14 +21,8 @@ public class CompensationPage extends AbstractObjectPage {
     @FindBy (id = "btnDownloadCompensations")
     public WebElement buttonAtsisiusti;
 
-    @FindBy (id = "btnDeleteCompensation")
-    public WebElement buttonIstrinti;
-
     @FindBy (xpath = "//button[text()='Atgal']")
     public WebElement buttonAtgal;
-
-    @FindBy (xpath = "//button[@class='swal-button swal-button--confirm swal-button--danger']")
-    public WebElement buttonConfirmDelete;
 
     // clicks
 
@@ -40,13 +34,6 @@ public class CompensationPage extends AbstractObjectPage {
         buttonAtsisiusti.click();
     }
 
-    public void clickIstrinti() {
-        buttonIstrinti.click();
-    }
-
-    public void clickConfirmDelete() {
-        buttonConfirmDelete.click();
-    }
 
     public void clickButtonPrasymai() {
         buttonPrasymai.click();

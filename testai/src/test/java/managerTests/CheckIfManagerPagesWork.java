@@ -1,8 +1,15 @@
 package managerTests;
 
 import generalMethods.GeneralMethods;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import smokeTestPages.CheckIfAllUsersPagesLoad;
+
+import java.time.Duration;
 
 public class CheckIfManagerPagesWork extends GeneralMethods {
 
@@ -22,6 +29,7 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllSpecialistPages() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         logInUi(managerLogins, managerLogins);
 
         // check if Darzeliu sarasas page loads
@@ -37,12 +45,13 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
         // check if Registraciju statistika page loads
         checkPages.clickNavManagerPrasymai();
         checkPages.clickNavManagerRegistracijuStatistika();
-        checkPages.assertPrasymuStatistikaPageTitle();
+        WebElement registracijuStatistikaPageTitle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*/h6")));
+        Assert.assertEquals(registracijuStatistikaPageTitle.getText(), "Prašymų statistika");
 
         // check if Kompensacijos page loads
         checkPages.clickNavManagerPrasymai();
         checkPages.clickNavManagerKompensacijos();
-        checkPages.assertKompensacijosaPageTitle();
+        checkPages.assertKompensacijosPageTitle();
 
         // check if Mano paskyra page loads
         clickNavButtonSpecialistMyAccount();

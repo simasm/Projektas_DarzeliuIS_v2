@@ -36,7 +36,7 @@ public class ApiTest extends ApiGeneralMethods {
     build();
 
     // log in with all available user roles
-    @Test(dataProvider = "parameters")
+    @Test(groups = "smoke", dataProvider = "parameters")
     public void api_shouldLogInAndOut(String username, String pwd, String role) {
 
         SessionFilter sessionFilter =
@@ -64,7 +64,7 @@ public class ApiTest extends ApiGeneralMethods {
     }
 
     // create 1 new user then delete
-    @Test
+    @Test(groups = "smoke")
     public void api_shouldCreateNewUser() {
 
         logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
@@ -92,7 +92,7 @@ public class ApiTest extends ApiGeneralMethods {
     }
 
     // create 1 new kindergarten then delete
-    @Test
+    @Test(groups = "smoke")
     public void api_shouldCreateNewKindergarten() {
 
         logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
@@ -120,7 +120,7 @@ public class ApiTest extends ApiGeneralMethods {
     }
 
     // submit new application to kindergarten as USER
-    @Test
+    @Test(groups = "smoke")
     public void api_shouldSubmitNewApplicationToKindergarten() throws IOException {
 
         // open registration if needed
@@ -157,7 +157,7 @@ public class ApiTest extends ApiGeneralMethods {
 
 
     // get info on all users registered in the system
-    @Test
+    @Test(groups = "smoke")
     public void api_shouldGetAllUsers() {
 
         SessionFilter sessionFilter = logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);

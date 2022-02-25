@@ -470,7 +470,6 @@ public class GeneralMethods extends BaseTest {
 
     // WAIT TO CLICK BUTTONS
 
-    // TODO reminder: xpath has been changed
     public void waitToClickSubmitButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement clickButton = wait.until(
@@ -572,7 +571,7 @@ public class GeneralMethods extends BaseTest {
     public void clickNavButtonNewApplication() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement navNewApplication = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.id("navUserNewApplication")));
+                ExpectedConditions.elementToBeClickable(By.id("navUserNewApplication")));
         navNewApplication.click();
     }
 
@@ -586,7 +585,7 @@ public class GeneralMethods extends BaseTest {
     public void clickDrpDnButtonCompensation() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement navButtonCompensation = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='dropdown-item' and contains(text(), 'kompensacijos')]")));
+                ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='dropdown-item' and contains(text(), 'kompensacijos')]")));
         navButtonCompensation.click();
     }
 

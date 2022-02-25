@@ -39,7 +39,6 @@ public class DownloadDocumentUploadedByUser extends GeneralMethods {
      * Download document uploaded in earlier step.
      * Assert document was downloaded.
      * Delete uploaded document.
-     * ???Delete local document???
      * Log out.
      * ----------
      * Teardown -

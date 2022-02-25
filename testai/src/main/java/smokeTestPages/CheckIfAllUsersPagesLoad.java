@@ -22,7 +22,7 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     @FindBy(id = "navAdminEventLog")
     public WebElement navIvykiuZurnalas;
 
-    @FindBy (id = "navUserNewApplication")
+    @FindBy (id = "navManagerApplications")
     public WebElement navManagerPrasymai;
 
     @FindBy (xpath = "//div[text()='Registracijų statistika']")
@@ -72,9 +72,10 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų statistika"));
     }
 
-    public Boolean assertKompensacijosaPageTitle() {
+    // TODO update when breadcrumbs are done or page is updated with unique way to identify it
+    public void assertKompensacijosPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h3"), "Prašymai dėl kompensacijos"));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='pl-2 pt-3']/a")));
     }
 
     public Boolean assertPrasymuRedagavimasPageTitle() {

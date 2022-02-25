@@ -21,6 +21,7 @@ import static generalMethods.ApiAdminMethods.createNewUser;
 import static generalMethods.ApiAdminMethods.deleteUser;
 import static generalMethods.ApiGeneralMethods.logInApi;
 import static generalMethods.ApiGeneralMethods.logOutApi;
+import static generalMethods.ApiManagerMethods.deleteCompensationApplicationByChildId;
 import static org.hamcrest.Matchers.equalTo;
 import static org.testng.Assert.assertTrue;
 
@@ -81,6 +82,7 @@ public class ApplyForCompensation extends GeneralMethods {
         logInUi("manager@manager.lt", "manager@manager.lt");
         wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonPrasymai));
         compensationPage.clickButtonPrasymai();
+        wait.until(ExpectedConditions.elementToBeClickable(compensationPage.navManagerKompensacijos));
         compensationPage.clickNavManagerKompensacijos();
         wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonPerziureti));
         compensationPage.clickPerziureti();
@@ -92,16 +94,13 @@ public class ApplyForCompensation extends GeneralMethods {
         compensationPage.clickAtsisiusti();
         wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonAtgal));
         compensationPage.clickAtgal();
+        logOutUi();
 
         // Delete application
-        wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonIstrinti));
-        compensationPage.clickIstrinti();
-        wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonConfirmDelete));
-        compensationPage.clickConfirmDelete();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("swal-text")));
-        assertTrue(driver.findElement(By.className("swal-text")).getText().equalsIgnoreCase("Kompensacijos prašymas ištrintas"));
-        clickOkButton();
-        logOutUi();
+        logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
+        deleteCompensationApplicationByChildId(childId, reqSpec).
+                then().
+                        statusCode(204);
 
         // Delete USER created for this test
         logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);
