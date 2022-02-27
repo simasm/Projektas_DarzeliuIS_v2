@@ -12,6 +12,7 @@ function SubmittedDocsContainer() {
   const [totalElements, setTotalElements] = useState(0);
   const [pageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSearching, setIsSearching] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -33,7 +34,6 @@ function SubmittedDocsContainer() {
     http
       .get(uri)
       .then((response) => {
-        console.log(response.data);
         setDocs(response.data.content);
         setTotalElements(response.data.totalElements);
         setCurrentPage(response.data.number + 1);
@@ -107,7 +107,8 @@ function SubmittedDocsContainer() {
     setSearchQuery(uploaderSurname);
     getDocuments(1, uploaderSurname);
   };
-  if (totalElements > 0) {
+
+  if (totalElements > 0 || isSearching === true || searchQuery !== "") {
     return (
       <div className="container pt-4">
         <div className="pl-2 pt-3">
@@ -124,6 +125,8 @@ function SubmittedDocsContainer() {
                 value={searchQuery}
                 onSearch={handleSearch}
                 placeholder={"Ieškokite pagal pavardę..."}
+                onFocus={() => setIsSearching(true)}
+                onBlur={() => setIsSearching(false)}
               />
             </div>
             {

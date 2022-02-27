@@ -33,7 +33,7 @@ export default function SubmittedDocumentsListTable({
       label: "",
       content: (document) => (
         <button
-          className="btn btn-primary btn-sm btn-block"
+          className="btn btn-outline-primary btn-sm btn-block"
           onClick={() => onDownload(document)}
         >
           Atsisiųsti
