@@ -180,7 +180,7 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/download_kompensacijos/:id"
+                        path="/kompensacijos/download/:id"
                         component={DownloadReviewTable}
                       />
                       <Route
@@ -214,7 +214,7 @@ function App() {
                       <Route exact path="/eile" component={QueueContainer} />
                       <Route
                         exact
-                        path="/profilis/atnaujinti"
+                        path="/profilis"
                         component={UpdateProfileFormContainer}
                       />
                       <Route path="*" component={NotFound} />

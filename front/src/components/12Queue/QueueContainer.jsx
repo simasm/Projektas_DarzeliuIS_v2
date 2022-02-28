@@ -266,9 +266,10 @@ export class QueueContainer extends Component {
     if (applications !== undefined) size = applications.length;
 
     const placeholder = "Ieškoti pagal vaiko asmens kodą...";
-
+    
     return (
       <div className="container pt-4">
+
         <h6 className="pl-2 pt-3">Prašymų eilė</h6>
         {isActive && <p className="pl-2 pt-3">Registracija vykdoma</p>}
         {!isActive && (
