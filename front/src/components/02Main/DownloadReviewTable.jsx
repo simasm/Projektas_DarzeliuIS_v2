@@ -17,7 +17,6 @@ const DownloadReviewTable = () => {
   }, []);
 
   const setBackOnScreen = () => {
-    console.log("setting backAppear to true");
     setBack(true);
   };
 
@@ -37,7 +36,6 @@ const DownloadReviewTable = () => {
       (item) =>
         item.childName + "-" + item.childSurname + "-" + item.submittedAt
     );
-    console.log("PDF Download: " + JSON.stringify(compState));
     pdf.save(filename);
   };
 
