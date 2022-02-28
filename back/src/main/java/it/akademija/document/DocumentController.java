@@ -3,9 +3,15 @@ package it.akademija.document;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -20,11 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.ApplicationController;
+import it.akademija.journal.JournalEntry;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
+import it.akademija.kindergarten.Kindergarten;
+import it.akademija.user.User;
 import it.akademija.user.UserService;
 
 @RestController
@@ -43,7 +53,7 @@ public class DocumentController {
 	@Autowired
 	private JournalService journalService;
 
-	@Secured("ROLE_USER")
+	@Secured({ "ROLE_USER", "ROLE_MANAGER" })
 	@GetMapping(path = "/get/{id}")
 	public byte[] getDocumentFileById(@ApiParam(value = "id") @PathVariable Long id) {
 
@@ -74,7 +84,7 @@ public class DocumentController {
 		}
 	}
 
-	@Secured("ROLE_USER")
+	@Secured({ "ROLE_USER", "ROLE_MANAGER" })
 	@DeleteMapping(path = "/delete/{id}")
 	public ResponseEntity<String> deleteDocument(@ApiParam(value = "id") @PathVariable final long id) {
 
@@ -87,8 +97,8 @@ public class DocumentController {
 	@GetMapping(path = "/documents")
 	public List<DocumentViewmodel> getLoggedUserDocuments() {
 
-		List<DocumentEntity> docEntityList = documentService.getDocumentsByUploaderId(userService
-				.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getUserId());
+		List<DocumentEntity> docEntityList = 
+				documentService.getDocumentsByUploaderId(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getUserId());
 
 		List<DocumentViewmodel> docViewmodelList = new ArrayList<>();
 
@@ -97,6 +107,48 @@ public class DocumentController {
 			docViewmodelList.add(new DocumentViewmodel(doc.getId(), doc.getName(), doc.getUploadDate()));
 		}
 		return docViewmodelList;
+	}
+	
+	
+	
+	@Secured("ROLE_MANAGER")
+	@GetMapping(path = "/documents/all")
+	public List<DocumentEntity> getAllExistingDocuments() {
+		
+		
+		return documentService.getAllExistingDocuments();
+	}
+	
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping(path = "/page")
+	public ResponseEntity<Page<DocumentEntity>> getDocumentPages(
+			@RequestParam("page") int page, 
+			  @RequestParam("size") int size) {	
+		
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
+						
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
+
+		return new ResponseEntity<>(documentService.getAllDocuments(pageable), HttpStatus.OK);
+	}
+	
+	
+	@Secured({ "ROLE_MANAGER" })
+	@GetMapping("/manager/page/{uploaderSurname}")
+	public ResponseEntity<Page<DocumentEntity>> GetDocumentPageFilteredByUploaderSurname(@PathVariable String uploaderSurname,
+			@RequestParam("page") int page, @RequestParam("size") int size) {
+
+		
+		Sort.Order order1 = new Sort.Order(Sort.Direction.DESC, "uploadDate");
+		Sort.Order order2 = new Sort.Order(Sort.Direction.DESC, "uploaderSurname");
+		Sort.Order order3 = new Sort.Order(Sort.Direction.DESC, "name");
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by(order1).and(Sort.by(order2).and(Sort.by(order3))));
+
+		return new ResponseEntity<>(documentService.GetDocumentPageFilteredByUploaderSurname(uploaderSurname, pageable),
+				HttpStatus.OK);
 	}
 
 }

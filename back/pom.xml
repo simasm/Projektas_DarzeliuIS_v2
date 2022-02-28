@@ -6,7 +6,7 @@
  
 	<groupId>it.akademija</groupId>
 	<artifactId>darzelis</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>test-kris70</version>
 	<packaging>war</packaging>
  
 	<name>DarzeliuIS</name>
@@ -186,6 +186,14 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.6</version>
 		</dependency>
+ 
+<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on Argon2-->
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.70</version>
+</dependency>
+
  
 	</dependencies>
 	<build>

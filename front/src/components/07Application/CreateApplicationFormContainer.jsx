@@ -65,6 +65,7 @@ class CreateApplicationFormContainer extends Component {
         guardianDisability: false,
         guardianInSchool: false,
         livesInVilnius: false,
+        livesInVilniusLonger: false,
       },
       kindergartenList: [],
       additionalGuardianInput: false,
@@ -72,12 +73,12 @@ class CreateApplicationFormContainer extends Component {
       submitState: false,
     };
     this.mainGuardianOnChange = this.mainGuardianOnChange.bind(this);
-    this.additionalGuardianOnChange =
-      this.additionalGuardianOnChange.bind(this);
+    this.additionalGuardianOnChange = this.additionalGuardianOnChange.bind(this);
     this.childOnChange = this.childOnChange.bind(this);
     this.checkboxOnChange = this.checkboxOnChange.bind(this);
     this.submitHandle = this.submitHandle.bind(this);
   }
+
   handleAdd = (e) => {
     e.preventDefault();
 
@@ -86,7 +87,7 @@ class CreateApplicationFormContainer extends Component {
       additionalGuardianInput: !this.state.additionalGuardianInput,
     });
   };
-
+  
   componentDidMount() {
     /** Get registation status */
     http.get(`${apiEndpoint}/api/status`).then((response) => {
@@ -192,9 +193,12 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainName"
               name="name"
-              placeholder="Vardas"
               className="form-control"
-              value={this.state.mainGuardian.name}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.name
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -210,9 +214,12 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainSurname"
               name="surname"
-              placeholder="Pavardė"
               className="form-control"
-              value={this.state.mainGuardian.surname}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.surname
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -228,9 +235,12 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainPersonalCode"
               name="personalCode"
-              placeholder="Asmens kodas"
               className="form-control"
-              value={this.state.mainGuardian.personalCode}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.personalCode
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -247,9 +257,13 @@ class CreateApplicationFormContainer extends Component {
                 type="tel"
                 id="txtMainPhone"
                 name="phone"
-                placeholder="+37012345678"
+                placeholder="+370xxxxxxxx"
                 className="form-control"
-                value={this.state.mainGuardian.phone}
+                value={
+                  this.state.registrationDisabled
+                    ? ""
+                    : this.state.mainGuardian.phone
+                }
                 onChange={this.mainGuardianOnChange}
                 onInvalid={(e) => inputValidator(e)}
                 disabled={this.state.registrationDisabled}
@@ -266,9 +280,12 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtMainEmail"
               name="email"
-              placeholder="El. paštas"
               className="form-control"
-              value={this.state.mainGuardian.email}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.email
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -285,8 +302,11 @@ class CreateApplicationFormContainer extends Component {
               className="form-control"
               id="txtMainAddress"
               name="address"
-              placeholder="Adresas"
-              value={this.state.mainGuardian.address}
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.address
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
@@ -323,7 +343,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalName"
               name="name"
-              placeholder="Vardas"
               className="form-control"
               value={this.state.additionalGuardian.name}
               onChange={this.additionalGuardianOnChange}
@@ -344,7 +363,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalSurname"
               name="surname"
-              placeholder="Pavardė"
               className="form-control"
               value={this.state.additionalGuardian.surname}
               onChange={this.additionalGuardianOnChange}
@@ -365,7 +383,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalPersonalCode"
               name="personalCode"
-              placeholder="Asmens kodas"
               className="form-control"
               value={this.state.additionalGuardian.personalCode}
               onChange={this.additionalGuardianOnChange}
@@ -387,7 +404,7 @@ class CreateApplicationFormContainer extends Component {
                 type="tel"
                 id="txtAdditionalPhone"
                 name="phone"
-                placeholder="+37012345678"
+                placeholder="+370xxxxxxxx"
                 className="form-control"
                 value={this.state.additionalGuardian.phone}
                 onChange={this.additionalGuardianOnChange}
@@ -409,7 +426,6 @@ class CreateApplicationFormContainer extends Component {
               type="text"
               id="txtAdditionalEmail"
               name="email"
-              placeholder="El. paštas"
               className="form-control"
               value={this.state.additionalGuardian.email}
               onChange={this.additionalGuardianOnChange}
@@ -431,7 +447,6 @@ class CreateApplicationFormContainer extends Component {
               className="form-control"
               id="txtAdditionalAddress"
               name="address"
-              placeholder="Adresas"
               value={this.state.additionalGuardian.address}
               onChange={this.additionalGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
@@ -462,7 +477,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildPersonalCode"
             name="childPersonalCode"
-            placeholder="Asmens kodas"
             className="form-control"
             style={
               this.state.childIdValid
@@ -488,7 +502,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildName"
             name="childName"
-            placeholder="Vaiko vardas"
             className="form-control"
             value={this.state.childName}
             disabled
@@ -504,7 +517,6 @@ class CreateApplicationFormContainer extends Component {
             type="text"
             id="txtChildSurname"
             name="childSurname"
-            placeholder="Vaiko pavardė"
             className="form-control"
             value={this.state.childSurname}
             disabled
@@ -520,7 +532,6 @@ class CreateApplicationFormContainer extends Component {
           </label>
           <input
             className="form-control"
-            placeholder="Vaiko gimimo data"
             value={this.state.birthdate}
             disabled
           />
@@ -550,6 +561,22 @@ class CreateApplicationFormContainer extends Component {
             Vaiko deklaruojama gyvenamoji vieta yra Vilniaus miesto savivaldybė
           </label>
         </div>
+
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="livesInVilniusLonger"
+            id="chkLivesInVilniusLonger"
+            checked={this.state.priorities.livesInVilniusLonger && this.state.priorities.livesInVilnius? true:false}
+            onChange={this.checkboxOnChange}
+            disabled={this.state.registrationDisabled || !this.state.priorities.livesInVilnius}
+          />
+          <label className="form-check-label" htmlFor="livesInVilniusLonger">
+            Vaiko vieno iš tėvų deklaruojama gyvenamoji vieta Vilniaus savivaldybėje yra ne mažiau nei 2 metai.
+          </label>
+        </div>
+
         <div className="form-check">
           <input
             type="checkbox"
@@ -903,6 +930,12 @@ class CreateApplicationFormContainer extends Component {
         [e.target.name]: e.target.checked,
       },
     });
+
+    if (this.state.priorities.livesInVilnius !== false) {
+      this.setState({
+        livesInVilniusLonger : true
+      })
+    }
   }
 
   /** Handle submit */
@@ -959,6 +992,9 @@ class CreateApplicationFormContainer extends Component {
   render() {
     return (
       <div className="container pt-4">
+        <div>
+          <h6 className="pl-5 pt-3">Prašymas dėl registracijos</h6>
+        </div>
         {this.drawMessageRegistrationNotAvailable(
           this.state.registrationDisabled
         )}

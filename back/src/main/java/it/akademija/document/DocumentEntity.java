@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "documents")
@@ -35,6 +36,12 @@ public class DocumentEntity {
 	@Column
 	private LocalDate uploadDate;
 	
+	@Column
+	private String uploaderName;
+	
+	@Column
+	private String uploaderSurname;
+	
 	public DocumentEntity(Long id, String name, String type, byte[] data, long size, long uploaderId, LocalDate uploadDate) {
 		super();
 		this.id = id;
@@ -46,6 +53,7 @@ public class DocumentEntity {
 		this.uploadDate = uploadDate;
 	}
 	
+	
 	public DocumentEntity(String name, String type, byte[] data, long size, long uploaderId, LocalDate uploadDate) {
 		super();
 		this.name = name;
@@ -54,6 +62,18 @@ public class DocumentEntity {
 		this.size = size;
 		this.uploaderId = uploaderId;
 		this.uploadDate = uploadDate;
+	}
+	
+	public DocumentEntity(String name, String type, byte[] data, long size, long uploaderId, LocalDate uploadDate, String uploaderName, String uploaderSurname) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.data = data;
+		this.size = size;
+		this.uploaderId = uploaderId;
+		this.uploadDate = uploadDate;
+		this.uploaderName = uploaderName;
+		this.uploaderSurname = uploaderSurname;
 	}
 
 	public DocumentEntity() {
@@ -102,6 +122,22 @@ public class DocumentEntity {
 
 	public long getUploaderId() {
 		return uploaderId;
+	}
+
+	public String getUploaderName() {
+		return uploaderName;
+	}
+
+	public void setUploaderName(String uploaderName) {
+		this.uploaderName = uploaderName;
+	}
+
+	public String getUploaderSurname() {
+		return uploaderSurname;
+	}
+
+	public void setUploaderSurname(String uploaderSurname) {
+		this.uploaderSurname = uploaderSurname;
 	}
 
 	public void setUploaderId(long uploaderId) {

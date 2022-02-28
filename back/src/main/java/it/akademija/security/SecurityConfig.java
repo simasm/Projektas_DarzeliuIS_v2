@@ -24,6 +24,7 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,14 +62,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 
-		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+	 	BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
-		BcryptPepperEncoder pepper = new BcryptPepperEncoder();
+		BcryptPepperEncoder pepper = new BcryptPepperEncoder(); 
+		
+		int saltLength = 64; //bytes
+        int hashLength = 64; //bytes
+        int parallelism = 4; //threads
+        int memory = 32 * 1024; //KiB
+        int iterations = 15;
+        
+		Argon2PasswordEncoder argon2pepper = new ArgonEncoder(saltLength,
+				hashLength,parallelism,memory,iterations,true) ; 
+		
+		Argon2PasswordEncoder argon2 = new ArgonEncoder(saltLength,
+				hashLength,parallelism,memory,iterations,false) ;
+		
+		
+		
 
-		Map<String, PasswordEncoder> encoders = Map.of("pepper", pepper);
-		DelegatingPasswordEncoder delegatingPasswordEncoder = new DelegatingPasswordEncoder("pepper", encoders);
+		Map<String, PasswordEncoder> encoders = Map.of("pepper", pepper, "argon2", argon2, "argon2pepper", argon2pepper);
+		DelegatingPasswordEncoder delegatingPasswordEncoder = new DelegatingPasswordEncoder("argon2pepper", encoders);
 
-		delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(bcrypt);
+	 	delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(bcrypt);
+		
 
 		return delegatingPasswordEncoder;
 	}

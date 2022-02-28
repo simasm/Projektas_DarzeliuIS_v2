@@ -19,7 +19,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
- 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import it.akademija.user.User;
 
 @Entity
@@ -60,6 +62,19 @@ public class Compensation {
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinColumn(name = "user_id")
 	private User mainGuardian;	
+	
+	@Column
+	private String guardianName;
+	@Column
+	private String guardianSurname;
+	@Column
+	private String guardianPersonalCode;
+	@Column
+	private String guardianPhone;
+	@Column
+	private String guardianEmail;
+	@Column
+	private String guardianAddress;
 
 	//kindergarten ifno
 	 
@@ -105,7 +120,9 @@ public class Compensation {
 	public Compensation(@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) String childName,
 			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) String childSurname,
 			@NotEmpty(message = "Kodas privalomas") String childPersonalCode, LocalDate childBirthdate,
-			User mainGuardian, String kindergartenId,
+			User mainGuardian,
+			GuardianInfo guardianInfo,
+			String kindergartenId,
 			@NotBlank(message = "Pavadinimas privalomas") String kindergartenName,
 			@NotBlank(message = "Adresas privalomas") String kindergartenAddress,
 			@NotBlank(message = "Telefonas privalomas") String kindergartenPhoneNumber,
@@ -119,6 +136,15 @@ public class Compensation {
 		this.childPersonalCode = childPersonalCode;
 		this.childBirthdate = childBirthdate;
 		this.mainGuardian = mainGuardian;
+		
+		this.guardianName = guardianInfo.getName();
+		this.guardianSurname = guardianInfo.getSurname();
+		this.guardianAddress = guardianInfo.getAddress();
+		this.guardianEmail = guardianInfo.getEmail();
+		this.guardianPersonalCode = guardianInfo.getPersonalCode();
+		this.guardianPhone = guardianInfo.getPhone();
+		
+		
 		this.kindergartenId = kindergartenId;
 		this.kindergartenName = kindergartenName;
 		this.kindergartenAddress = kindergartenAddress;
@@ -127,6 +153,7 @@ public class Compensation {
 		this.kindergartenBankName = kindergartenBankName;
 		this.kindergartenBankAccountNumber = kindergartenBankAccountNumber;
 		this.kindergartenBankCode = kindergartenBankCode;
+		
 	}
 
 
@@ -259,7 +286,89 @@ public class Compensation {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+
+	public String getGuardianName() {
+		return guardianName;
+	}
+
+
+
+	public void setGuardianName(String guardianName) {
+		this.guardianName = guardianName;
+	}
+
+
+
+	public String getGuardianSurname() {
+		return guardianSurname;
+	}
+
+
+
+	public void setGuardianSurname(String guardianSurname) {
+		this.guardianSurname = guardianSurname;
+	}
+
+
+
+	public String getGuardianPersonalCode() {
+		return guardianPersonalCode;
+	}
+
+
+
+	public void setGuardianPersonalCode(String guardianPersonalCode) {
+		this.guardianPersonalCode = guardianPersonalCode;
+	}
+
+
+
+	public String getGuardianPhone() {
+		return guardianPhone;
+	}
+
+
+
+	public void setGuardianPhone(String guardianPhone) {
+		this.guardianPhone = guardianPhone;
+	}
+
+
+
+	public String getGuardianEmail() {
+		return guardianEmail;
+	}
+
+
+
+	public void setGuardianEmail(String guardianEmail) {
+		this.guardianEmail = guardianEmail;
+	}
+
+
+
+	public String getGuardianAddress() {
+		return guardianAddress;
+	}
+
+
+
+	public void setGuardianAddress(String guardianAddress) {
+		this.guardianAddress = guardianAddress;
+	}
 	
+	 
+	public GuardianInfo getGuardianInfo() {
+		return new GuardianInfo(
+				this.guardianName, 
+				this.guardianSurname,
+				this.guardianPersonalCode,
+				this.guardianPhone, 
+				this.guardianEmail,
+				this.guardianAddress);
+	}
 	
 
 }

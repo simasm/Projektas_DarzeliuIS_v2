@@ -6,7 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,7 @@ public class CompensationService {
 				data.getChildInfo().getPersonalID(),
 				LocalDate.parse(data.getChildInfo().getDateOfBirth()),
 				mainGuardian,
+				data.getGuardianInfo(),
 				data.getKindergartenInfo().getCode(),
 				data.getKindergartenInfo().getName(),
 				data.getKindergartenInfo().getAddress(),
@@ -88,6 +91,42 @@ public class CompensationService {
 	public void deleteCompensationApplicationByChildCode(String childCode) {
 		
 		  compensationDAO.deleteCompensationByChildPersonalCode(childCode);
+	}
+	
+ 	public boolean existsByChildCode(String childCode) {
+	    return compensationDAO.existsCompensationByChildPersonalCode(childCode);
+	}
+
+	
+	public Page<CompensationDetails> getPageFromCompensationApplications(Pageable pageable) {
+		 
+		 var compensationPage =  compensationDAO.findAll(pageable);
+		 
+	 
+		 return compensationPage.map( CompensationService::compensationToDTO);	
+	}
+			
+	
+	public static CompensationDetails compensationToDTO(Compensation compensation) {
+		
+		return  new CompensationDetails(
+					compensation.getId(),
+					compensation.getSubmittedAt(),
+					compensation.getChildName(),
+					compensation.getChildSurname(),
+					compensation.getChildPersonalCode(),
+					compensation.getChildBirthdate(),
+					
+					compensation.getGuardianInfo(),
+					
+					compensation.getKindergartenId(),
+					compensation.getKindergartenName(),
+					compensation.getKindergartenAddress(),
+					compensation.getKindergartenPhoneNumber(),
+					compensation.getKindergartenEmail(),
+					compensation.getKindergartenBankName(),
+					compensation.getKindergartenBankAccountNumber(),
+					compensation.getKindergartenBankCode());
 	}
 	
 }

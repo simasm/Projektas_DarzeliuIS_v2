@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import "../../App.css";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
@@ -51,7 +51,7 @@ function KindergartenInputForm() {
         savingStatus = false;
         resetForm(event);
         history.push("/new");
-        history.replace("/darzeliai")
+        history.replace("/darzeliai");
       })
       .catch((error) => {
         if (error.response.status === 409) {
@@ -78,10 +78,14 @@ function KindergartenInputForm() {
       if (target.id === "id")
         target.setCustomValidity("Įstaigos kodą turi sudaryti 9 skaitmenys");
       if (target.id === "name")
-        target.setCustomValidity("Pavadinimas turi būti 3-50 simbolių ir negali prasidėti tarpu");
-    } else if (target.validity.rangeUnderflow || target.validity.rangeOverflow) {
+        target.setCustomValidity(
+          "Pavadinimas turi būti 3-50 simbolių ir negali prasidėti tarpu"
+        );
+    } else if (
+      target.validity.rangeUnderflow ||
+      target.validity.rangeOverflow
+    ) {
       target.setCustomValidity("Negali būti mažiau nei 0 ir daugiau nei 999");
-
     } else {
       target.setCustomValidity("");
     }
@@ -89,12 +93,11 @@ function KindergartenInputForm() {
 
   const handleChange = (event) => {
     validateField(event);
-   
+
     setData({
       ...data,
       [event.target.name]: event.target.value,
     });
-    
   };
 
   const resetForm = (event) => {
@@ -122,7 +125,7 @@ function KindergartenInputForm() {
             onInvalid={validateField}
             required
             pattern="\d{9}"
-            placeholder="123456789"
+            maxLength={9}
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite įstaigos (darželio) kodą (9 skaitmenys)"
@@ -130,7 +133,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="name" class="marginTopSide">
+          <label htmlFor="name" className="marginTopSide">
             Pavadinimas <span className="fieldRequired">*</span>
           </label>
           <input
@@ -143,7 +146,7 @@ function KindergartenInputForm() {
             onInvalid={validateField}
             required
             pattern="\S[\s\S]{2,49}"
-            placeholder="3-50 simbolių"
+            maxLength={50}
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio pavadinimą (nuo 3 iki 50 simbolių)"
@@ -151,7 +154,7 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="address" class="marginTopSide">
+          <label htmlFor="address" className="marginTopSide">
             Adresas <span className="fieldRequired">*</span>
           </label>
           <input
@@ -166,11 +169,12 @@ function KindergartenInputForm() {
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio adresą"
+            maxLength={128}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="elderate" class="marginTopSide">
+          <label htmlFor="elderate" className="marginTopSide">
             Seniūnija <span className="fieldRequired">*</span>
           </label>
           <select
@@ -216,7 +220,9 @@ function KindergartenInputForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="capacityAgeGroup3to6" class="marginTopSide">3-6 metų grupėse</label>
+          <label htmlFor="capacityAgeGroup3to6" className="marginTopSide">
+            3-6 metų grupėse
+          </label>
           <input
             type="number"
             min="0"
@@ -233,7 +239,7 @@ function KindergartenInputForm() {
             title="Įveskite 2-3 metų amžiaus grupėse esančių vietų skaičių"
           />
         </div>
-        <div class="d-grid gap-2 d-md-flex marginTopSide col-12">
+        <div className="d-grid gap-2 d-md-flex marginTopSide col-12">
           <button
             type="reset"
             className="btn btn-outline-danger form-group float-start"
@@ -250,7 +256,6 @@ function KindergartenInputForm() {
             {savingStatus ? "Pridedama..." : "Pridėti"}
           </button>
         </div>
-        
       </form>
     </div>
   );

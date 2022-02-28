@@ -18,6 +18,9 @@ public class Priorities {
 
 	@Column
 	private boolean livesInVilnius;
+	
+	@Column
+	private boolean livesInVilniusLonger;
 
 	@Column
 	private boolean childIsAdopted;
@@ -39,10 +42,11 @@ public class Priorities {
 
 	}
 
-	public Priorities(boolean livesInVilnius, boolean childIsAdopted, boolean familyHasThreeOrMoreChildrenInSchools,
+	public Priorities(boolean livesInVilnius, boolean livesInVilniusLonger, boolean childIsAdopted, boolean familyHasThreeOrMoreChildrenInSchools,
 			boolean guardianInSchool, boolean guardianDisability) {
 
 		this.livesInVilnius = livesInVilnius;
+		this.livesInVilniusLonger = livesInVilniusLonger;
 		this.childIsAdopted = childIsAdopted;
 		this.familyHasThreeOrMoreChildrenInSchools = familyHasThreeOrMoreChildrenInSchools;
 		this.guardianInSchool = guardianInSchool;
@@ -54,6 +58,10 @@ public class Priorities {
 
 		if (this.livesInVilnius) {
 			score += 10;
+		}
+		
+		if (this.livesInVilniusLonger) {
+			score += 1;
 		}
 
 		if (this.childIsAdopted) {
@@ -92,6 +100,14 @@ public class Priorities {
 
 	public void setLivesInVilnius(boolean livesInVilnius) {
 		this.livesInVilnius = livesInVilnius;
+	}
+	
+	public boolean isLivesInVilniusLonger() {
+		return livesInVilniusLonger;
+	}
+	
+	public void setLivesInVilniusLonger(boolean livesInVilniusLonger) {
+		this.livesInVilniusLonger = livesInVilniusLonger;
 	}
 
 	public boolean isChildIsAdopted() {
