@@ -59,7 +59,6 @@ const ManagerCompensations = () => {
  
 
   const handleDownloadPdf = async (id) => {
-    console.log(" handleDownloadPdf: " + id);
     let kompensacija = compensations.filter((comp) => comp.id === id);
     setCompState(kompensacija);
   };
