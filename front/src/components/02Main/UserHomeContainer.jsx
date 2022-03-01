@@ -27,6 +27,10 @@ export class UserHomeContainer extends Component {
       .catch(() => {});
   }
 
+  handleDownload = (item) => {
+    console.log(JSON.stringify(item));
+  }
+
   handleDelete = (item) => {
     swal({
       text: "Ar tikrai norite ištrinti prašymą?",
@@ -67,6 +71,7 @@ export class UserHomeContainer extends Component {
             <UserApplicationsTable
               applications={this.state.applications}
               onDelete={this.handleDelete}
+              onDownload={this.handleDownload}
             />
           </div>
         </div>

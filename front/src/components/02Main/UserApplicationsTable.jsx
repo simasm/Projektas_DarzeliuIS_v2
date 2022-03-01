@@ -43,6 +43,23 @@ class UserApplicationsTable extends Component {
                 </span>
         },
         {
+            key: 'download',
+            path: 'download',
+            label: 'Atsisiųsti sutartį',
+            content: application => 
+            <span>
+                {application.status === 'Patvirtintas' ? 
+                <button onClick={() => this.props.onDownload(application)} 
+                        id="btnDownloadApplication" 
+                        className="btn btn-outline-primary btn-sm btn-block">Atsisiųsti
+                </button>
+                :
+                <span></span>
+                }
+            </span>
+
+        },
+        {
             key: 'delete',
             label: 'Ištrinti prašymą',
             content: application => <button onClick={() => this.props.onDelete(application)} id="btnDeleteApplication" className="btn btn-outline-danger btn-sm btn-block">Ištrinti</button>
