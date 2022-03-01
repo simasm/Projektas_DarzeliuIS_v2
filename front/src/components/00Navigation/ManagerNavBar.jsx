@@ -1,43 +1,20 @@
 import React from "react";
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import logo from "../../images/logo.png";
 import "../../App.css";
 
 import ManagerDropdownList from ".././08CommonComponents/ManagerDropdownList";
-import KindergartenContainer from "../.././components/05Kindengarten/KindergartenContainer";
-import { QueueContainer } from "../.././components/12Queue/QueueContainer";
-import { KindergartenStatContainer } from "../.././components/09Statistics/KindergartenStatContainer";
-import ManagerCompensations from "../.././components/02Main/ManagerCompensations";
-import SubmittedDocsContainer from "../.././components/13UserDocuments/SubmittedDocsContainer";
-import UpdateProfileFormContainer from "../.././components/06UpdateProfile/UpdateProfileFormContainer";
-
-import ManagerCompesationContext from "../11Context/ManagerCompesationContext";
 
 import LogoutContainer from "./LogoutContainer";
 
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
-
-
 function Navigation(props) {
-  const { compState } = React.useContext(ManagerCompesationContext);
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
-  const brdcrmb = compState.map((item) => item.childName + ' ' + item.childSurname);
-  const x = useParams();
-
-  // const breadcrumbNameMap = {
-  //   '/eile': 'Prašymų eilė',
-  //   '/statistika': 'Prašymų statistika',
-  //   '/kompensacijos': 'Prašymai dėl kompensacijos',
-  //   '/kompensacijos/147': 'hkl',
-  //   '/pazymos': 'Pažymos',
-  //   '/profilis': 'Profilis'
-
-  // };
   const breadcrumbNameMap = (id) =>  {
     var obj=   "/kompensacijos/" + id  ;
     var obj2 = "/kompensacijos/download/" + id;
