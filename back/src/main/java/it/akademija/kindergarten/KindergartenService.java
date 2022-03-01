@@ -48,6 +48,17 @@ public class KindergartenService {
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate())).collect(Collectors.toList());
 	}
+	
+	@Transactional(readOnly = true)
+	public List<KindergartenInfo> getAllKindergartens() {
+
+		List<Kindergarten> kindergartens = gartenDao.findAll();
+	
+	
+	
+		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
+				garten.getAddress(), garten.getElderate())).collect(Collectors.toList());
+	}
 
 	/**
 	 * Gel all elderates' names

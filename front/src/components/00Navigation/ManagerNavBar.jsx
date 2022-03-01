@@ -131,7 +131,8 @@ function Navigation(props) {
           {pathnames.map((value, index) => { 
             const last = index === pathnames.length - 1;
             const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-
+            console.log("value: " + value + ", index: " + index + ", pathname length: " + pathnames.length
+                                  + "\nto object:\n" + JSON.stringify(to));
             return last ? (
               <Typography color="text.primary" key={to}>
                 {breadcrumbNameMap(value)[to]}

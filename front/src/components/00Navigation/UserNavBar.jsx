@@ -49,6 +49,10 @@ function Navigation(props) {
                                 <NavLink className="nav-link" id="navUserApplicationStats" to={"/statistika"}>Prašymų statistika</NavLink>
                             </li>
 
+                            <li className="nav-item me-1">
+                                <NavLink className="nav-link" id="navUserMapWindow" to={"/zemelapis"}>Žemėlapis</NavLink>
+                            </li>
+
                             <li className="nav-item mr-e">
                                 <NavLink className="nav-link" id="navUserMyAccount" to={"/profilis/atnaujinti"}>Mano paskyra</NavLink>
                             </li>
