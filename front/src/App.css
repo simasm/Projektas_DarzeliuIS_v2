@@ -155,3 +155,14 @@ p {
   height: 400px;
   border: groove lightskyblue 2px;
 }
+
+.all-kindergarten-map-select {
+  border: groove lightskyblue 2px; 
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.map-css {
+  height: 80vh;
+  border: groove lightskyblue 2px;
+}

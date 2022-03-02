@@ -104,6 +104,15 @@ function Navigation(props) {
                 </NavLink>
               </li>
 
+              <li className="nav-item me-1">
+                <NavLink 
+                  className="nav-link" 
+                  id="navManagerMapWindow" 
+                  to={"/zemelapis"}>
+                    Žemėlapis
+                </NavLink>
+              </li>
+
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"

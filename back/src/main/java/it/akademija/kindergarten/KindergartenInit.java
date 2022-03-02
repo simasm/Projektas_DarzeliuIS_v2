@@ -43,8 +43,10 @@ public class KindergartenInit {
 					kindergarten.setName(data[1]);
 					kindergarten.setAddress(data[2]);
 					kindergarten.setElderate(data[3]);
+					kindergarten.setCoordinates(data[4]);
 					kindergarten.setCapacityAgeGroup2to3(0);
 					kindergarten.setCapacityAgeGroup3to6(0);
+					
 
 					gartenDao.save(kindergarten);
 				}

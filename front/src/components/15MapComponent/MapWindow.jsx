@@ -1,25 +1,62 @@
-import React from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
-import '../../App.css';
+import React, { useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 
-const position = [54.688239,25.288033]
+delete L.Icon.Default.prototype._getIconUrl;
 
-export default function MapWindow() {
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
+
+export default function MapWindow({
+  kindergartens,
+  activeKindergarten,
+  setActive,
+  setInactive,
+  setActiveThroughMarker,
+}) {
   return (
-    <div className="container">
-      <div>
-        <MapContainer center={position} zoom={14}>
+    <div>
+      {/* {activeKindergarten === null ? <div>A</div> : <div>B</div>} */}
+      <MapContainer
+        center={[54.687665,25.283985]}
+        zoom={13}
+        className={"map-css"}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
-          <Popup>
-            All info about YOU <br /> Yes yes, YOU.
+        {kindergartens.map((k) => (
+          <Marker
+            key={k.id}
+            position={[
+              k.coordinates.split(",")[0],
+              k.coordinates.split(",")[1],
+            ]}
+            eventHandlers={{
+              click: () => setActiveThroughMarker(k),
+            }}
+          ></Marker>
+        ))}
+
+        {activeKindergarten && (
+          <Popup
+            position={[
+              activeKindergarten.coordinates.split(",")[0],
+              activeKindergarten.coordinates.split(",")[1],
+            ]}
+            onClose={() => setInactive()}
+          >
+            <div>
+              {activeKindergarten.name}
+              <p>{activeKindergarten.address}</p>
+            </div>
           </Popup>
-        </Marker>
-        </MapContainer>
-      </div>
+        )}
+      </MapContainer>
     </div>
   );
 }

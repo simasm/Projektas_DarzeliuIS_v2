@@ -211,6 +211,12 @@ function App() {
                         path="/pazymos"
                         component={SubmittedDocsContainer}
                       />
+                      
+                      <Route
+                      exact
+                      path="/zemelapis"
+                      component={MapTab}
+                      />
 
                       <Route exact path="/eile" component={QueueContainer} />
                       <Route

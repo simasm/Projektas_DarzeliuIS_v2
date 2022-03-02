@@ -1,5 +1,6 @@
 package it.akademija.kindergarten;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,17 +49,6 @@ public class KindergartenService {
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate())).collect(Collectors.toList());
 	}
-	
-	@Transactional(readOnly = true)
-	public List<KindergartenInfo> getAllKindergartens() {
-
-		List<Kindergarten> kindergartens = gartenDao.findAll();
-	
-	
-	
-		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
-				garten.getAddress(), garten.getElderate())).collect(Collectors.toList());
-	}
 
 	/**
 	 * Gel all elderates' names
@@ -97,6 +87,17 @@ public class KindergartenService {
 		return gartenDao.findByNameContainingIgnoreCase(name, pageable);
 
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<KindergartenInfo> getAllKindergartens() {
+
+		List<Kindergarten> kindergartens = gartenDao.findAll();
+
+		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
+				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
+	}
+	
 
 	/**
 	 * Save new kindergarten to database
@@ -332,6 +333,16 @@ public class KindergartenService {
 
 	public void setApplicationDao(ApplicationDAO applicationDao) {
 		this.applicationDao = applicationDao;
+	}
+	
+	public KindergartenDTO kindergartenToDto(Kindergarten kindergarten) {
+		return new KindergartenDTO(
+				kindergarten.getId(),
+				kindergarten.getName(),
+				kindergarten.getAddress(),
+				kindergarten.getElderate()
+				);
+				
 	}
 
 }
