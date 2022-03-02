@@ -66,7 +66,7 @@ export class UserHomeContainer extends Component {
   drawMessageQueueApproved(obj) {
     console.log("prior status:" + JSON.stringify(obj));
     const status = obj.map(that => that.status);
-    if (status != 'Pateiktas' && !this.state.registrationStatus) {
+    if (status != null && !this.state.registrationStatus) {
       console.log("+Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus);
       return (
         <div className="alert alert-warning p-1" role="alert">

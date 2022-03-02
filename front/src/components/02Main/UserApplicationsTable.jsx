@@ -22,7 +22,7 @@ class UserApplicationsTable extends Component {
             key: 'status',
             path: 'status',
             label: 'Prašymo statusas',
-            content: application => (application.status != 'Pateiktas' ? <span style={{color: "green", fontWeight: "bold"}}>{application.status} </span>
+            content: application => (application.status == 'Patvirtintas' ? <span style={{color: "green", fontWeight: "bold"}}>{application.status} </span>
                                                           : <span>{application.status} </span>)
         },
         {
