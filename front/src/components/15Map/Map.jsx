@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-import { OpenStreetMapProvider } from "leaflet-geosearch";
-
 import L from "leaflet";
-import http from "../10Services/httpService";
-import apiEndpoint from "../10Services/endpoint";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -15,11 +11,15 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-export default function Map({ kindergartens }) {
-  const provider = new OpenStreetMapProvider();
-
+export default function Map({
+  kindergartens,
+  activeKindergarten,
+  setActive,
+  setInactive,
+}) {
   return (
     <div>
+      {activeKindergarten === null ? <div>A</div> : <div>B</div>}
       <MapContainer
         center={[54.683289, 25.275109]}
         zoom={13}
@@ -36,8 +36,26 @@ export default function Map({ kindergartens }) {
               k.coordinates.split(",")[0],
               k.coordinates.split(",")[1],
             ]}
-          />
+            eventHandlers={{
+              click: () => setActive(k),
+            }}
+          ></Marker>
         ))}
+
+        {activeKindergarten && (
+          <Popup
+            position={[
+              activeKindergarten.coordinates.split(",")[0],
+              activeKindergarten.coordinates.split(",")[1],
+            ]}
+            onClose={() => setInactive()}
+          >
+            <div>
+              {activeKindergarten.name}
+              <p>{activeKindergarten.address}</p>
+            </div>
+          </Popup>
+        )}
       </MapContainer>
     </div>
   );
