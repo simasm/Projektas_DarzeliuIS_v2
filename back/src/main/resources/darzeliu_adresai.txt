@@ -1,120 +1,119 @@
-﻿111111111;test;test;test
-190032931;Aitvaras;Pašilaičių g. 10;Pašilaičių
-190019122;Atžalėlės;Antakalnio g. 74;Antakalnio
-190020391;Aušrelė;Gerosios Vilties g. 28;Vilkpėdės
-303318623;Ąžuolas;Žirmūnų g. 32;Žirmūnų
-190020434;Bangelė;Žemaitės g. 3;Vilkpėdės
-190026120;Berželis;Taikos g. 187;Justiniškių
-190019275;Beržynėlis;Beržyno g. 7A;Naujamiesčio
-190031797;Bitutė;Paberžės g. 20;Šeškinės
-190021721;Boružėlė;Latvių g. 40;Žvėryno
-190015444;Coliukė;A. Kojelavičiaus g. 298;Naujosios Vilnios
-191727213;Daigelis;Dariaus ir Girėno g. 14;Naujininkų
-190027037;Delfinukas;Vido Maciulevičiaus g. 32;Karoliniškių
-190018935;Drevinukas;K. Donelaičio g. 12;Naujamiesčio
-190017071;Drugelis;Rinktinės g. 28A;Šnipiškių
-190014723;Du gaideliai;Pelesos g. 15;Naujininkų
-190019994;Eglutė;Miglos g. 3;Žvėryno
-190033271;Gabijėlė;Gabijos g. 1;Pašilaičių
-190033129;Gandriukas;Fabijoniškių g. 7;Fabijoniškių
-290031830;Gelvonėlis;Gelvonų g. 1;Šeškinės
-190012334;Gėlynas;Gėlių g. 9A;Senamiesčio
-190012487;Geniukų kalvė;Muitinės g. 30;Naujamiesčio
-190013589;Gervelė;Dzūkų g. 32;Naujininkų
-302716948;Giliukas;Minties g. 1;Žirmūnų
-190028324;Gilužis;Vydūno g. 11A;Pilaitės
-190029383;Gintarėlis;Didlaukio g. 35;Verkių
-190025214;Giraitė;Erfurto g. 42;Lazdynų
-304028651;Gluosnis;Justiniškių g. 65;Viršuliškių
-190012715;Gudrutis;Trakų g. 12;Senamiesčio
-190033467;Jovarėlis;S. Stanevičiaus g. 21;Fabijoniškių
-190029045;Jurginėlis;Justiniškių g. 47;Viršuliškių
-190016731;Justinukas;Taikos g. 99;Justiniškių
-190033652;Karuselė;Gedvydžių g. 25;Fabijoniškių
-190019841;Kaštonas;Antakalnio g. 108;Antakalnio
-190031459;Kodėlčiukas;Laisvės pr. 59;Šeškinės
-190015782;Krivūlė;Lydos g. 5;Senamiesčio
-190013436;Kūlverstukas;Suvalkų g. 6;Naujamiesčio
-190017114;Kurpaitė;Birželio 23-iosios g. 6A;Naujamiesčio
-190023010;Lakštingala;Lakštingalų g. 10;Antakalnio
-190017452;Lašelis;Dzūkų g. 29;Naujininkų
-190018173;Lazdynėlis;Lazdynų g. 36;Lazdynų
-290018740;Liepsnelė;Kapsų g. 7;Naujininkų
-190648777;Lokiuko giraitė;Kovo 11-osios g. 54;Grigiškių
-304111905;Malūnėlis;Popieriaus g. 7;Verkių
-190019318;Mažylis;A. Vivulskio g. 8A;Naujamiesčio
-190027375;Medynėlis;Algimanto Petro Kavoliuko g. 5;Karoliniškių
-190018554;Molinukas;Keramikų g. 34;Antakalnio
-190016012;Naminukas;Smėlio g. 13;Antakalnio
-290015630;Nykštukas;Taikos g. 190;Justiniškių
-190023882;Obelėlė;Architektų g. 204;Lazdynų
-190031982;Ozas;Gelvonų g. 24;Šeškinės
-190021874;Pabiručiai;Brolių g. 18;Naujininkų
-190013817;Pagrandukas;Mindaugo g. 15A;Naujamiesčio
-190023697;Pakalnutė;Architektų g. 44;Lazdynų
-190016546;Panerių;Juodšilių g. 10;Panerių
-190030880;Papartis;Čiobiškio g. 17;Šeškinės
-190021917;Pasaka;Žirmūnų g. 110;Žirmūnų
-190022780;Pasakaitė;Taikos g. 30;Justiniškių
-190020249;Paslaptis;Darželio g. 7;Naujosios Vilnios
-190030542;Pelėda;Musninkų g. 10;Šeškinės
-190648396;Pelėdžiukas;Lentvario g. 1A;Grigiškių
-190022257;Pelenė;Justiniškių g. 84;Justiniškių
-301879757;Pilaitukas;I. Kanto al. 7A;Pilaitės
-190021493;Pipiras;Krokuvos g. 6A;Šnipiškių
-190028858;Prie pasakų parko;Loretos Asanavičiūtės g. 7;Visos seniūnijos
-190011951;Pumpurėlis;Kalvarijų g. 186;Šnipiškių
-190029611;Puriena;Tujų g. 1;Viršuliškių
-190025890;Pušaitė;Bistryčios g. 3;Antakalnio
-190016884;Pušynėlis;Miglos g. 53;Žvėryno
-190028662;Raktelis;Algimanto Petro Kavoliuko g. 12;Karoliniškių
-190021155;Ramunėlė;Žirmūnų g. 10;Žirmūnų
-190013055;Rasa;M. Daukšos g. 15;Senamiesčio
-190013621;Riešutėlis;Erfurto g. 21;Lazdynų
-190648058;Rugelis;Kovo 11-osios g. 29A;Grigiškių
-190020968;Rūta;Žirmūnų g. 50;Žirmūnų
-190026316;Rytas;Architektų g. 162;Lazdynų
-190017986;Sadutė;Z. Sierakausko g. 28;Naujamiesčio
-190033314;Sakalėlis;S. Stanevičiaus g. 86;Fabijoniškių
-190019460;Salvija;J. Jasinskio g. 17;Naujamiesčio
-190027560;Saulėgrąža;Taikos g. 31;Justiniškių
-190014157;Saulėtekis;Genių g. 12;Naujosios Vilnios
-290029950;Šermukšnėlė;Didlaukio g. 66;Verkių
-290026840;Šilelis;Sietyno g. 5;Karoliniškių
-190014680;Skroblinukas;Skroblų g. 13;Vilkpėdės
-190025552;Smalsučiai;Minties g. 40;Žirmūnų
-190017267;Šnekutis;Vytenio g. 41;Naujamiesčio
-190011613;Spragtukas;Žirmūnų g. 108;Žirmūnų
-190022595;Spygliukas;Architektų g. 16;Lazdynų
-190028477;Strazdelis;Igno Šimulionio g. 14;Karoliniškių
-190030161;Sveikuolis;Dūkštų g. 14;Šeškinės
-190019656;Švelnukas;Žalgirio g. 115;Šnipiškių
-190011766;Šypsena;Povilo Višinskio g. 23;Senamiesčio
-291326310;Trakų Vokės;Eduardo Andrė g. 6;Panerių
-190022442;Užupiukas;Filaretų g. 19;Senamiesčio
-190015978;Vaidilutė;Rinktinės g. 5B;Žirmūnų
-190033990;Vandenis;P. Žadeikos g. 14A;Fabijoniškių
-190030019;Varpelis;Ukmergės g. 204;Šeškinės
-190032899;Vėjelis;Gabijos g. 21;Pašilaičių
-190033848;Vėrinėlis;S. Stanevičiaus g. 68;Fabijoniškių
-190028096;Vėtrungė;Gardino g. 8;Rasų
-190020815;Vieversys;Žirmūnų g. 89;Žirmūnų
-190023544;Vilnelė;Pergalės g. 20;Naujosios Vilnios
-190014538;Viltenė;Gerosios Vilties g. 7A;Vilkpėdės
-190012868;Voveraitė;Jūratės g. 4A;Antakalnio
-190023359;Želmenėliai;Šaltkalvių g. 30;Naujininkų
-290011190;Žemuogėlė;Architektų g. 108;Lazdynų
-190032027;Žemyna;Žemynos g. 13;Pašilaičių
-290028510;Žiburėlis;Laisvės pr. 46;Karoliniškių
-290023730;Žibutė;Architektų g. 62;Lazdynų
-190032212;Žiedas;Žemynos g. 41;Pašilaičių
-190015825;Žilvinėlio;Taikos g. 130;Justiniškių
-190022823;Žilvitis;Viršuliškių g. 9;Viršuliškių
-190013774;Žiogelis;J. Kolaso g. 15;Naujosios Vilnios
-290020620;Žirmūnėliai;Žirmūnų g. 13;Žirmūnų
-190018892;Žirniukas;Verkių g. 17;Žirmūnų
-304221230;Žolynas;Žolyno g. 45A;Antakalnio
-190023163;Žolynėlis;Žolyno g. 44;Antakalnio
-190017648;Žuvėdra;Parko g. 8A;Naujosios Vilnios
-190017833;Žvangutis;Rinktinės g. 38A;Šnipiškių
-190029198;Zylutė;Justiniškių g. 45;Viršuliškių
+190032931;Aitvaras;Pašilaičių g. 10;Pašilaičių;54.7301858,25.2312924
+190019122;Atžalėlės;Antakalnio g. 74;Antakalnio;54.7096947,25.3126613
+190020391;Aušrelė;Gerosios Vilties g. 28;Vilkpėdės;54.6714031,25.2487183
+303318623;Ąžuolas;Žirmūnų g. 32;Žirmūnų;54.7023674,25.2994879
+190020434;Bangelė;Žemaitės g. 3;Vilkpėdės;54.6732069,25.2517139
+190026120;Berželis;Taikos g. 187;Justiniškių;54.7133861,25.2123693
+190019275;Beržynėlis;Beržyno g. 7A;Naujamiesčio;54.6810342,25.2555081
+190031797;Bitutė;Paberžės g. 20;Šeškinės;54.7169845,25.2547646
+190021721;Boružėlė;Latvių g. 40;Žvėryno;54.6944195,25.2460289
+190015444;Coliukė;A. Kojelavičiaus g. 298;Naujosios Vilnios;54.6975484,25.4274117
+191727213;Daigelis;Dariaus ir Girėno g. 14;Naujininkų;54.6628243,25.2753253
+190027037;Delfinukas;Vido Maciulevičiaus g. 32;Karoliniškių;54.6889485,25.2050547
+190018935;Drevinukas;K. Donelaičio g. 12;Naujamiesčio;54.6802485,25.2522784
+190017071;Drugelis;Rinktinės g. 28A;Šnipiškių;54.6958188,25.286467
+190014723;Du gaideliai;Pelesos g. 15;Naujininkų;54.665615,25.2809589
+190019994;Eglutė;Miglos g. 3;Žvėryno;54.703436,25.2479103
+190033271;Gabijėlė;Gabijos g. 1;Pašilaičių;54.7323083,25.2266728
+190033129;Gandriukas;Fabijoniškių g. 7;Fabijoniškių;54.7220405,25.2466336
+290031830;Gelvonėlis;Gelvonų g. 1;Šeškinės;54.7152277,25.2586299
+190012334;Gėlynas;Gėlių g. 9A;Senamiesčio;54.6735757,25.28246
+190012487;Geniukų kalvė;Muitinės g. 30;Naujamiesčio;54.6777477,25.2614417
+190013589;Gervelė;Dzūkų g. 32;Naujininkų;54.669473,25.2919684
+302716948;Giliukas;Minties g. 1;Žirmūnų;54.7059897,25.3014011
+190028324;Gilužis;Vydūno g. 11A;Pilaitės;54.7056226,25.1842014
+190029383;Gintarėlis;Didlaukio g. 35;Verkių;54.7628545,25.3370529
+190025214;Giraitė;Erfurto g. 42;Lazdynų;54.674643,25.2058025
+304028651;Gluosnis;Justiniškių g. 65;Viršuliškių;54.7083983,25.2170661
+190012715;Gudrutis;Trakų g. 12;Senamiesčio;54.680348,25.2807378
+190033467;Jovarėlis;S. Stanevičiaus g. 21;Fabijoniškių;54.7227331,25.2552235
+190029045;Jurginėlis;Justiniškių g. 47;Viršuliškių;54.7052957,25.2188254
+190016731;Justinukas;Taikos g. 99;Justiniškių;54.7222508,25.212594
+190033652;Karuselė;Gedvydžių g. 25;Fabijoniškių;54.7352973,25.2413008
+190019841;Kaštonas;Antakalnio g. 108;Antakalnio;54.7158189,25.3149641
+190031459;Kodėlčiukas;Laisvės pr. 59;Šeškinės;54.7171312,25.2334999
+190015782;Krivūlė;Lydos g. 5;Senamiesčio;54.6783498,25.2814074
+190013436;Kūlverstukas;Suvalkų g. 6;Naujamiesčio;54.6832972,25.2658682
+190017114;Kurpaitė;Birželio 23-iosios g. 6A;Naujamiesčio;54.6727709,25.2608744
+190023010;Lakštingala;Lakštingalų g. 10;Antakalnio;54.7309215,25.3227597
+190017452;Lašelis;Dzūkų g. 29;Naujininkų;54.6635992,25.2796038
+190018173;Lazdynėlis;Lazdynų g. 36;Lazdynų;54.6689114,25.2170595
+290018740;Liepsnelė;Kapsų g. 7;Naujininkų;54.6605461,25.2761895
+190648777;Lokiuko giraitė;Kovo 11-osios g. 54;Grigiškių;54.6685908,25.1016119
+304111905;Malūnėlis;Popieriaus g. 7;Verkių;54.7695476,25.3320566
+190019318;Mažylis;A. Vivulskio g. 8A;Naujamiesčio;54.6786386,25.2694206
+190027375;Medynėlis;Algimanto Petro Kavoliuko g. 5;Karoliniškių;54.6956384,25.2102823
+190018554;Molinukas;Keramikų g. 34;Antakalnio;54.7274597,25.3714983
+190016012;Naminukas;Smėlio g. 13;Antakalnio;54.7056834,25.3123332
+290015630;Nykštukas;Taikos g. 190;Justiniškių;54.7091969,25.2144903
+190023882;Obelėlė;Architektų g. 204;Lazdynų;54.6813188,25.220618
+190031982;Ozas;Gelvonų g. 24;Šeškinės;54.7145016,25.2555806
+190021874;Pabiručiai;Brolių g. 18;Naujininkų;54.6628965,25.2670903
+190013817;Pagrandukas;Mindaugo g. 15A;Naujamiesčio;54.6766605,25.2730554
+190023697;Pakalnutė;Architektų g. 44;Lazdynų;54.6725613,25.2174552
+190016546;Panerių;Juodšilių g. 10;Panerių;54.6276665,25.1797322
+190030880;Papartis;Čiobiškio g. 17;Šeškinės;54.7175779,25.2407653
+190021917;Pasaka;Žirmūnų g. 110;Žirmūnų;54.7247273,25.3012228
+190022780;Pasakaitė;Taikos g. 30;Justiniškių;54.7202542,25.2251727
+190020249;Paslaptis;Darželio g. 7;Naujosios Vilnios;54.6891082,25.4160667
+190030542;Pelėda;Musninkų g. 10;Šeškinės;54.7153222,25.2394249
+190648396;Pelėdžiukas;Lentvario g. 1A;Grigiškių;54.6748209,25.0804563
+190022257;Pelenė;Justiniškių g. 84;Justiniškių;54.7234595,25.217854
+301879757;Pilaitukas;I. Kanto al. 7A;Pilaitės;54.7031418,25.1841279
+190021493;Pipiras;Krokuvos g. 6A;Šnipiškių;54.6964683,25.2846361
+190028858;Prie pasakų parko;Loretos Asanavičiūtės g. 7;Visos seniūnijos;54.6827567,25.2008643
+190011951;Pumpurėlis;Kalvarijų g. 186;Šnipiškių;54.7117332,25.2816224
+190029611;Puriena;Tujų g. 1;Viršuliškių;54.7041561,25.2306691
+190025890;Pušaitė;Bistryčios g. 3;Antakalnio;54.7054815,25.3186861
+190016884;Pušynėlis;Miglos g. 53;Žvėryno;54.6902172,25.2511575;54.7018297,25.241517
+190028662;Raktelis;Algimanto Petro Kavoliuko g. 12;Karoliniškių;54.6978246,25.2145443
+190021155;Ramunėlė;Žirmūnų g. 10;Žirmūnų;54.7000382,25.2977618
+190013055;Rasa;M. Daukšos g. 15;Senamiesčio;54.6745876,25.2966721
+190013621;Riešutėlis;Erfurto g. 21;Lazdynų;54.6769065,25.2062118
+190648058;Rugelis;Kovo 11-osios g. 29A;Grigiškių;54.6692199,25.0929417
+190020968;Rūta;Žirmūnų g. 50;Žirmūnų;54.7039219,25.3023029
+190026316;Rytas;Architektų g. 162;Lazdynų;54.6852193,25.2165011
+190017986;Sadutė;Z. Sierakausko g. 28;Naujamiesčio;54.6834365,25.263399
+190033314;Sakalėlis;S. Stanevičiaus g. 86;Fabijoniškių;54.7274975,25.2530153
+190019460;Salvija;J. Jasinskio g. 17;Naujamiesčio;54.6888641,25.2602011
+190027560;Saulėgrąža;Taikos g. 31;Justiniškių;54.7204675,25.2312491
+190014157;Saulėtekis;Genių g. 12;Naujosios Vilnios;54.6888626,25.4215236
+290029950;Šermukšnėlė;Didlaukio g. 66;Verkių;54.7272034,25.2717616
+290026840;Šilelis;Sietyno g. 5;Karoliniškių;54.685609,25.1989526
+190014680;Skroblinukas;Skroblų g. 13;Vilkpėdės;54.670215,25.252674
+190025552;Smalsučiai;Minties g. 40;Žirmūnų;54.7021867,25.295099
+190017267;Šnekutis;Vytenio g. 41;Naujamiesčio;54.6745734,25.263292
+190011613;Spragtukas;Žirmūnų g. 108;Žirmūnų;54.7257743,25.3009955
+190022595;Spygliukas;Architektų g. 16;Lazdynų;54.675222,25.2170425
+190028477;Strazdelis;Igno Šimulionio g. 14;Karoliniškių;54.6989358,25.2293316
+190030161;Sveikuolis;Dūkštų g. 14;Šeškinės;54.7123785,25.2434805
+190019656;Švelnukas;Giedraičių g. 60;Šnipiškių;54.7052125,25.2796318
+190011766;Šypsena;Povilo Višinskio g. 23;Senamiesčio;54.6737248,25.3044507
+291326310;Trakų Vokės;Eduardo Andrė g. 6;Panerių;54.6285029,25.1108732
+190022442;Užupiukas;Filaretų g. 19;Senamiesčio;54.6841522,25.3066366
+190015978;Vaidilutė;Rinktinės g. 5B;Žirmūnų;54.6976202,25.2890723
+190033990;Vandenis;P. Žadeikos g. 14A;Fabijoniškių;54.7335133,25.2399131
+190030019;Varpelis;Ukmergės g. 204;Šeškinės;54.7126209,25.2463468
+190032899;Vėjelis;Gabijos g. 21;Pašilaičių;54.7320443,25.2225655
+190033848;Vėrinėlis;S. Stanevičiaus g. 68;Fabijoniškių;54.7260562,25.2528735
+190028096;Vėtrungė;Gardino g. 8;Rasų;54.7260562,25.2528735
+190020815;Vieversys;Žirmūnų g. 89;Žirmūnų;54.719692,25.305581
+190023544;Vilnelė;Pergalės g. 20;Naujosios Vilnios;54.6871812,25.4130015
+190014538;Viltenė;Gerosios Vilties g. 7A;Vilkpėdės;54.6695595,25.2429046
+190012868;Voveraitė;Jūratės g. 4A;Antakalnio;54.6977965,25.3161565
+190023359;Želmenėliai;Šaltkalvių g. 30;Naujininkų;54.6597005,25.2697728
+290011190;Žemuogėlė;Architektų g. 108;Lazdynų;54.6766073,25.1984242
+190032027;Žemyna;Žemynos g. 13;Pašilaičių;54.7241572,25.2294849
+290028510;Žiburėlis;Laisvės pr. 46;Karoliniškių;54.6973128,25.217154
+290023730;Žibutė;Architektų g. 62;Lazdynų;54.6714208,25.2105508
+190032212;Žiedas;Žemynos g. 41;Pašilaičių;54.7276209,25.2296041
+190015825;Žilvinėlio;Taikos g. 130;Justiniškių;54.7158801,25.2161724
+190022823;Žilvitis;Viršuliškių g. 9;Viršuliškių;54.7138992,25.2271868
+190013774;Žiogelis;J. Kolaso g. 15;Naujosios Vilnios;54.6699606,25.3569282
+290020620;Žirmūnėliai;Žirmūnų g. 13;Žirmūnų;54.711259,25.3068913
+190018892;Žirniukas;Verkių g. 17;Žirmūnų;54.7067526,25.2882725
+304221230;Žolynas;Žolyno g. 45A;Antakalnio;54.7077811,25.3353336
+190023163;Žolynėlis;Žolyno g. 44;Antakalnio;54.7079943,25.3395481
+190017648;Žuvėdra;Parko g. 8A;Naujosios Vilnios;54.6894042,25.4134932
+190017833;Žvangutis;Rinktinės g. 38A;Šnipiškių;54.6978278,25.2847739
+190029198;Zylutė;Justiniškių g. 45;Viršuliškių;54.7055978,25.2209526

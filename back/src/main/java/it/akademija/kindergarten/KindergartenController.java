@@ -72,6 +72,15 @@ public class KindergartenController {
 
 		return kindergartenService.getAllElderates();
 	}
+	
+	@Secured({ "ROLE_MANAGER", "ROLE_USER", "ROLE_ADMIN" })
+	@GetMapping("/visi")
+	public ResponseEntity<List<KindergartenInfo>> getAllKindergartens() {
+
+		return new ResponseEntity<>(kindergartenService.getAllKindergartens(), HttpStatus.OK);
+	}
+	
+	
 
 	/**
 	 * Get specified Kindergarten information page

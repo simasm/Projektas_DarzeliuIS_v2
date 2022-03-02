@@ -31,7 +31,11 @@ function ManagerDropdownList() {
   };
 
   return (
-    <div className="dropdown container" onMouseLeave={() => setIsActive(false)}>
+    <div
+      className="dropdown container"
+      style={{ zIndex: 1 }}
+      onMouseLeave={() => setIsActive(false)}
+    >
       <div
         className="nav-link dropdown-btn btnnoselect"
         id="navManagerApplications"

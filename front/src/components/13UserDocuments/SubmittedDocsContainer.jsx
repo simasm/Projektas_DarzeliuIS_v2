@@ -110,14 +110,13 @@ function SubmittedDocsContainer() {
   if (totalElements > 0 || isSearching === true || searchQuery !== "") {
     return (
       <div className="container pt-4">
-
         {/* <div className="pl-2 pt-3">
           <Link to="/" className="nounderlinelink">
             Pradinis puslapis
           </Link>
           &nbsp; &gt; &nbsp; Visos pažymos
         </div> */}
-        
+
         <div className="row formHeader">
           <div className="col-6">
             <div>
@@ -152,7 +151,6 @@ function SubmittedDocsContainer() {
   } else {
     return (
       <div className="container pt-4">
-
         <div className="pl-2 pt-3">
           {/* <Link to="/" className="nounderlinelink">
             Pradinis puslapis

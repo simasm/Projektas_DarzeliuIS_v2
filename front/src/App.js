@@ -37,6 +37,8 @@ import ManagerCompensations from "./components/02Main/ManagerCompensations";
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
 import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
 
+import MapViewContainer from "./components/15Map/MapViewContainer";
+
 var initState = {
   isAuthenticated: null,
   username: null,
@@ -183,6 +185,9 @@ function App() {
                         path="/kompensacijos/download/:id"
                         component={DownloadReviewTable}
                       />
+
+                      <Route exact path="/map" component={MapViewContainer} />
+
                       <Route
                         exact
                         path="/kompensacijos"
