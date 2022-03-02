@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Map from "./Map";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
@@ -9,7 +9,14 @@ export default function MapViewContainer() {
 
   const setActive = (kindergarten) => {
     setActiveKindergarten(kindergarten);
+
     console.log(activeKindergarten);
+  };
+
+  const setActiveThroughMarker = (kindergarten) => {
+    setActiveKindergarten(kindergarten);
+    var tgtElement = document.getElementById(kindergarten.id);
+    tgtElement.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
   const setInactive = () => {
@@ -27,6 +34,8 @@ export default function MapViewContainer() {
     getKindergartens();
   }, []);
 
+  if (activeKindergarten !== null) {
+  }
   return (
     <div>
       <div className="container pt-4">
@@ -42,6 +51,7 @@ export default function MapViewContainer() {
             {kindergartens.map((k) => (
               <div
                 key={k.id}
+                id={k.id}
                 style={
                   activeKindergarten !== null && activeKindergarten.id === k.id
                     ? { border: "solid 1px black" }
@@ -54,7 +64,7 @@ export default function MapViewContainer() {
             ))}
           </div>
 
-          {/* ##############################MAPAS######################################## */}
+          {/* ############################## MAPAS ######################################## */}
 
           <div className="col-lg-9">
             <Map
@@ -62,6 +72,7 @@ export default function MapViewContainer() {
               activeKindergarten={activeKindergarten}
               setActive={setActive}
               setInactive={setInactive}
+              setActiveThroughMarker={setActiveThroughMarker}
             />
           </div>
         </div>

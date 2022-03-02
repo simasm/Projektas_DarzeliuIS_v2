@@ -16,6 +16,7 @@ export default function Map({
   activeKindergarten,
   setActive,
   setInactive,
+  setActiveThroughMarker,
 }) {
   return (
     <div>
@@ -37,7 +38,7 @@ export default function Map({
               k.coordinates.split(",")[1],
             ]}
             eventHandlers={{
-              click: () => setActive(k),
+              click: () => setActiveThroughMarker(k),
             }}
           ></Marker>
         ))}
