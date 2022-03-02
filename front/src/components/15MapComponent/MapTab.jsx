@@ -14,7 +14,7 @@ export default function MapTab() {
                     placeholder={"Ieškoti darželio pagal pavadinimą"}
                     />
                 </div>
-                <div className="col-9" style={{height: "400px"}}>
+                <div className="col-9">
                     <MapWindow/>
                 </div>
             </div>
