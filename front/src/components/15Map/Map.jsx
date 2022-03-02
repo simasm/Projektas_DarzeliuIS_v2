@@ -20,7 +20,6 @@ export default function Map({
 }) {
   return (
     <div>
-      {activeKindergarten === null ? <div>A</div> : <div>B</div>}
       <MapContainer
         center={[54.683289, 25.275109]}
         zoom={13}
@@ -52,8 +51,7 @@ export default function Map({
             onClose={() => setInactive()}
           >
             <div>
-              {activeKindergarten.name}
-              <p>{activeKindergarten.address}</p>
+              <h5>{activeKindergarten.name}</h5>
             </div>
           </Popup>
         )}

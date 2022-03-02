@@ -144,3 +144,7 @@ p {
 .nounderlinelink {
   text-decoration: none;
 }
+
+.sidemenuinfo {
+  text-align: center;
+}
