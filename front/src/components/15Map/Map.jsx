@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 
 import L from "leaflet";
+import Markers from "./Markers";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -29,32 +30,14 @@ export default function Map({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {kindergartens.map((k) => (
-          <Marker
-            key={k.id}
-            position={[
-              k.coordinates.split(",")[0],
-              k.coordinates.split(",")[1],
-            ]}
-            eventHandlers={{
-              click: () => setActiveThroughMarker(k),
-            }}
-          ></Marker>
-        ))}
 
-        {activeKindergarten && (
-          <Popup
-            position={[
-              activeKindergarten.coordinates.split(",")[0],
-              activeKindergarten.coordinates.split(",")[1],
-            ]}
-            onClose={() => setInactive()}
-          >
-            <div>
-              <h5>{activeKindergarten.name}</h5>
-            </div>
-          </Popup>
-        )}
+        <Markers
+          kindergartens={kindergartens}
+          activeKindergarten={activeKindergarten}
+          setActiveThroughMarker={setActiveThroughMarker}
+          setInactive={setInactive}
+          setActive={setActive}
+        />
       </MapContainer>
     </div>
   );
