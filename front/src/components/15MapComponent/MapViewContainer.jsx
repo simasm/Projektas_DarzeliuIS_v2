@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Map from "./Map";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
@@ -10,8 +10,6 @@ export default function MapTab() {
 
   const setActive = (kindergarten) => {
     setActiveKindergarten(kindergarten);
-
-    console.log(activeKindergarten);
   };
 
   const setActiveThroughMarker = (kindergarten) => {
@@ -22,7 +20,6 @@ export default function MapTab() {
 
   const setInactive = () => {
     setActiveKindergarten(null);
-    console.log(activeKindergarten);
   };
 
   useEffect(() => {
@@ -39,6 +36,8 @@ export default function MapTab() {
   }
   return (
     <div>
+      {/*################################# SIDE MENU ######################################## */}
+
       <div className="container pt-4">
         <div className="row ">
           <div className="bg-light pb-3 col-lg-3">

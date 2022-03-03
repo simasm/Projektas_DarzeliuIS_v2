@@ -31,7 +31,7 @@ import UserDocumentContainer from "./components/13UserDocuments/UserDocumentCont
 import { ApplicationStatusContainer } from "./components/04Admin/ApplicationStatusContainer";
 import EventJournalContainer from "./components/14EventJournal/EventJournalContainer";
 import Compensation from "./components/07Application/Compensation";
-import MapTab from "./components/15MapComponent/MapTab";
+import MapViewContainer from "./components/15MapComponent/MapViewContainer";
 
 import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsContainer";
 import ManagerCompensations from "./components/02Main/ManagerCompensations";
@@ -211,11 +211,11 @@ function App() {
                         path="/pazymos"
                         component={SubmittedDocsContainer}
                       />
-                      
+
                       <Route
-                      exact
-                      path="/zemelapis"
-                      component={MapTab}
+                        exact
+                        path="/zemelapis"
+                        component={MapViewContainer}
                       />
 
                       <Route exact path="/eile" component={QueueContainer} />
@@ -264,7 +264,7 @@ function App() {
                     <Route
                       exact
                       path="/zemelapis"
-                      component={MapTab}
+                      component={MapViewContainer}
                     />
                     <Route
                       exact

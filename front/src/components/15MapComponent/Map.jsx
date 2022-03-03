@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import "../../App.css"; 
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import "../../App.css";
 
-import L, { Icon } from "leaflet";
 import Markers from "./Markers";
 
 export default function Map({

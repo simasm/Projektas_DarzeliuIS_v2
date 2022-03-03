@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
 import L, { Icon } from "leaflet";
-import markerIcon from "../../images/blueMarker.png";
+import markerIcon from "../../images/burbuls.png";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -16,11 +16,10 @@ export default function Markers({
   activeKindergarten,
   setActiveThroughMarker,
   setInactive,
-  setActive,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
-    iconSize: [15, 15],
+    iconSize: [20, 20],
   });
 
   useEffect(() => {
