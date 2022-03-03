@@ -1,5 +1,15 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L, { Icon } from "leaflet";
+import logo from "../../images/logo.png";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 export default function Markers({
   kindergartens,
@@ -8,6 +18,11 @@ export default function Markers({
   setInactive,
   setActive,
 }) {
+  const dot = L.icon({
+    iconUrl: logo,
+    iconSize: [100, 10],
+  });
+
   useEffect(() => {
     if (activeKindergarten !== null) {
       map.flyTo([
@@ -17,11 +32,13 @@ export default function Markers({
     }
   }, [activeKindergarten]);
   const map = useMap();
+
   return (
     <div>
       {kindergartens.map((k) => (
         <Marker
           key={k.id}
+          icon={dot}
           position={[k.coordinates.split(",")[0], k.coordinates.split(",")[1]]}
           eventHandlers={{
             click: () => setActiveThroughMarker(k),

@@ -1,5 +1,4 @@
 import React from "react";
-import { useMap } from "react-leaflet";
 
 export default function SideMenu({
   activeKindergarten,
