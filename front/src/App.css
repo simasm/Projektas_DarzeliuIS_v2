@@ -156,6 +156,13 @@ p {
   border: groove lightskyblue 2px;
 }
 
+.info-box {
+  overflow-y: scroll;
+  height: 100px;
+  border: groove lightskyblue 2px;
+  text-align: center;
+}
+
 .all-kindergarten-map-select {
   border: groove lightskyblue 2px; 
   border-radius: 5px;
