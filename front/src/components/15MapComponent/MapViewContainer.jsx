@@ -1,12 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Map from "./Map";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 import SideMenu from "./SideMenu";
+import { EsriProvider } from "leaflet-geosearch";
+import AuthContext from "../11Context/AuthContext";
 
 export default function MapTab() {
+  const { state } = React.useContext(AuthContext);
+
   const [kindergartens, setKindergartens] = useState([]);
   const [activeKindergarten, setActiveKindergarten] = useState(null);
+  const [userAddress, setUserAddress] = useState("");
+  const [userCoordinates, setUserCoordinates] = useState("");
+
+  const provider = new EsriProvider();
+
+  if (userAddress !== "") {
+    provider
+      .search({ query: userAddress })
+      .then((response) =>
+        setUserCoordinates(response[0].x + "," + response[0].y)
+      );
+  }
 
   const setActive = (kindergarten) => {
     setActiveKindergarten(kindergarten);
@@ -30,7 +46,16 @@ export default function MapTab() {
     }
 
     getKindergartens();
+    if (state.role === "USER") {
+      getUserAddress();
+    }
   }, []);
+
+  async function getUserAddress() {
+    await http
+      .get(`${apiEndpoint}/api/users/user`)
+      .then((response) => setUserAddress(response.data.address));
+  }
 
   if (activeKindergarten !== null) {
   }
@@ -57,6 +82,8 @@ export default function MapTab() {
               setActive={setActive}
               setInactive={setInactive}
               setActiveThroughMarker={setActiveThroughMarker}
+              userCoordinates={userCoordinates}
+              userAddress={userAddress}
             />
           </div>
         </div>

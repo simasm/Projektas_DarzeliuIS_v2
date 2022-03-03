@@ -3,23 +3,22 @@ import { Marker, Popup, useMap } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import markerIcon from "../../images/burbuls.png";
 
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-});
-
 export default function Markers({
   kindergartens,
   activeKindergarten,
   setActiveThroughMarker,
   setInactive,
+  userCoordinates,
+  userAddress,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
     iconSize: [20, 20],
+  });
+
+  const userIcon = new Icon({
+    iconUrl: markerIcon,
+    iconSize: [40, 40],
   });
 
   useEffect(() => {
@@ -30,6 +29,7 @@ export default function Markers({
       ]);
     }
   }, [activeKindergarten]);
+
   const map = useMap();
 
   return (
@@ -44,7 +44,15 @@ export default function Markers({
           }}
         ></Marker>
       ))}
-
+      {userCoordinates !== "" && (
+        <Marker
+          icon={userIcon}
+          position={[
+            userCoordinates.split(",")[1],
+            userCoordinates.split(",")[0],
+          ]}
+        />
+      )}
       {activeKindergarten && (
         <Popup
           position={[

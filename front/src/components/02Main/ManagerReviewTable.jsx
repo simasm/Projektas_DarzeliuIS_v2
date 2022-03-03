@@ -8,16 +8,6 @@ const ManagerReviewTable = () => {
 
   return (
     <div id="divToPrint" className="container pt-4">
-      {/* <div className="pl-2 pt-3">
-        <Link to="/" className="nounderlinelink">
-          Pradinis puslapis
-        </Link>
-        &nbsp; &gt; &nbsp;
-        <Link to="/kompensacijos" className="nounderlinelink">
-          Prašymai dėl kompensacijos
-        </Link>
-        &nbsp; &gt; Prašymo peržiūra
-      </div> */}
       <h3>Kompensacijos prašymo peržiūra</h3>
 
       <div className="row pt-3">

@@ -1,6 +1,8 @@
 import React from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "../../App.css";
+import AuthContext from "../11Context/AuthContext";
+import MapControls from "./MapControls";
 
 import Markers from "./Markers";
 
@@ -10,12 +12,15 @@ export default function Map({
   setActive,
   setInactive,
   setActiveThroughMarker,
+  userCoordinates,
+  userAddress,
 }) {
   return (
     <div>
+      <div>{userCoordinates}</div>
       <MapContainer
         center={[54.683289, 25.275109]}
-        zoom={13}
+        zoom={14}
         className={"map-css"}
       >
         <TileLayer
@@ -29,6 +34,13 @@ export default function Map({
           setActiveThroughMarker={setActiveThroughMarker}
           setInactive={setInactive}
           setActive={setActive}
+          userCoordinates={userCoordinates}
+          userAddress={userAddress}
+        />
+
+        <MapControls
+          userCoordinates={userCoordinates}
+          userAddress={userAddress}
         />
       </MapContainer>
     </div>
