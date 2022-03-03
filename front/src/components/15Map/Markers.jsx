@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L, { Icon } from "leaflet";
-import logo from "../../images/logo.png";
+import markerIcon from "../../images/burbuls.png";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -18,9 +18,9 @@ export default function Markers({
   setInactive,
   setActive,
 }) {
-  const dot = L.icon({
-    iconUrl: logo,
-    iconSize: [100, 10],
+  const dot = new Icon({
+    iconUrl: markerIcon,
+    iconSize: [25, 25],
   });
 
   useEffect(() => {
