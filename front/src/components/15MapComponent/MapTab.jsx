@@ -50,10 +50,10 @@ export default function MapTab() {
                 <div
                   key={k.id}
                   id={k.id}
-                  className={"all-kindergarten-map-select" + 
+                  className={
                   (activeKindergarten !== null && activeKindergarten.id === k.id 
-                    ? ''
-                    : 'active'
+                    ? "all-kindergarten-map-select"
+                    : ""
                     )
                   }
                   onClick={() => setActive(k)}
