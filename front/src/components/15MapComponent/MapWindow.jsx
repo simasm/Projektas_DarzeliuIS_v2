@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+import logo from "../../images/logo.png";
 
-delete L.Icon.Default.prototype._getIconUrl;
+// delete L.Icon.Default.prototype._getIconUrl;
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-});
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+// });
+
+function GetIcon(_iconSize) {
+  return L.icon({
+    iconUrl: require("../../images/redMarker.png"),
+    iconSize: [_iconSize]
+  })
+}
 
 export default function MapWindow({
   kindergartens,
@@ -30,7 +38,7 @@ export default function MapWindow({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {kindergartens.map((k) => (
-          <Marker
+          <Marker icon={GetIcon(20)}
             key={k.id}
             position={[
               k.coordinates.split(",")[0],
