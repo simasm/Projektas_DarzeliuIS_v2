@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Table from '../08CommonComponents/Table';
-
+ 
 class UserApplicationsTable extends Component {
 
     columns = [
@@ -50,10 +50,14 @@ class UserApplicationsTable extends Component {
             content: application => 
             <span>
                 {application.status === 'Patvirtintas' ? 
-                <button onClick={() => this.props.onDownload(application)} 
-                        id="btnDownloadApplication" 
-                        className="btn btn-outline-primary btn-sm btn-block">Atsisiųsti
-                </button>
+                <div>
+                    <button onClick={() => this.props.onDownload(application)} 
+                            id="btnDownloadApplication" 
+                            className="btn btn-outline-primary btn-sm btn-block">Atsisiųsti
+                    </button>
+                  
+
+                </div>
                 :
                 <span></span>
                 }

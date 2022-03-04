@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "0.1.13",
     "@mui/material": "^5.4.3",
     "@popperjs/core": "^2.11.2",
+    "@sweetalert2/theme-bootstrap-4": "^5.0.10",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
@@ -35,6 +36,7 @@
     "react-select": "4.1.0",
     "react-through": "^1.1.4",
     "sweetalert": "2.1.2",
+    "sweetalert2": "^11.4.4",
     "web-vitals": "0.2.4"
   },
   "scripts": {
