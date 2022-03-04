@@ -64,7 +64,7 @@ function Navigation(props) {
                 </NavLink>
               </li>
 
-              <li className="nav-item mr-2">
+              <li className="nav-item mr-2 dropdown-z">
                 <ManagerDropdownList />
               </li>
 

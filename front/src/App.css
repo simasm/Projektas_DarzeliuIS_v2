@@ -174,9 +174,14 @@ p {
 .map-css {
   height: 80vh;
   border: groove lightskyblue 2px;
+  z-index: 1;
 }
 
 .inactive-kindergarten:hover {
   background: rgb(231, 233, 241);
   cursor: pointer;
+}
+
+.dropdown-z {
+  z-index: 999;
 }

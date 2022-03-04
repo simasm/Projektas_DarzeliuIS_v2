@@ -32,7 +32,7 @@ function Navigation(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto">
 
-                            <li className="nav-item mr-1">
+                            <li className="nav-item mr-1 dropdown-z">
                                 <Dropdown />
 
                             </li>                        
