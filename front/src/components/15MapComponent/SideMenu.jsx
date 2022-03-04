@@ -8,18 +8,15 @@ export default function SideMenu({
 }) {
   return (
     <div>
-      <div
-        className={"ps-2 all-kindergarten-map"}
-      >
+      <div className={"ps-2 all-kindergarten-map"}>
         {kindergartens.map((k) => (
           <div
             key={k.id}
             id={k.id}
             className={
-              (activeKindergarten !== null && activeKindergarten.id === k.id 
+              activeKindergarten !== null && activeKindergarten.id === k.id
                 ? "all-kindergarten-map-select"
-                : ""
-                )
+                : "inactive-kindergarten"
             }
             onClick={() => setActive(k)}
           >
@@ -28,16 +25,14 @@ export default function SideMenu({
         ))}
       </div>
 
-      <div
-        className="mt-5 info-box"
-      >
+      <div className="mt-5 info-box">
         {activeKindergarten !== null && (
           <div>
             <p className="mt-2 ">
               Vilniaus lopšelis-darželis "{activeKindergarten.name}"
             </p>
             <p>
-              Adresas: {activeKindergarten.address},{"  "}
+              {activeKindergarten.address},{"  "}
               {activeKindergarten.elderate} seniūnija
             </p>
             <p></p>

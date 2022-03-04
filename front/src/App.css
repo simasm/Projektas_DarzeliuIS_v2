@@ -158,18 +158,25 @@ p {
 
 .info-box {
   overflow-y: scroll;
-  height: 100px;
+  height: 120px;
   border: groove lightskyblue 2px;
   text-align: center;
 }
 
 .all-kindergarten-map-select {
-  border: groove lightskyblue 2px; 
+  border: groove lightskyblue 2px;
+  background: rgb(211, 225, 245);
   border-radius: 5px;
   padding-left: 5px;
+  cursor: pointer;
 }
 
 .map-css {
   height: 80vh;
   border: groove lightskyblue 2px;
+}
+
+.inactive-kindergarten:hover {
+  background: rgb(231, 233, 241);
+  cursor: pointer;
 }
