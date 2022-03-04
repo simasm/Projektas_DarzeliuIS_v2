@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import L, { Icon } from "leaflet";
-import markerIcon from "../../images/burbuls.png";
+import markerIcon from "../../images/dot.png";
+import homeIcon from "../../images/home.png";
 
 export default function Markers({
   kindergartens,
@@ -13,12 +14,12 @@ export default function Markers({
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
-    iconSize: [20, 20],
+    iconSize: [40, 40],
   });
 
   const userIcon = new Icon({
-    iconUrl: markerIcon,
-    iconSize: [40, 40],
+    iconUrl: homeIcon,
+    iconSize: [30, 50],
   });
 
   useEffect(() => {
