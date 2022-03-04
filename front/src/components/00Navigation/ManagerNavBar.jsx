@@ -26,6 +26,7 @@ function Navigation(props) {
       [obj2]: "Kompensacijos atsisiuntimas",
       "/pazymos": "Pažymos",
       "/profilis": "Profilis",
+      "/zemelapis": "Žemėlapis",
     };
   };
 
@@ -64,7 +65,7 @@ function Navigation(props) {
                 </NavLink>
               </li>
 
-              <li className="nav-item mr-2">
+              <li className="nav-item mr-2 dropdown-z">
                 <ManagerDropdownList />
               </li>
 
@@ -106,12 +107,14 @@ function Navigation(props) {
         </div>
       </nav>
       {/* <BreadcrumbsItem to='/'>Darželių sąrašas</BreadcrumbsItem> */}
-      <div
-        className="container"
-        style={{ backgroundColor: "rgb(249, 249, 249)" }}
-      >
+      <div className="container">
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <NavLink underline="hover" color="inherit" to="/">
+          <NavLink
+            className="nounderlinelink"
+            underline="hover"
+            color="inherit"
+            to="/"
+          >
             Pagrindinis puslapis
           </NavLink>
           {pathnames.map((value, index) => {
