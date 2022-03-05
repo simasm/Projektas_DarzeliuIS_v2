@@ -197,3 +197,7 @@ p {
   padding: 10px;
   z-index: 400;
 }
+
+.kindergarteninfo-popup {
+  text-align: center;
+}

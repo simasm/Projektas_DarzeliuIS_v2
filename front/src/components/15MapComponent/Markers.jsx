@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Marker, Popup, useMap, Circle} from "react-leaflet";
+import { Marker, Popup, useMap, Circle } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import markerIcon from "../../images/dot.png";
 import homeIcon from "../../images/home.png";
@@ -80,22 +80,27 @@ export default function Markers({
           ]}
           onClose={() => setInactive()}
         >
-          <div>
-            <h6>{activeKindergarten.name}</h6>
+          <div className="kindergarteninfo-popup">
+            <p className="mt-2 ">
+              Vilniaus lopšelis-darželis "{activeKindergarten.name}"
+            </p>
+            <p>
+              {activeKindergarten.address},{"  "}
+              {activeKindergarten.elderate} seniūnija
+            </p>
           </div>
         </Popup>
-        
       )}
 
-      {userCoordinates !== "" && (
-        <Circle 
-          center={[userCoordinates.split(",")[1],
-            userCoordinates.split(",")[0],]} 
-          radius={500} 
+      {/* {userCoordinates !== "" && (
+        <Circle
+          center={[
+            userCoordinates.split(",")[1],
+            userCoordinates.split(",")[0],
+          ]}
+          radius={500}
         />
-      )}
-      
-      
+      )} */}
     </div>
   );
 }

@@ -16,15 +16,6 @@ export default function MapTab() {
 
   const provider = new EsriProvider();
 
-  if (userAddress !== "") {
-    provider
-      .search({ query: userAddress })
-      .then((response) =>
-        setUserCoordinates(response[0].x + "," + response[0].y)
-      )
-      .catch((error) => console.log("<<<<<<<<<<<<"));
-  }
-
   const setActive = (kindergarten) => {
     setActiveKindergarten(kindergarten);
   };
@@ -50,7 +41,16 @@ export default function MapTab() {
     if (state.role === "USER") {
       getUserAddress();
     }
-  }, []);
+
+    if (userAddress !== "") {
+      provider
+        .search({ query: userAddress })
+        .then((response) =>
+          setUserCoordinates(response[0].x + "," + response[0].y)
+        )
+        .catch((error) => "");
+    }
+  }, [userAddress]);
 
   async function getUserAddress() {
     await http
@@ -85,6 +85,7 @@ export default function MapTab() {
               setActiveThroughMarker={setActiveThroughMarker}
               userCoordinates={userCoordinates}
               userAddress={userAddress}
+              state={state}
             />
           </div>
         </div>

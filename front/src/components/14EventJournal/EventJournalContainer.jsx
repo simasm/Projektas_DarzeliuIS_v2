@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import Pagination from "react-js-pagination";
+
 import Pagination from "../08CommonComponents/Pagination";
 
 import http from "../10Services/httpService";

@@ -25,7 +25,7 @@ export default function SideMenu({
         ))}
       </div>
 
-      <div className="mt-5 info-box sidemenubox">
+      {/* <div className="mt-5 info-box sidemenubox">
         {activeKindergarten === null && (
           <div>
             <p className="mt-2 ">
@@ -44,7 +44,7 @@ export default function SideMenu({
             </p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
