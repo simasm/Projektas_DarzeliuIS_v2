@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Circle} from "react-leaflet";
 import "../../App.css";
 import HomeButton from "./HomeButton";
 
@@ -23,10 +23,11 @@ export default function Map({
         zoom={14}
         className={"map-css"}
       >
-        <TileLayer
+        <TileLayer className={"map-depth"}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
         />
+        
 
         <Markers
           kindergartens={kindergartens}

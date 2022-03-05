@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Marker, Popup, useMap } from "react-leaflet";
+import { Marker, Popup, useMap, Circle} from "react-leaflet";
 import L, { Icon } from "leaflet";
 import markerIcon from "../../images/dot.png";
 import homeIcon from "../../images/home.png";
@@ -21,6 +21,14 @@ export default function Markers({
     iconUrl: homeIcon,
     iconSize: [30, 50],
   });
+
+  // const circle = L.circle([userCoordinates.split(",")[1],
+  // userCoordinates.split(",")[0],], {
+  //   color: 'red',
+  //   fillColor: '#f03',
+  //   fillOpacity: 0.5,
+  //   radius: 500
+  // });
 
   useEffect(() => {
     if (activeKindergarten !== null) {
@@ -76,7 +84,18 @@ export default function Markers({
             <h6>{activeKindergarten.name}</h6>
           </div>
         </Popup>
+        
       )}
+
+      {userCoordinates !== "" && (
+        <Circle 
+          center={[userCoordinates.split(",")[1],
+            userCoordinates.split(",")[0],]} 
+          radius={500} 
+        />
+      )}
+      
+      
     </div>
   );
 }
