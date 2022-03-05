@@ -185,3 +185,15 @@ p {
 .dropdown-z {
   z-index: 999;
 }
+
+.sidemenubox {
+  background: rgb(237, 245, 250);
+}
+
+#maphomebtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  z-index: 400;
+}

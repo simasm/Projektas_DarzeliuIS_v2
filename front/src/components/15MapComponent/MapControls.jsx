@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Marker, Popup, useMap } from "react-leaflet";
+import { useMap } from "react-leaflet";
 import AuthContext from "../11Context/AuthContext";
 
 export default function MapControls({ userCoordinates, userAddress }) {

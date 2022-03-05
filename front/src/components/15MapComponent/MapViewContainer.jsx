@@ -21,7 +21,8 @@ export default function MapTab() {
       .search({ query: userAddress })
       .then((response) =>
         setUserCoordinates(response[0].x + "," + response[0].y)
-      );
+      )
+      .catch((error) => console.log("<<<<<<<<<<<<"));
   }
 
   const setActive = (kindergarten) => {

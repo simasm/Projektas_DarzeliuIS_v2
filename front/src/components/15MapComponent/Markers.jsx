@@ -52,7 +52,17 @@ export default function Markers({
             userCoordinates.split(",")[1],
             userCoordinates.split(",")[0],
           ]}
-        />
+        >
+          <Popup
+            position={[
+              userCoordinates.split(",")[1],
+              userCoordinates.split(",")[0],
+            ]}
+            onClose={() => setInactive()}
+          >
+            Jūsų gyvenamoji vieta
+          </Popup>
+        </Marker>
       )}
       {activeKindergarten && (
         <Popup
