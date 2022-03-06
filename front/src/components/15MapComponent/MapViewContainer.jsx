@@ -20,23 +20,29 @@ export default function MapTab() {
     setActiveKindergarten(kindergarten);
   };
 
+  const setInactive = () => {
+    setActiveKindergarten(null);
+  };
+
   const setActiveThroughMarker = (kindergarten) => {
     setActiveKindergarten(kindergarten);
     var tgtElement = document.getElementById(kindergarten.id);
     tgtElement.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
-  const setInactive = () => {
-    setActiveKindergarten(null);
-  };
+  async function getKindergartens() {
+    await http
+      .get(`${apiEndpoint}/api/darzeliai/visi`)
+      .then((response) => setKindergartens(response.data));
+  }
+
+  async function getUserAddress() {
+    await http
+      .get(`${apiEndpoint}/api/users/user`)
+      .then((response) => setUserAddress(response.data.address));
+  }
 
   useEffect(() => {
-    async function getKindergartens() {
-      await http
-        .get(`${apiEndpoint}/api/darzeliai/visi`)
-        .then((response) => setKindergartens(response.data));
-    }
-
     getKindergartens();
     if (state.role === "USER") {
       getUserAddress();
@@ -52,12 +58,6 @@ export default function MapTab() {
     }
   }, [userAddress]);
 
-  async function getUserAddress() {
-    await http
-      .get(`${apiEndpoint}/api/users/user`)
-      .then((response) => setUserAddress(response.data.address));
-  }
-
   if (activeKindergarten !== null) {
   }
   return (
@@ -71,6 +71,7 @@ export default function MapTab() {
               kindergartens={kindergartens}
               activeKindergarten={activeKindergarten}
               setActive={setActive}
+              setKindergartens={setKindergartens}
             />
           </div>
 

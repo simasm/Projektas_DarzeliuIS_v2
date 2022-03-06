@@ -88,6 +88,16 @@ public class KindergartenService {
 
 	}
 	
+	@Transactional(readOnly = true)
+	public List<KindergartenInfo> getKindergartensFilteredByName(String name) {
+
+		List<Kindergarten> kindergartens = gartenDao.findByPartOfName(name);
+		
+		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
+				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
+
+	}
+	
 	
 	@Transactional(readOnly = true)
 	public List<KindergartenInfo> getAllKindergartens() {

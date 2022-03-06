@@ -22,14 +22,7 @@ export default function Markers({
     iconSize: [30, 50],
   });
 
-  // const circle = L.circle([userCoordinates.split(",")[1],
-  // userCoordinates.split(",")[0],], {
-  //   color: 'red',
-  //   fillColor: '#f03',
-  //   fillOpacity: 0.5,
-  //   radius: 500
-  // });
-
+  const map = useMap();
   useEffect(() => {
     if (activeKindergarten !== null) {
       map.flyTo([
@@ -38,8 +31,6 @@ export default function Markers({
       ]);
     }
   }, [activeKindergarten]);
-
-  const map = useMap();
 
   return (
     <div>
@@ -92,15 +83,19 @@ export default function Markers({
         </Popup>
       )}
 
-      {/* {userCoordinates !== "" && (
-        <Circle
-          center={[
-            userCoordinates.split(",")[1],
-            userCoordinates.split(",")[0],
-          ]}
-          radius={500}
-        />
-      )} */}
+      {userCoordinates !== "" && (
+        <div>
+          <Circle
+            center={[
+              userCoordinates.split(",")[1],
+              userCoordinates.split(",")[0],
+            ]}
+            radius={200}
+            fillColor="green"
+            color="darkgreen"
+          />
+        </div>
+      )}
     </div>
   );
 }

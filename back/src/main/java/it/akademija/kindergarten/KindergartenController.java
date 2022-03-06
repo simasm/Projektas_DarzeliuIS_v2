@@ -80,6 +80,15 @@ public class KindergartenController {
 		return new ResponseEntity<>(kindergartenService.getAllKindergartens(), HttpStatus.OK);
 	}
 	
+	@Secured({ "ROLE_MANAGER", "ROLE_USER", "ROLE_ADMIN" })
+	@GetMapping("/searchBy={name}")
+	public ResponseEntity<List<KindergartenInfo>> getKindergartensFilteredByName(@PathVariable String name) {
+
+		return new ResponseEntity<>(kindergartenService.getKindergartensFilteredByName(name), HttpStatus.OK);
+	}
+	
+	
+	
 	
 
 	/**

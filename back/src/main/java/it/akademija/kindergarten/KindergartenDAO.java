@@ -8,12 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface KindergartenDAO extends JpaRepository<Kindergarten, String> {
 
 	void deleteByName(String name);
 
 	Kindergarten findByName(String name);
+	
+	@Query("select k FROM Kindergarten k WHERE LOWER (k.name) LIKE LOWER(concat('%' || :partOfName || '%'))")
+	public List<Kindergarten> findByPartOfName(@Param("partOfName") String partOfName);
 
 	@Query("SELECT new Kindergarten(k.id, k.name , k.address, k.elderate, k.capacityAgeGroup2to3, k.capacityAgeGroup3to6) FROM Kindergarten k WHERE LOWER(k.name) LIKE LOWER(concat('%', ?1,'%'))")
 	Page<Kindergarten> findByNameContainingIgnoreCase(String name, Pageable pageable);

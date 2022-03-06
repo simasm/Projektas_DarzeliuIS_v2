@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, TileLayer, Circle } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "../../App.css";
 import HomeButton from "./HomeButton";
 

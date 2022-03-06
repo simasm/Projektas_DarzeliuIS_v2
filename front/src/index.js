@@ -7,9 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "leaflet/dist/leaflet.css";
 import "./index.css";
+
 import App from "./App";
 
-import { StyledEngineProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from "@mui/material/styles";
 
 document.title =
   "Vilniaus miesto savivaldybės vaikų darželių informacinė sistema";
@@ -17,13 +18,11 @@ document.title =
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-
       <Switch>
         <StyledEngineProvider injectFirst>
           <Route path="*" component={App} />
         </StyledEngineProvider>
       </Switch>
-
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

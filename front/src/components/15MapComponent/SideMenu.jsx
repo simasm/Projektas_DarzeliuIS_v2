@@ -1,11 +1,28 @@
 import React from "react";
 import "../../App.css";
+import SearchBox from "./../08CommonComponents/SeachBox";
+import http from "../10Services/httpService";
+import apiEndpoint from "../10Services/endpoint";
 
 export default function SideMenu({
   activeKindergarten,
   kindergartens,
   setActive,
+  setKindergartens,
 }) {
+  async function getFilteredKindergartens(searchString) {
+    const searchResponse = await http.get(
+      apiEndpoint + `/api/darzeliai/searchBy=${searchString}`
+    );
+
+    setKindergartens(searchResponse.data);
+  }
+
+  const handleSearch = (e) => {
+    const searchString = e.target.value;
+    getFilteredKindergartens(searchString);
+  };
+
   return (
     <div>
       <div className="ps-2 all-kindergarten-map sidemenubox">
@@ -23,6 +40,10 @@ export default function SideMenu({
             {k.name}
           </div>
         ))}
+      </div>
+
+      <div className="pt-2 d-flex justify-content-center ">
+        <SearchBox onSearch={handleSearch} />
       </div>
 
       {/* <div className="mt-5 info-box sidemenubox">
