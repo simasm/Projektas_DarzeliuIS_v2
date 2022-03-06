@@ -19,7 +19,8 @@ export default function SideMenu({
   }
 
   const handleSearch = (e) => {
-    const searchString = e.target.value;
+    let searchString = e.target.value;
+
     getFilteredKindergartens(searchString);
   };
 
@@ -43,7 +44,10 @@ export default function SideMenu({
       </div>
 
       <div className="pt-2 d-flex justify-content-center ">
-        <SearchBox onSearch={handleSearch} />
+        <SearchBox
+          onSearch={handleSearch}
+          placeholder={"Ieškokite pagal pavadinimą ar seniūniją..."}
+        />
       </div>
 
       {/* <div className="mt-5 info-box sidemenubox">

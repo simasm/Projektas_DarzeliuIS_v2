@@ -16,8 +16,9 @@ public interface KindergartenDAO extends JpaRepository<Kindergarten, String> {
 
 	Kindergarten findByName(String name);
 	
-	@Query("select k FROM Kindergarten k WHERE LOWER (k.name) LIKE LOWER(concat('%' || :partOfName || '%'))")
-	public List<Kindergarten> findByPartOfName(@Param("partOfName") String partOfName);
+	@Query("select k FROM Kindergarten k WHERE LOWER (k.name) LIKE LOWER(concat('%' || :searchString || '%'))" +
+			"or lower(k.elderate) like lower(concat('%' || :searchString || '%'))")
+	public List<Kindergarten> findByNameOrElderate(@Param("searchString") String searchString);
 
 	@Query("SELECT new Kindergarten(k.id, k.name , k.address, k.elderate, k.capacityAgeGroup2to3, k.capacityAgeGroup3to6) FROM Kindergarten k WHERE LOWER(k.name) LIKE LOWER(concat('%', ?1,'%'))")
 	Page<Kindergarten> findByNameContainingIgnoreCase(String name, Pageable pageable);

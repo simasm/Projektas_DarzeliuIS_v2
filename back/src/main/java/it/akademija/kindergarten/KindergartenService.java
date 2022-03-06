@@ -89,9 +89,9 @@ public class KindergartenService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<KindergartenInfo> getKindergartensFilteredByName(String name) {
+	public List<KindergartenInfo> getKindergartensFilteredByNameAndElderate(String searchString) {
 
-		List<Kindergarten> kindergartens = gartenDao.findByPartOfName(name);
+		List<Kindergarten> kindergartens = gartenDao.findByNameOrElderate(searchString);
 		
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
