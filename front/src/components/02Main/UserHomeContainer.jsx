@@ -4,7 +4,7 @@ import "../../App.css";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 import "../../../node_modules/@sweetalert2/theme-bootstrap-4/bootstrap-4.css"
- 
+
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 
@@ -18,8 +18,8 @@ export class UserHomeContainer extends Component {
     this.state = {
       registrationStatus: false,
       applications: [],
-      userData : null
-     };
+      userData: null
+    };
   }
   componentDidMount() {
     this.getUserApplications();
@@ -37,11 +37,11 @@ export class UserHomeContainer extends Component {
   }
   getUserInfo() {
     http
-        .get(`${apiEndpoint}/api/users/user`)
-        .then((response) => {
-          this.setState ( {userData : response.data});
-        })
-        .catch(() => {});
+      .get(`${apiEndpoint}/api/users/user`)
+      .then((response) => {
+        this.setState({ userData: response.data });
+      })
+      .catch(() => { });
   }
   getRegistrationStatus() {
     http
@@ -53,40 +53,40 @@ export class UserHomeContainer extends Component {
           }
         );
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
-  handleDownload =async (item) => {
-    const table =   '<div class="table-responsive-md">' +
-                      '<table class="table table-bordered">'+
-                       '<thead class="">' +
-                          '<tr>' +
-                            '<th scope="col" colspan=2>Vaiko atstovo duomeys</th>'+  
-                          '</tr>' +
-                        '</thead>' +
-                        '<tbody>'+
-                            '<tr> ' + 
-                                `<td class="text-start">Asmens kodas</td><td class="text-start">${this.state.userData.personalCode}</td>` +
-                            '</tr>' +                        
-                            '<tr> ' + 
-                                `<td class="text-start">Vardas</td><td class="text-start">${this.state.userData.name}</td>` +
-                            '</tr>' +
-                            '<tr> ' + 
-                                `<td class="text-start">Pavardė</td><td class="text-start">${this.state.userData.surname}</td>` +
-                            '</tr>' +
-                            '<tr> ' + 
-                                `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address}</td>`+
-                            '</tr>' +   
-                            '<tr> ' + 
-                                `<td class="text-start">Telefono numeris</td><td class="text-start">${this.state.userData.phone}</td>`+
-                            '</tr>' +
-                            '<tr> ' + 
-                                `<td class="text-start">El. paštas</td><td class="text-start">${this.state.userData.email}</td>` + 
-                            '</tr>' +
-                            
-                    '</tbody>' +
-                      '</table>' +
-                    '</div>';
+  handleDownload = async (item) => {
+    const table = '<div class="table-responsive-md">' +
+      '<table class="table table-bordered">' +
+      '<thead class="">' +
+      '<tr>' +
+      '<th scope="col" colspan=2>Vaiko atstovo duomeys</th>' +
+      '</tr>' +
+      '</thead>' +
+      '<tbody>' +
+      '<tr> ' +
+      `<td class="text-start">Asmens kodas</td><td class="text-start">${this.state.userData.personalCode}</td>` +
+      '</tr>' +
+      '<tr> ' +
+      `<td class="text-start">Vardas</td><td class="text-start">${this.state.userData.name}</td>` +
+      '</tr>' +
+      '<tr> ' +
+      `<td class="text-start">Pavardė</td><td class="text-start">${this.state.userData.surname}</td>` +
+      '</tr>' +
+      '<tr> ' +
+      `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address}</td>` +
+      '</tr>' +
+      '<tr> ' +
+      `<td class="text-start">Telefono numeris</td><td class="text-start">${this.state.userData.phone}</td>` +
+      '</tr>' +
+      '<tr> ' +
+      `<td class="text-start">El. paštas</td><td class="text-start">${this.state.userData.email}</td>` +
+      '</tr>' +
+
+      '</tbody>' +
+      '</table>' +
+      '</div>';
 
     console.log(JSON.stringify(item));
     const { value: accept } = await Swal.fire({
@@ -94,7 +94,7 @@ export class UserHomeContainer extends Component {
       input: 'checkbox',
       inputValue: 0,
       showCloseButton: true,
-      html : table,
+      html: table,
       inputPlaceholder:
         'Patvirtinu, kad duomenys teisingi',
       confirmButtonText:
@@ -103,14 +103,14 @@ export class UserHomeContainer extends Component {
         return !result && 'Patvirtinkite duomenis'
       }
     })
-    
+
     if (accept) {
       Swal.fire('Sutartis siunciasi')
     }
- 
+
   }
 
- 
+
 
   handleDelete = (item) => {
     swal({
@@ -134,19 +134,31 @@ export class UserHomeContainer extends Component {
   };
 
   drawMessageQueueApproved(obj) {
-  //  console.log("prior status:" + JSON.stringify(obj));
-    const status = obj.map(that => that.status);
-    if (status != null && !this.state.registrationStatus) {
-   //   console.log("+Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus);
+    //console.log("prior status:" + JSON.stringify(obj));
+    var status = obj.map(that => that.status);
+    var isConfirmed = false;
+     for(var i=0; i<status.length; i++){
+        //console.log(status[i] === 'Patvirtintas' || status[i] === 'Laukiantis');
+        if(status[i] === 'Patvirtintas' || status[i] === 'Laukiantis'){
+          isConfirmed = true;
+          break;
+        }
+     }
+    if (isConfirmed && !this.state.registrationStatus) {
+      // console.log("+Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus +
+      //   "status !== 'Pateiktas': " + (status == 'Pateiktas'));
+      //console.log(status)
       return (
         <div className="alert alert-warning p-1" role="alert">
-          Prašymų registracija baigėsi, eilės patvirtintos
+          Prašymų registracija baigėsi. Eilės patvirtintos
         </div>
       );
     }
-    else {
-    //  console.log("-Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus);
-    }
+    // else {
+    //   // console.log("-Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus +
+    //   //   "status !== 'Pateiktas': " + (status == 'Pateiktas'));
+    //   //   console.log(status)
+    // }
   }
 
   render() {
@@ -171,7 +183,7 @@ export class UserHomeContainer extends Component {
               applications={this.state.applications}
               onDelete={this.handleDelete}
               onDownload={this.handleDownload}
-           
+
             />
           </div>
         </div>
