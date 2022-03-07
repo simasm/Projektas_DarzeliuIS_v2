@@ -2,20 +2,29 @@ import React, { Component } from "react";
 
 import "../../App.css";
 import swal from "sweetalert";
-
+import Swal from "sweetalert2";
+import "../../../node_modules/@sweetalert2/theme-bootstrap-4/bootstrap-4.css"
+ 
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 
+
 import UserApplicationsTable from "./UserApplicationsTable";
+import { checkboxClasses } from "@mui/material";
+import { className } from "gridjs";
 export class UserHomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      registrationStatus: false,
       applications: [],
-    };
+      userData : null
+     };
   }
   componentDidMount() {
     this.getUserApplications();
+    this.getRegistrationStatus();
+    this.getUserInfo();
   }
 
   getUserApplications() {
@@ -24,8 +33,84 @@ export class UserHomeContainer extends Component {
       .then((response) => {
         this.setState({ applications: response.data });
       })
+      .catch(() => { });
+  }
+  getUserInfo() {
+    http
+        .get(`${apiEndpoint}/api/users/user`)
+        .then((response) => {
+          this.setState ( {userData : response.data});
+        })
+        .catch(() => {});
+  }
+  getRegistrationStatus() {
+    http
+      .get(`${apiEndpoint}/api/status`)
+      .then((response) => {
+        this.setState(
+          {
+            registrationStatus: response.data.registrationActive,
+          }
+        );
+      })
       .catch(() => {});
   }
+
+  handleDownload =async (item) => {
+    const table =   '<div class="table-responsive-md">' +
+                      '<table class="table table-bordered">'+
+                       '<thead class="">' +
+                          '<tr>' +
+                            '<th scope="col" colspan=2>Vaiko atstovo duomeys</th>'+  
+                          '</tr>' +
+                        '</thead>' +
+                        '<tbody>'+
+                            '<tr> ' + 
+                                `<td class="text-start">Asmens kodas</td><td class="text-start">${this.state.userData.personalCode}</td>` +
+                            '</tr>' +                        
+                            '<tr> ' + 
+                                `<td class="text-start">Vardas</td><td class="text-start">${this.state.userData.name}</td>` +
+                            '</tr>' +
+                            '<tr> ' + 
+                                `<td class="text-start">Pavardė</td><td class="text-start">${this.state.userData.surname}</td>` +
+                            '</tr>' +
+                            '<tr> ' + 
+                                `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address}</td>`+
+                            '</tr>' +   
+                            '<tr> ' + 
+                                `<td class="text-start">Telefono numeris</td><td class="text-start">${this.state.userData.phone}</td>`+
+                            '</tr>' +
+                            '<tr> ' + 
+                                `<td class="text-start">El. paštas</td><td class="text-start">${this.state.userData.email}</td>` + 
+                            '</tr>' +
+                            
+                    '</tbody>' +
+                      '</table>' +
+                    '</div>';
+
+    console.log(JSON.stringify(item));
+    const { value: accept } = await Swal.fire({
+      title: 'Asmens duomenų patvirtinimas',
+      input: 'checkbox',
+      inputValue: 0,
+      showCloseButton: true,
+      html : table,
+      inputPlaceholder:
+        'Patvirtinu, kad duomenys teisingi',
+      confirmButtonText:
+        'Atsisųsti sutartį',
+      inputValidator: (result) => {
+        return !result && 'Patvirtinkite duomenis'
+      }
+    })
+    
+    if (accept) {
+      Swal.fire('Sutartis siunciasi')
+    }
+ 
+  }
+
+ 
 
   handleDelete = (item) => {
     swal({
@@ -43,10 +128,26 @@ export class UserHomeContainer extends Component {
             });
             this.getUserApplications();
           })
-          .catch(() => {});
+          .catch(() => { });
       }
     });
   };
+
+  drawMessageQueueApproved(obj) {
+  //  console.log("prior status:" + JSON.stringify(obj));
+    const status = obj.map(that => that.status);
+    if (status != null && !this.state.registrationStatus) {
+   //   console.log("+Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus);
+      return (
+        <div className="alert alert-warning p-1" role="alert">
+          Prašymų registracija baigėsi, eilės patvirtintos
+        </div>
+      );
+    }
+    else {
+    //  console.log("-Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus);
+    }
+  }
 
   render() {
     const { length: count } = this.state.applications;
@@ -62,11 +163,15 @@ export class UserHomeContainer extends Component {
       <div className="container pt-4">
         <h5 className="pl-2 pt-3">Mano prašymai</h5>
 
+        {this.drawMessageQueueApproved(this.state.applications)}
+
         <div className="row pt-2">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">
             <UserApplicationsTable
               applications={this.state.applications}
               onDelete={this.handleDelete}
+              onDownload={this.handleDownload}
+           
             />
           </div>
         </div>

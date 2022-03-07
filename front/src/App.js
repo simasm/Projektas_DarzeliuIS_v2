@@ -37,7 +37,7 @@ import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsCo
 import ManagerCompensations from "./components/02Main/ManagerCompensations";
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
 import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
-
+ 
 var initState = {
   isAuthenticated: null,
   username: null,
@@ -80,7 +80,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initState);
   const [compState, setCompState] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     if (state.isAuthenticated === null) {
       http
         .get(`${apiEndpoint}/api/loggedUserRole`)
