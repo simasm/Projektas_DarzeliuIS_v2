@@ -66,6 +66,7 @@ export default function MapTab() {
   }
   return (
     <div>
+      <div>{userAddress}</div>
       {/*################################# SIDE MENU ######################################## */}
 
       <div className="container pt-4">

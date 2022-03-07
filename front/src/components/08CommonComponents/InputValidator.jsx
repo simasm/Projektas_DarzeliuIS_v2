@@ -14,7 +14,20 @@ function InputValidator(event) {
       } else {
         target.setCustomValidity("");
       }
+    } else if (target.name === "city") {
+      if (target.validity.patternMismatch) {
+        target.setCustomValidity("Neteisingai įvestas miestas");
+      } else {
+        target.setCustomValidity("");
+      }
+    } else if (target.name === "address") {
+      if (target.validity.patternMismatch) {
+        target.setCustomValidity("Neteisingai įvestas adresas");
+      } else {
+        target.setCustomValidity("");
+      }
     }
+
     // else if(target.id==="txtBirthdate") {
     //     if(target.validity.valueMissing) {
     //         target.setCustomValidity("Gimimo data yra privalomas laukelis")
@@ -32,21 +45,7 @@ function InputValidator(event) {
     //         target.setCustomValidity("")
     //     }
     // }
-    if (target.name === "city") {
-      if (target.validity.patternMismatch || target.validity.valueMissing) {
-        target.setCustomValidity("Neteisingai įvestas miestas");
-      } else {
-        target.setCustomValidity("");
-      }
-
-      if (target.name === "address") {
-        if (target.validity.patternMismatch || target.validity.valueMissing) {
-          target.setCustomValidity("Neteisingai įvestas adresas");
-        } else {
-          target.setCustomValidity("");
-        }
-      }
-    } else if (
+    else if (
       target.name === "personalCode" ||
       target.name === "childPersonalCode"
     ) {

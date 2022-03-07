@@ -19,6 +19,7 @@ class AdminCreateUser extends Component {
       birthdate: "",
       personalCode: "",
       address: "",
+      city: "",
       phone: "",
       email: "",
     };
@@ -190,20 +191,38 @@ class AdminCreateUser extends Component {
             </div>
           </div>
 
-          <div className="form">
-            <div className="form-group mt-2">
-              <label htmlFor="txtAddress" className="mb-2">
+          <div className="row">
+            <div className="form-group col-7">
+              <label htmlFor="txtAddress" className="marginTopSide">
                 Adresas <span className="fieldRequired">*</span>
               </label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control mt-2"
                 id="txtAddress"
                 name="address"
                 value={this.state.address}
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 maxLength={128}
+                pattern="^[A-zÀ-ž0-9-.,\s]+$"
+                required
+              />
+            </div>
+
+            <div className="form-group col-5">
+              <label htmlFor="txtCity" className="marginTopSide">
+                Miestas <span className="fieldRequired">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control mt-2"
+                id="txtCity"
+                name="city"
+                value={this.state.city}
+                onChange={this.handleChange}
+                onInvalid={(e) => inputValidator(e)}
+                pattern="^[A-zÀ-ž-,\s]+$"
                 required
               />
             </div>
@@ -220,6 +239,7 @@ class AdminCreateUser extends Component {
       birthdate: "",
       personalCode: "",
       address: "",
+      city: "",
       phone: "",
       email: "",
     });
@@ -245,7 +265,7 @@ class AdminCreateUser extends Component {
     event.preventDefault();
     http
       .post(`${apiEndpoint}/api/users/admin/createuser`, {
-        address: this.state.address,
+        address: this.state.address + "'" + this.state.city,
         //"birthdate": this.state.birthdate,
         email: this.state.email,
         name: this.state.name,
