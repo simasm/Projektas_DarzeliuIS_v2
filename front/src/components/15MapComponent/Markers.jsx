@@ -73,7 +73,7 @@ export default function Markers({
         >
           <div className="kindergarteninfo-popup">
             <p className="mt-2 ">
-              Vilniaus lopšelis-darželis "{activeKindergarten.name}"
+              Vilniaus lopšelis-darželis „{activeKindergarten.name}“
             </p>
             <p>
               {activeKindergarten.address},{"  "}

@@ -42,6 +42,15 @@ export default function MapTab() {
       .then((response) => setUserAddress(response.data.address));
   }
 
+  const getUserCoordinates = () => {
+    provider
+      .search({ query: userAddress })
+      .then((response) =>
+        setUserCoordinates(response[0].x + "," + response[0].y)
+      )
+      .catch((error) => "");
+  };
+
   useEffect(() => {
     getKindergartens();
     if (state.role === "USER") {
@@ -49,12 +58,7 @@ export default function MapTab() {
     }
 
     if (userAddress !== "") {
-      provider
-        .search({ query: userAddress })
-        .then((response) =>
-          setUserCoordinates(response[0].x + "," + response[0].y)
-        )
-        .catch((error) => "");
+      getUserCoordinates();
     }
   }, [userAddress]);
 
