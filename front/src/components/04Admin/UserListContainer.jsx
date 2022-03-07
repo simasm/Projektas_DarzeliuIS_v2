@@ -15,7 +15,7 @@ export class UserListContainer extends Component {
     super(props);
     this.state = {
       naudotojai: [],
-      pageSize: 4,
+      pageSize: 10,
       currentPage: 1,
       totalPages: 0,
       totalElements: 0,
