@@ -75,7 +75,7 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     // TODO update when breadcrumbs are done or page is updated with unique way to identify it
     public void assertKompensacijosPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='pl-2 pt-3']/a")));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//h3"), "Prašymai dėl kompensacijos"));
     }
 
     public Boolean assertPrasymuRedagavimasPageTitle() {
@@ -105,7 +105,7 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
 
     public Boolean assertPrasymasRegistracijaiPageLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//label[@for='kindergartenId1']"), "1 prioritetas *"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//h6[@class='pl-5 pt-3']"), "Prašymas dėl registracijos"));
     }
 
     public Boolean assertPrasymasKompensacijaiPageLoaded() {

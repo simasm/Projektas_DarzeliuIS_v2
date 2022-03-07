@@ -101,9 +101,10 @@ public class QueuePriority extends ApiGeneralMethods {
         logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
         closeRegistration(reqSpec);
         processQueue(reqSpec);
+        confirmQueue(reqSpec);
 
         // assert queue was formed with correct priorities
-        // API doesn't include priority weight in response, assert is done manually
+        // API does not include priority weight in response, assert is done manually
         // applications were submitted with descending priority weight (15 > 11 > 10), first submitted should be first in queue
         int firstChildPosInWaitingList = getApplicationQueue(reqSpec).
                 then().

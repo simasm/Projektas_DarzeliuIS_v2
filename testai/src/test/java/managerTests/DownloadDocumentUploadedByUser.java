@@ -41,7 +41,7 @@ public class DownloadDocumentUploadedByUser extends GeneralMethods {
      * Delete uploaded document.
      * Log out.
      * ----------
-     * Teardown -
+     * Cleanup -
      * Log in as ADMIN.
      * Delete USER created for this test.
      * Log out.

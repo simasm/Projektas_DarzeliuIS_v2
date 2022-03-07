@@ -86,7 +86,7 @@ public class ApplyForCompensation extends GeneralMethods {
         compensationPage.clickNavManagerKompensacijos();
         wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonPerziureti));
         compensationPage.clickPerziureti();
-        assertTrue(driver.findElement(By.xpath("//div[@class='pl-2 pt-3']")).getText().contains("Prašymo peržiūra"), "'Prasymas' page loaded");
+        assertTrue(driver.findElement(By.xpath("//h3")).getText().contains("prašymo peržiūra"), "'Prasymas' page loaded");
         compensationPage.clickAtgal();
 
         // Download application
@@ -100,7 +100,7 @@ public class ApplyForCompensation extends GeneralMethods {
         logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
         deleteCompensationApplicationByChildId(childId, reqSpec).
                 then().
-                        statusCode(204);
+                statusCode(204);
 
         // Delete USER created for this test
         logInApi("admin@admin.lt", "admin@admin.lt", reqSpec);

@@ -25,7 +25,7 @@ public class DocumentPage extends AbstractObjectPage {
     @FindBy (xpath = "//button[@class='swal-button swal-button--confirm swal-button--danger']")
     public WebElement buttonConfirmDelete;
 
-    @FindBy (xpath = "//button[@class='btn btn-primary btn-sm btn-block']")
+    @FindBy (xpath = "//button[@class='btn btn-outline-primary btn-sm btn-block']")
     public WebElement buttonDownload;
 
     // clicks

@@ -19,15 +19,12 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-
-
-
     @BeforeClass(alwaysRun = true)
     protected void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://sextet.akademijait.vtmc.lt/darzelis/");
+        driver.get("https://sextet.akademijait.vtmc.lt/test-darzelis/");
     }
 
     @AfterClass(alwaysRun = true)

@@ -431,7 +431,7 @@ public class GeneralMethods extends BaseTest {
 
     public Boolean assertThatMyAccountPageHasLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//div[2]//h6"), "Naudotojo prisijungimo informacija"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//div//h6"), "Redaguoti duomenis"));
     }
 
     // WAIT TO ASSERT MESSAGE
