@@ -11,6 +11,9 @@ export default function Markers({
   setInactive,
   userCoordinates,
   userAddress,
+  isBubble,
+  bubbleCoordinates,
+  bubbleRadius,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
@@ -34,6 +37,7 @@ export default function Markers({
 
   return (
     <div>
+      <div>AHHAHAHA</div>
       {kindergartens.map((k) => (
         <Marker
           key={k.id}
@@ -63,6 +67,17 @@ export default function Markers({
           </Popup>
         </Marker>
       )}
+
+      {isBubble === true && (
+        <Circle
+          position={[
+            bubbleCoordinates.split(",")[1],
+            bubbleCoordinates.split(",")[0],
+          ]}
+          radius={bubbleRadius}
+        ></Circle>
+      )}
+
       {activeKindergarten && (
         <Popup
           position={[
@@ -81,20 +96,6 @@ export default function Markers({
             </p>
           </div>
         </Popup>
-      )}
-
-      {userCoordinates !== "" && (
-        <div>
-          <Circle
-            center={[
-              userCoordinates.split(",")[1],
-              userCoordinates.split(",")[0],
-            ]}
-            radius={200}
-            fillColor="green"
-            color="darkgreen"
-          />
-        </div>
       )}
     </div>
   );

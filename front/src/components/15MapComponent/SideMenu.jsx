@@ -9,6 +9,12 @@ export default function SideMenu({
   kindergartens,
   setActive,
   setKindergartens,
+  setBubbleAddress,
+  setBubbleRadius,
+  bubbleRadius,
+  bubbleAddress,
+  getBubbleCoordinates,
+  setIsBubble,
 }) {
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
@@ -22,6 +28,26 @@ export default function SideMenu({
     let searchString = e.target.value;
 
     getFilteredKindergartens(searchString);
+  };
+
+  const handleAddressInput = (e) => {
+    setBubbleAddress(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleRadiusInput = (e) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === "" || re.test(e.target.value)) {
+      setBubbleRadius(Number(e.target.value));
+      console.log(e.target.value);
+    }
+  };
+
+  const handleBubbleSearch = () => {
+    if (bubbleAddress !== "" && bubbleRadius !== "") {
+      getBubbleCoordinates();
+    }
+    setIsBubble(true);
   };
 
   return (
@@ -48,6 +74,28 @@ export default function SideMenu({
           onSearch={handleSearch}
           placeholder={"Ieškokite pagal pavadinimą ar seniūniją..."}
         />
+      </div>
+
+      <div className="ps-2 ">
+        <h6>Ieskokite pagal adresa</h6>
+        <input
+          className="form-control mt-1"
+          placeholder="iveskite adresa"
+          onChange={(e) => handleAddressInput(e)}
+        ></input>
+        <input
+          className="form-control mt-1"
+          placeholder="iveskite atstuma nuo pasirinkto adreso"
+          value={bubbleRadius}
+          onChange={(e) => handleRadiusInput(e)}
+        ></input>
+        <button
+          className="btn btn-primary ms-1 mt-2"
+          style={{ width: "18em" }}
+          onClick={() => handleBubbleSearch()}
+        >
+          ieskoti
+        </button>
       </div>
 
       {/* <div className="mt-5 info-box sidemenubox">

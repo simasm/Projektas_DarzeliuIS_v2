@@ -14,6 +14,11 @@ export default function MapTab() {
   const [userAddress, setUserAddress] = useState("");
   const [userCoordinates, setUserCoordinates] = useState("");
 
+  const [bubbleAddress, setBubbleAddress] = useState("");
+  const [bubbleCoordinates, setBubbleCoordinates] = useState([]);
+  const [bubbleRadius, setBubbleRadius] = useState("");
+  const [isBubble, setIsBubble] = useState(false);
+
   const provider = new EsriProvider();
 
   const setActive = (kindergarten) => {
@@ -52,6 +57,20 @@ export default function MapTab() {
   };
 
   useEffect(() => {
+    if (bubbleCoordinates !== "") {
+      getBubbleCoordinates();
+    }
+  }, [bubbleAddress]);
+  const getBubbleCoordinates = () => {
+    provider
+      .search({ query: bubbleAddress })
+      .then((response) =>
+        setBubbleCoordinates(response[0].x + "," + response[0].y)
+      )
+      .catch((error) => "65line");
+  };
+
+  useEffect(() => {
     getKindergartens();
     if (state.role === "USER") {
       getUserAddress();
@@ -77,6 +96,12 @@ export default function MapTab() {
               activeKindergarten={activeKindergarten}
               setActive={setActive}
               setKindergartens={setKindergartens}
+              setBubbleAddress={setBubbleAddress}
+              setBubbleRadius={setBubbleRadius}
+              bubbleRadius={bubbleRadius}
+              getBubbleCoordinates={getBubbleCoordinates}
+              bubbleAddress={bubbleAddress}
+              setIsBubble={setIsBubble}
             />
           </div>
 
@@ -92,6 +117,9 @@ export default function MapTab() {
               userCoordinates={userCoordinates}
               userAddress={userAddress}
               state={state}
+              isBubble={isBubble}
+              bubbleCoordinates={bubbleCoordinates}
+              bubbleRadius={bubbleRadius}
             />
           </div>
         </div>
