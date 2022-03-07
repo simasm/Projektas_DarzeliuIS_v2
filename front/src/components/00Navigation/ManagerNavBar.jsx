@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink, useLocation } from 'react-router-dom';
+
+import { NavLink, useLocation } from "react-router-dom";
 
 import logo from "../../images/logo.png";
 import "../../App.css";
@@ -8,31 +9,31 @@ import ManagerDropdownList from ".././08CommonComponents/ManagerDropdownList";
 
 import LogoutContainer from "./LogoutContainer";
 
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
+
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 function Navigation(props) {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x);
+  const pathnames = location.pathname.split("/").filter((x) => x);
 
-  const breadcrumbNameMap = (id) =>  {
-    var obj=   "/kompensacijos/" + id  ;
+  const breadcrumbNameMap = (id) => {
+    var obj = "/kompensacijos/" + id;
     var obj2 = "/kompensacijos/download/" + id;
-    return  {
-          '/eile': 'Prašymų eilė',
-         '/statistika': 'Prašymų statistika',
-         '/kompensacijos': 'Prašymai dėl kompensacijos',
-         [obj] : 'Kompensacijos prašymo peržiūra',
-         [obj2] : 'Kompensacijos atsisiuntimas',
-         '/pazymos': 'Pažymos',
-         '/profilis': 'Profilis' 
-     }
- };
+    return {
+      "/eile": "Prašymų eilė",
+      "/statistika": "Prašymų statistika",
+      "/kompensacijos": "Prašymai dėl kompensacijos",
+      [obj]: "Kompensacijos prašymo peržiūra",
+      [obj2]: "Kompensacijos atsisiuntimas",
+      "/pazymos": "Pažymos",
+      "/profilis": "Profilis",
+      "/zemelapis": "Žemėlapis",
+    };
+  };
 
   return (
-
     <div className="pb-4">
-
       <nav className="navbar navbar-expand-md py-4 navbar-light bg-light">
         <div className="container">
           <NavLink className="navbar-brand" to={"/home"}>
@@ -57,7 +58,6 @@ function Navigation(props) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item me-2">
-
                 <NavLink
                   className="nav-link"
                   id="navManagerKindergartenList"
@@ -67,7 +67,7 @@ function Navigation(props) {
                 </NavLink>
               </li>
 
-              <li className="nav-item mr-2">
+              <li className="nav-item mr-2 dropdown-z">
                 <ManagerDropdownList />
               </li>
 
@@ -78,6 +78,16 @@ function Navigation(props) {
                   to={"/pazymos"}
                 >
                   Pažymos
+                </NavLink>
+              </li>
+
+              <li className="nav-item me-1">
+                <NavLink
+                  className="nav-link"
+                  id="navManagerMapWindow"
+                  to={"/zemelapis"}
+                >
+                  Žemėlapis
                 </NavLink>
               </li>
 
@@ -97,17 +107,21 @@ function Navigation(props) {
             </ul>
           </div>
         </div>
-
       </nav>
       {/* <BreadcrumbsItem to='/'>Darželių sąrašas</BreadcrumbsItem> */}
-      <div className="container" style={{ backgroundColor: 'rgb(249, 249, 249)' }}>
+      <div className="container">
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <NavLink underline="hover" color="inherit" to="/">
-          Pagrindinis puslapis
+          <NavLink
+            className="nounderlinelink"
+            underline="hover"
+            color="inherit"
+            to="/"
+          >
+            Pagrindinis puslapis
           </NavLink>
-          {pathnames.map((value, index) => { 
+          {pathnames.map((value, index) => {
             const last = index === pathnames.length - 1;
-            const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+            const to = `/${pathnames.slice(0, index + 1).join("/")}`;
 
             return last ? (
               <Typography color="text.primary" key={to}>
@@ -120,12 +134,9 @@ function Navigation(props) {
             );
           })}
         </Breadcrumbs>
-
       </div>
       <div>{props.children}</div>
-
     </div>
-
   );
 }
 export default Navigation;
