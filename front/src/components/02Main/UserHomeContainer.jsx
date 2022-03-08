@@ -113,7 +113,7 @@ export class UserHomeContainer extends Component {
       inputPlaceholder:
         'Patvirtinu, kad duomenys teisingi',
       confirmButtonText:
-        'Atsisųsti sutartį',
+        'Atsisiųsti sutartį',
        
       didOpen: function () {
         swal2.disableButtons();
