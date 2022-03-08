@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
 
 @RestController
@@ -47,11 +46,9 @@ public class ApplicationPdfController {
 			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
 		if(applicationService.existsById(id)) {
 		 		
-			try {
-
-				
+			try {				
 				var file = service.createPdf(id);
-			 
+		
 				byte[] contents = Files.readAllBytes(file.toPath());
 				file.delete();
 			
@@ -63,8 +60,7 @@ public class ApplicationPdfController {
 		 
 				headers.setContentDispositionFormData(file.getName(),file.getName());
 				
-				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);
-				
+				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -50,22 +50,29 @@ public class ApplicationPdfService {
 	
 
 	public File createPdf(String id) throws IOException{
+		
+		Application application = applicationService.getUserApplicationById(id);
+		
+		String filename = application.getChildName() + " " +
+						  application.getChildSurname() + " " + id + " - " +
+						  "Ikimokyklinio ugdymo sutartis";
 
-		File file = new File(DEST+id+".pdf");
+		File file = new File(DEST+filename+".pdf");
+		//File file = new File(filename+".pdf");
+		
 		file.getParentFile().mkdirs();
+
 		//new ApplicationPdfService().createPdf(DEST);
 		//Initialize PDF writer
-		FileOutputStream fos = new FileOutputStream(DEST+id+".pdf");
+		FileOutputStream fos = new FileOutputStream(DEST+filename+".pdf");
 		PdfWriter writer = new PdfWriter(fos);
 		
 		//Initialize PDF document
 		PdfDocument pdf = new PdfDocument(writer);
 		
 		//Initialize document
-	    Document document = new Document(pdf);
-	    
-	    Application application = applicationService.getUserApplicationById(id);
-	    
+	    Document document = new Document(pdf);	    
+	    		
 	    //Creating line text
 	    LocalDate date = LocalDate.now();
 	    String year = Integer.toString(date.getYear());
@@ -424,7 +431,7 @@ public class ApplicationPdfService {
 	    
 	    document.close();
 	    
-	    System.out.println("Awesome PDF just got created.");
+	    System.out.println(filename + " - Awesome PDF just got created.");
 	    
 	    return file;
 	}
