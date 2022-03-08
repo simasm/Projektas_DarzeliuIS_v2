@@ -62,7 +62,6 @@ export default function MapTab() {
     if (bubbleCoordinates !== "") {
       getBubbleCoordinates();
     }
-    console.log(bubbleCoordinates, "<<<<<<<<<<");
   }, [bubbleAddress]);
 
   const getBubbleCoordinates = () => {

@@ -24,10 +24,12 @@ export default function SideMenu({
   isBubble,
   setInactive,
 }) {
-  const explanationText = " ";
-
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
+  const addresses = [];
+  {
+    kindergartens.map((k) => addresses.push(k.address));
+  }
 
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
@@ -47,7 +49,7 @@ export default function SideMenu({
     if (e.target.value === "") {
       setBubbleAddressTmp("");
     } else {
-      setBubbleAddressTmp(e.target.value + "Vilnius");
+      setBubbleAddressTmp(e.target.value + ", Vilnius");
     }
   };
 
@@ -58,8 +60,21 @@ export default function SideMenu({
     }
   };
 
+  const SearchKindergartenExact = (bubbleaddress) => {
+    if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === "")
+      kindergartens.map((k) =>
+        k.address === bubbleaddress ? setActive(k) : ""
+      );
+  };
+
   const handleBubbleSearch = () => {
-    if (bubbleAddressTmp !== "" && bubbleRadiusTmp !== "") {
+    SearchKindergartenExact(bubbleAddressTmp.split(",")[0]);
+
+    if (
+      bubbleAddressTmp !== "" &&
+      bubbleRadiusTmp !== "" &&
+      bubbleRadiusTmp != 0
+    ) {
       setIds([]);
       setInactive();
       setBubbleAddress(bubbleAddressTmp);
@@ -67,8 +82,8 @@ export default function SideMenu({
 
       setIsBubble(true);
       getBubbleCoordinates();
+      console.log(bubbleRadiusTmp);
     }
-    console.log(bubbleAddressTmp);
   };
 
   const handleBubbleClear = () => {
@@ -124,12 +139,12 @@ export default function SideMenu({
         />
       </div>
 
-      <div className="pt-4">
+      <div className="pt-4 sidemenubox2">
         <h6>
           Ieškokite pagal adresą
           <span
             title={
-              "Galite ieškoti darželių aplink jūsų pasirinktą vietovę. Į adreso įvedimo lauką įveskite vietos adresą, o į atstumo įvedimo lauką įveskite atstumą kilometrais. Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais."
+              "Galite ieškoti darželių aplink jūsų pasirinktą vietovę. Į adreso įvedimo lauką įveskite vietos adresą, o į atstumo įvedimo lauką įveskite atstumą kilometrais. Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais. Jei norite ieškoti konkretaus darželio pagal tikslų adresą, įvedę adresą atstumo įvedimo lauke įrašykite 0 arba palikite tuščią."
             }
           >
             {" "}
