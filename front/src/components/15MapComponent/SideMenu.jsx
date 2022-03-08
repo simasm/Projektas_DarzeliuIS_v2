@@ -23,6 +23,7 @@ export default function SideMenu({
   ids,
   isBubble,
   setInactive,
+  setActiveThroughMarker,
 }) {
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
@@ -63,7 +64,7 @@ export default function SideMenu({
   const SearchKindergartenExact = (bubbleaddress) => {
     if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === "")
       kindergartens.map((k) =>
-        k.address === bubbleaddress ? setActive(k) : ""
+        k.address === bubbleaddress ? setActiveThroughMarker(k) : ""
       );
   };
 
@@ -82,7 +83,6 @@ export default function SideMenu({
 
       setIsBubble(true);
       getBubbleCoordinates();
-      console.log(bubbleRadiusTmp);
     }
   };
 

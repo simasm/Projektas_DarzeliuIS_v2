@@ -112,7 +112,6 @@ export default function MapTab() {
 
     if (c * EARTH_RADIUS * 1000 <= bubbleRadius) {
       ids.push(kindergarten.id);
-      console.log(kindergarten.id, c * EARTH_RADIUS * 1000);
       return kindergarten.id;
     }
   }
@@ -125,7 +124,6 @@ export default function MapTab() {
       )
     );
   }
-  console.log(ids);
 
   return (
     <div>
@@ -150,6 +148,7 @@ export default function MapTab() {
               setIds={setIds}
               ids={ids}
               isBubble={isBubble}
+              setActiveThroughMarker={setActiveThroughMarker}
             />
           </div>
 
