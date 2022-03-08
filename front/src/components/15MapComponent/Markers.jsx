@@ -14,6 +14,7 @@ export default function Markers({
   isBubble,
   bubbleCoordinates,
   bubbleRadius,
+  ids,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
@@ -37,16 +38,38 @@ export default function Markers({
 
   return (
     <div>
-      {kindergartens.map((k) => (
-        <Marker
-          key={k.id}
-          icon={dot}
-          position={[k.coordinates.split(",")[0], k.coordinates.split(",")[1]]}
-          eventHandlers={{
-            click: () => setActiveThroughMarker(k),
-          }}
-        ></Marker>
-      ))}
+      {isBubble
+        ? kindergartens.map((k) =>
+            ids.includes(k.id) ? (
+              <Marker
+                key={k.id}
+                icon={dot}
+                position={[
+                  k.coordinates.split(",")[0],
+                  k.coordinates.split(",")[1],
+                ]}
+                eventHandlers={{
+                  click: () => setActiveThroughMarker(k),
+                }}
+              ></Marker>
+            ) : (
+              ""
+            )
+          )
+        : kindergartens.map((k) => (
+            <Marker
+              key={k.id}
+              icon={dot}
+              position={[
+                k.coordinates.split(",")[0],
+                k.coordinates.split(",")[1],
+              ]}
+              eventHandlers={{
+                click: () => setActiveThroughMarker(k),
+              }}
+            ></Marker>
+          ))}
+
       {userCoordinates !== "" && (
         <Marker
           icon={userIcon}

@@ -19,6 +19,8 @@ export default function MapTab() {
   const [bubbleRadius, setBubbleRadius] = useState("");
   const [isBubble, setIsBubble] = useState(false);
 
+  const [ids, setIds] = useState([]);
+
   const provider = new EsriProvider();
 
   const setActive = (kindergarten) => {
@@ -73,6 +75,7 @@ export default function MapTab() {
   };
 
   useEffect(() => {
+    var array = [];
     getKindergartens();
     if (state.role === "USER") {
       getUserAddress();
@@ -81,14 +84,54 @@ export default function MapTab() {
     if (userAddress !== "") {
       getUserCoordinates();
     }
-    console.log(bubbleCoordinates, "<<<<<<<<<<");
+
+    {
+      kindergartens.map((k) => {
+        array.push([k.id, k.coordinates]);
+      });
+    }
   }, [userAddress]);
 
-  if (activeKindergarten !== null) {
+  function getDistance(bubbleCoordinates, kindergarten) {
+    function toRadian(degree) {
+      return (degree * Math.PI) / 180;
+    }
+
+    var lon1 = toRadian(bubbleCoordinates[1]),
+      lat1 = toRadian(bubbleCoordinates[0]),
+      lon2 = toRadian(kindergarten.coordinates.split(",")[1]),
+      lat2 = toRadian(kindergarten.coordinates.split(",")[0]);
+
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a =
+      Math.pow(Math.sin(deltaLat / 2), 2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+
+    if (c * EARTH_RADIUS * 1000 <= bubbleRadius) {
+      ids.push(kindergarten.id);
+      console.log(kindergarten.id, c * EARTH_RADIUS * 1000);
+      return kindergarten.id;
+    }
   }
+
+  if (bubbleCoordinates !== null) {
+    kindergartens.forEach((k) =>
+      getDistance(
+        [bubbleCoordinates.split(",")[1], bubbleCoordinates.split(",")[0]],
+        k
+      )
+    );
+  }
+  console.log(ids);
+
+  // var distance = getDistance([lat1, lng1], [lat2, lng2]);
   return (
     <div>
-      <div>{userAddress}</div>
+      <div>{ids}</div>
       {/*################################# SIDE MENU ######################################## */}
 
       <div className="container pt-4">
@@ -106,6 +149,9 @@ export default function MapTab() {
               bubbleAddress={bubbleAddress}
               setIsBubble={setIsBubble}
               bubbleCoordinates={bubbleCoordinates}
+              setIds={setIds}
+              ids={ids}
+              isBubble={isBubble}
             />
           </div>
 
@@ -124,6 +170,7 @@ export default function MapTab() {
               isBubble={isBubble}
               bubbleCoordinates={bubbleCoordinates}
               bubbleRadius={bubbleRadius}
+              ids={ids}
             />
           </div>
         </div>

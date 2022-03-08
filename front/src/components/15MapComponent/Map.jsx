@@ -19,18 +19,14 @@ export default function Map({
   isBubble,
   bubbleCoordinates,
   bubbleRadius,
+  ids,
 }) {
-  const bounds = [
-    [56.306177, 20.99455],
-    [53.912751, 25.623804],
-  ];
   return (
     <div>
       <MapContainer
         center={[54.683289, 25.275109]}
         zoom={14}
         className={"map-css"}
-        bounds={bounds}
       >
         <TileLayer
           className={"map-depth"}
@@ -54,6 +50,7 @@ export default function Map({
           isBubble={isBubble}
           bubbleCoordinates={bubbleCoordinates}
           bubbleRadius={bubbleRadius}
+          ids={ids}
         />
 
         <MapControls

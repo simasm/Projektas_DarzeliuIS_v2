@@ -16,6 +16,9 @@ export default function SideMenu({
   getBubbleCoordinates,
   setIsBubble,
   bubbleCoordinates,
+  setIds,
+  ids,
+  isBubble,
 }) {
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
@@ -46,6 +49,7 @@ export default function SideMenu({
   };
 
   const handleBubbleSearch = () => {
+    setIds([]);
     setBubbleAddress(bubbleAddressTmp);
     setBubbleRadius(bubbleRadiusTmp);
 
@@ -55,23 +59,45 @@ export default function SideMenu({
 
   return (
     <div>
-      <div>{bubbleCoordinates === null ? "null" : "not null"}</div>
-      <div className="ps-2 all-kindergarten-map sidemenubox">
-        {kindergartens.map((k) => (
-          <div
-            key={k.id}
-            id={k.id}
-            className={
-              activeKindergarten !== null && activeKindergarten.id === k.id
-                ? "all-kindergarten-map-select"
-                : "inactive-kindergarten"
-            }
-            onClick={() => setActive(k)}
-          >
-            {k.name}
-          </div>
-        ))}
-      </div>
+      {isBubble ? (
+        <div className="ps-2 all-kindergarten-map sidemenubox">
+          {kindergartens.map((k) =>
+            ids.includes(k.id) ? (
+              <div
+                key={k.id}
+                id={k.id}
+                className={
+                  activeKindergarten !== null && activeKindergarten.id === k.id
+                    ? "all-kindergarten-map-select"
+                    : "inactive-kindergarten"
+                }
+                onClick={() => setActive(k)}
+              >
+                {k.name}
+              </div>
+            ) : (
+              ""
+            )
+          )}
+        </div>
+      ) : (
+        <div className="ps-2 all-kindergarten-map sidemenubox">
+          {kindergartens.map((k) => (
+            <div
+              key={k.id}
+              id={k.id}
+              className={
+                activeKindergarten !== null && activeKindergarten.id === k.id
+                  ? "all-kindergarten-map-select"
+                  : "inactive-kindergarten"
+              }
+              onClick={() => setActive(k)}
+            >
+              {k.name}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="pt-2 d-flex justify-content-center ">
         <SearchBox
