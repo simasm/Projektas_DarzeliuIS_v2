@@ -144,6 +144,7 @@ public class GeneralMethods extends BaseTest {
         createNewUserPage.enterPersonalCode("12345678911");
         createNewUserPage.enterPhoneNumber("+37061212123");
         createNewUserPage.enterAddress("Adreso g. 8");
+        createNewUserPage.enterCity("Vilnius");
 
         createNewUserPage.clickCreateButton();
 

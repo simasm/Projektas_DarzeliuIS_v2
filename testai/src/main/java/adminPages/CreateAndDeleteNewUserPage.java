@@ -26,6 +26,9 @@ public class CreateAndDeleteNewUserPage extends AbstractObjectPage {
     @FindBy(id = "txtAddress")
     public WebElement inputAddress;
 
+    @FindBy (id = "txtCity")
+    public WebElement inputCity;
+
     //buttons
     @FindBy(id = "btnCreate")
     public WebElement createButton;
@@ -58,6 +61,10 @@ public class CreateAndDeleteNewUserPage extends AbstractObjectPage {
 
     public void enterAddress(String value) {
         inputAddress.sendKeys(value);
+    }
+
+    public void enterCity(String value) {
+        inputCity.sendKeys(value);
     }
 
     public void clickCreateButton() {
