@@ -97,6 +97,8 @@ export default function Markers({
             bubbleCoordinates.split(",")[0],
           ]}
           radius={bubbleRadius}
+          fillColor="#00a717"
+          color="green"
         ></Circle>
       )}
 

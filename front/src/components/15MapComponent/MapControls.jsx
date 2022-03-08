@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import AuthContext from "../11Context/AuthContext";
 
-export default function MapControls({ userCoordinates, userAddress }) {
+export default function MapControls({
+  userCoordinates,
+  userAddress,
+  isBubble,
+  bubbleCoordinates,
+}) {
   const { state } = React.useContext(AuthContext);
 
   const map = useMap();
@@ -17,6 +22,15 @@ export default function MapControls({ userCoordinates, userAddress }) {
       map.flyTo([userCoordinates.split(",")[1], userCoordinates.split(",")[0]]);
     }
   }, [userCoordinates]);
+
+  useEffect(() => {
+    if (isBubble && bubbleCoordinates !== null) {
+      map.flyTo([
+        bubbleCoordinates.split(",")[1],
+        bubbleCoordinates.split(",")[0],
+      ]);
+    }
+  }, [bubbleCoordinates]);
 
   return <div></div>;
 }

@@ -4,6 +4,9 @@ import SearchBox from "./../08CommonComponents/SeachBox";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+
 export default function SideMenu({
   activeKindergarten,
   kindergartens,
@@ -19,7 +22,10 @@ export default function SideMenu({
   setIds,
   ids,
   isBubble,
+  setInactive,
 }) {
+  const explanationText = " ";
+
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
 
@@ -38,23 +44,30 @@ export default function SideMenu({
   };
 
   const handleAddressInput = (e) => {
-    setBubbleAddressTmp(e.target.value);
+    setBubbleAddressTmp(e.target.value + "Vilnius");
   };
 
   const handleRadiusInput = (e) => {
-    const re = /^[0-9\b]+$/;
+    const re = /^[0-9\b,.]+$/;
     if (e.target.value === "" || re.test(e.target.value)) {
-      setBubbleRadiusTmp(Number(e.target.value));
+      setBubbleRadiusTmp(e.target.value);
     }
   };
 
   const handleBubbleSearch = () => {
-    setIds([]);
-    setBubbleAddress(bubbleAddressTmp);
-    setBubbleRadius(bubbleRadiusTmp);
+    if (bubbleAddressTmp !== "" && bubbleRadiusTmp !== "") {
+      setIds([]);
+      setInactive();
+      setBubbleAddress(bubbleAddressTmp);
+      setBubbleRadius(bubbleRadiusTmp.replaceAll(",", ".") * 1000);
 
-    setIsBubble(true);
-    getBubbleCoordinates();
+      setIsBubble(true);
+      getBubbleCoordinates();
+    }
+  };
+
+  const handleBubbleClear = () => {
+    setIsBubble(false);
   };
 
   return (
@@ -107,48 +120,51 @@ export default function SideMenu({
       </div>
 
       <div className="pt-4">
-        <h6>Ieškokite pagal adresą</h6>
+        <h6>
+          Ieškokite pagal adresą
+          <span
+            title={
+              "Galite ieškoti darželių aplink jūsų pasirinktą vietovę. Į adreso įvedimo lauką įveskite vietos adresą, o į atstumo įvedimo lauką įveskite atstumą kilometrais. Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais."
+            }
+          >
+            {" "}
+            &nbsp;
+            <FontAwesomeIcon icon={faQuestionCircle} />
+          </span>
+        </h6>
         <input
           className="form-control mt-2"
+          id="addressInput"
           placeholder="Įveskite adresą"
           onChange={(e) => handleAddressInput(e)}
-        ></input>
-        <input
-          className="form-control mt-2"
-          placeholder="Įveskite atstumą nuo pasirinkto adreso (m)"
-          value={bubbleRadiusTmp}
-          onChange={(e) => handleRadiusInput(e)}
-        ></input>
+        />
+        <div className="input-container radius-input">
+          <input
+            className="form-control mt-2"
+            id="radiusInput"
+            value={bubbleRadiusTmp}
+            onChange={(e) => handleRadiusInput(e)}
+            maxLength={4}
+          />
+          <span className="unit">km</span>
+        </div>
+        <div className="row buttons-container">
+          <button
+            className="btn btn-primary mt-2 col-6"
+            onClick={() => handleBubbleSearch()}
+          >
+            Ieškoti
+          </button>
+          <div className="col-2"></div>
 
-        <button
-          className="btn btn-primary mt-2"
-          style={{ width: "19em" }}
-          onClick={() => handleBubbleSearch()}
-        >
-          Ieškoti
-        </button>
+          <button
+            className="btn btn-outline-danger mt-2 col-4"
+            onClick={() => handleBubbleClear()}
+          >
+            Panaikinti
+          </button>
+        </div>
       </div>
-
-      {/* <div className="mt-5 info-box sidemenubox">
-        {activeKindergarten === null && (
-          <div>
-            <p className="mt-2 ">
-              <i>Pasirinkite darželį norėdami matyti tikslesnę informaciją.</i>
-            </p>
-          </div>
-        )}
-        {activeKindergarten !== null && (
-          <div>
-            <p className="mt-2 ">
-              Vilniaus lopšelis-darželis "{activeKindergarten.name}"
-            </p>
-            <p>
-              {activeKindergarten.address},{"  "}
-              {activeKindergarten.elderate} seniūnija
-            </p>
-          </div>
-        )}
-      </div> */}
     </div>
   );
 }

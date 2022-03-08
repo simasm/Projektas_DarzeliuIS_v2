@@ -141,6 +141,7 @@ export default function MapTab() {
               kindergartens={kindergartens}
               activeKindergarten={activeKindergarten}
               setActive={setActive}
+              setInactive={setInactive}
               setKindergartens={setKindergartens}
               setBubbleAddress={setBubbleAddress}
               setBubbleRadius={setBubbleRadius}

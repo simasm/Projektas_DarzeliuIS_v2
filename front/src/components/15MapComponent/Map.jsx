@@ -27,9 +27,14 @@ export default function Map({
         center={[54.683289, 25.275109]}
         zoom={14}
         className={"map-css"}
+        maxBounds={[
+          [56.512836, 20.952348],
+          [53.711664, 27.56842],
+        ]}
       >
         <TileLayer
           className={"map-depth"}
+          minZoom={8}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
         />
@@ -56,6 +61,8 @@ export default function Map({
         <MapControls
           userCoordinates={userCoordinates}
           userAddress={userAddress}
+          isBubble={isBubble}
+          bubbleCoordinates={bubbleCoordinates}
         />
       </MapContainer>
     </div>
