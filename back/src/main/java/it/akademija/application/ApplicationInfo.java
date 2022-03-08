@@ -41,7 +41,14 @@ public class ApplicationInfo {
 		this.choise5 = choise5;
 	}
 
-
+	public ApplicationInfo(Long id, String childPersonalCode, String childName, String childSurname, ApplicationStatus status) {
+		super();
+		this.id = id;
+		this.childPersonalCode = childPersonalCode;
+		this.childName = childName;
+		this.childSurname = childSurname;
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;

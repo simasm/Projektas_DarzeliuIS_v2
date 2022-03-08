@@ -16,6 +16,7 @@ export class UserHomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      approvedApplications: [],
       registrationStatus: false,
       applications: [],
       userData: null
@@ -25,6 +26,16 @@ export class UserHomeContainer extends Component {
     this.getUserApplications();
     this.getRegistrationStatus();
     this.getUserInfo();
+    this.getUserApprovedApplications();
+  }
+
+  getUserApprovedApplications(){
+    http
+    .get(`${apiEndpoint}/api/prasymai/user_with_personal_code`)
+    .then((response) => {
+      this.setState({ approvedApplications: response.data });
+    })
+    .catch(() => { });
   }
 
   getUserApplications() {
@@ -105,7 +116,31 @@ export class UserHomeContainer extends Component {
     })
 
     if (accept) {
-      Swal.fire('Sutartis siunciasi')
+      console.log(JSON.stringify(item))
+      // http
+      // .get(`${apiEndpoint}/api/pdfgeneration/${item.id}`)
+      http
+      .request({
+        url: `${apiEndpoint}/api/pdfgeneration/${item.id}`,
+        method: "GET",
+        responseType: "blob",
+      })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `${item.id}`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((error) => {
+        //console.log(error);
+        swal({
+          text: "Įvyko klaida atsisiunčiant sutartį.",
+          buttons: "Gerai",
+        });
+      });
     }
 
   }
