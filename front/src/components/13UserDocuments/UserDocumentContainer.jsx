@@ -13,12 +13,16 @@ export default class UserDocumentContainer extends Component {
       showUploadForm: false,
       documentToUpload: "",
       documentValid: false,
+      documentToUploadName : ""
     };
+    this.uploadField =    React.createRef();
     this.uploadDocument = this.uploadDocument.bind(this);
     this.uploadForm = this.uploadForm.bind(this);
     this.uploadDocumentOnChange = this.uploadDocumentOnChange.bind(this);
     this.getDocuments = this.getDocuments.bind(this);
     this.handleDownload = this.handleDownload.bind(this);
+    this.onUploadClick = this.onUploadClick.bind(this);
+    
   }
 
   componentDidMount() {
@@ -52,6 +56,7 @@ export default class UserDocumentContainer extends Component {
   };
 
   uploadDocument(document) {
+    this.setState({documentToUploadName : ""});
     const formData = new FormData();
     formData.append("name", document.name);
     formData.append("file", document);
@@ -95,7 +100,8 @@ export default class UserDocumentContainer extends Component {
     const file = e.target.files[0];
     if (file.type === "application/pdf") {
       if (file.size <= 1024000) {
-        this.setState({ documentToUpload: file });
+        this.setState({ documentToUpload: file , documentToUploadName :file.name});
+       
       } else {
         swal({
           text: "Failas per didelis, leidžiama iki 1 MB",
@@ -111,6 +117,13 @@ export default class UserDocumentContainer extends Component {
     this.validateDocument(file);
   }
 
+  onUploadClick(e) {
+    
+    
+    this.uploadField.current.click();
+  }
+   
+
   uploadForm = () => {
     if (this.state.showUploadForm) {
       return (
@@ -120,10 +133,14 @@ export default class UserDocumentContainer extends Component {
               Pažyma privalo būti .pdf formato ir neužimti daugiau negu 1 MB
               vietos.
             </h6>
+            <button className="btn btn-primary" onClick={this.onUploadClick}>Pasirinkti</button>
+            <label className="ms-5">{this.state.documentToUploadName}</label>
             <input
               type="file"
               className="form-control"
               id="inputUploadDocument"
+              style={{display:"none"}}
+              ref={this.uploadField}
               onChange={this.uploadDocumentOnChange}
             />
           </div>
@@ -142,7 +159,7 @@ export default class UserDocumentContainer extends Component {
                 className="btn btn-secondary"
                 style={{ marginLeft: "64px" }}
                 onClick={() => {
-                  this.setState({ showUploadForm: false });
+                  this.setState({ showUploadForm: false, documentToUploadName : "" });
                 }}
               >
                 Atšaukti
@@ -221,6 +238,8 @@ export default class UserDocumentContainer extends Component {
         });
       });
   };
+
+    
 
   render() {
     return (
