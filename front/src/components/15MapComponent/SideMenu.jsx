@@ -119,9 +119,7 @@ export default function SideMenu({
           value={bubbleRadiusTmp}
           onChange={(e) => handleRadiusInput(e)}
         ></input>
-        <div className>
 
-        </div>
         <button
           className="btn btn-primary mt-2"
           style={{ width: "19em" }}
