@@ -44,7 +44,11 @@ export default function SideMenu({
   };
 
   const handleAddressInput = (e) => {
-    setBubbleAddressTmp(e.target.value + "Vilnius");
+    if (e.target.value === "") {
+      setBubbleAddressTmp("");
+    } else {
+      setBubbleAddressTmp(e.target.value + "Vilnius");
+    }
   };
 
   const handleRadiusInput = (e) => {
@@ -64,6 +68,7 @@ export default function SideMenu({
       setIsBubble(true);
       getBubbleCoordinates();
     }
+    console.log(bubbleAddressTmp);
   };
 
   const handleBubbleClear = () => {

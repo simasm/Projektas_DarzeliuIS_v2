@@ -128,10 +128,8 @@ export default function MapTab() {
   }
   console.log(ids);
 
-  // var distance = getDistance([lat1, lng1], [lat2, lng2]);
   return (
     <div>
-      <div>{ids}</div>
       {/*################################# SIDE MENU ######################################## */}
 
       <div className="container pt-4">
