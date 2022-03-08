@@ -106,25 +106,28 @@ export default function SideMenu({
         />
       </div>
 
-      <div className="ps-2 ">
-        <h6>Ieskokite pagal adresa</h6>
+      <div className="pt-4">
+        <h6>Ieškokite pagal adresą</h6>
         <input
-          className="form-control mt-1"
-          placeholder="iveskite adresa"
+          className="form-control mt-2"
+          placeholder="Įveskite adresą"
           onChange={(e) => handleAddressInput(e)}
         ></input>
         <input
-          className="form-control mt-1"
-          placeholder="iveskite atstuma nuo pasirinkto adreso"
+          className="form-control mt-2"
+          placeholder="Įveskite atstumą nuo pasirinkto adreso (m)"
           value={bubbleRadiusTmp}
           onChange={(e) => handleRadiusInput(e)}
         ></input>
+        <div className>
+
+        </div>
         <button
-          className="btn btn-primary ms-1 mt-2"
-          style={{ width: "18em" }}
+          className="btn btn-primary mt-2"
+          style={{ width: "19em" }}
           onClick={() => handleBubbleSearch()}
         >
-          ieskoti
+          Ieškoti
         </button>
       </div>
 
