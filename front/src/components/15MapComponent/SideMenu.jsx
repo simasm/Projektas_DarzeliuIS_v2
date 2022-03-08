@@ -49,7 +49,7 @@ export default function SideMenu({
     if (e.target.value === "") {
       setBubbleAddressTmp("");
     } else {
-      setBubbleAddressTmp(e.target.value + ", Vilnius");
+      setBubbleAddressTmp(e.target.value);
     }
   };
 
@@ -77,7 +77,7 @@ export default function SideMenu({
     ) {
       setIds([]);
       setInactive();
-      setBubbleAddress(bubbleAddressTmp);
+      setBubbleAddress(bubbleAddressTmp + ", Vilnius");
       setBubbleRadius(bubbleRadiusTmp.replaceAll(",", ".") * 1000);
 
       setIsBubble(true);
@@ -88,6 +88,8 @@ export default function SideMenu({
 
   const handleBubbleClear = () => {
     setIsBubble(false);
+    setBubbleAddressTmp("");
+    setBubbleRadiusTmp("");
   };
 
   return (
@@ -132,14 +134,14 @@ export default function SideMenu({
         </div>
       )}
 
-      <div className="pt-2 d-flex justify-content-center ">
+      <div className="pt-1 d-flex justify-content-center ">
         <SearchBox
           onSearch={handleSearch}
-          placeholder={"Ieškokite pagal pavadinimą ar seniūniją..."}
+          placeholder={"Ieškokite pagal pavadinimą ar seniūniją"}
         />
       </div>
 
-      <div className="pt-4 sidemenubox2">
+      <div className="pt-5 sidemenubox2">
         <h6>
           Ieškokite pagal adresą
           <span
@@ -156,6 +158,7 @@ export default function SideMenu({
           className="form-control mt-2"
           id="addressInput"
           placeholder="Įveskite adresą"
+          value={bubbleAddressTmp}
           onChange={(e) => handleAddressInput(e)}
         />
         <div className="input-container radius-input">
