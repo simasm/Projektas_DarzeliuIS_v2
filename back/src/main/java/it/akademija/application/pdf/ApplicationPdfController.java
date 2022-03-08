@@ -2,6 +2,7 @@ package it.akademija.application.pdf;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.validation.Valid;
 
@@ -42,29 +43,27 @@ public class ApplicationPdfController {
  	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Download application information as generated PDF file")
 	@ResponseBody
-	public ResponseEntity<InputStreamResource> generateApplicationPdf( 
-			@ApiParam(value = "Child ID", required = true) @PathVariable @Valid String id) {
+	public ResponseEntity<byte[]> generateApplicationPdf( 
+			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
 		if(applicationService.existsById(id)) {
 		 		
 			try {
-//				return new ResponseEntity<>(
-//						service.createPdf(id),
-//						HttpStatus.OK);
+
 				
-				service.createPdf(id);
-				ClassPathResource pdfFile = new ClassPathResource("src/main/resources/56.pdf");
+				var file = service.createPdf(id);
+			 
+				byte[] contents = Files.readAllBytes(file.toPath());
+				file.delete();
+			
 				HttpHeaders headers = new HttpHeaders();
-				headers.setContentType(MediaType.parseMediaType("application/pdf"));
-			    headers.add("Access-Control-Allow-Origin", "*");
-				headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
-				headers.add("Access-Control-Allow-Headers", "Content-Type");
-				headers.add("Content-Disposition", "filename=" + id);
+				headers.setContentType(MediaType.APPLICATION_PDF);
+			   
+				headers.add("Content-Disposition", "filename=" + id +".pdf");
 				headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-				headers.add("Pragma", "no-cache");
-				headers.add("Expires", "0");
-				headers.setContentLength(pdfFile.contentLength());
+		 
+				headers.setContentDispositionFormData(file.getName(),file.getName());
 				
-				return new ResponseEntity<InputStreamResource>(new InputStreamResource(pdfFile.getInputStream()), headers, HttpStatus.OK);
+				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
