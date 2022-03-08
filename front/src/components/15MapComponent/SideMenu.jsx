@@ -19,6 +19,7 @@ export default function SideMenu({
 }) {
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
+
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
       apiEndpoint + `/api/darzeliai/searchBy=${searchString}`
