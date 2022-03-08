@@ -1,15 +1,17 @@
 package it.akademija.application.pdf;
 
-import java.io.File;
-import java.io.FileOutputStream;
+ 
 import java.io.IOException;
 
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -35,7 +37,6 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 
 import it.akademija.application.Application;
-import it.akademija.application.ApplicationInfo;
 import it.akademija.application.ApplicationService;
 
 
@@ -49,7 +50,7 @@ public class ApplicationPdfService {
 	private ApplicationService applicationService;
 	
 
-	public File createPdf(String id) throws IOException{
+	public byte[] createPdf(String id) throws IOException{
 		
 		Application application = applicationService.getUserApplicationById(id);
 		
@@ -57,15 +58,10 @@ public class ApplicationPdfService {
 						  application.getChildSurname() + " " + id + " - " +
 						  "Ikimokyklinio ugdymo sutartis";
 
-		File file = new File(DEST+filename+".pdf");
-		//File file = new File(filename+".pdf");
-		
-		file.getParentFile().mkdirs();
-
-		//new ApplicationPdfService().createPdf(DEST);
+	 
 		//Initialize PDF writer
-		FileOutputStream fos = new FileOutputStream(DEST+filename+".pdf");
-		PdfWriter writer = new PdfWriter(fos);
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		PdfWriter writer = new PdfWriter(byteArrayOutputStream);
 		
 		//Initialize PDF document
 		PdfDocument pdf = new PdfDocument(writer);
@@ -113,7 +109,10 @@ public class ApplicationPdfService {
 	    Text dateString = new Text(year + " m. " + monthString + " " + day + " d. Nr. " + nr).setUnderline();
 
 	    //Creating unicode with lithuanian letters
-	    PdfFont lithuanian = PdfFontFactory.createFont("src/main/resources/fonts/arial.ttf", PdfEncodings.IDENTITY_H, true);
+	    Resource fontResource = new ClassPathResource("fonts/arial.ttf");
+
+		 
+	    PdfFont lithuanian = PdfFontFactory.createFont(fontResource.getFile().getPath(), PdfEncodings.IDENTITY_H, true);
 	    document.setFont(lithuanian);
 	    
 	    document.add(new Paragraph("IKIMOKYKLINIO UGDYMO PASLAUGŲ SUTARTIS").setTextAlignment(TextAlignment.CENTER).setBold());
@@ -433,7 +432,7 @@ public class ApplicationPdfService {
 	    
 	    System.out.println(filename + " - Awesome PDF just got created.");
 	    
-	    return file;
+	    return byteArrayOutputStream.toByteArray();
 	}
 
 }

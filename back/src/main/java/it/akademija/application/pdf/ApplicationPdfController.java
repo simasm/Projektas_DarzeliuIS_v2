@@ -1,8 +1,6 @@
 package it.akademija.application.pdf;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+ import java.io.IOException;
 
 import javax.validation.Valid;
 
@@ -24,7 +22,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
-
 @RestController
 @Api(value = "application pdf generation")
 @RequestMapping(path = "/api/pdfgeneration")
@@ -38,7 +35,7 @@ public class ApplicationPdfController {
 	
 	
 	@Secured({ "ROLE_USER" })
- 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/pdf")
+ 	@RequestMapping(value = "/{id}", method = RequestMethod.GET   )
  	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Download application information as generated PDF file")
 	@ResponseBody
@@ -47,18 +44,17 @@ public class ApplicationPdfController {
 		if(applicationService.existsById(id)) {
 		 		
 			try {				
-				var file = service.createPdf(id);
+			 
 		
-				byte[] contents = Files.readAllBytes(file.toPath());
-				file.delete();
+				byte[] contents =  service.createPdf(id);
 			
 				HttpHeaders headers = new HttpHeaders();
-				headers.setContentType(MediaType.APPLICATION_PDF);
+				 headers.setContentType(MediaType.APPLICATION_PDF);
 			   
 				headers.add("Content-Disposition", "filename=" + id +".pdf");
-				headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+				//headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 		 
-				headers.setContentDispositionFormData(file.getName(),file.getName());
+				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
 				
 				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
 			} catch (IOException e) {
