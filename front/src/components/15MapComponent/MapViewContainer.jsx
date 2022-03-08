@@ -15,7 +15,7 @@ export default function MapTab() {
   const [userCoordinates, setUserCoordinates] = useState("");
 
   const [bubbleAddress, setBubbleAddress] = useState("");
-  const [bubbleCoordinates, setBubbleCoordinates] = useState([]);
+  const [bubbleCoordinates, setBubbleCoordinates] = useState(null);
   const [bubbleRadius, setBubbleRadius] = useState("");
   const [isBubble, setIsBubble] = useState(false);
 
@@ -60,7 +60,9 @@ export default function MapTab() {
     if (bubbleCoordinates !== "") {
       getBubbleCoordinates();
     }
+    console.log(bubbleCoordinates, "<<<<<<<<<<");
   }, [bubbleAddress]);
+
   const getBubbleCoordinates = () => {
     provider
       .search({ query: bubbleAddress })
@@ -79,6 +81,7 @@ export default function MapTab() {
     if (userAddress !== "") {
       getUserCoordinates();
     }
+    console.log(bubbleCoordinates, "<<<<<<<<<<");
   }, [userAddress]);
 
   if (activeKindergarten !== null) {
@@ -102,6 +105,7 @@ export default function MapTab() {
               getBubbleCoordinates={getBubbleCoordinates}
               bubbleAddress={bubbleAddress}
               setIsBubble={setIsBubble}
+              bubbleCoordinates={bubbleCoordinates}
             />
           </div>
 

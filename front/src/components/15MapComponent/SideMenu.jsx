@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import SearchBox from "./../08CommonComponents/SeachBox";
 import http from "../10Services/httpService";
@@ -15,7 +15,10 @@ export default function SideMenu({
   bubbleAddress,
   getBubbleCoordinates,
   setIsBubble,
+  bubbleCoordinates,
 }) {
+  const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
+  const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
       apiEndpoint + `/api/darzeliai/searchBy=${searchString}`
@@ -31,27 +34,27 @@ export default function SideMenu({
   };
 
   const handleAddressInput = (e) => {
-    setBubbleAddress(e.target.value);
-    console.log(e.target.value);
+    setBubbleAddressTmp(e.target.value);
   };
 
   const handleRadiusInput = (e) => {
     const re = /^[0-9\b]+$/;
     if (e.target.value === "" || re.test(e.target.value)) {
-      setBubbleRadius(Number(e.target.value));
-      console.log(e.target.value);
+      setBubbleRadiusTmp(Number(e.target.value));
     }
   };
 
   const handleBubbleSearch = () => {
-    if (bubbleAddress !== "" && bubbleRadius !== "") {
-      getBubbleCoordinates();
-    }
+    setBubbleAddress(bubbleAddressTmp);
+    setBubbleRadius(bubbleRadiusTmp);
+
     setIsBubble(true);
+    getBubbleCoordinates();
   };
 
   return (
     <div>
+      <div>{bubbleCoordinates === null ? "null" : "not null"}</div>
       <div className="ps-2 all-kindergarten-map sidemenubox">
         {kindergartens.map((k) => (
           <div
@@ -86,7 +89,7 @@ export default function SideMenu({
         <input
           className="form-control mt-1"
           placeholder="iveskite atstuma nuo pasirinkto adreso"
-          value={bubbleRadius}
+          value={bubbleRadiusTmp}
           onChange={(e) => handleRadiusInput(e)}
         ></input>
         <button

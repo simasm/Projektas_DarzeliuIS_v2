@@ -37,7 +37,6 @@ export default function Markers({
 
   return (
     <div>
-      <div>AHHAHAHA</div>
       {kindergartens.map((k) => (
         <Marker
           key={k.id}
@@ -68,9 +67,9 @@ export default function Markers({
         </Marker>
       )}
 
-      {isBubble === true && (
+      {isBubble === true && bubbleCoordinates !== null && (
         <Circle
-          position={[
+          center={[
             bubbleCoordinates.split(",")[1],
             bubbleCoordinates.split(",")[0],
           ]}

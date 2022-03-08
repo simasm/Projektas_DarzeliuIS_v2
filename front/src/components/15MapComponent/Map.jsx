@@ -16,6 +16,9 @@ export default function Map({
   userCoordinates,
   userAddress,
   state,
+  isBubble,
+  bubbleCoordinates,
+  bubbleRadius,
 }) {
   const bounds = [
     [56.306177, 20.99455],
@@ -48,6 +51,9 @@ export default function Map({
           setActive={setActive}
           userCoordinates={userCoordinates}
           userAddress={userAddress}
+          isBubble={isBubble}
+          bubbleCoordinates={bubbleCoordinates}
+          bubbleRadius={bubbleRadius}
         />
 
         <MapControls
