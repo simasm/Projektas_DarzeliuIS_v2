@@ -100,7 +100,11 @@ export class UserHomeContainer extends Component {
       '</div>';
 
     console.log(JSON.stringify(item));
-    const { value: accept } = await Swal.fire({
+   
+    const swal2 = Swal.mixin({ customClass: {confirmButton: "btn btn-primary btn-lg"}});
+
+    const { value: accept } = await swal2.fire({
+       //  confirmButtonClass: "btn btn-primary btn-lg disabled",
       title: 'Asmens duomenų patvirtinimas',
       input: 'checkbox',
       inputValue: 0,
@@ -110,12 +114,25 @@ export class UserHomeContainer extends Component {
         'Patvirtinu, kad duomenys teisingi',
       confirmButtonText:
         'Atsisųsti sutartį',
-      inputValidator: (result) => {
-        return !result && 'Patvirtinkite duomenis'
-      }
+       
+      didOpen: function () {
+        swal2.disableButtons();
+        swal2.getInput().addEventListener('change', function(e) {
+          
+          if(!e.target.checked) {
+            swal2.disableButtons();
+          } else {
+            swal2.enableButtons();
+          }
+        })}
+ 
+      
     })
 
     if (accept) {
+   
+     
+   
       console.log(JSON.stringify(item))
       // http
       // .get(`${apiEndpoint}/api/pdfgeneration/${item.id}`)
