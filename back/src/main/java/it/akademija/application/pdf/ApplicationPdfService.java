@@ -122,7 +122,7 @@ public class ApplicationPdfService {
 	    
 	    //------------------ 
 	    
-	    String virsus1 = "Ikimokyklinio ugdymo paslaugų sutartis sudaroma tarp ";
+	    String virsus1 = "Ikimokyklinio ugdymo paslaugų sutartis sudaroma tarp ikimokyklinio mokymo įstaigos ";
 	    String virsus2 = application.getApprovedKindergarten().getName(); //" (Darželio pavadinimas) ";
 	    String virsus3 = " atstovaujamo ";
 	    String virsus4 = application.getApprovedKindergarten().getDirectorName() + " " + //" (Darželio direktorius) ";
