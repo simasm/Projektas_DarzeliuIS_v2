@@ -24,6 +24,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
@@ -121,7 +122,7 @@ public class ApplicationPdfService {
 	    
 	    //------------------ 
 	    
-	    String virsus1 = "Ikimokyklinio ugdymo paslaugų sutartis sudaroma tarp   ";
+	    String virsus1 = "Ikimokyklinio ugdymo paslaugų sutartis sudaroma tarp ";
 	    String virsus2 = application.getApprovedKindergarten().getName(); //" (Darželio pavadinimas) ";
 	    String virsus3 = " atstovaujamo ";
 	    String virsus4 = application.getApprovedKindergarten().getDirectorName() + " " + //" (Darželio direktorius) ";
@@ -131,31 +132,31 @@ public class ApplicationPdfService {
 	    Paragraph virsus = new Paragraph();
 	    
 	    virsus.add(virsus1).setFirstLineIndent(25);
-	    virsus.add("_____"+virsus2+"_____");
+	    virsus.add(new Text(virsus2).setUnderline());
 	    virsus.add(virsus3);
-	    virsus.add("______"+virsus4+"______");
+	    virsus.add(new Text(virsus4).setUnderline());
 	    virsus.add(virsus5);
 	    document.add(virsus);
 	    
 	    //------------------
 	    
-	    String tevu_vardas_pavarde = "________________________________"+ application.getMainGuardian().getParentDetails().getName() + " " 
+	    String tevu_vardas_pavarde =   application.getMainGuardian().getParentDetails().getName() + " " 
 	    															   + application.getMainGuardian().getParentDetails().getSurname(); // "TVardas TPavarde"; 
-	    String faktines_gyvenamosios_vietos_adresas = "___________________________________" + application.getMainGuardian().getParentDetails().getAddress(); //"Vieta";
-	    String telefono_Nr = "___________________________________" + application.getMainGuardian().getParentDetails().getPhone(); // "Tel Nr.";
-	    String el_pastas = "___________________________________" + application.getMainGuardian().getParentDetails().getEmail(); // "el pastas";
+	    String faktines_gyvenamosios_vietos_adresas =  application.getMainGuardian().getParentDetails().getAddress(); //"Vieta";
+	    String telefono_Nr =  application.getMainGuardian().getParentDetails().getPhone(); // "Tel Nr.";
+	    String el_pastas =    application.getMainGuardian().getParentDetails().getEmail(); // "el pastas";
 	    
-	    Paragraph para_tevu_vardas_pavarde = new Paragraph(tevu_vardas_pavarde).add(new Tab());
-	    Paragraph fakt = new Paragraph(faktines_gyvenamosios_vietos_adresas).add(new Tab());
-	    Paragraph tel = new Paragraph(telefono_Nr).add(new Tab());
-	    Paragraph email = new Paragraph(el_pastas).add(new Tab());
+	    Paragraph para_tevu_vardas_pavarde = new Paragraph().add(new Tab()).add(tevu_vardas_pavarde).add(new Tab())  ;
+	    Paragraph fakt = new Paragraph().add(new Tab()).add(faktines_gyvenamosios_vietos_adresas).add(new Tab());
+	    Paragraph tel = new Paragraph().add(new Tab()).add(telefono_Nr).add(new Tab());
+	    Paragraph email = new Paragraph().add(new Tab()).add(el_pastas).add(new Tab());
 
-	    ILineDrawer filling = new SolidLine(1f);
+	    ILineDrawer filling = new SolidLine(3f);
 	    
 	    PageSize pageSize1 = document.getPdfDocument().getDefaultPageSize();
 	    Rectangle effectivePageSize1 = document.getPageEffectiveArea(pageSize1);
-	    float rightTabStopPoint1 = effectivePageSize1.getWidth();
-	    TabStop tabStop1 = new TabStop(rightTabStopPoint1, TabAlignment.CENTER, filling);
+	    float rightTabStopPoint1 = effectivePageSize1.getWidth()/2 ;
+	    TabStop tabStop1 = new TabStop(rightTabStopPoint1, TabAlignment.CENTER);
 	    para_tevu_vardas_pavarde.addTabStops(tabStop1);
 	    
 	    fakt.setMarginTop(-13);
@@ -167,26 +168,59 @@ public class ApplicationPdfService {
 	    tel.setMarginBottom(0);
 	    
 	    email.setMarginTop(-2);
-	    email.addTabStops(tabStop1);
-	    email.setMarginBottom(0);
+	    email.addTabStops(tabStop1); 
+	    email.setMarginBottom(0); 
 	    
 	    document.add(para_tevu_vardas_pavarde);
+	    document.add(new LineSeparator(new SolidLine()).setMarginTop(-8));
+	
 	    Table table_tevu_vardas_pavarde = new Table(1) ;
-	    table_tevu_vardas_pavarde.addCell(new Cell().add(new Paragraph(new Text("(Tėvų vardas, pavardė)").setTextRise(9).setFontSize(9)).setMarginLeft(210))
+	    table_tevu_vardas_pavarde.addCell(new Cell().add(new Paragraph(new Text("(Tėvų vardas, pavardė)").setTextRise(1).setFontSize(9)).setMarginLeft(210))
 	    		                 .setBorder(Border.NO_BORDER));
-	    document.add(table_tevu_vardas_pavarde);
 	    
-	    document.add(fakt); 
+ 
+	    document.add(table_tevu_vardas_pavarde);
+	    document.add(new Paragraph().add(new Tab()));
 
+	    //  , telefono Nr., el. paštas)"
+	    
+	    Table tableAdresas = new Table(1) ;
+	    tableAdresas.addCell(new Cell().add(new Paragraph(new Text("(faktinės gyvenamosios vietos adresas)").setTextRise(1).setFontSize(9)).setMarginLeft(180))
+	    		                 .setBorder(Border.NO_BORDER));
+	  
+	
+	    document.add(fakt); 
+	    document.add(new LineSeparator(new SolidLine()).setMarginTop(-2));
+
+	    
+	    document.add(tableAdresas);
+	    document.add(new Paragraph().add(new Tab()));
+
+	    
+	    
+	    Table tableTel = new Table(1) ;
+	    tableTel.addCell(new Cell().add(new Paragraph(new Text("(telefono Nr.)").setTextRise(1).setFontSize(9)).setMarginLeft(230))
+	    		                 .setBorder(Border.NO_BORDER));
+	    
+	    
 	    document.add(tel);
+	    document.add(new LineSeparator(new SolidLine()).setMarginTop(-2));
+
+	    document.add(tableTel);
+	    document.add(new Paragraph().add(new Tab()));
+
 
 	    document.add(email);
+	    document.add(new LineSeparator(new SolidLine()).setMarginTop(-2));
+	    document.add(new Paragraph().add(new Tab()));
+
 	    
-	    Table triple_label = new Table(1) ;
-	    triple_label.addCell(new Cell().add(new Paragraph(new Text("(faktinės gyvenamosios vietos adresas, telefono Nr., el. paštas)").setTextRise(6).setFontSize(9)).setMarginLeft(120))
+	    Table tableElpastas = new Table(1) ;
+	    tableElpastas.addCell(new Cell().add(new Paragraph(new Text("(el. paštas)").setTextRise(6).setFontSize(9)).setMarginLeft(230))
 	    		                 .setBorder(Border.NO_BORDER));
-	    document.add(triple_label);
-	    
+	    document.add(tableElpastas);
+	    document.add(new Paragraph().add(new Tab()));
+
 	    document.add(new Paragraph("(Sutartį pasirašius vienam iš Tėvų, kitas iš Tėvų neatleidžiamas nuo šios sutarties įsipareigojimų vykdymo)."));
 	    
 	    document.add(new Paragraph("I. SUTARTIES OBJEKTAS").setTextAlignment(TextAlignment.CENTER).setBold());
@@ -201,12 +235,12 @@ public class ApplicationPdfService {
 	    Paragraph para = new Paragraph();
 	    
 	    para.add(sutart1).setFirstLineIndent(25);
-	    para.add("___________"+sutart2+"___________");
+	    para.add(new Text(sutart2).setUnderline());
 	    para.add(sutart3);
 	    document.add(para);
 	    
 	    Table table4 = new Table(1) ;
-	    table4.addCell(new Cell().add(new Paragraph(new Text(sutart4).setTextRise(9).setFontSize(9)).setMarginLeft(180))
+	    table4.addCell(new Cell().add(new Paragraph(new Text(sutart4).setTextRise(9).setFontSize(9)).setMarginLeft(55))
 	    		                 .setBorder(Border.NO_BORDER));
 	    document.add(table4);
 	    Paragraph para2 = new Paragraph();
