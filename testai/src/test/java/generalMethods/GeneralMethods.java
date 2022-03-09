@@ -5,6 +5,7 @@ import basetest.BaseTest;
 import managerPages.CreateAndDeleteNewKindergartenPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -24,9 +25,9 @@ public class GeneralMethods extends BaseTest {
 
 
 
-    protected static String adminLogins = "admin@admin.lt";
-    protected static String managerLogins = "manager@manager.lt";
-    protected static String parentLogins = "user@user.lt";
+    protected static String adminLogIn = "admin@admin.lt";
+    protected static String managerLogIn = "manager@manager.lt";
+    protected static String parentLogIn = "user@user.lt";
     protected String createNewUserAdminEmail = "admin123@admin.lt";
     protected String createNewUserManagerEmail = "manager123@manager.lt";
     protected String createNewUserParentEmail = "user123@parent.lt";
@@ -52,8 +53,8 @@ public class GeneralMethods extends BaseTest {
     public void uiLogInAsAdmin() {
         LoginPage loginPage = new LoginPage(driver);
         waitForLoginToLoad();
-        loginPage.enterUsername(adminLogins);
-        loginPage.enterPassword(adminLogins);
+        loginPage.enterUsername(adminLogIn);
+        loginPage.enterPassword(adminLogIn);
         loginPage.clickLoginButton();
     }
 
@@ -144,7 +145,8 @@ public class GeneralMethods extends BaseTest {
         createNewUserPage.enterPersonalCode("12345678911");
         createNewUserPage.enterPhoneNumber("+37061212123");
         createNewUserPage.enterAddress("Adreso g. 8");
-        createNewUserPage.enterCity("Vilnius");
+        // TODO fix for new build
+//        createNewUserPage.enterCity("Vilnius");
 
         createNewUserPage.clickCreateButton();
 
@@ -241,7 +243,7 @@ public class GeneralMethods extends BaseTest {
     public void successfullyCreateNewKindergarten() {
 
         // login as kindergarten specialist
-        logInUi(managerLogins, managerLogins);
+        logInUi(managerLogIn, managerLogIn);
 
         // wait for the page to load and check if the kindergarten specialist is logged in
         verifyIfManagerIsLoggedIn();
@@ -253,7 +255,9 @@ public class GeneralMethods extends BaseTest {
         createNewKindergarten.inputkindergartenAddress("Adreso g. 5");
         Select dropdownUserRole = new Select(driver.findElement(By.id("elderate")));
         dropdownUserRole.selectByIndex(5);
+        createNewKindergarten.capacityAgeGroup2to3.sendKeys(Keys.BACK_SPACE);
         createNewKindergarten.inputcapacityAgeGroup2to3("1");
+        createNewKindergarten.capacityAgeGroup3to6.sendKeys(Keys.BACK_SPACE);
         createNewKindergarten.inputcapacityAgeGroup3to6("1");
 
         // save and create new kindergarten
@@ -269,7 +273,7 @@ public class GeneralMethods extends BaseTest {
         // update and save the kindergarten details
         createNewKindergarten.clickButtonUpdateKindergarten();
         createNewKindergarten.updateNewKindergartenName("123 Testinis darželis");
-        createNewKindergarten.updateKindergartenNumberCapacity3to6("0");
+        createNewKindergarten.updateKindergartenNumberCapacity3to6("1");
         createNewKindergarten.clickSaveUpdatedKindergarten();
     }
 

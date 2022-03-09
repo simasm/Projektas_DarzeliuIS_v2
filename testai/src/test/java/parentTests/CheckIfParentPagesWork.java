@@ -21,7 +21,7 @@ public class CheckIfParentPagesWork extends GeneralMethods {
 
     @Test(groups = "smoke")
     public void openAndAssertAllParentPages() {
-        logInUi(parentLogins, parentLogins);
+        logInUi(parentLogIn, parentLogIn);
 
         // check if Mano prasymai page loads
         CheckIfAllUsersPagesLoad checkPages = new CheckIfAllUsersPagesLoad(driver);
