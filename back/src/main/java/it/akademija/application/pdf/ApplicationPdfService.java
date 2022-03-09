@@ -127,7 +127,7 @@ public class ApplicationPdfService {
 	    String virsus3 = " atstovaujamo ";
 	    String virsus4 = application.getApprovedKindergarten().getDirectorName() + " " + //" (Darželio direktorius) ";
 	    		         application.getApprovedKindergarten().getDirectorSurname();     //" (Darželio direktorius) ";
-	    String virsus5 = "veikiančios pagal Darželio nuostatus ir Tėvų/Globėjų (toliau - Tėvai), atstovaujančių vaiko interesus.";
+	    String virsus5 = " veikiančios pagal Darželio nuostatus ir Tėvų/Globėjų (toliau - Tėvai), atstovaujančių vaiko interesus.";
 	    
 	    Paragraph virsus = new Paragraph();
 	    
