@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-
 import "../../App.css";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
-import "../../../node_modules/@sweetalert2/theme-bootstrap-4/bootstrap-4.css"
-
+  
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 
-
 import UserApplicationsTable from "./UserApplicationsTable";
-import { checkboxClasses } from "@mui/material";
-import { className } from "gridjs";
+ 
 export class UserHomeContainer extends Component {
   constructor(props) {
     super(props);
@@ -99,17 +95,17 @@ export class UserHomeContainer extends Component {
       '</table>' +
       '</div>';
 
-    console.log(JSON.stringify(item));
-   
+    
     const swal2 = Swal.mixin({ customClass: {confirmButton: "btn btn-primary btn-lg"}});
 
     const { value: accept } = await swal2.fire({
        //  confirmButtonClass: "btn btn-primary btn-lg disabled",
-      title: 'Asmens duomenų patvirtinimas',
+       title: 'Asmens duomenų patvirtinimas',
       input: 'checkbox',
       inputValue: 0,
       showCloseButton: true,
       html: table,
+      confirmButtonColor: '#3085d6',
       inputPlaceholder:
         'Patvirtinu, kad duomenys teisingi',
       confirmButtonText:
@@ -133,8 +129,7 @@ export class UserHomeContainer extends Component {
    
      
    
-      console.log(JSON.stringify(item))
-      // http
+       // http
       // .get(`${apiEndpoint}/api/pdfgeneration/${item.id}`)
       http
       .request({
