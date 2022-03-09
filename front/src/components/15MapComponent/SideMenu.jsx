@@ -108,7 +108,7 @@ export default function SideMenu({
                 onClick={() => setActive(k)}
               >
                 {k.name}
-                <span className="elderatetag">({k.elderate}) sen.</span>
+                <span className="elderatetag">{k.elderate} sen.</span>
               </div>
             ) : (
               ""
