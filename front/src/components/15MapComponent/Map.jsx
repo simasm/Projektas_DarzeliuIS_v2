@@ -20,6 +20,7 @@ export default function Map({
   bubbleCoordinates,
   bubbleRadius,
   ids,
+  setIds,
 }) {
   return (
     <div>
@@ -56,6 +57,7 @@ export default function Map({
           bubbleCoordinates={bubbleCoordinates}
           bubbleRadius={bubbleRadius}
           ids={ids}
+          setIds={setIds}
         />
 
         <MapControls

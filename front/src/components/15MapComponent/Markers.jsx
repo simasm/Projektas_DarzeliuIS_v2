@@ -15,6 +15,7 @@ export default function Markers({
   bubbleCoordinates,
   bubbleRadius,
   ids,
+  setIds,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
@@ -35,6 +36,10 @@ export default function Markers({
       ]);
     }
   }, [activeKindergarten]);
+
+  useEffect(() => {
+    setIds([]);
+  }, [bubbleCoordinates]);
 
   return (
     <div>

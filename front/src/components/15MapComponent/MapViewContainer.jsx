@@ -168,6 +168,7 @@ export default function MapTab() {
               bubbleCoordinates={bubbleCoordinates}
               bubbleRadius={bubbleRadius}
               ids={ids}
+              setIds={setIds}
             />
           </div>
         </div>

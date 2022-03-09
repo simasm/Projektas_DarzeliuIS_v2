@@ -76,7 +76,6 @@ export default function SideMenu({
       bubbleRadiusTmp !== "" &&
       bubbleRadiusTmp != 0
     ) {
-      setIds([]);
       setInactive();
       setBubbleAddress(bubbleAddressTmp + ", Vilnius");
       setBubbleRadius(bubbleRadiusTmp.replaceAll(",", ".") * 1000);
@@ -109,6 +108,7 @@ export default function SideMenu({
                 onClick={() => setActive(k)}
               >
                 {k.name}
+                <span className="elderatetag">({k.elderate}) sen.</span>
               </div>
             ) : (
               ""
@@ -129,6 +129,7 @@ export default function SideMenu({
               onClick={() => setActive(k)}
             >
               {k.name}
+              <span className="elderatetag">{k.elderate} sen.</span>
             </div>
           ))}
         </div>

@@ -237,3 +237,10 @@ p {
 .sidemenubox2 {
   border: solid 1px rgba(214, 209, 209, 0.096);
 }
+
+.elderatetag {
+  font-size: 10px;
+
+  margin-left: 1em;
+  color: rgb(90, 90, 90);
+}
