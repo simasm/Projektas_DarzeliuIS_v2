@@ -39,7 +39,7 @@ export default function Markers({
 
   useEffect(() => {
     setIds([]);
-  }, [bubbleCoordinates]);
+  }, [bubbleCoordinates, bubbleRadius]);
 
   return (
     <div>
