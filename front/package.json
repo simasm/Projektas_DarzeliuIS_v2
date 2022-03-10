@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "0.1.13",
     "@mui/material": "^5.4.3",
     "@popperjs/core": "^2.11.2",
+    "@sweetalert2/theme-bootstrap-4": "^5.0.10",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
@@ -23,18 +24,22 @@
     "immer": "9.0.6",
     "jquery": "3.5.1",
     "jspdf": "^2.5.1",
+    "leaflet": "^1.7.1",
+    "leaflet-geosearch": "^3.6.0",
     "react": "17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-breadcrumbs-dynamic": "^1.2.1",
     "react-datepicker": "4.6.0",
     "react-dom": "17.0.2",
     "react-js-pagination": "3.0.3",
+    "react-leaflet": "^3.2.5",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.4",
     "react-select": "4.1.0",
     "react-through": "^1.1.4",
     "sweetalert": "2.1.2",
+    "sweetalert2": "^11.4.4",
     "web-vitals": "0.2.4"
   },
   "scripts": {
@@ -56,9 +61,7 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "defaults"
     ]
   }
 }

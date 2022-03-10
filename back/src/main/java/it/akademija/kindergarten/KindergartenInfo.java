@@ -11,6 +11,8 @@ public class KindergartenInfo {
 	private String name;
 	private String address;
 	private String elderate;
+	
+	private String coordinates;
 
 	public KindergartenInfo() {
 	}
@@ -20,6 +22,22 @@ public class KindergartenInfo {
 		this.name = name;
 		this.address = address;
 		this.elderate = elderate;
+	}
+	
+	public KindergartenInfo(String id, String name, String address, String elderate, String coordinates) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		this.coordinates = coordinates;
+	}
+
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
 	}
 
 	public String getId() {

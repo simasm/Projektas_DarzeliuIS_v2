@@ -31,12 +31,13 @@ import UserDocumentContainer from "./components/13UserDocuments/UserDocumentCont
 import { ApplicationStatusContainer } from "./components/04Admin/ApplicationStatusContainer";
 import EventJournalContainer from "./components/14EventJournal/EventJournalContainer";
 import Compensation from "./components/07Application/Compensation";
+import MapViewContainer from "./components/15MapComponent/MapViewContainer";
 
 import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsContainer";
 import ManagerCompensations from "./components/02Main/ManagerCompensations";
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
 import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
-
+ 
 var initState = {
   isAuthenticated: null,
   username: null,
@@ -79,7 +80,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initState);
   const [compState, setCompState] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     if (state.isAuthenticated === null) {
       http
         .get(`${apiEndpoint}/api/loggedUserRole`)
@@ -211,6 +212,12 @@ function App() {
                         component={SubmittedDocsContainer}
                       />
 
+                      <Route
+                        exact
+                        path="/zemelapis"
+                        component={MapViewContainer}
+                      />
+
                       <Route exact path="/eile" component={QueueContainer} />
                       <Route
                         exact
@@ -253,6 +260,11 @@ function App() {
                       exact
                       path="/prasymai/kompensacija"
                       component={Compensation}
+                    />
+                    <Route
+                      exact
+                      path="/zemelapis"
+                      component={MapViewContainer}
                     />
                     <Route
                       exact

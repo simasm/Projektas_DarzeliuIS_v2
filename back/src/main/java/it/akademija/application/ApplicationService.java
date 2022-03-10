@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -295,7 +297,11 @@ public class ApplicationService {
 	public boolean existsByPersonalCode(String childPersonalCode) {
 		return applicationDao.existsApplicationByChildPersonalCode(childPersonalCode);
 	}
-
+	
+	public Application getByPersonalCode(String childPersonalCode) {
+		return applicationDao.findByChildPersonalCode(childPersonalCode);
+	}
+	
 	/**
 	 * Returns a page of information from submitted Applications list with specified
 	 * page number and page size.
@@ -368,6 +374,21 @@ public class ApplicationService {
 
 	public void setChoiseDao(KindergartenChoiseDAO choiseDao) {
 		this.choiseDao = choiseDao;
+	}
+
+	public Set<ApplicationInfo> getAllUserApplicationsWithPersonalCode(String currentUsername) {
+		
+		return applicationDao.findAllUserApplicationsWithPersonalCode(currentUsername); //findAllUserApplications(currentUsername);;
+	}
+
+	public boolean existsById(@Valid String id) {
+		// TODO Auto-generated method stub
+		return applicationDao.existsById(Long.parseLong(id));
+	}
+	
+	public Application getUserApplicationById(String id) {
+		Application application = applicationDao.findById(Long.parseLong(id)).orElse(null);
+		return application;
 	}
 
 }

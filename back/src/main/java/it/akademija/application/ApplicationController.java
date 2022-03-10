@@ -116,6 +116,24 @@ public class ApplicationController {
 		return service.getAllUserApplications(currentUsername);
 	}
 
+	@Secured({ "ROLE_USER" })
+	@GetMapping("/user/{id}")
+	@ApiOperation(value = "Get all user applications")
+	public ApplicationInfo getAllUserApplicationsWithPersonalCode(@PathVariable @Valid String id) {
+
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		
+		Application application = service.getUserApplicationById(id); //getAllUserApplicationsWithPersonalCode(currentUsername);
+		return new ApplicationInfo(
+				application.getId(),
+				application.getChildPersonalCode(),
+				application.getChildName(),
+				application.getChildSurname(),
+				application.getStatus()
+			);
+	}
+	
 	/**
 	 *
 	 * Get page of unsorted applications

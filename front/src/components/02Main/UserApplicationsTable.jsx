@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Table from '../08CommonComponents/Table';
-
+ 
 class UserApplicationsTable extends Component {
 
     columns = [
@@ -22,7 +22,8 @@ class UserApplicationsTable extends Component {
             key: 'status',
             path: 'status',
             label: 'Prašymo statusas',
-            content: application => <span>{application.status} </span>
+            content: application => (application.status == 'Patvirtintas' ? <span style={{color: "green", fontWeight: "bold"}}>{application.status} </span>
+                                                          : <span>{application.status} </span>)
         },
         {
             key: 'kindergarten',
@@ -41,6 +42,27 @@ class UserApplicationsTable extends Component {
                 <span>
                     {application.status === 'Laukiantis' ? <span>{application.numberInWaitingList}</span> : <span>-</span>}
                 </span>
+        },
+        {
+            key: 'download',
+            path: 'download',
+            label: 'Atsisiųsti sutartį',
+            content: application => 
+            <span>
+                {application.status === 'Patvirtintas' ? 
+                <div>
+                    <button onClick={() => this.props.onDownload(application)} 
+                            id="btnDownloadApplication" 
+                            className="btn btn-outline-primary btn-sm btn-block">Atsisiųsti
+                    </button>
+                  
+
+                </div>
+                :
+                <span></span>
+                }
+            </span>
+
         },
         {
             key: 'delete',

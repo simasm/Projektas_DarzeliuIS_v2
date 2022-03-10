@@ -28,6 +28,15 @@ public class KindergartenDTO {
 		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
 		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
 	}
+	
+	public KindergartenDTO(String id, String name, String address, String elderate) {
+		
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		
+	}
 
 	
 	public String getId() {

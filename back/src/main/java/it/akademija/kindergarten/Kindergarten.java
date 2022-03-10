@@ -49,6 +49,13 @@ public class Kindergarten {
 	private int capacityAgeGroup3to6;
 	
 	private int placesTakenAgeGroup3to6;
+	
+	private String directorName;
+	private String directorSurname;
+	
+	private String coordinates;
+
+	
 
 	@OneToMany(mappedBy = "kindergarten", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<KindergartenChoise> kindergartenChoises;
@@ -59,7 +66,33 @@ public class Kindergarten {
 	public Kindergarten() {
 
 	}
+	
+	public Kindergarten(String id, String name, String address, String elderate, int capacityAgeGroup2to3,
+			int capacityAgeGroup3to6, String directorName, String directorSurname, String coordinates) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
+		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
+		this.directorName = directorName;
+		this.directorSurname = directorSurname;
+		this.coordinates = coordinates;
+	}
 
+	public Kindergarten(String id, String name, String address, String elderate, int capacityAgeGroup2to3,
+			int capacityAgeGroup3to6, String coordinates) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
+		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
+		this.coordinates = coordinates;
+	}	
+	
 	public Kindergarten(String id, String name, String address, String elderate, int capacityAgeGroup2to3,
 			int capacityAgeGroup3to6) {
 		super();
@@ -133,6 +166,31 @@ public class Kindergarten {
 
 	public void setPlacesTakenAgeGroup3to6(int placesTakenAgeGroup3to6) {
 		this.placesTakenAgeGroup3to6 = placesTakenAgeGroup3to6;
+	}
+	
+	
+	public String getDirectorName() {
+		return directorName;
+	}
+
+	public void setDirectorName(String directorName) {
+		this.directorName = directorName;
+	}
+
+	public String getDirectorSurname() {
+		return directorSurname;
+	}
+
+	public void setDirectorSurname(String directorSurname) {
+		this.directorSurname = directorSurname;
+	}
+
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
 	}
 
 	public Set<KindergartenChoise> getKindergartenChoises() {
