@@ -244,3 +244,11 @@ p {
   margin-left: 1em;
   color: rgb(90, 90, 90);
 }
+
+.questionmarkbtn:hover {
+  color: grey;
+  cursor: pointer;
+}
+.questionmarkbtn {
+  cursor: pointer;
+}

@@ -81,10 +81,7 @@ export class UserHomeContainer extends Component {
       `<td class="text-start">Pavardė</td><td class="text-start">${this.state.userData.surname}</td>` +
       "</tr>" +
       "<tr> " +
-      `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address.replaceAll(
-        "'",
-        ", "
-      )}</td>` +
+      `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address}</td>` +
       "</tr>" +
       "<tr> " +
       `<td class="text-start">Telefono numeris</td><td class="text-start">${this.state.userData.phone}</td>` +

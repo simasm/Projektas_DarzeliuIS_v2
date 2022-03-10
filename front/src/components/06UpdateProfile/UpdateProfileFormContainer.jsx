@@ -41,8 +41,8 @@ export default class UpdateProfileFormContainer extends Component {
             name: response.data.name,
             surname: response.data.surname,
             personalCode: response.data.personalCode,
-            address: response.data.address.split("'")[0],
-            city: response.data.address.split("'")[1],
+            address: response.data.address.split(",")[0],
+            city: response.data.address.split(",")[1],
             phone: response.data.phone,
             email: response.data.email,
             username: response.data.username,
@@ -285,7 +285,7 @@ export default class UpdateProfileFormContainer extends Component {
     e.preventDefault();
     http
       .put(`${apiEndpoint}/api/users/update`, {
-        address: this.state.address + "'" + this.state.city,
+        address: this.state.address + ", " + this.state.city,
         email: this.state.email,
         name: this.state.name,
         password: this.state.password,

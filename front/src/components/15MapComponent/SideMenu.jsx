@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../App.css";
 import SearchBox from "./../08CommonComponents/SeachBox";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
+import Swal from "sweetalert2";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
@@ -14,12 +15,8 @@ export default function SideMenu({
   setKindergartens,
   setBubbleAddress,
   setBubbleRadius,
-  bubbleRadius,
-  bubbleAddress,
   getBubbleCoordinates,
   setIsBubble,
-  bubbleCoordinates,
-  setIds,
   ids,
   isBubble,
   setInactive,
@@ -27,6 +24,8 @@ export default function SideMenu({
 }) {
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
+  const [searchString, setSearchString] = useState("");
+
   const addresses = [];
 
   {
@@ -41,11 +40,13 @@ export default function SideMenu({
     setKindergartens(searchResponse.data);
   }
 
-  const handleSearch = (e) => {
-    let searchString = e.target.value;
-
-    getFilteredKindergartens(searchString);
+  const handleSearchStringChange = (e) => {
+    setSearchString(e.target.value);
   };
+
+  useEffect(() => {
+    getFilteredKindergartens(searchString);
+  }, [searchString]);
 
   const handleAddressInput = (e) => {
     if (e.target.value === "") {
@@ -90,6 +91,27 @@ export default function SideMenu({
     setIsBubble(false);
     setBubbleAddressTmp("");
     setBubbleRadiusTmp("");
+    setSearchString("");
+  };
+
+  const handleExplanation = () => {
+    const text =
+      "<h6>Galite ieškoti darželių aplink konkrečią vietą tam tikru spinduliu</h6>" +
+      "<br/>" +
+      "<p>1. Į adreso įvedimo lauką galite įrašyti konkretų adresą, gatvę, objekto pavadinimą, ar rajoną (pvž.: Pašilaičiai)</p>" +
+      "<p>2. Į atstumo įvedimo lauką įrašykitę paieškos atstumą kilometrais aplink pasirinktą vietą</p>" +
+      "<p>3. Spauskite „Ieškoti“</p>" +
+      "<p>Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais.</p>";
+
+    Swal.fire({
+      //text: "Galite ieškoti darželių aplink konkrečią vietą tam tikru spinduliu. Į adreso įvedimo lauką įrašę gatvės, rajono, objekto pavadinimą ar konkretų adresą, atstumo įvedimo lauke įrašykite, kokiu atstumu nuo pasirinktos vietovės norite vykdyti paiešką",
+      html: text,
+
+      showCloseButton: true,
+
+      confirmButtonText: "Uždaryti",
+      confirmButtonColor: "#0080ff",
+    });
   };
 
   return (
@@ -138,22 +160,17 @@ export default function SideMenu({
 
       <div className="pt-1 d-flex justify-content-center ">
         <SearchBox
-          onSearch={handleSearch}
+          onSearch={handleSearchStringChange}
+          value={searchString}
           placeholder={"Ieškokite pagal pavadinimą ar seniūniją"}
         />
       </div>
 
       <div className="pt-5 sidemenubox2">
         <h6>
-          Ieškokite pagal adresą
-          <span
-            title={
-              "Galite ieškoti darželių aplink jūsų pasirinktą vietovę. Į adreso įvedimo lauką įveskite vietos adresą, o į atstumo įvedimo lauką įveskite atstumą kilometrais. Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais. Jei norite ieškoti konkretaus darželio pagal tikslų adresą, įvedę adresą atstumo įvedimo lauke įrašykite 0 arba palikite tuščią."
-            }
-          >
-            {" "}
-            &nbsp;
-            <FontAwesomeIcon icon={faQuestionCircle} />
+          Ieškokite pagal adresą ar seniūniją
+          <span className="questionmarkbtn" onClick={handleExplanation}>
+            &nbsp; <FontAwesomeIcon icon={faQuestionCircle} />
           </span>
         </h6>
         <input
@@ -175,18 +192,18 @@ export default function SideMenu({
         </div>
         <div className="row buttons-container">
           <button
-            className="btn btn-primary mt-2 col-6"
+            className="btn btn-primary mt-2 col-5"
             onClick={() => handleBubbleSearch()}
           >
             Ieškoti
           </button>
-          <div className="col-2"></div>
+          <div className="col-1"></div>
 
           <button
-            className="btn btn-outline-danger mt-2 col-4"
+            className="btn btn-outline-danger mt-2 col-6"
             onClick={() => handleBubbleClear()}
           >
-            Panaikinti
+            Išvalyti laukus
           </button>
         </div>
       </div>

@@ -306,7 +306,7 @@ class CreateApplicationFormContainer extends Component {
               value={
                 this.state.registrationDisabled
                   ? ""
-                  : this.state.mainGuardian.address.replaceAll("'", ", ")
+                  : this.state.mainGuardian.address
               }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
