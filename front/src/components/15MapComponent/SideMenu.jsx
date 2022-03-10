@@ -25,6 +25,8 @@ export default function SideMenu({
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
   const [searchString, setSearchString] = useState("");
+  const [radiusValid, setRadiusValid] = useState(true);
+  const [objectAddressValid, setObjectAddressValid] = useState(true);
 
   const addresses = [];
 
@@ -72,6 +74,15 @@ export default function SideMenu({
 
   const handleBubbleSearch = () => {
     SearchKindergartenExact(bubbleAddressTmp.split(",")[0]);
+    if (bubbleRadiusTmp === "") {
+      setRadiusValid(false);
+      setTimeout(() => setRadiusValid(true), 2000);
+    }
+
+    if (bubbleAddressTmp === "") {
+      setObjectAddressValid(false);
+      setTimeout(() => setObjectAddressValid(true), 2000);
+    }
 
     if (
       bubbleAddressTmp !== "" &&
@@ -88,6 +99,7 @@ export default function SideMenu({
   };
 
   const handleBubbleClear = () => {
+    setInactive();
     setIsBubble(false);
     setBubbleAddressTmp("");
     setBubbleRadiusTmp("");
@@ -175,6 +187,11 @@ export default function SideMenu({
         </h6>
         <input
           className="form-control mt-2"
+          style={
+            objectAddressValid
+              ? { border: "1px solid lightgray" }
+              : { border: "2px solid red" }
+          }
           id="addressInput"
           placeholder="Įveskite adresą"
           value={bubbleAddressTmp}
@@ -183,6 +200,11 @@ export default function SideMenu({
         <div className="input-container radius-input">
           <input
             className="form-control mt-2"
+            style={
+              radiusValid
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             id="radiusInput"
             value={bubbleRadiusTmp}
             onChange={(e) => handleRadiusInput(e)}
