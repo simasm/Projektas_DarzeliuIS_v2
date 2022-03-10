@@ -73,7 +73,8 @@ class CreateApplicationFormContainer extends Component {
       submitState: false,
     };
     this.mainGuardianOnChange = this.mainGuardianOnChange.bind(this);
-    this.additionalGuardianOnChange = this.additionalGuardianOnChange.bind(this);
+    this.additionalGuardianOnChange =
+      this.additionalGuardianOnChange.bind(this);
     this.childOnChange = this.childOnChange.bind(this);
     this.checkboxOnChange = this.checkboxOnChange.bind(this);
     this.submitHandle = this.submitHandle.bind(this);
@@ -87,7 +88,7 @@ class CreateApplicationFormContainer extends Component {
       additionalGuardianInput: !this.state.additionalGuardianInput,
     });
   };
-  
+
   componentDidMount() {
     /** Get registation status */
     http.get(`${apiEndpoint}/api/status`).then((response) => {
@@ -305,7 +306,7 @@ class CreateApplicationFormContainer extends Component {
               value={
                 this.state.registrationDisabled
                   ? ""
-                  : this.state.mainGuardian.address
+                  : this.state.mainGuardian.address.replaceAll("'", ", ")
               }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
@@ -568,12 +569,21 @@ class CreateApplicationFormContainer extends Component {
             className="form-check-input"
             name="livesInVilniusLonger"
             id="chkLivesInVilniusLonger"
-            checked={this.state.priorities.livesInVilniusLonger && this.state.priorities.livesInVilnius? true:false}
+            checked={
+              this.state.priorities.livesInVilniusLonger &&
+              this.state.priorities.livesInVilnius
+                ? true
+                : false
+            }
             onChange={this.checkboxOnChange}
-            disabled={this.state.registrationDisabled || !this.state.priorities.livesInVilnius}
+            disabled={
+              this.state.registrationDisabled ||
+              !this.state.priorities.livesInVilnius
+            }
           />
           <label className="form-check-label" htmlFor="livesInVilniusLonger">
-            Vaiko vieno iš tėvų deklaruojama gyvenamoji vieta Vilniaus savivaldybėje yra ne mažiau nei 2 metai.
+            Vaiko vieno iš tėvų deklaruojama gyvenamoji vieta Vilniaus
+            savivaldybėje yra ne mažiau nei 2 metai.
           </label>
         </div>
 
@@ -933,8 +943,8 @@ class CreateApplicationFormContainer extends Component {
 
     if (this.state.priorities.livesInVilnius !== false) {
       this.setState({
-        livesInVilniusLonger : true
-      })
+        livesInVilniusLonger: true,
+      });
     }
   }
 

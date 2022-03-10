@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import "../../App.css";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
-  
+
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 
 import UserApplicationsTable from "./UserApplicationsTable";
- 
+
 export class UserHomeContainer extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ export class UserHomeContainer extends Component {
       approvedApplications: [],
       registrationStatus: false,
       applications: [],
-      userData: null
+      userData: null,
     };
   }
   componentDidMount() {
@@ -25,13 +25,13 @@ export class UserHomeContainer extends Component {
     this.getUserApprovedApplications();
   }
 
-  getUserApprovedApplications(){
+  getUserApprovedApplications() {
     http
-    .get(`${apiEndpoint}/api/prasymai/user_with_personal_code`)
-    .then((response) => {
-      this.setState({ approvedApplications: response.data });
-    })
-    .catch(() => { });
+      .get(`${apiEndpoint}/api/prasymai/user_with_personal_code`)
+      .then((response) => {
+        this.setState({ approvedApplications: response.data });
+      })
+      .catch(() => {});
   }
 
   getUserApplications() {
@@ -40,7 +40,7 @@ export class UserHomeContainer extends Component {
       .then((response) => {
         this.setState({ applications: response.data });
       })
-      .catch(() => { });
+      .catch(() => {});
   }
   getUserInfo() {
     http
@@ -48,116 +48,115 @@ export class UserHomeContainer extends Component {
       .then((response) => {
         this.setState({ userData: response.data });
       })
-      .catch(() => { });
+      .catch(() => {});
   }
   getRegistrationStatus() {
     http
       .get(`${apiEndpoint}/api/status`)
       .then((response) => {
-        this.setState(
-          {
-            registrationStatus: response.data.registrationActive,
-          }
-        );
+        this.setState({
+          registrationStatus: response.data.registrationActive,
+        });
       })
-      .catch(() => { });
+      .catch(() => {});
   }
 
   handleDownload = async (item) => {
-    const table = '<div class="table-responsive-md">' +
+    const table =
+      '<div class="table-responsive-md">' +
       '<table class="table table-bordered">' +
       '<thead class="">' +
-      '<tr>' +
+      "<tr>" +
       '<th scope="col" colspan=2>Vaiko atstovo duomeys</th>' +
-      '</tr>' +
-      '</thead>' +
-      '<tbody>' +
-      '<tr> ' +
+      "</tr>" +
+      "</thead>" +
+      "<tbody>" +
+      "<tr> " +
       `<td class="text-start">Asmens kodas</td><td class="text-start">${this.state.userData.personalCode}</td>` +
-      '</tr>' +
-      '<tr> ' +
+      "</tr>" +
+      "<tr> " +
       `<td class="text-start">Vardas</td><td class="text-start">${this.state.userData.name}</td>` +
-      '</tr>' +
-      '<tr> ' +
+      "</tr>" +
+      "<tr> " +
       `<td class="text-start">Pavardė</td><td class="text-start">${this.state.userData.surname}</td>` +
-      '</tr>' +
-      '<tr> ' +
-      `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address}</td>` +
-      '</tr>' +
-      '<tr> ' +
+      "</tr>" +
+      "<tr> " +
+      `<td class="text-start">Adresas</td><td class="text-start">${this.state.userData.address.replaceAll(
+        "'",
+        ", "
+      )}</td>` +
+      "</tr>" +
+      "<tr> " +
       `<td class="text-start">Telefono numeris</td><td class="text-start">${this.state.userData.phone}</td>` +
-      '</tr>' +
-      '<tr> ' +
+      "</tr>" +
+      "<tr> " +
       `<td class="text-start">El. paštas</td><td class="text-start">${this.state.userData.email}</td>` +
-      '</tr>' +
+      "</tr>" +
+      "</tbody>" +
+      "</table>" +
+      "</div>";
 
-      '</tbody>' +
-      '</table>' +
-      '</div>';
-
-    
-    const swal2 = Swal.mixin({ customClass: {confirmButton: "btn btn-primary btn-lg"}});
+    const swal2 = Swal.mixin({
+      customClass: { confirmButton: "btn btn-primary btn-lg" },
+    });
 
     const { value: accept } = await swal2.fire({
-       //  confirmButtonClass: "btn btn-primary btn-lg disabled",
-       title: 'Asmens duomenų patvirtinimas',
-      input: 'checkbox',
+      //  confirmButtonClass: "btn btn-primary btn-lg disabled",
+      title: "Asmens duomenų patvirtinimas",
+      input: "checkbox",
       inputValue: 0,
       showCloseButton: true,
       html: table,
-      confirmButtonColor: '#3085d6',
-      inputPlaceholder:
-        'Patvirtinu, kad duomenys teisingi',
-      confirmButtonText:
-        'Atsisiųsti sutartį',
-       
+      confirmButtonColor: "#3085d6",
+      inputPlaceholder: "Patvirtinu, kad duomenys teisingi",
+      confirmButtonText: "Atsisiųsti sutartį",
+
       didOpen: function () {
         swal2.disableButtons();
-        swal2.getInput().addEventListener('change', function(e) {
-          
-          if(!e.target.checked) {
+        swal2.getInput().addEventListener("change", function (e) {
+          if (!e.target.checked) {
             swal2.disableButtons();
           } else {
             swal2.enableButtons();
           }
-        })}
- 
-      
-    })
+        });
+      },
+    });
 
     if (accept) {
-   
-     
-   
-       // http
+      // http
       // .get(`${apiEndpoint}/api/pdfgeneration/${item.id}`)
       http
-      .request({
-        url: `${apiEndpoint}/api/pdfgeneration/${item.id}`,
-        method: "GET",
-        responseType: "blob",
-      })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download",`${item.childName}`+` ${item.childSurname}`+" - Ikimokyklinio ugdymo sutartis.pdf");
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      })
-      .catch((error) => {
-        //console.log(error);
-        swal({
-          text: "Įvyko klaida atsisiunčiant sutartį.",
-          buttons: "Gerai",
+        .request({
+          url: `${apiEndpoint}/api/pdfgeneration/${item.id}`,
+          method: "GET",
+          responseType: "blob",
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/pdf" })
+          );
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            `${item.childName}` +
+              ` ${item.childSurname}` +
+              " - Ikimokyklinio ugdymo sutartis.pdf"
+          );
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        })
+        .catch((error) => {
+          //console.log(error);
+          swal({
+            text: "Įvyko klaida atsisiunčiant sutartį.",
+            buttons: "Gerai",
+          });
         });
-      });
     }
-
-  }
-
-
+  };
 
   handleDelete = (item) => {
     swal({
@@ -175,22 +174,22 @@ export class UserHomeContainer extends Component {
             });
             this.getUserApplications();
           })
-          .catch(() => { });
+          .catch(() => {});
       }
     });
   };
 
   drawMessageQueueApproved(obj) {
     //console.log("prior status:" + JSON.stringify(obj));
-    var status = obj.map(that => that.status);
+    var status = obj.map((that) => that.status);
     var isConfirmed = false;
-     for(var i=0; i<status.length; i++){
-        //console.log(status[i] === 'Patvirtintas' || status[i] === 'Laukiantis');
-        if(status[i] === 'Patvirtintas' || status[i] === 'Laukiantis'){
-          isConfirmed = true;
-          break;
-        }
-     }
+    for (var i = 0; i < status.length; i++) {
+      //console.log(status[i] === 'Patvirtintas' || status[i] === 'Laukiantis');
+      if (status[i] === "Patvirtintas" || status[i] === "Laukiantis") {
+        isConfirmed = true;
+        break;
+      }
+    }
     if (isConfirmed && !this.state.registrationStatus) {
       // console.log("+Prašymo statusas: " + status + ", registration status: " + this.state.registrationStatus +
       //   "status !== 'Pateiktas': " + (status == 'Pateiktas'));
@@ -230,7 +229,6 @@ export class UserHomeContainer extends Component {
               applications={this.state.applications}
               onDelete={this.handleDelete}
               onDownload={this.handleDownload}
-
             />
           </div>
         </div>

@@ -39,7 +39,9 @@ export default function Map({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
         />
-        {state.role === "USER" && userCoordinates !== "" ? (
+        {state.role === "USER" &&
+        userCoordinates !== "" &&
+        (userAddress.includes("vilnius") || userAddress.includes("Vilnius")) ? (
           <HomeButton userCoordinates={userCoordinates} />
         ) : (
           <></>
