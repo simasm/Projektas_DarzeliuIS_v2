@@ -28,6 +28,7 @@ export default function SideMenu({
   const [bubbleRadiusTmp, setBubbleRadiusTmp] = useState("");
   const [bubbleAddressTmp, setBubbleAddressTmp] = useState("");
   const addresses = [];
+
   {
     kindergartens.map((k) => addresses.push(k.address));
   }

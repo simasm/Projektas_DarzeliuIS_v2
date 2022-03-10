@@ -7,6 +7,7 @@ export default function MapControls({
   userAddress,
   isBubble,
   bubbleCoordinates,
+  activeKindergarten,
 }) {
   const { state } = React.useContext(AuthContext);
 

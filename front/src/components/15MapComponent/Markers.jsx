@@ -30,10 +30,13 @@ export default function Markers({
   const map = useMap();
   useEffect(() => {
     if (activeKindergarten !== null) {
-      map.flyTo([
-        activeKindergarten.coordinates.split(",")[0],
-        activeKindergarten.coordinates.split(",")[1],
-      ]);
+      map.flyTo(
+        [
+          activeKindergarten.coordinates.split(",")[0],
+          activeKindergarten.coordinates.split(",")[1],
+        ],
+        14
+      );
     }
   }, [activeKindergarten]);
 
