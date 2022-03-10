@@ -14,10 +14,21 @@ export default function MapTab() {
   const [userAddress, setUserAddress] = useState("");
   const [userCoordinates, setUserCoordinates] = useState("");
 
+  const [bubbleAddress, setBubbleAddress] = useState("");
+  const [bubbleCoordinates, setBubbleCoordinates] = useState(null);
+  const [bubbleRadius, setBubbleRadius] = useState("");
+  const [isBubble, setIsBubble] = useState(false);
+
+  const [ids, setIds] = useState([]);
+
   const provider = new EsriProvider();
 
   const setActive = (kindergarten) => {
     setActiveKindergarten(kindergarten);
+  };
+
+  const setInactive = () => {
+    setActiveKindergarten(null);
   };
 
   const setActiveThroughMarker = (kindergarten) => {
@@ -26,31 +37,11 @@ export default function MapTab() {
     tgtElement.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
-  const setInactive = () => {
-    setActiveKindergarten(null);
-  };
-
-  useEffect(() => {
-    async function getKindergartens() {
-      await http
-        .get(`${apiEndpoint}/api/darzeliai/visi`)
-        .then((response) => setKindergartens(response.data));
-    }
-
-    getKindergartens();
-    if (state.role === "USER") {
-      getUserAddress();
-    }
-
-    if (userAddress !== "") {
-      provider
-        .search({ query: userAddress })
-        .then((response) =>
-          setUserCoordinates(response[0].x + "," + response[0].y)
-        )
-        .catch((error) => "");
-    }
-  }, [userAddress]);
+  async function getKindergartens() {
+    await http
+      .get(`${apiEndpoint}/api/darzeliai/visi`)
+      .then((response) => setKindergartens(response.data));
+  }
 
   async function getUserAddress() {
     await http
@@ -58,8 +49,82 @@ export default function MapTab() {
       .then((response) => setUserAddress(response.data.address));
   }
 
-  if (activeKindergarten !== null) {
+  const getUserCoordinates = () => {
+    provider
+      .search({ query: userAddress })
+      .then((response) =>
+        setUserCoordinates(response[0].x + "," + response[0].y)
+      )
+      .catch((error) => "");
+  };
+
+  useEffect(() => {
+    if (bubbleCoordinates !== "") {
+      getBubbleCoordinates();
+    }
+  }, [bubbleAddress]);
+
+  const getBubbleCoordinates = () => {
+    provider
+      .search({ query: bubbleAddress })
+      .then((response) =>
+        setBubbleCoordinates(response[0].x + "," + response[0].y)
+      )
+      .catch((error) => "65line");
+  };
+
+  useEffect(() => {
+    var array = [];
+    getKindergartens();
+    if (state.role === "USER") {
+      getUserAddress();
+    }
+
+    if (userAddress !== "") {
+      getUserCoordinates();
+    }
+
+    {
+      kindergartens.map((k) => {
+        array.push([k.id, k.coordinates]);
+      });
+    }
+  }, [userAddress]);
+
+  function getDistance(bubbleCoordinates, kindergarten) {
+    function toRadian(degree) {
+      return (degree * Math.PI) / 180;
+    }
+
+    var lon1 = toRadian(bubbleCoordinates[1]),
+      lat1 = toRadian(bubbleCoordinates[0]),
+      lon2 = toRadian(kindergarten.coordinates.split(",")[1]),
+      lat2 = toRadian(kindergarten.coordinates.split(",")[0]);
+
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a =
+      Math.pow(Math.sin(deltaLat / 2), 2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+
+    if (c * EARTH_RADIUS * 1000 <= bubbleRadius) {
+      ids.push(kindergarten.id);
+      return kindergarten.id;
+    }
   }
+
+  if (bubbleCoordinates !== null) {
+    kindergartens.forEach((k) =>
+      getDistance(
+        [bubbleCoordinates.split(",")[1], bubbleCoordinates.split(",")[0]],
+        k
+      )
+    );
+  }
+
   return (
     <div>
       {/*################################# SIDE MENU ######################################## */}
@@ -71,6 +136,19 @@ export default function MapTab() {
               kindergartens={kindergartens}
               activeKindergarten={activeKindergarten}
               setActive={setActive}
+              setInactive={setInactive}
+              setKindergartens={setKindergartens}
+              setBubbleAddress={setBubbleAddress}
+              setBubbleRadius={setBubbleRadius}
+              bubbleRadius={bubbleRadius}
+              getBubbleCoordinates={getBubbleCoordinates}
+              bubbleAddress={bubbleAddress}
+              setIsBubble={setIsBubble}
+              bubbleCoordinates={bubbleCoordinates}
+              setIds={setIds}
+              ids={ids}
+              isBubble={isBubble}
+              setActiveThroughMarker={setActiveThroughMarker}
             />
           </div>
 
@@ -86,6 +164,11 @@ export default function MapTab() {
               userCoordinates={userCoordinates}
               userAddress={userAddress}
               state={state}
+              isBubble={isBubble}
+              bubbleCoordinates={bubbleCoordinates}
+              bubbleRadius={bubbleRadius}
+              ids={ids}
+              setIds={setIds}
             />
           </div>
         </div>

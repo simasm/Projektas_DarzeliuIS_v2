@@ -11,6 +11,11 @@ export default function Markers({
   setInactive,
   userCoordinates,
   userAddress,
+  isBubble,
+  bubbleCoordinates,
+  bubbleRadius,
+  ids,
+  setIds,
 }) {
   const dot = new Icon({
     iconUrl: markerIcon,
@@ -22,14 +27,7 @@ export default function Markers({
     iconSize: [30, 50],
   });
 
-  // const circle = L.circle([userCoordinates.split(",")[1],
-  // userCoordinates.split(",")[0],], {
-  //   color: 'red',
-  //   fillColor: '#f03',
-  //   fillOpacity: 0.5,
-  //   radius: 500
-  // });
-
+  const map = useMap();
   useEffect(() => {
     if (activeKindergarten !== null) {
       map.flyTo([
@@ -39,20 +37,44 @@ export default function Markers({
     }
   }, [activeKindergarten]);
 
-  const map = useMap();
+  useEffect(() => {
+    setIds([]);
+  }, [bubbleCoordinates, bubbleRadius]);
 
   return (
     <div>
-      {kindergartens.map((k) => (
-        <Marker
-          key={k.id}
-          icon={dot}
-          position={[k.coordinates.split(",")[0], k.coordinates.split(",")[1]]}
-          eventHandlers={{
-            click: () => setActiveThroughMarker(k),
-          }}
-        ></Marker>
-      ))}
+      {isBubble
+        ? kindergartens.map((k) =>
+            ids.includes(k.id) ? (
+              <Marker
+                key={k.id}
+                icon={dot}
+                position={[
+                  k.coordinates.split(",")[0],
+                  k.coordinates.split(",")[1],
+                ]}
+                eventHandlers={{
+                  click: () => setActiveThroughMarker(k),
+                }}
+              ></Marker>
+            ) : (
+              ""
+            )
+          )
+        : kindergartens.map((k) => (
+            <Marker
+              key={k.id}
+              icon={dot}
+              position={[
+                k.coordinates.split(",")[0],
+                k.coordinates.split(",")[1],
+              ]}
+              eventHandlers={{
+                click: () => setActiveThroughMarker(k),
+              }}
+            ></Marker>
+          ))}
+
       {userCoordinates !== "" && (
         <Marker
           icon={userIcon}
@@ -72,6 +94,19 @@ export default function Markers({
           </Popup>
         </Marker>
       )}
+
+      {isBubble === true && bubbleCoordinates !== null && (
+        <Circle
+          center={[
+            bubbleCoordinates.split(",")[1],
+            bubbleCoordinates.split(",")[0],
+          ]}
+          radius={bubbleRadius}
+          fillColor="#00a717"
+          color="green"
+        ></Circle>
+      )}
+
       {activeKindergarten && (
         <Popup
           position={[
@@ -82,7 +117,7 @@ export default function Markers({
         >
           <div className="kindergarteninfo-popup">
             <p className="mt-2 ">
-              Vilniaus lopšelis-darželis "{activeKindergarten.name}"
+              Vilniaus lopšelis-darželis „{activeKindergarten.name}“
             </p>
             <p>
               {activeKindergarten.address},{"  "}
@@ -91,16 +126,6 @@ export default function Markers({
           </div>
         </Popup>
       )}
-
-      {/* {userCoordinates !== "" && (
-        <Circle
-          center={[
-            userCoordinates.split(",")[1],
-            userCoordinates.split(",")[0],
-          ]}
-          radius={500}
-        />
-      )} */}
     </div>
   );
 }

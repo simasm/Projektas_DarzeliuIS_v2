@@ -16,6 +16,7 @@ export default class UpdateProfileFormContainer extends Component {
       surname: "",
       personalCode: "",
       address: "",
+      city: "",
       phone: "",
       email: "",
       passwordUpdate: false,
@@ -40,7 +41,8 @@ export default class UpdateProfileFormContainer extends Component {
             name: response.data.name,
             surname: response.data.surname,
             personalCode: response.data.personalCode,
-            address: response.data.address,
+            address: response.data.address.split("'")[0],
+            city: response.data.address.split("'")[1],
             phone: response.data.phone,
             email: response.data.email,
             username: response.data.username,
@@ -225,22 +227,43 @@ export default class UpdateProfileFormContainer extends Component {
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="txtAddress" className="marginTopSide">
-              Adresas <span className="fieldRequired">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control mt-2"
-              id="txtAddress"
-              name="address"
-              placeholder="Adresas"
-              value={this.state.address}
-              onChange={this.handleChange}
-              onInvalid={(e) => inputValidator(e)}
-              maxLength={128}
-              required
-            />
+          <div className="row">
+            <div className="form-group col-8">
+              <label htmlFor="txtAddress" className="marginTopSide">
+                Adresas <span className="fieldRequired">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control mt-2"
+                id="txtAddress"
+                name="address"
+                placeholder="Adresas"
+                value={this.state.address}
+                onChange={this.handleChange}
+                onInvalid={(e) => inputValidator(e)}
+                maxLength={128}
+                pattern="^(?! )[A-zÀ-ž0-9-.,\s]+$"
+                required
+              />
+            </div>
+
+            <div className="form-group col-4">
+              <label htmlFor="txtCity" className="marginTopSide">
+                Miestas <span className="fieldRequired">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control mt-2"
+                id="txtCity"
+                name="city"
+                placeholder="Miestas"
+                onChange={this.handleChange}
+                value={this.state.city}
+                onInvalid={(e) => inputValidator(e)}
+                pattern="^(?! )[A-zÀ-ž\s]+$"
+                required
+              />
+            </div>
           </div>
         </div>
       );
@@ -262,7 +285,7 @@ export default class UpdateProfileFormContainer extends Component {
     e.preventDefault();
     http
       .put(`${apiEndpoint}/api/users/update`, {
-        address: this.state.address,
+        address: this.state.address + "'" + this.state.city,
         email: this.state.email,
         name: this.state.name,
         password: this.state.password,
@@ -420,7 +443,6 @@ export default class UpdateProfileFormContainer extends Component {
 
     return (
       <div className="container pt-4">
-
         <h6 className="py-3">Redaguoti duomenis</h6>
 
         <div className="row">
