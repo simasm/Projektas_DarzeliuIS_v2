@@ -8,6 +8,7 @@ public class UserInfo {
 	private String surname;
 	private String personalCode;
 	private String address;
+	private String city;
 	private String phone;
 	private String email;
 	private String username;
@@ -32,13 +33,14 @@ public class UserInfo {
 		this.email = email;
 	}
 
-	public UserInfo(String role, String name, String surname, String personalCode, String address, String phone,
+	public UserInfo(String role, String name, String surname, String personalCode, String address, String city, String phone,
 			String email, String username) {
 		super();
 		this.role = role;
 		this.name = name;
 		this.surname = surname;
 		this.address = address;
+		this.city = city;
 		this.personalCode = personalCode;
 		this.phone = phone;
 		this.email = email;
@@ -83,6 +85,15 @@ public class UserInfo {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPhone() {

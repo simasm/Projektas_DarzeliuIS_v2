@@ -60,7 +60,7 @@ public class ApplicationServiceIntegrationTest {
 		userService.createUser(newUser);
 
 		ParentDetailsDTO secondGuardian = new ParentDetailsDTO("48702241234", "seconduser", "seconduser",
-				"user2@user.lt", "Address 1", "+37061398876");
+				"user2@user.lt", "Address 1", "City1", "+37061398876");
 
 		PrioritiesDTO priorities = new PrioritiesDTO();
 		priorities.setLivesInVilnius(true);

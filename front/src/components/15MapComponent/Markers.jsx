@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Marker, Popup, useMap, Circle } from "react-leaflet";
-import L, { Icon } from "leaflet";
+import { Icon } from "leaflet";
 import markerIcon from "../../images/dot.png";
 import homeIcon from "../../images/home.png";
 

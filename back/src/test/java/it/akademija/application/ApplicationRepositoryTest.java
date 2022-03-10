@@ -44,7 +44,7 @@ public class ApplicationRepositoryTest {
 	public void itShouldProcessApplications() {
 		Application application1 = new Application();
 
-		ParentDetails parentDetails = new ParentDetails("48602257896", "Test", "Test", "test@test.lt", "Adresas 1",
+		ParentDetails parentDetails = new ParentDetails("48602257896", "Test", "Test", "test@test.lt", "Adresas 1", "Miestas1",
 				"+37063502254");
 
 		User mainGuardian = userDAO.save(
@@ -81,7 +81,7 @@ public class ApplicationRepositoryTest {
 
 		Application application2 = new Application();
 
-		ParentDetails parentDetail2 = new ParentDetails("48702257896", "Test", "Test", "test1@test.lt", "Adresas 1",
+		ParentDetails parentDetail2 = new ParentDetails("48702257896", "Test", "Test", "test1@test.lt", "Adresas 1", "Miestas1",
 				"+37063502254");
 
 		User mainGuardian2 = userDAO.save(
