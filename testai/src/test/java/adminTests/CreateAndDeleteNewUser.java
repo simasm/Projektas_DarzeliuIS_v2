@@ -34,7 +34,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
      */
 
     @Test(groups = {"regression"})
-    public void successfullyCreateAndDeleteNewKindergartenSpecialist() {
+    public void successfullyCreateAndDeleteNewManager() {
         createNewManager(1);
         deleteNewUser();
     }

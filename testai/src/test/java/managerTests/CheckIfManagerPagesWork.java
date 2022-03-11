@@ -30,7 +30,7 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
     @Test(groups = "smoke")
     public void openAndAssertAllSpecialistPages() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        logInUi(managerLogins, managerLogins);
+        logInUi(managerLogIn, managerLogIn);
 
         // check if Darzeliu sarasas page loads
         verifyIfManagerIsLoggedIn();
@@ -39,7 +39,9 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
 
         // check if Registraciju eile loads
         checkPages.clickNavManagerPrasymai();
-        clickNavButtonApplicationQueue();
+        wait.until(ExpectedConditions.elementToBeClickable(checkPages.navRegistrationQueue));
+        checkPages.clickNavManagerRegistrationQueue();
+
         checkPages.assertPrasymuEilePageTitle();
 
         // check if Registraciju statistika page loads

@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.not;
 public class ApiTest extends ApiGeneralMethods {
 
     RequestSpecification reqSpec = new RequestSpecBuilder().
-    setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
+    setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
     setContentType(ContentType.JSON).
     addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
     build();

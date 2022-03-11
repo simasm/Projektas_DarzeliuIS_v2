@@ -12,7 +12,10 @@ public class UploadMedicalDocumentPDFPage extends AbstractObjectPage {
     public WebElement buttonUploadDocument;
 
     @FindBy(id = "inputUploadDocument")
-    public WebElement buttonInputDocument;
+    public WebElement inputUploadDocument;
+
+    @FindBy (xpath = "//button[text()='Įkelti']")
+    public WebElement buttonIkelti;
 
     @FindBy(xpath = "//*/div[3]//button")
     public WebElement buttonDownloadDocument;
@@ -26,6 +29,10 @@ public class UploadMedicalDocumentPDFPage extends AbstractObjectPage {
 
     public void clickDownloadDocumentButton() {
         buttonDownloadDocument.click();
+    }
+
+    public void clickButtonIkelti() {
+        buttonIkelti.click();
     }
 
     public void clickDeleteDocumentButton() {

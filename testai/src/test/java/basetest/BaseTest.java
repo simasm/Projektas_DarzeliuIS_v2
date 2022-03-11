@@ -19,9 +19,6 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-
-
-
     @BeforeClass(alwaysRun = true)
     protected void setUp() {
         WebDriverManager.chromedriver().setup();
