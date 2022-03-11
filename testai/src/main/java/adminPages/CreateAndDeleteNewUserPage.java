@@ -63,10 +63,9 @@ public class CreateAndDeleteNewUserPage extends AbstractObjectPage {
         inputAddress.sendKeys(value);
     }
 
-    // TODO fix for new build
-//    public void enterCity(String value) {
-//        inputCity.sendKeys(value);
-//    }
+    public void enterCity(String value) {
+        inputCity.sendKeys(value);
+    }
 
     public void clickCreateButton() {
         createButton.click();

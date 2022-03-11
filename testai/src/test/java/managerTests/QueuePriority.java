@@ -36,7 +36,7 @@ public class QueuePriority extends ApiGeneralMethods {
     public void queuePriority() throws IOException {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();

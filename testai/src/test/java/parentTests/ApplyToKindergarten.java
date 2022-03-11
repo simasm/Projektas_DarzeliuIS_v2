@@ -48,7 +48,7 @@ public class ApplyToKindergarten extends GeneralMethods {
     public void successfullySubmitNewApplication() throws IOException, InterruptedException {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
-                setBaseUri("https://sextet.akademijait.vtmc.lt/test-darzelis/").
+                setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();

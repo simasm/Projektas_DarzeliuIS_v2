@@ -39,7 +39,9 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
 
         // check if Registraciju eile loads
         checkPages.clickNavManagerPrasymai();
-        clickNavButtonApplicationQueue();
+        wait.until(ExpectedConditions.elementToBeClickable(checkPages.navRegistrationQueue));
+        checkPages.clickNavManagerRegistrationQueue();
+
         checkPages.assertPrasymuEilePageTitle();
 
         // check if Registraciju statistika page loads

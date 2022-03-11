@@ -145,8 +145,7 @@ public class GeneralMethods extends BaseTest {
         createNewUserPage.enterPersonalCode("12345678911");
         createNewUserPage.enterPhoneNumber("+37061212123");
         createNewUserPage.enterAddress("Adreso g. 8");
-        // TODO fix for new build
-//        createNewUserPage.enterCity("Vilnius");
+        createNewUserPage.enterCity("Vilnius");
 
         createNewUserPage.clickCreateButton();
 
@@ -412,10 +411,12 @@ public class GeneralMethods extends BaseTest {
     // UPLOAD USER MEDICAL DOCUMENTS (PDF)
 
     public void uploadPDF() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         UploadMedicalDocumentPDFPage uploadDocument = new UploadMedicalDocumentPDFPage(driver);
         uploadDocument.clickUploadDocumentButton();
-        uploadDocument.buttonInputDocument.sendKeys(pdfFileLocation);
-        uploadDocument.clickUploadDocumentButton();
+        uploadDocument.inputUploadDocument.sendKeys(pdfFileLocation);
+        wait.until(ExpectedConditions.elementToBeClickable(uploadDocument.buttonIkelti));
+        uploadDocument.clickButtonIkelti();
         waitToPressOKPopUp();
     }
 

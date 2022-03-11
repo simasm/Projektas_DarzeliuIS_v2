@@ -31,6 +31,10 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     @FindBy (xpath = "//div[text()='Kompensacijos']")
     public WebElement navManagerKompensacijos;
 
+    @FindBy (xpath = "//div[text()='Registracijų eilė']")
+    public WebElement navRegistrationQueue;
+
+
     @FindBy(id = "navUserApplicationStats")
     public WebElement navPrasymuStatistikaParent;
 
@@ -62,6 +66,11 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         navManagerKompensacijos.click();
     }
 
+    public void clickNavManagerRegistrationQueue() {
+        navRegistrationQueue.click();
+    }
+
+
     public Boolean assertNaudotojaiPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*/div/h6"), "Naujo naudotojo sukūrimas"));
@@ -72,7 +81,6 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų statistika"));
     }
 
-    // TODO update when breadcrumbs are done or page is updated with unique way to identify it
     public void assertKompensacijosPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.textToBe(By.xpath("//h3"), "Prašymai dėl kompensacijos"));
