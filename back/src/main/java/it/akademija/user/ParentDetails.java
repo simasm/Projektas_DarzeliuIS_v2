@@ -52,6 +52,9 @@ public class ParentDetails {
 
 	@Column
 	private String address;
+	
+	@Column
+	private String city;
 
 	@Pattern(regexp = "^\\+(?!\\s*$)[0-9\\s]{5,20}$|")
 	@Column
@@ -67,7 +70,7 @@ public class ParentDetails {
 	public ParentDetails(@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|") String personalCode,
 			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) @Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$") String name,
 			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) @Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$") String surname,
-			@Email @NotEmpty(message = "El. paštas privalomas!") String email, String address,
+			@Email @NotEmpty(message = "El. paštas privalomas!") String email, String address, String city,
 			@Pattern(regexp = "^\\+(?!\\s*$)[0-9\\s]{5,20}$|") String phone) {
 		super();
 		this.personalCode = personalCode;
@@ -75,6 +78,7 @@ public class ParentDetails {
 		this.surname = surname;
 		this.email = email;
 		this.address = address;
+		this.city = city;
 		this.phone = phone;
 	}
 
@@ -141,6 +145,19 @@ public class ParentDetails {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setParentDetailsId(Long parentDetailsId) {
+		this.parentDetailsId = parentDetailsId;
 	}
 
 	public String getPhone() {

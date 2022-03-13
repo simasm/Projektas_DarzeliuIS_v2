@@ -95,7 +95,7 @@ public class ApplicationService {
 			if (secondParent == null) {
 				secondParent = parentDetailsDao.save(
 						new ParentDetails(detailsDto.getPersonalCode(), detailsDto.getName(), detailsDto.getSurname(),
-								detailsDto.getEmail(), detailsDto.getAddress(), detailsDto.getPhone()));
+								detailsDto.getEmail(), detailsDto.getAddress(), detailsDto.getCity(), detailsDto.getPhone()));
 			}
 
 			application.setAdditionalGuardian(secondParent);

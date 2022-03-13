@@ -142,7 +142,7 @@ public class ApplicationPdfService {
 	    
 	    String tevu_vardas_pavarde =   application.getMainGuardian().getParentDetails().getName() + " " 
 	    															   + application.getMainGuardian().getParentDetails().getSurname(); // "TVardas TPavarde"; 
-	    String faktines_gyvenamosios_vietos_adresas =  application.getMainGuardian().getParentDetails().getAddress(); //"Vieta";
+	    String faktines_gyvenamosios_vietos_adresas =  application.getMainGuardian().getParentDetails().getAddress() + ", " + application.getMainGuardian().getParentDetails().getCity(); //"Vieta";
 	    String telefono_Nr =  application.getMainGuardian().getParentDetails().getPhone(); // "Tel Nr.";
 	    String el_pastas =    application.getMainGuardian().getParentDetails().getEmail(); // "el pastas";
 	    

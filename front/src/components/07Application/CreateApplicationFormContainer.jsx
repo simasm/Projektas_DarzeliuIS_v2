@@ -28,6 +28,7 @@ class CreateApplicationFormContainer extends Component {
         phone: "",
         email: "",
         address: "",
+        city: "",
         username: "",
       },
       additionalGuardian: {
@@ -37,6 +38,7 @@ class CreateApplicationFormContainer extends Component {
         phone: "",
         email: "",
         address: "",
+        city: "",
       },
       birthdate: "",
       childName: "",
@@ -111,6 +113,7 @@ class CreateApplicationFormContainer extends Component {
             phone: response.data.phone,
             email: response.data.username,
             address: response.data.address,
+            city: response.data.city,
             username: response.data.username,
             role: response.data.role,
           },
@@ -306,7 +309,7 @@ class CreateApplicationFormContainer extends Component {
               value={
                 this.state.registrationDisabled
                   ? ""
-                  : this.state.mainGuardian.address.replaceAll("'", ", ")
+                  : this.state.mainGuardian.address
               }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}

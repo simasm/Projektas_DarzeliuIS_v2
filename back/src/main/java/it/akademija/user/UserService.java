@@ -83,6 +83,7 @@ public class UserService implements UserDetailsService {
 		if (userData.getRole().equals("USER")) {
 			ParentDetails details = new ParentDetails();
 			details.setAddress(userData.getAddress());
+			details.setCity(userData.getCity());
 			details.setEmail(userData.getEmail());
 			details.setName(userData.getName());
 			details.setPersonalCode(userData.getPersonalCode());
@@ -204,7 +205,7 @@ public class UserService implements UserDetailsService {
 		User user = userDao.findByUsername(username);
 		if (user.getRole().equals(Role.USER)) {
 			return new UserInfo(user.getRole().name(), user.getName(), user.getSurname(),
-					user.getParentDetails().getPersonalCode(), user.getParentDetails().getAddress(),
+					user.getParentDetails().getPersonalCode(), user.getParentDetails().getAddress(), user.getParentDetails().getCity(),
 					user.getParentDetails().getPhone(), user.getEmail(), user.getUsername());
 
 		}
@@ -278,6 +279,7 @@ public class UserService implements UserDetailsService {
 		if (user.getRole().equals(Role.USER)) {
 			ParentDetails details = user.getParentDetails();
 			details.setAddress(userData.getAddress());
+			details.setCity(userData.getCity());
 			details.setPersonalCode(userData.getPersonalCode());
 			details.setPhone(userData.getPhone());
 			details.setEmail(userData.getEmail());

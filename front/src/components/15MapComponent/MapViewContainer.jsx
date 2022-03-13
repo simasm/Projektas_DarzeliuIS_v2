@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Map from "./Map";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
@@ -46,7 +46,9 @@ export default function MapTab() {
   async function getUserAddress() {
     await http
       .get(`${apiEndpoint}/api/users/user`)
-      .then((response) => setUserAddress(response.data.address));
+      .then((response) =>
+        setUserAddress(response.data.address + ", " + response.data.city)
+      );
   }
 
   const getUserCoordinates = () => {

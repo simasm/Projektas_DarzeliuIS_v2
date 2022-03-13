@@ -11,6 +11,8 @@ public class ParentDetailsDTO {
 	private String email;
 
 	private String address;
+	
+	private String city;
 
 	private String phone;
 
@@ -18,7 +20,7 @@ public class ParentDetailsDTO {
 		
 	}
 
-	public ParentDetailsDTO(String personalCode, String name, String surname, String email, String address,
+	public ParentDetailsDTO(String personalCode, String name, String surname, String email, String address, String city,
 			String phone) {
 		super();
 		this.personalCode = personalCode;
@@ -26,6 +28,7 @@ public class ParentDetailsDTO {
 		this.surname = surname;
 		this.email = email;
 		this.address = address;
+		this.city = city;
 		this.phone = phone;
 	}
 
@@ -67,6 +70,15 @@ public class ParentDetailsDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPhone() {

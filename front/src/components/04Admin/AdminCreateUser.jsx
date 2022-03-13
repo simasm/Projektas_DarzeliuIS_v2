@@ -240,6 +240,7 @@ class AdminCreateUser extends Component {
       personalCode: "",
       address: "",
       city: "",
+
       phone: "",
       email: "",
     });
@@ -265,8 +266,8 @@ class AdminCreateUser extends Component {
     event.preventDefault();
     http
       .post(`${apiEndpoint}/api/users/admin/createuser`, {
-        address: this.state.address + "'" + this.state.city,
-        //"birthdate": this.state.birthdate,
+        address: this.state.address,
+        city: this.state.city,
         email: this.state.email,
         name: this.state.name,
         password: this.state.email,

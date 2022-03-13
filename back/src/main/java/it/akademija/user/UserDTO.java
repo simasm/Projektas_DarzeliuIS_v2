@@ -7,6 +7,7 @@ public class UserDTO {
 	private String surname;
 	private String personalCode;
 	private String address;
+	private String city;
 	private String phone;
 	private String email;
 	private String username;
@@ -26,7 +27,7 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public UserDTO(String role, String name, String surname, String personalCode, String address, String phone,
+	public UserDTO(String role, String name, String surname, String personalCode, String address, String city, String phone,
 			String email, String username, String password) {
 		super();
 		this.role = role;
@@ -34,19 +35,21 @@ public class UserDTO {
 		this.surname = surname;
 		this.personalCode = personalCode;
 		this.address = address;
+		this.city = city;
 		this.phone = phone;
 		this.email = email;
 		this.username = username;
 		this.password = password;
 	}
 
-	public UserDTO(String name, String surname, String personalCode, String address, String phone, String email,
+	public UserDTO(String name, String surname, String personalCode, String address, String city, String phone, String email,
 			String username, String password) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.personalCode = personalCode;
 		this.address = address;
+		this.city = city;
 		this.phone = phone;
 		this.email = email;
 		this.username = username;
@@ -91,6 +94,15 @@ public class UserDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPhone() {
