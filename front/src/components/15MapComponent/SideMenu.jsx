@@ -66,15 +66,17 @@ export default function SideMenu({
   };
 
   const SearchKindergartenExact = (bubbleaddress) => {
-    if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === "")
+    if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === ""){
+      setIsBubble(false);
       kindergartens.map((k) =>
         k.address === bubbleaddress ? setActiveThroughMarker(k) : ""
       );
+    }
   };
 
   const handleBubbleSearch = () => {
     SearchKindergartenExact(bubbleAddressTmp.split(",")[0]);
-    if (bubbleRadiusTmp === "") {
+    if (bubbleRadiusTmp === "" || bubbleRadiusTmp == 0) {
       setRadiusValid(false);
       setTimeout(() => setRadiusValid(true), 2000);
     }
