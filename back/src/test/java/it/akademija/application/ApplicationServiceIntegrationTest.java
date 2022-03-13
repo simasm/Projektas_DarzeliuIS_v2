@@ -55,12 +55,12 @@ public class ApplicationServiceIntegrationTest {
 	@Order(2)
 	public void testCreateNewApplication() {
 
-		UserDTO newUser = new UserDTO("USER", "firstuser", "firstuser", "22345678989", "Address 1", "+37061398876",
+		UserDTO newUser = new UserDTO("USER", "firstuser", "firstuser", "22345678989", "Address 1", "City", "+37061398876",
 				"user1@user.lt", "user1@user.lt", "user1@user.lt");
 		userService.createUser(newUser);
 
 		ParentDetailsDTO secondGuardian = new ParentDetailsDTO("48702241234", "seconduser", "seconduser",
-				"user2@user.lt", "Address 1", "City1", "+37061398876");
+				"user2@user.lt", "Address 1", "City", "+37061398876");
 
 		PrioritiesDTO priorities = new PrioritiesDTO();
 		priorities.setLivesInVilnius(true);

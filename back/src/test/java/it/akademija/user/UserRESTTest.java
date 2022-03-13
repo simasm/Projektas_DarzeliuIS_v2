@@ -72,6 +72,7 @@ public class UserRESTTest {
 		details.setSurname("Test");
 		details.setEmail("test@test.lt");
 		details.setAddress("Adresas 5");
+		details.setCity("Miestas");
 		details.setPhone("+37061502254");
 		User newUser = new User(Role.USER, "Test", "Test", "test@test.lt", details, "test@test.lt", "test@test.lt");
 
