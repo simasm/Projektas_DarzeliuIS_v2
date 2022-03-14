@@ -88,10 +88,12 @@ adminTests package tests:
 
 managerTests package tests:
 - create and delete new kindergarten
-- update specialist details (change user information, password, reset password)
+- update manager details (change user information, password, reset password)
+- kindergarten admission queue priority
+- download pdf uploaded by user  
 
 parentPages package tests:
-- submit and delete new application
+- submit and delete new application to kindergarten or compensation
 - update parent details (change user information, password, reset password)
 - upload medical document (pdf)
 
