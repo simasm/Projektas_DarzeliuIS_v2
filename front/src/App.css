@@ -249,6 +249,11 @@ p {
   color: grey;
   cursor: pointer;
 }
+
 .questionmarkbtn {
   cursor: pointer;
+}
+
+.compensationBtn{
+  color: #007bff;
 }
