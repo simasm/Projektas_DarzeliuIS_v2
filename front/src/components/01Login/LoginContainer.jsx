@@ -8,6 +8,7 @@ import apiEndpoint from "../10Services/endpoint";
 import AuthContext from "../11Context/AuthContext";
 import logo from "../../images/logo.png";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 import ForgotPasswordWindow from "../01Login/ForgotPasswordWindow";
 
@@ -26,7 +27,7 @@ export const LoginContainer = () => {
   const [data, setData] = React.useState(initState);
   const { dispatch } = React.useContext(AuthContext);
   const history = useHistory();
-
+  const createUserForm = "/createAccount";
   const loginInstance = axios.create();
 
   loginInstance.interceptors.response.use(
@@ -117,6 +118,12 @@ export const LoginContainer = () => {
     }
   };
 
+  const registrationForm = () => {
+
+    history.push(createUserForm);
+
+  }
+
   return (
     <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
       <div className="card p-5">
@@ -166,6 +173,7 @@ export const LoginContainer = () => {
             />
           </div>
 
+
           <button
             type="button"
             className="btn btn-link mt-3 text-decoration-none ps-0"
@@ -177,7 +185,7 @@ export const LoginContainer = () => {
           >
             Pamiršau slaptažodį
           </button>
-
+ 
           <button
             type="submit"
             className="btn btn-primary float-end mt-3"
@@ -186,6 +194,18 @@ export const LoginContainer = () => {
           >
             {data.loggingIn ? "Jungiamasi..." : "Prisijungti"}
           </button>
+
+
+          <button
+            type="button"
+            className="btn btn-primary float-end mt-3 me-3"
+            id="btnCreate"
+            disabled={data.loggingIn}
+            onClick={registrationForm}
+          >
+            Sukurti paskyrą
+             </button>
+
         </form>
         {data.loginError && (
           <span
