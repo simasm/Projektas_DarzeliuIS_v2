@@ -169,8 +169,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.and().csrf().disable()
 
-				.exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers().frameOptions()
-				.disable().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false)
+				.exceptionHandling().authenticationEntryPoint(securityEntryPoint)
+				.and()
+				.headers().frameOptions().sameOrigin()      //arba deny
+				.and()
+				.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false)
                 .expiredUrl("/api/loggedUser").sessionRegistry(sessionRegistry());
 
 	}
