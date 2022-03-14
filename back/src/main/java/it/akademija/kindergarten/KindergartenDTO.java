@@ -13,13 +13,15 @@ public class KindergartenDTO {
 	private int capacityAgeGroup2to3;
 
 	private int capacityAgeGroup3to6;
+	
+	private String coordinates;
 
 	public KindergartenDTO() {
 		
 	}	
 
 	public KindergartenDTO(String id, String name, String address, String elderate, int capacityAgeGroup2to3,
-			int capacityAgeGroup3to6) {
+			int capacityAgeGroup3to6, String coordinates) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,6 +29,8 @@ public class KindergartenDTO {
 		this.elderate = elderate;
 		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
 		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
+		this.coordinates = coordinates;
+		
 	}
 	
 	public KindergartenDTO(String id, String name, String address, String elderate) {
@@ -86,6 +90,16 @@ public class KindergartenDTO {
 	public void setCapacityAgeGroup3to6(int capacityAgeGroup3to6) {
 		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
 	}
+
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+	
+	
 	
 	
 }

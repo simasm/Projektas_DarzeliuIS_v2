@@ -46,6 +46,12 @@ export class KindergartenListContainer extends Component {
     }
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.darzeliai !== prevState.darzeliai) {
+      this.getKindergartenInfo(1, "");
+    }
+  }
+
   getKindergartenInfo(currentPage, name) {
     const { pageSize } = this.state;
 
