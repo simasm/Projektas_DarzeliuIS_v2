@@ -252,3 +252,7 @@ p {
 .questionmarkbtn {
   cursor: pointer;
 }
+
+.searchbox:focus {
+  box-shadow: none;
+}
