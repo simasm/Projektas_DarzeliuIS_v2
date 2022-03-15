@@ -8,8 +8,7 @@ import apiEndpoint from "../10Services/endpoint";
 import AuthContext from "../11Context/AuthContext";
 import logo from "../../images/logo.png";
 import swal from "sweetalert";
-import Swal from "sweetalert2";
-
+ 
 import ForgotPasswordWindow from "../01Login/ForgotPasswordWindow";
 
 import instructionsPdf from '../../documents/VMS_VDIS_naudotojo_gidas.pdf';

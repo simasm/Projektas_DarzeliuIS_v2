@@ -4,12 +4,17 @@ import { useState } from "react";
 import logo from "../../images/logo.png";
 import { useHistory } from "react-router";
 import swal from "sweetalert";
+import http from "../10Services/httpService";
+import apiEndpoint from "../10Services/endpoint";
+
 
 export const CreateUserForm = () => {
 
     const [state, setState] = useState({
         role: "USER",
         email: "",
+        name: "",
+        surname: "",
         newPassword: "",
         newPasswordRepeat: ""
     });
@@ -42,22 +47,48 @@ export const CreateUserForm = () => {
         history.push("/");
     }
 
-    const handleSubmit = (e) => {
-        handleUpdatePasswordSubmit(e);
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        handleUpdatePasswordSubmit(event);
+        event.preventDefault();
         console.log('t');
-        
 
     }
 
-    const handleUpdatePasswordSubmit = (e) => {
+    const handleUpdatePasswordSubmit = (event) => {
         if (state.newPassword !== state.newPasswordRepeat) {
             swal({
                 text: "Slaptažodžiai nesutampa.",
                 button: "Gerai",
             });
+        } else {
+            http
+                .post(
+                    `${apiEndpoint}/api/users/createAccount`, { "name": state.name, 
+                                                                "surname" : state.surname,
+                                                                "email": state.email, 
+                                                                "username": state.email, 
+                                                                "password": state.newPassword },
+                    {}
+                )
+                .then((response) => {
+                    console.log(response)
+                    swal({
+                        text: response.data,
+                        button: "Gerai",
+                    }).then(()=>{
+                        history.push("/");
+                    });
+
+                })
+                .catch((error) => {
+                    swal({
+                        text: error.response.data,
+                        button: "Gerai",
+                    });
+                });
         }
     }
+
 
     return (
 
@@ -76,13 +107,44 @@ export const CreateUserForm = () => {
 
                         <form onSubmit={handleSubmit} >
 
-
-                            <label htmlFor="txtEmail" className="mb-2">
+                            <label htmlFor="txtName" className="mt-2">
+                                Vardas <span className="fieldRequired">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="txtName"
+                                name="name"
+                                placeholder="Vardas"
+                                className="form-control mt-2 mb-2"
+                                value={state.name}
+                                onChange={handleChange}
+                                onInvalid={(e) => inputValidator(e)}
+                                required
+                                pattern="[A-zÀ-ž]{2,32}"
+                                maxLength={32}
+                            />
+                            <label htmlFor="txtSurname" className="mt-2">
+                                Pavardė <span className="fieldRequired">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="txtSurname"
+                                name="surname"
+                                placeholder="Pavardė"
+                                className="form-control mt-2 mb-2"
+                                value={state.surname}
+                                onChange={handleChange}
+                                onInvalid={(e) => inputValidator(e)}
+                                required
+                                maxLength={32}
+                                pattern="[A-zÀ-ž]{2,32}"
+                            />
+                            <label htmlFor="txtEmail" className="mt-2">
                                 El. paštas <span className="fieldRequired">*</span>
                             </label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control mt-2 mb-2"
                                 id="txtEmail"
                                 name="email"
                                 value={state.email}
@@ -98,9 +160,7 @@ export const CreateUserForm = () => {
                                 }
                             />
 
-
-
-                            <label htmlFor="txtNewPassword">
+                            <label htmlFor="txtNewPassword" className="mt-2">
                                 Įveskite slaptažodį{" "}
                                 <span className="fieldRequired">*</span>
                             </label>
@@ -110,10 +170,10 @@ export const CreateUserForm = () => {
                                 type="password"
                                 id="txtNewPassword"
                                 name="newPassword"
-                                className="form-control mt-2"
+                                className="form-control mt-2 mb-2"
                                 value={state.newPassword}
                                 onChange={handleChange}
-                                    onInvalid={(e) => inputValidator(e)}
+                                onInvalid={(e) => inputValidator(e)}
                                 required
                                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                                 style={
@@ -124,7 +184,7 @@ export const CreateUserForm = () => {
                             />
 
 
-                            <label htmlFor="txtRepeatNewPassword">
+                            <label htmlFor="txtRepeatNewPassword" className="mt-2">
                                 Pakartokite slaptažodį{" "}
                                 <span className="fieldRequired">*</span>
                             </label>
@@ -135,7 +195,7 @@ export const CreateUserForm = () => {
                                 className="form-control mt-2"
                                 value={state.newPasswordRepeat}
                                 onChange={handleChange}
-                                  onInvalid={(e) => inputValidator(e)}
+                                onInvalid={(e) => inputValidator(e)}
                                 required
                                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                                 style={
@@ -145,11 +205,12 @@ export const CreateUserForm = () => {
                                 }
                             />
                             <p className="text-primary">
-                                Dėmesio! Slaptažodis turi būti ne mažiau 8 simbolių ilgio,<br/>
+                                <br />
+                                Dėmesio! Slaptažodis turi būti ne mažiau 8 simbolių ilgio,<br />
                                 turėti bent vieną didžiąją ir mažąją raides ir bent vieną
                                 skaičių.
                             </p>
-                      
+
 
                             <div className="row justify-content-between mt-4">
                                 <button
@@ -158,7 +219,7 @@ export const CreateUserForm = () => {
                                     id="btnCreate"
                                     onClick={toHomepage}
                                 >
-                                  &larr; Grįžti
+                                    &larr; Grįžti
                                 </button>
                                 <button
                                     className="btn btn-outline-danger col-3 "
@@ -171,7 +232,6 @@ export const CreateUserForm = () => {
                                     type="submit"
                                     className="btn btn-primary col-3"
                                     id="btnCreate"
-
                                 >
                                     Sukurti
                                 </button>

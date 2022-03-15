@@ -1,5 +1,7 @@
 package it.akademija.user;
 
+import it.akademija.role.Role;
+
 public class UserDTO {
 
 	private String role;
@@ -17,6 +19,16 @@ public class UserDTO {
 
 	}
 
+	public UserDTO(String name, String surname, String email, String username, String password) {
+		super();
+		this.role = Role.USER.name();
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+	
 	public UserDTO(String role, String name, String surname, String email, String username, String password) {
 		super();
 		this.role = role;

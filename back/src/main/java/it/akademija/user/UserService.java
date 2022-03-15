@@ -69,6 +69,44 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
+	
+
+	/**
+	 * 
+	 * create new account from login page, only USER role,
+	 * no phone, address, personal code
+	 * 
+	 * 
+	 * @param userData
+	 */
+	@Transactional
+	public void createUserFromLogin(UserDTO userData) {
+		User newUser = new User();
+		
+		ParentDetails details = new ParentDetails();
+		details.setAddress("");
+		details.setCity("");
+		details.setEmail(userData.getEmail());
+		details.setName(userData.getName());
+		details.setSurname(userData.getSurname());
+		details.setPersonalCode("");
+		details.setPhone("");
+		newUser.setParentDetails(details);
+		
+		newUser.setUsername(userData.getUsername());
+		newUser.setName(userData.getName());
+		newUser.setSurname(userData.getSurname());
+		newUser.setEmail(userData.getEmail());
+		newUser.setPassword(encoder.encode(userData.getPassword()));
+		newUser.setRole(Role.USER);
+		userDao.saveAndFlush(newUser);
+
+		
+	}
+	
+	
+	
+	
 	/**
 	 * Create new user with specified parameters. Deletes FirstUser "admin" which
 	 * was initialized at start up if there are other users with ADMIN authorization
@@ -76,6 +114,7 @@ public class UserService implements UserDetailsService {
 	 * 
 	 * @param userData data for new user
 	 */
+	
 	@Transactional
 	public void createUser(UserDTO userData) {
 		User newUser = new User();
