@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import logo from "../../images/logo.png";
 import "../../App.css";
@@ -11,8 +11,25 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import instructionsPdf from "../../documents/VMS_VDIS_naudotojo_gidas.pdf";
 
 import LogoutContainer from "./LogoutContainer";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 function Navigation(props) {
+
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
+
+  const breadcrumbNameMap = () => {
+    return {
+      "/prasymai/registracija": "Prašymas dėl registracijos į darželį",
+      "/prasymai/kompensacija": "Prašymas dėl kompensacijos",
+      "/prasymai": "Mano prašymai",
+      "/pazymos": "Mano pažymos",
+      "/statistika": "Prašymų statistika",
+      "/zemelapis": "Žemėlapis",
+      "/profilis": "Mano paskyra",
+    };
+  };
   return (
     <div className="pb-4">
       <nav className="navbar navbar-expand-md py-4 navbar-light bg-light">
@@ -88,7 +105,7 @@ function Navigation(props) {
                 <NavLink
                   className="nav-link"
                   id="navUserMyAccount"
-                  to={"/profilis/atnaujinti"}
+                  to={"/profilis"}
                 >
                   Mano paskyra
                 </NavLink>
@@ -114,6 +131,32 @@ function Navigation(props) {
           </div>
         </div>
       </nav>
+      <div className="container">
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
+          <NavLink
+            className="nounderlinelink"
+            underline="hover"
+            color="inherit"
+            to="/"
+          >
+            Pagrindinis puslapis
+          </NavLink>
+          {pathnames.map((value, index) => {
+            const last = index === pathnames.length - 1;
+            const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+
+            return last ? (
+              <Typography color="text.primary" key={to}>
+                {breadcrumbNameMap(value)[to]}
+              </Typography>
+            ) : (
+              <NavLink underline="hover" color="inherit" to={to} key={to}>
+                {breadcrumbNameMap(value)[to]}
+              </NavLink>
+            );
+          })}
+        </Breadcrumbs>
+      </div>
       <div>{props.children}</div>
     </div>
   );
