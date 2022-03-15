@@ -50,8 +50,7 @@ export const CreateUserForm = () => {
     const handleSubmit = (event) => {
         handleUpdatePasswordSubmit(event);
         event.preventDefault();
-        console.log('t');
-
+    
     }
 
     const handleUpdatePasswordSubmit = (event) => {
@@ -71,7 +70,6 @@ export const CreateUserForm = () => {
                     {}
                 )
                 .then((response) => {
-                    console.log(response)
                     swal({
                         text: response.data,
                         button: "Gerai",

@@ -307,7 +307,7 @@ public class UserController {
 	 * Create new user from login screen
 	 *  
 	 */
-	@CrossOrigin
+	 
  	@PostMapping("/createAccount")
 	@ApiOperation(value = "Create new user account from login screen")
 	public ResponseEntity<String> createAccountLoginScreen(
