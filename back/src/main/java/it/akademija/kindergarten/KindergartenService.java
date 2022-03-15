@@ -102,7 +102,7 @@ public class KindergartenService {
 	@Transactional(readOnly = true)
 	public List<KindergartenInfo> getAllKindergartens() {
 
-		List<Kindergarten> kindergartens = gartenDao.findAll();
+		List<Kindergarten> kindergartens = gartenDao.findAllByOrderByNameAsc();
 
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
@@ -118,8 +118,10 @@ public class KindergartenService {
 	public void createNewKindergarten(KindergartenDTO kindergarten) {
 
 		gartenDao.save(new Kindergarten(kindergarten.getId(), kindergarten.getName(), kindergarten.getAddress(),
+
 				       kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(), kindergarten.getCapacityAgeGroup3to6(), 
 				       kindergarten.getDirectorName(), kindergarten.getDirectorSurname(), kindergarten.getCoordinates()));
+
 	}
 
 	/**

@@ -9,6 +9,7 @@ import { EsriProvider } from "leaflet-geosearch";
 function KindergartenInputForm() {
   const initKindergartenData = {
     address: "",
+    coordinates: "",
     capacityAgeGroup2to3: 0,
     capacityAgeGroup3to6: 0,
     elderate: "",
@@ -16,7 +17,6 @@ function KindergartenInputForm() {
     name: "",
     directorName: "",
     directorSurname: "",
-    coordinates: ""
   };
 
   const provider = new EsriProvider();
@@ -27,41 +27,27 @@ function KindergartenInputForm() {
   const [elderates, setElderate] = useState([]);
   const history = useHistory();
 
-  const getUserCoordinates = () => {
-    provider
-      .search({ query: data.address + ", Vilnius" })
-      .then((response) => {
-        this.setState({
-          coordinates: response[0].x + "," + response[0].y
-        });
-      }
-      )
-      .catch((error) => "");
+
+  const provider = new EsriProvider();
+
+  const getKindergartenCoordinates = async () => {
+    const coords = await provider.search({ query: data.address + ", Vilnius" });
+    setData({ ...data, coordinates: `${coords[0].y},${coords[0].x}` });
+
   };
 
   useEffect(() => {
-    http
-      .get(`${apiEndpoint}/api/darzeliai/manager/elderates`)
-      .then((response) => {
-        setElderate(response.data);
-      })
-      .catch((error) => {
-        swal({
-          text: "Įvyko klaida nuskaitant seniūnijas. " + error.response.data,
-          button: "Gerai",
-        });
-      });
-  }, [setElderate]);
+    http.post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data);
+  }, [data.coordinates]);
 
-  const handleSubmit = (event) => {
+  
+  
+ const handleSubmit = (event) => {
     event.preventDefault();
 
-    getUserCoordinates();
-
     savingStatus = true;
-    http
-      .post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data)
-      .then((response) => {
+    getKindergartenCoordinates()
+      .then(() => {
         swal({
           text: "Naujas darželis „" + data.name + "“ pridėtas sėkmingai!",
           button: "Gerai",
@@ -84,6 +70,21 @@ function KindergartenInputForm() {
         savingStatus = false;
       });
   };
+  
+  
+  useEffect(() => {
+    http
+      .get(`${apiEndpoint}/api/darzeliai/manager/elderates`)
+      .then((response) => {
+        setElderate(response.data);
+      })
+      .catch((error) => {
+        swal({
+          text: "Įvyko klaida nuskaitant seniūnijas. " + error.response.data,
+          button: "Gerai",
+        });
+      });
+  }, [setElderate]);
 
   const validateField = (event) => {
     const target = event.target;
@@ -129,6 +130,7 @@ function KindergartenInputForm() {
 
   return (
     <div>
+      <div>{data.coordinates}</div>
       <form onSubmit={handleSubmit} onReset={resetForm}>
         <h6 className="py-3">
           <b>Pridėti naują darželį </b>
