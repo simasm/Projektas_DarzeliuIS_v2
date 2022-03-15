@@ -47,7 +47,7 @@ export class KindergartenListContainer extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.darzeliai !== prevState.darzeliai) {
+    if (this.state.darzeliai.length !== prevState.darzeliai.length) {
       this.getKindergartenInfo(1, "");
     }
   }
@@ -116,7 +116,7 @@ export class KindergartenListContainer extends Component {
             this.setState({ searchQuery: "" });
             this.getKindergartenInfo(page, "");
           })
-          .catch(() => {});
+          .catch((error) => console.log(error));
       }
     });
   };

@@ -20,6 +20,7 @@ import it.akademija.application.Application;
 import it.akademija.application.ApplicationDAO;
 import it.akademija.application.ApplicationStatus;
 import it.akademija.journal.JournalService;
+import it.akademija.kindergartenchoise.KindergartenChoiseDAO;
 
 @Service
 public class KindergartenService {
@@ -28,6 +29,9 @@ public class KindergartenService {
 
 	@Autowired
 	private KindergartenDAO gartenDao;
+	
+	@Autowired
+	private KindergartenChoiseDAO choiseDao;
 
 	@Autowired
 	private ApplicationDAO applicationDao;
@@ -163,24 +167,23 @@ public class KindergartenService {
 	@Transactional
 	public ResponseEntity<String> deleteKindergarten(String id) {
 
-		String gartenID = id;
 
 		Kindergarten garten = gartenDao.findById(id).orElse(null);
+		
 
 		if (garten != null) {
 			Set<Application> applicationQueue = garten.getApprovedApplications();
 			for (Application a : applicationQueue) {
+				
+				
 				a.setApprovedKindergarten(null);
-
-				if (a.getKindergartenChoises().size() > 1) {
-					a.setStatus(ApplicationStatus.Pateiktas);
-				} else {
-					a.setStatus(ApplicationStatus.Neaktualus);
-				}
+				a.setStatus(ApplicationStatus.Neaktualus);
+				
 
 				applicationDao.saveAndFlush(a);
 			}
-
+			
+			choiseDao.deleteAllByKindergartenId(id);
 			gartenDao.deleteById(id);
 
 			LOG.info("** UserService: trinamas darželis ID [{}] **", id);

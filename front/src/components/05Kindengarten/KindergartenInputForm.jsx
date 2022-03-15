@@ -27,22 +27,16 @@ function KindergartenInputForm() {
   const [elderates, setElderate] = useState([]);
   const history = useHistory();
 
-
-  const provider = new EsriProvider();
-
   const getKindergartenCoordinates = async () => {
     const coords = await provider.search({ query: data.address + ", Vilnius" });
     setData({ ...data, coordinates: `${coords[0].y},${coords[0].x}` });
-
   };
 
   useEffect(() => {
     http.post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data);
   }, [data.coordinates]);
 
-  
-  
- const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     savingStatus = true;
@@ -70,8 +64,7 @@ function KindergartenInputForm() {
         savingStatus = false;
       });
   };
-  
-  
+
   useEffect(() => {
     http
       .get(`${apiEndpoint}/api/darzeliai/manager/elderates`)
