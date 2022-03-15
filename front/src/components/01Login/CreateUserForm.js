@@ -6,12 +6,18 @@ import { useHistory } from "react-router";
 import swal from "sweetalert";
 import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
-
+import CreateUserFormValidator from "../08CommonComponents/CreateUserFormValidator";
 
 export const CreateUserForm = () => {
 
     const [state, setState] = useState({
-        role: "USER",
+        email: "",
+        name: "",
+        surname: "",
+        newPassword: "",
+        newPasswordRepeat: ""
+    });
+    const [formWarning, setFormWarning] = useState({
         email: "",
         name: "",
         surname: "",
@@ -19,27 +25,66 @@ export const CreateUserForm = () => {
         newPasswordRepeat: ""
     });
 
+
+    const [formValid, setFormValid] = useState({
+        email: true,
+        name: true,
+        surname: true,
+        newPassword: true,
+        newPasswordRepeat: true
+    })
+
     const [passwordValid, setPasswordValid] = useState(true);
     const [repeatPasswordValid, setRepeatPasswordValid] = useState(true);
     const [emailValid, setEmailValid] = useState(true);
+    const [nameValid, setNameValid] = useState(true);
+    const [surnameValid, setSurnameValid] = useState(true);
     const history = useHistory();
+
 
     const handleChange = (event) => {
         const target = event.target;
-        inputValidator(event);
         setState({
             ...state,
             [target.name]: target.value,
         });
+
+        CreateUserFormValidator(
+            event,
+            formWarning,
+            setFormWarning,
+            formValid,
+            setFormValid
+
+        );
+
+
+    }
+
+    const requiredMessage = (e) => {
+
+ 
+ 
+        if (e.target.value === "")
+              e.target.setCustomValidity(e.target.placeholder + " yra privalomas laukelis");
+        else {
+
+            if(e.target.name === "newPassword" || e.target.name === "newPasswordRepeat")  { 
+                e.preventDefault();
+                
+            }
+            e.target.setCustomValidity('');
+        }
+
     }
 
     const resetState = () => {
         setState({
-            role: "USER",
             email: "",
+            name: "",
+            surname: "",
             newPassword: "",
             newPasswordRepeat: ""
-
         });
     }
 
@@ -50,7 +95,7 @@ export const CreateUserForm = () => {
     const handleSubmit = (event) => {
         handleUpdatePasswordSubmit(event);
         event.preventDefault();
-    
+
     }
 
     const handleUpdatePasswordSubmit = (event) => {
@@ -62,18 +107,20 @@ export const CreateUserForm = () => {
         } else {
             http
                 .post(
-                    `${apiEndpoint}/api/users/createAccount`, { "name": state.name, 
-                                                                "surname" : state.surname,
-                                                                "email": state.email, 
-                                                                "username": state.email, 
-                                                                "password": state.newPassword },
+                    `${apiEndpoint}/api/users/createAccount`, {
+                        "name": state.name,
+                    "surname": state.surname,
+                    "email": state.email,
+                    "username": state.email,
+                    "password": state.newPassword
+                },
                     {}
                 )
                 .then((response) => {
                     swal({
                         text: response.data,
                         button: "Gerai",
-                    }).then(()=>{
+                    }).then(() => {
                         history.push("/");
                     });
 
@@ -116,11 +163,17 @@ export const CreateUserForm = () => {
                                 className="form-control mt-2 mb-2"
                                 value={state.name}
                                 onChange={handleChange}
-                                onInvalid={(e) => inputValidator(e)}
                                 required
-                                pattern="[A-zÀ-ž]{2,32}"
                                 maxLength={32}
+                                onInvalid={requiredMessage}
+                                style={
+                                    formValid.name
+                                        ? { border: "1px solid lightgray" }
+                                        : { border: "2px solid red" }
+                                }
                             />
+                            <span className="warningmsg">{formWarning.name}</span>
+
                             <label htmlFor="txtSurname" className="mt-2">
                                 Pavardė <span className="fieldRequired">*</span>
                             </label>
@@ -132,11 +185,18 @@ export const CreateUserForm = () => {
                                 className="form-control mt-2 mb-2"
                                 value={state.surname}
                                 onChange={handleChange}
-                                onInvalid={(e) => inputValidator(e)}
                                 required
                                 maxLength={32}
-                                pattern="[A-zÀ-ž]{2,32}"
+                                onInvalid={requiredMessage}
+
+                                style={
+                                    formValid.surname
+                                        ? { border: "1px solid lightgray" }
+                                        : { border: "2px solid red" }
+                                }
                             />
+                            <span className="warningmsg">{formWarning.surname}</span>
+
                             <label htmlFor="txtEmail" className="mt-2">
                                 El. paštas <span className="fieldRequired">*</span>
                             </label>
@@ -147,16 +207,16 @@ export const CreateUserForm = () => {
                                 name="email"
                                 value={state.email}
                                 onChange={handleChange}
-                                onInvalid={(e) => inputValidator(e)}
                                 required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                                 maxLength={128}
+                                onInvalid={requiredMessage}
                                 style={
-                                    emailValid
+                                    formValid.email
                                         ? { border: "1px solid lightgray" }
                                         : { border: "2px solid red" }
                                 }
                             />
+                            <span className="warningmsg">{formWarning.email}</span>
 
                             <label htmlFor="txtNewPassword" className="mt-2">
                                 Įveskite slaptažodį{" "}
@@ -171,15 +231,17 @@ export const CreateUserForm = () => {
                                 className="form-control mt-2 mb-2"
                                 value={state.newPassword}
                                 onChange={handleChange}
-                                onInvalid={(e) => inputValidator(e)}
                                 required
                                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                onInvalid={requiredMessage}
+
                                 style={
-                                    passwordValid
+                                    formValid.newPassword
                                         ? { border: "1px solid lightgray" }
                                         : { border: "2px solid red" }
                                 }
                             />
+                            <span className="warningmsg">{formWarning.newPassword}</span>
 
 
                             <label htmlFor="txtRepeatNewPassword" className="mt-2">
@@ -193,15 +255,18 @@ export const CreateUserForm = () => {
                                 className="form-control mt-2"
                                 value={state.newPasswordRepeat}
                                 onChange={handleChange}
-                                onInvalid={(e) => inputValidator(e)}
                                 required
                                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                onInvalid={requiredMessage}
+
                                 style={
-                                    repeatPasswordValid
+                                    formValid.newPasswordRepeat
                                         ? { border: "1px solid lightgray" }
                                         : { border: "2px solid red" }
                                 }
                             />
+                            <span className="warningmsg">{formWarning.newPasswordRepeat}</span>
+
                             <p className="text-primary">
                                 <br />
                                 Dėmesio! Slaptažodis turi būti ne mažiau 8 simbolių ilgio,<br />

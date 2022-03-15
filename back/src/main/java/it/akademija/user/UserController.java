@@ -323,16 +323,16 @@ public class UserController {
 		}
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
- 		if ((authentication instanceof AnonymousAuthenticationToken))
+ 		if ((authentication instanceof AnonymousAuthenticationToken)) {
  			userService.createUserFromLogin(userDTO);
 		
 		journalService.newJournalEntry(OperationType.USER_CREATED,
 				userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
 				"Sukurtas naujas naudotojas");
-		
+ 		}
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
 		 
-			return new ResponseEntity<String>("Naudotojas sukurtas sekmingai", HttpStatus.OK);
+			return new ResponseEntity<String>("Naujas naudotojas sukurtas sėkmingai", HttpStatus.OK);
 		}
 	 
 		return new ResponseEntity<String>("Nepavyko sukurti naudotojo", HttpStatus.INTERNAL_SERVER_ERROR);
