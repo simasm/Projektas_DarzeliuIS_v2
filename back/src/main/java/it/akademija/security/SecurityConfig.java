@@ -102,8 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().authorizeRequests()
 
 				.antMatchers("/", "/swagger-ui/").permitAll()
-
-				.antMatchers("/api/**").authenticated().and().formLogin()
+				.antMatchers("/createAccount","/api/users/createAccount").permitAll()
+				.antMatchers("/api/**").authenticated()
+				
+				.and().formLogin()
 
 				.successHandler(new AuthenticationSuccessHandler() {
 
