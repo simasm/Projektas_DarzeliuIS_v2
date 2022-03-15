@@ -118,8 +118,9 @@ public class KindergartenService {
 	public void createNewKindergarten(KindergartenDTO kindergarten) {
 
 		gartenDao.save(new Kindergarten(kindergarten.getId(), kindergarten.getName(), kindergarten.getAddress(),
-				kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(),
-				kindergarten.getCapacityAgeGroup3to6(), kindergarten.getCoordinates()));
+
+				       kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(), kindergarten.getCapacityAgeGroup3to6(), 
+				       kindergarten.getDirectorName(), kindergarten.getDirectorSurname(), kindergarten.getCoordinates()));
 
 	}
 

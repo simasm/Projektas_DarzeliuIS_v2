@@ -15,7 +15,11 @@ function KindergartenInputForm() {
     elderate: "",
     id: "",
     name: "",
+    directorName: "",
+    directorSurname: "",
   };
+
+  const provider = new EsriProvider();
 
   var savingStatus = false;
 
@@ -23,18 +27,22 @@ function KindergartenInputForm() {
   const [elderates, setElderate] = useState([]);
   const history = useHistory();
 
+
   const provider = new EsriProvider();
 
   const getKindergartenCoordinates = async () => {
     const coords = await provider.search({ query: data.address + ", Vilnius" });
     setData({ ...data, coordinates: `${coords[0].y},${coords[0].x}` });
+
   };
 
   useEffect(() => {
     http.post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data);
   }, [data.coordinates]);
 
-  const handleSubmit = (event) => {
+  
+  
+ const handleSubmit = (event) => {
     event.preventDefault();
 
     savingStatus = true;
@@ -62,7 +70,8 @@ function KindergartenInputForm() {
         savingStatus = false;
       });
   };
-
+  
+  
   useEffect(() => {
     http
       .get(`${apiEndpoint}/api/darzeliai/manager/elderates`)
@@ -90,6 +99,10 @@ function KindergartenInputForm() {
       if (target.id === "name")
         target.setCustomValidity(
           "Pavadinimas turi būti 3-50 simbolių ir negali prasidėti tarpu"
+        );
+      if (target.id === "directorName" || target.id === "directorName")
+        target.setCustomValidity(
+          "Direktoriaus vardas ir pavardė turi būti iki 32 simbolių. Pirmoji žodžio raidė - didžioji."
         );
     } else if (
       target.validity.rangeUnderflow ||
@@ -207,6 +220,51 @@ function KindergartenInputForm() {
             ))}
           </select>
         </div>
+
+        <h6 className="py-3">
+          <b>Direktorius</b>
+        </h6>
+        <div className="form-group">
+          <label htmlFor="directorName">
+            Vardas <span className="fieldRequired">*</span>
+          </label>
+          <input
+            type="text"
+            className="form-control mt-2"
+            name="directorName"
+            id="directorName"
+            value={data.directorName}
+            onChange={handleChange}
+            onInvalid={validateField}
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,32}$"
+            required
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Įveskite direktoriaus vardą"
+            maxLength={32}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="directorSurname" className="marginTopSide">
+            Pavardė <span className="fieldRequired">*</span>
+          </label>
+          <input
+            type="text"
+            className="form-control mt-2"
+            name="directorSurname"
+            id="directorSurname"
+            value={data.directorSurname}
+            onChange={handleChange}
+            onInvalid={validateField}
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,32}$"
+            required
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Įveskite direktoriaus pavardę"
+            maxLength={32}
+          />
+        </div>
+
         <h6 className="py-3">
           <b>Laisvų vietų skaičius </b>
           <span className="fieldRequired">*</span>

@@ -67,6 +67,20 @@ public class Kindergarten {
 
 	}
 	
+	public Kindergarten(String id, String name, String address, String elderate, 
+			            String directorName, String directorSurname,
+			            int capacityAgeGroup2to3, int capacityAgeGroup3to6) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		this.directorName = directorName;
+		this.directorSurname = directorSurname;
+		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
+		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
+	}
+	
 	public Kindergarten(String id, String name, String address, String elderate, int capacityAgeGroup2to3,
 			int capacityAgeGroup3to6, String directorName, String directorSurname, String coordinates) {
 		super();
