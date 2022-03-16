@@ -66,7 +66,7 @@ export const CreateUserForm = () => {
  
  
         if (e.target.value === "")
-              e.target.setCustomValidity(e.target.placeholder + " yra privalomass laukelis");
+              e.target.setCustomValidity(e.target.placeholder + " yra privalomas laukelis");
         else {
 
             if(e.target.name === "newPassword" || e.target.name === "newPasswordRepeat")  { 
