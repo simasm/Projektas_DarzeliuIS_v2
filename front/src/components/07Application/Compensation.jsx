@@ -6,6 +6,7 @@ import GuardianForm from "./GuardianForm";
 import KindergartenInfoForm from "./KindergartenInfoForm";
 import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
+import "../../App.css"; 
 
 export default function Compensation() {
   const history = useHistory();
@@ -204,9 +205,9 @@ export default function Compensation() {
         <div className="container">
           <div className="row justify-content-end me-4">
             <button
-              className="btn position-relative btn-primary mt-4"
+              className="btn btn-primary btn-outline-success position-relative mt-4"
               id="btnSubmit"
-              style={{ width: "100px" }}
+              style={{ width: "100px"}}
               onClick={() => handleSubmit()}
               disabled={btnDisabled}
             >

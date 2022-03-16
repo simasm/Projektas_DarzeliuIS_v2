@@ -133,7 +133,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/prasymai/statusas"
+                      path="/prasymai"
                       component={ApplicationStatusContainer}
                     />
                     <Route
@@ -148,7 +148,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/profilis/atnaujinti"
+                      path="/profilis"
                       component={UpdateProfileFormContainer}
                     />
                     <Route path="*" component={NotFound} />
@@ -269,7 +269,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/profilis/atnaujinti"
+                      path="/profilis"
                       component={UpdateProfileFormContainer}
                     />
                     <Route

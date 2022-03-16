@@ -102,7 +102,7 @@ const ManagerCompensations = () => {
                       >
                         <button
                           id="btnReviewCompensations"
-                          className="btn btn-outline-secondary"
+                          className="btn btn-outline-primary"
                         >
                           Peržiūrėti
                         </button>
@@ -116,7 +116,7 @@ const ManagerCompensations = () => {
                       >
                         <button
                           id="btnDownloadCompensations"
-                          className="btn btn-outline-secondary"
+                          className="btn btn-outline-primary"
                         >
                           Atsisiųsti
                         </button>
