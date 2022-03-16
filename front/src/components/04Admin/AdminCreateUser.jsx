@@ -329,7 +329,7 @@ class AdminCreateUser extends Component {
           </div>
           <div className="row justify-content-between">
             <button
-              className="btn btn-outline-danger"
+              className="btn btn-outline-danger col-3 ms-3"
               onClick={this.resetState}
               id="btnClean"
             >
@@ -337,7 +337,7 @@ class AdminCreateUser extends Component {
             </button>
             <button
               type="submit"
-              className="btn btn-primary "
+              className="btn btn-primary col-3 me-3"
               id="btnCreate"
             >
               Sukurti
