@@ -10,11 +10,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import it.akademija.kindergartenchoise.KindergartenChoise;
+
 public interface KindergartenDAO extends JpaRepository<Kindergarten, String> {
 
 	void deleteByName(String name);
 
 	Kindergarten findByName(String name);
+	
+	List<Kindergarten> findAllByOrderByNameAsc();
 	
 	@Query("select k FROM Kindergarten k WHERE LOWER (k.name) LIKE LOWER(concat('%' || :searchString || '%'))" +
 			"or lower(k.elderate) like lower(concat('%' || :searchString || '%'))")
@@ -34,5 +38,7 @@ public interface KindergartenDAO extends JpaRepository<Kindergarten, String> {
 	
 	@Query("SELECT new it.akademija.kindergarten.KindergartenStatistics(k.id, k.name, (k.capacityAgeGroup2to3 + k.capacityAgeGroup3to6) as availablePlaces, SUM(case when c.kindergartenChoisePriority ='1' then 1 else 0 end) as selectedAsChoise1, SUM(case when c.kindergartenChoisePriority ='2' then 1 else 0 end) as selectedAsChoise2, SUM(case when c.kindergartenChoisePriority ='3' then 1 else 0 end) as selectedAsChoise3, SUM(case when c.kindergartenChoisePriority ='4' then 1 else 0 end) as selectedAsChoise4, SUM(case when c.kindergartenChoisePriority ='5' then 1 else 0 end) as selectedAsChoise5, size(k.approvedApplications) as takenPlaces) FROM Kindergarten k LEFT JOIN KindergartenChoise c ON c.kindergarten.id=k.id GROUP BY k.id")
 	Page<KindergartenStatistics> findAllChoises(Pageable pageable);
+	
+	List<KindergartenChoise> deleteAllById(String kindergartenId);
 
 }
