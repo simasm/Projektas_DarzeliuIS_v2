@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import it.akademija.application.queue.ApplicationQueueInfo;
+import it.akademija.kindergartenchoise.KindergartenChoise;
 
 public interface ApplicationDAO extends JpaRepository<Application, Long> {
 
@@ -39,5 +40,7 @@ public interface ApplicationDAO extends JpaRepository<Application, Long> {
 
 	@Query("SELECT new it.akademija.application.ApplicationInfo(a.id, a.childPersonalCode, a.childName, a.childSurname, a.status) FROM Application a LEFT JOIN Kindergarten k ON a.approvedKindergarten.id=k.id WHERE a.mainGuardian.username=?1")
 	Set<ApplicationInfo> findAllUserApplicationsWithPersonalCode(String currentUsername);
+	
+	List<Application> deleteAllByApprovedKindergartenId(String kindergartenId);
 
 }

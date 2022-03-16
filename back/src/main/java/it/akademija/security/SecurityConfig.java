@@ -102,8 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().authorizeRequests()
 
 				.antMatchers("/", "/swagger-ui/").permitAll()
-
-				.antMatchers("/api/**").authenticated().and().formLogin()
+				.antMatchers("/createAccount","/api/users/createAccount").permitAll()
+				.antMatchers("/api/**").authenticated()
+				
+				.and().formLogin()
 
 				.successHandler(new AuthenticationSuccessHandler() {
 
@@ -169,8 +171,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.and().csrf().disable()
 
-				.exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers().frameOptions()
-				.disable().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false)
+				.exceptionHandling().authenticationEntryPoint(securityEntryPoint)
+				.and()
+				.headers().frameOptions().sameOrigin()      //arba deny
+				.and()
+				.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false)
                 .expiredUrl("/api/loggedUser").sessionRegistry(sessionRegistry());
 
 	}

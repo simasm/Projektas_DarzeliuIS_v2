@@ -337,7 +337,7 @@ class AdminCreateUser extends Component {
             </button>
             <button
               type="submit"
-              className="btn btn-primary col-3 me-3 "
+              className="btn btn-primary col-3 me-3"
               id="btnCreate"
             >
               Sukurti

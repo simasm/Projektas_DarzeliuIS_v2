@@ -37,7 +37,8 @@ import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsCo
 import ManagerCompensations from "./components/02Main/ManagerCompensations";
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
 import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
- 
+import {CreateUserForm} from "./components/01Login/CreateUserForm"; 
+
 var initState = {
   isAuthenticated: null,
   username: null,
@@ -298,6 +299,7 @@ function App() {
         <AuthContext.Provider value={{ state, dispatch }}>
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/createAccount" component={CreateUserForm} />
             <Route path="*">
               <Redirect to="/login" />
             </Route>
