@@ -17,13 +17,7 @@ import {
 
 export const KindergartenStatChart = ({kindergartens}) => {
 
-    const strCompare = (a,b) => {
-
-        let strA = a.split(/(\d+)/);
-        let strB = b.split(/(\d+)/);
-
-        return parseInt(strA[1]) < parseInt(strB[2]);
-    }
+ 
 
     ChartJS.register(
         CategoryScale,
@@ -37,19 +31,23 @@ export const KindergartenStatChart = ({kindergartens}) => {
 
 
       ChartJS.defaults.set('plugins.datalabels', {
-        color: '#FE777B',
+        color: 'black',
         anchor : "start",
         clamp : true,
-        align : "right"
+        align : "right",
+        formatter: function(value, context) {
+          return context.chart.data.labels[context.dataIndex] + " " + value;
+        }
+
         });
       
        const options = {
+        
+        legend: {
+          display: false
+      },
+        
         indexAxis: 'y' ,
-
-   
-             
-       
-     
         elements: {
           bar: {
             borderWidth: 2,
@@ -77,7 +75,10 @@ export const KindergartenStatChart = ({kindergartens}) => {
         
           {
             label: "prasymu sk",
-            data: labels.map(( ) => faker.datatype.number({ min: 0, max: 100 })).sort( (a, b) => a < b) ,
+            data: labels.map(( ) => faker.datatype.number({ min: 0, max: 100 }))
+                        .sort( (a, b) => a < b) ,
+            
+
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(255, 255, 255, 0)',
            
