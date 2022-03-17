@@ -359,4 +359,8 @@ public class KindergartenService {
 				
 	}
 
+	public List<KindergartenStatistics> getAllKindergartenStatistics() {
+		return gartenDao.findAllChoises();
+	}
+
 }
