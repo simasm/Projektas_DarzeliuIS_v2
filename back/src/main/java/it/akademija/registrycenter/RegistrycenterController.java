@@ -38,8 +38,7 @@ public class RegistrycenterController {
 	//	@Autowired
 	//	private JournalService journalService;
 	
-	//todo
-	//
+	
 	
 	@Autowired
 	private RegistrycenterService registrycenterService;
@@ -55,7 +54,7 @@ public class RegistrycenterController {
 	@ApiOperation(value = "Get full info about child from ID code")
 	@ResponseBody
 	public ResponseEntity<RegistrycenterDetails> getChildDataByIDFromExternalAPI( 
-			@ApiParam(value = "Child ID", required = true) @PathVariable @Valid String childPersonalCode) {
+			@ApiParam(value = "Child personal code", required = true) @PathVariable @Valid String childPersonalCode) {
 			
 		 
 		RegistrycenterDetailsDTO data = registrycenterService.getDataByID(childPersonalCode);
