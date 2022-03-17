@@ -257,3 +257,7 @@ p {
 .compensationBtn{
   color: #007bff;
 }
+
+.searchbox:focus {
+  box-shadow: none;
+}

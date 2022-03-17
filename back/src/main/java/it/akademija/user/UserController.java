@@ -20,7 +20,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -300,6 +303,42 @@ public class UserController {
 		userService.deleteMyUserData();
 	}
 
+	/**
+	 * Create new user from login screen
+	 *  
+	 */
+	 
+ 	@PostMapping("/createAccount")
+	@ApiOperation(value = "Create new user account from login screen")
+	public ResponseEntity<String> createAccountLoginScreen(
+			@RequestBody UserDTO userDTO) {
+		
+// 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+// 		if ((authentication instanceof AnonymousAuthenticationToken)) {
+// 			System.out.println("anonymous create user");
+// 			return new ResponseEntity<String>("aha", HttpStatus.I_AM_A_TEAPOT);
+// 		}
+		if (userService.findByUsername(userDTO.getUsername()) != null) {
+			return new ResponseEntity<String>("Toks naudotojas jau egzistuoja!", HttpStatus.BAD_REQUEST);
+		}
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+ 		if ((authentication instanceof AnonymousAuthenticationToken)) {
+ 			userService.createUserFromLogin(userDTO);
+		
+		journalService.newJournalEntry(OperationType.USER_CREATED,
+				userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
+				"Sukurtas naujas naudotojas");
+ 		}
+		if (userService.findByUsername(userDTO.getUsername()) != null) {
+		 
+			return new ResponseEntity<String>("Naujas naudotojas sukurtas sėkmingai", HttpStatus.OK);
+		}
+	 
+		return new ResponseEntity<String>("Nepavyko sukurti naudotojo", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
 	public UserService getUserService() {
 		return userService;
 	}

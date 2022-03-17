@@ -26,6 +26,7 @@ export class QueueContainer extends Component {
       isActive: false,
       isLocked: false,
       currentButtonValue: "",
+      invalidSearch: false,
     };
   }
   componentDidMount() {
@@ -210,8 +211,15 @@ export class QueueContainer extends Component {
 
   handleSearch = (e) => {
     const personalCode = e.currentTarget.value;
-    this.setState({ searchQuery: personalCode });
-    this.getApplications(1, personalCode);
+
+    const re = /^[0-9]+$/;
+    if (personalCode === "" || re.test(personalCode)) {
+      this.setState({ searchQuery: personalCode });
+      this.getApplications(1, personalCode);
+    } else {
+      this.setState({ invalidSearch: true });
+      setTimeout(() => this.setState({ invalidSearch: false }), 500);
+    }
   };
 
   handleDeactivate = (item) => {
@@ -266,7 +274,7 @@ export class QueueContainer extends Component {
     if (applications !== undefined) size = applications.length;
 
     const placeholder = "Ieškoti pagal vaiko asmens kodą...";
-    
+
     return (
       <div className="container pt-4">
 
@@ -290,6 +298,11 @@ export class QueueContainer extends Component {
             value={searchQuery}
             onSearch={this.handleSearch}
             placeholder={placeholder}
+            style={
+              this.state.invalidSearch
+                ? { border: "2px solid red" }
+                : { border: "2px solid lightgrey" }
+            }
           />
         )}
 

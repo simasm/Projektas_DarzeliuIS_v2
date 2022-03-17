@@ -12,6 +12,7 @@ function SubmittedDocsContainer() {
   const [pageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
+  const [invalidSearch, setInvalidSearch] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -103,21 +104,20 @@ function SubmittedDocsContainer() {
 
   const handleSearch = (e) => {
     const uploaderSurname = e.currentTarget.value;
-    setSearchQuery(uploaderSurname);
-    getDocuments(1, uploaderSurname);
+
+    const re = /^[a-zA-Zą-ž\s-]+$/;
+    if (uploaderSurname === "" || re.test(uploaderSurname)) {
+      setSearchQuery(uploaderSurname);
+      getDocuments(1, uploaderSurname);
+    } else {
+      setInvalidSearch(true);
+      setTimeout(() => setInvalidSearch(false), 500);
+    }
   };
 
   if (totalElements > 0 || isSearching === true || searchQuery !== "") {
     return (
       <div className="container pt-4">
-
-        {/* <div className="pl-2 pt-3">
-          <Link to="/" className="nounderlinelink">
-            Pradinis puslapis
-          </Link>
-          &nbsp; &gt; &nbsp; Visos pažymos
-        </div> */}
-        
         <div className="row formHeader">
           <div className="col-6">
             <div>
@@ -127,6 +127,11 @@ function SubmittedDocsContainer() {
                 placeholder={"Ieškokite pagal pavardę..."}
                 onFocus={() => setIsSearching(true)}
                 onBlur={() => setIsSearching(false)}
+                style={
+                  invalidSearch
+                    ? { border: "2px solid red" }
+                    : { border: "2px solid lightgrey" }
+                }
               />
             </div>
             {
@@ -152,7 +157,6 @@ function SubmittedDocsContainer() {
   } else {
     return (
       <div className="container pt-4">
-
         <div className="pl-2 pt-3">
           {/* <Link to="/" className="nounderlinelink">
             Pradinis puslapis
