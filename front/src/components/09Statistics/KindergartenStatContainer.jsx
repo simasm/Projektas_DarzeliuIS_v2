@@ -7,6 +7,7 @@ import apiEndpoint from "../10Services/endpoint";
 
 import KindergartenStatTable from "./KindergartenStatTable";
 import Pagination from "./../08CommonComponents/Pagination";
+import { KindergartenStatChart } from "./KindergartenStatChart";
 
 export class KindergartenStatContainer extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ export class KindergartenStatContainer extends Component {
           currentPage: response.data.number + 1,
         });
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
   handlePageChange = (page) => {
@@ -67,6 +68,31 @@ export class KindergartenStatContainer extends Component {
     return (
       <div className="container pt-4">
 
+
+        <div className="container">
+          <div className="row justify-content-end">
+            <div className="col-5" >
+
+            <div className="btn btn-primary me-2">1, 2 prioritetai</div>
+
+              <div className="btn btn-primary me-2">3, 4 prioritetai</div>
+
+              <div className="btn btn-primary">5 prioritetas</div>
+            </div>
+
+          </div>
+          <div className="row">
+            <div className="col-6">
+              <KindergartenStatChart />
+            </div>
+            <div className="col-6">
+              <KindergartenStatChart />
+            </div>
+          </div>
+        </div>
+
+
+
         <h6 className="pl-2 pt-3">Prašymų statistika</h6>
 
         <div className="row pt-2">
@@ -82,6 +108,8 @@ export class KindergartenStatContainer extends Component {
             currentPage={this.state.currentPage}
           />
         </div>
+
+
       </div>
     );
   }
