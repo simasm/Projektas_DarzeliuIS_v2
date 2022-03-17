@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.akademija.user.UserService;
 
 @RestController
@@ -31,7 +32,12 @@ public class UserPasswordResetRequestsController {
 	UserService userService;
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserPasswordResetRequestsController.class);
-
+	
+	/**
+	 * Returns a list of user requests for password reset
+	 *  
+	 *  @return a list of requests
+	 */
 	@Secured({ "ROLE_ADMIN" })
 	@GetMapping(path = "/getAllRequests")
 	@ApiOperation(value = "Returns a list of userId that want their password reset.")
@@ -40,9 +46,15 @@ public class UserPasswordResetRequestsController {
 		return userPasswordResetRequestsService.getAllRequests();
 	}
 
+	
+	/**
+	 * Creates a request for password reset
+	 *  
+	 *  @return response
+	 */
 	@PostMapping(path = "/request/{username}")
 	@ApiOperation(value = "Request password reset")
-	public ResponseEntity<String> requestPasswordReset(@PathVariable(value = "username") final String username) {
+	public ResponseEntity<String> requestPasswordReset(@ApiParam(value="Username of a user, who requested a reset")@PathVariable(value = "username") final String username) {
 
 		LOG.info("** " + this.getClass().getName() + ": Naujas prašymas atstatyti slaptažodį naudotojo: " + username
 				+ " **");
@@ -52,10 +64,16 @@ public class UserPasswordResetRequestsController {
 		return new ResponseEntity<String>("Pranešimas administratoriui sėkmingai išsiųstas", HttpStatus.OK);
 	}
 
+	
+	/**
+	 * Deletes a request for password reset
+	 *  
+	 *  @return response
+	 */
 	@Secured({ "ROLE_ADMIN" })
 	@DeleteMapping(path = "/delete/{username}")
 	@ApiOperation(value = "Delete password request")
-	public ResponseEntity<String> deletePasswordResetRequest(@PathVariable(value = "username") final String username) {
+	public ResponseEntity<String> deletePasswordResetRequest(@ApiParam(value="Username of a user whose request to be deleted") @PathVariable(value = "username") final String username) {
 
 		LOG.info("** " + this.getClass().getName() + ": Trinamas naudotojo: " + username
 				+ " slaptažodžio atstatymo prašymas **");

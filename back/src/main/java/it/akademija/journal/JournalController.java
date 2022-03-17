@@ -20,9 +20,15 @@ public class JournalController {
 	@Autowired
 	private JournalService journalService;
 	
+	
+	/**
+	 * Retrieves a page of log
+	 * 
+	 * @return a list of log items
+	 */
 	@Secured({ "ROLE_ADMIN" })
+	@ApiOperation(value = "Get a page of a log")
 	@GetMapping(path = "/admin/getjournal/page")
-	@ApiOperation(value = "Show all journal entries", notes = "Showing all journal entries")
 	public ResponseEntity<Page<JournalEntry>> getJournalEntriesPage(
 			@RequestParam("page") int page, 
 			  @RequestParam("size") int size) {	
@@ -34,14 +40,6 @@ public class JournalController {
 		return new ResponseEntity<>(journalService.getAllJournalEntries(pageable), HttpStatus.OK);
 	}
 
-	public JournalService getJournalService() {
-		return journalService;
-	}
-
-	public void setJournalService(JournalService journalService) {
-		this.journalService = journalService;
-	}
-	
 	
 	
 }

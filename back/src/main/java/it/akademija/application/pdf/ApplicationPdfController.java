@@ -41,6 +41,11 @@ public class ApplicationPdfController {
 	private CompensationService compensationService;
 	
 	
+	/**
+	 * Downloads an application as a .pdf file
+	 * 
+	 * 
+	 */
 	@Secured({ "ROLE_USER" })
  	@RequestMapping(value = "/{id}", method = RequestMethod.GET   )
  	@ResponseStatus(HttpStatus.OK)
