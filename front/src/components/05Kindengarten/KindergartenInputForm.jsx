@@ -305,7 +305,7 @@ function KindergartenInputForm() {
         </div>
         <div className="d-grid gap-2 d-md-flex marginTopSide col-12">
           <button
-            type="reset"
+            onClick={() => resetForm()}
             className="btn btn-outline-danger form-group float-start"
             id="btnClearKindergartenForm"
           >

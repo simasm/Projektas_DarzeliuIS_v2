@@ -15,7 +15,6 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 function Navigation(props) {
-
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
@@ -150,7 +149,13 @@ function Navigation(props) {
                 {breadcrumbNameMap(value)[to]}
               </Typography>
             ) : (
-              <NavLink underline="hover" color="inherit" to={to} key={to}>
+              <NavLink
+                className="nounderlinelink"
+                underline="hover"
+                color="inherit"
+                to={to}
+                key={to}
+              >
                 {breadcrumbNameMap(value)[to]}
               </NavLink>
             );
