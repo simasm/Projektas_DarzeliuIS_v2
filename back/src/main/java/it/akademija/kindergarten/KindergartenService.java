@@ -20,6 +20,7 @@ import it.akademija.application.Application;
 import it.akademija.application.ApplicationDAO;
 import it.akademija.application.ApplicationStatus;
 import it.akademija.journal.JournalService;
+import it.akademija.kindergartenchoise.KindergartenChoiseDAO;
 
 @Service
 public class KindergartenService {
@@ -28,6 +29,9 @@ public class KindergartenService {
 
 	@Autowired
 	private KindergartenDAO gartenDao;
+	
+	@Autowired
+	private KindergartenChoiseDAO choiseDao;
 
 	@Autowired
 	private ApplicationDAO applicationDao;
@@ -102,7 +106,7 @@ public class KindergartenService {
 	@Transactional(readOnly = true)
 	public List<KindergartenInfo> getAllKindergartens() {
 
-		List<Kindergarten> kindergartens = gartenDao.findAll();
+		List<Kindergarten> kindergartens = gartenDao.findAllByOrderByNameAsc();
 
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
@@ -118,8 +122,10 @@ public class KindergartenService {
 	public void createNewKindergarten(KindergartenDTO kindergarten) {
 
 		gartenDao.save(new Kindergarten(kindergarten.getId(), kindergarten.getName(), kindergarten.getAddress(),
+
 				       kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(), kindergarten.getCapacityAgeGroup3to6(), 
 				       kindergarten.getDirectorName(), kindergarten.getDirectorSurname(), kindergarten.getCoordinates()));
+
 	}
 
 	/**
@@ -161,24 +167,23 @@ public class KindergartenService {
 	@Transactional
 	public ResponseEntity<String> deleteKindergarten(String id) {
 
-		String gartenID = id;
 
 		Kindergarten garten = gartenDao.findById(id).orElse(null);
+		
 
 		if (garten != null) {
 			Set<Application> applicationQueue = garten.getApprovedApplications();
 			for (Application a : applicationQueue) {
+				
+				
 				a.setApprovedKindergarten(null);
-
-				if (a.getKindergartenChoises().size() > 1) {
-					a.setStatus(ApplicationStatus.Pateiktas);
-				} else {
-					a.setStatus(ApplicationStatus.Neaktualus);
-				}
+				a.setStatus(ApplicationStatus.Neaktualus);
+				
 
 				applicationDao.saveAndFlush(a);
 			}
-
+			
+			choiseDao.deleteAllByKindergartenId(id);
 			gartenDao.deleteById(id);
 
 			LOG.info("** UserService: trinamas darželis ID [{}] **", id);

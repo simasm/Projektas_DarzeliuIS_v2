@@ -14,6 +14,7 @@ export class KindergartenListContainer extends Component {
     this.state = {
       darzeliai: [],
       elderates: [],
+      kindergartenCount: 0,
       pageSize: 10,
       currentPage: 1,
       totalPages: 0,
@@ -24,11 +25,13 @@ export class KindergartenListContainer extends Component {
       editRowId: "",
       editedKindergarten: null,
       errorMessages: {},
+      invalidSearch: false,
     };
   }
   componentDidMount() {
     this.getKindergartenInfo(this.state.currentPage, "");
     this.getElderates();
+    this.getKindergartenCount();
     document.addEventListener("keydown", this.handleEscape, false);
   }
 
@@ -45,6 +48,12 @@ export class KindergartenListContainer extends Component {
       }, 10);
     }
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.kindergartenCount !== prevState.kindergartenCount) {
+      this.getKindergartenInfo(1, "");
+    }
+  }
 
   getKindergartenInfo(currentPage, name) {
     const { pageSize } = this.state;
@@ -82,10 +91,25 @@ export class KindergartenListContainer extends Component {
       .catch(() => {});
   }
 
+  getKindergartenCount() {
+    http
+      .get(`${apiEndpoint}/api/darzeliai/visi`)
+      .then((response) =>
+        this.setState({ kindergartenCount: response.data.length })
+      );
+  }
+
   handleSearch = (e) => {
     const name = e.currentTarget.value;
-    this.setState({ searchQuery: name });
-    this.getKindergartenInfo(1, name);
+
+    const re = /^[a-zA-Zą-ž\s]+$/;
+    if (name === "" || re.test(name)) {
+      this.setState({ searchQuery: name });
+      this.getKindergartenInfo(1, name);
+    } else {
+      this.setState({ invalidSearch: true });
+      setTimeout(() => this.setState({ invalidSearch: false }), 500);
+    }
   };
 
   handleDelete = (item) => {
@@ -98,7 +122,6 @@ export class KindergartenListContainer extends Component {
         const id = item.id;
         const { currentPage, numberOfElements } = this.state;
         const page = numberOfElements === 1 ? currentPage - 1 : currentPage;
-        //console.log("Trinti darzeli", id);
 
         http
           .delete(`${apiEndpoint}/api/darzeliai/manager/delete/${id}`)
@@ -110,7 +133,7 @@ export class KindergartenListContainer extends Component {
             this.setState({ searchQuery: "" });
             this.getKindergartenInfo(page, "");
           })
-          .catch(() => {});
+          .catch((error) => console.log(error));
       }
     });
   };
@@ -207,6 +230,11 @@ export class KindergartenListContainer extends Component {
             value={searchQuery}
             onSearch={this.handleSearch}
             placeholder={placeholder}
+            style={
+              this.state.invalidSearch
+                ? { border: "2px solid red" }
+                : { border: "2px solid lightgrey" }
+            }
           />
 
           <KindergartenListTable
