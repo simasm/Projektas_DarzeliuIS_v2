@@ -277,7 +277,8 @@ export class QueueContainer extends Component {
 
     return (
       <div className="container pt-4">
-        <h6 className="pl-2 pt-3">Prašymų eilė</h6>
+
+        <h6 className="pl-2 pt-3">Registracijų eilė</h6>
         {isActive && <p className="pl-2 pt-3">Registracija vykdoma</p>}
         {!isActive && (
           <p className="pl-2 pt-3">Šiuo metu registracija nevykdoma</p>

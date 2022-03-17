@@ -157,6 +157,7 @@ export class KindergartenStatContainer extends Component {
                 5 prioritetas</div>
             </div>
 
+ 
           </div>
           <div className="row">
             <div className="col-6">
@@ -177,6 +178,9 @@ export class KindergartenStatContainer extends Component {
                       this.state.priorityButton === 3 ? 0 : 0}
               />
             </div>
+ 
+        <h6 className="pl-2 pt-3">Registracijų statistika</h6>
+ 
 
           </div>
 

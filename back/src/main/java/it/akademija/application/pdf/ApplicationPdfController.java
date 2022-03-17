@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
+import it.akademija.compensation.CompensationService;
 @RestController
 @Api(value = "application pdf generation")
 @RequestMapping(path = "/api/pdfgeneration")
@@ -31,9 +32,20 @@ public class ApplicationPdfController {
 	private ApplicationService applicationService;
 	
 	@Autowired
-	private ApplicationPdfService service;
+	private ApplicationPdfService applicationPdfservice;
+	
+	@Autowired
+	private CompensationPdfService compensationPdfservice;
+	
+	@Autowired
+	private CompensationService compensationService;
 	
 	
+	/**
+	 * Downloads an application as a .pdf file
+	 * 
+	 * 
+	 */
 	@Secured({ "ROLE_USER" })
  	@RequestMapping(value = "/{id}", method = RequestMethod.GET   )
  	@ResponseStatus(HttpStatus.OK)
@@ -46,7 +58,37 @@ public class ApplicationPdfController {
 			try {				
 			 
 		
-				byte[] contents =  service.createPdf(id);
+				byte[] contents =  applicationPdfservice.createPdf(id);
+			
+				HttpHeaders headers = new HttpHeaders();
+				 headers.setContentType(MediaType.APPLICATION_PDF);
+			   
+				headers.add("Content-Disposition", "filename=" + id +".pdf");
+				//headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		 
+				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
+				
+				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@Secured({ "ROLE_MANAGER" })
+ 	@RequestMapping(value = "/manager/{id}", method = RequestMethod.GET )
+ 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Download compensation information as generated PDF file")
+	@ResponseBody
+	public ResponseEntity<byte[]> generateCompensationPdf( 
+			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
+		if(compensationService.existsById(id)) {
+		 		
+			try {				
+			 
+				byte[] contents =  compensationPdfservice.createCompensationPdf(id);
 			
 				HttpHeaders headers = new HttpHeaders();
 				 headers.setContentType(MediaType.APPLICATION_PDF);

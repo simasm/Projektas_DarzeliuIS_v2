@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.akademija.application.queue.ApplicationQueueService;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
@@ -46,7 +47,7 @@ public class RegistrationStatusController {
 	@Secured({ "ROLE_MANAGER" })
 	@PostMapping("/status/{registrationActive}")	
 	@ApiOperation(value = "Set application status")
-	public RegistrationStatus setStatus(@PathVariable boolean registrationActive) {
+	public RegistrationStatus setStatus(@ApiParam(value="True to activate registration, false to deactivate")@PathVariable boolean registrationActive) {
 
 		if (registrationActive) {
 			journalService.newJournalEntry(OperationType.REGISTRATION_STARTED, null, ObjectType.REGISTRATION,
@@ -74,14 +75,14 @@ public class RegistrationStatusController {
 	}
 
 	/**
-	 * Start queue processing
+	 * Start queue formation
 	 * 
 	 * @return message
 	 */
 
 	@Secured({ "ROLE_MANAGER" })
 	@PostMapping("/queue/process")
-	@ApiOperation(value = "Process queue")
+	@ApiOperation(value = "Begin forming the queue")
 	public ResponseEntity<String> processQueue() {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();

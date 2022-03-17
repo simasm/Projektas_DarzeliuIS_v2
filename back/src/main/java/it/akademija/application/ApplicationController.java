@@ -61,10 +61,9 @@ public class ApplicationController {
 	 */
 	@Secured({ "ROLE_USER" })
 	@PostMapping("/user/new")
-
 	@ApiOperation(value = "Create new application")
 	public ResponseEntity<String> createNewApplication(
-			@ApiParam(value = "Application", required = true) @Valid @RequestBody ApplicationDTO data) {
+			@ApiParam(value = "Data of the user and their child", required = true) @Valid @RequestBody ApplicationDTO data) {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -116,15 +115,19 @@ public class ApplicationController {
 		return service.getAllUserApplications(currentUsername);
 	}
 
+	/**
+	 * Retrieves an application by its id
+	 * 
+	 * @return an application data
+	 */
 	@Secured({ "ROLE_USER" })
 	@GetMapping("/user/{id}")
-	@ApiOperation(value = "Get all user applications")
-	public ApplicationInfo getAllUserApplicationsWithPersonalCode(@PathVariable @Valid String id) {
+	@ApiOperation(value = "Get a specific application by its id")
+	public ApplicationInfo getApplicationByApplicationId(@ApiParam(value="Id of an application")@PathVariable @Valid String id) {
 
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		
-		Application application = service.getUserApplicationById(id); //getAllUserApplicationsWithPersonalCode(currentUsername);
+		Application application = service.getUserApplicationById(id); 
 		return new ApplicationInfo(
 				application.getId(),
 				application.getChildPersonalCode(),
@@ -136,15 +139,15 @@ public class ApplicationController {
 	
 	/**
 	 *
-	 * Get page of unsorted applications
+	 * Get page of applications
 	 *
-	 * @param page
-	 * @param size
+	 * @param page 
+	 * @param size 
 	 * @return page of applications
 	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager")
-	@ApiOperation(value = "Get a page from all submitted applications")
+	@ApiOperation(value = "Get a page of all submitted applications")
 	public Page<ApplicationInfo> getPageFromSubmittedApplications(@RequestParam("page") int page,
 			@RequestParam("size") int size) {
 
@@ -168,7 +171,7 @@ public class ApplicationController {
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/page/{childPersonalCode}")
 	@ApiOperation(value = "Get a page from all submitted applications with specified child personal code")
-	public ResponseEntity<Page<ApplicationInfo>> getApplicationnPageFilteredById(@PathVariable String childPersonalCode,
+	public ResponseEntity<Page<ApplicationInfo>> getApplicationnPageFilteredById(@ApiParam(value="Child's code by which to filter the applications")@PathVariable String childPersonalCode,
 			@RequestParam("page") int page, @RequestParam("size") int size) {
 
 		List<Order> orders = new ArrayList<>();
@@ -191,9 +194,9 @@ public class ApplicationController {
 
 	@Secured({ "ROLE_USER" })
 	@DeleteMapping("/user/delete/{id}")
-	@ApiOperation("Delete user application by id")
+	@ApiOperation("Delete application by application id")
 	public ResponseEntity<String> deleteApplication(
-			@ApiParam(value = "Application id", required = true) @PathVariable Long id) {
+			@ApiParam(value = "Application id to be deleted", required = true) @PathVariable Long id) {
 
 		LOG.info("**ApplicationController: trinamas prasymas [{}] **", id);
 
@@ -212,7 +215,7 @@ public class ApplicationController {
 	@PostMapping("/manager/deactivate/{id}")
 	@ApiOperation("Delete user application by id")
 	public ResponseEntity<String> deactivateApplication(
-			@ApiParam(value = "Application id", required = true) @PathVariable Long id) {
+			@ApiParam(value = "Id of an application to be deactivated", required = true) @PathVariable Long id) {
 
 		LOG.info("**ApplicationController: deaktyvuojamas prasymas [{}] **", id);
 

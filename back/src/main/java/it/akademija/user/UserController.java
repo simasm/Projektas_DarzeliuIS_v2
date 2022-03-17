@@ -104,7 +104,7 @@ public class UserController {
 	@DeleteMapping(path = "/admin/delete/{username}")
 	@ApiOperation(value = "Delete user", notes = "Deletes user by username")
 	public ResponseEntity<String> deleteUser(
-			@ApiParam(value = "Username", required = true) @PathVariable final String username) {
+			@ApiParam(value = "Username(email) by which a user is deleted", required = true) @PathVariable final String username) {
 
 		long id = userService.findByUsername(username).getUserId();
 
@@ -125,13 +125,13 @@ public class UserController {
 	}
 
 	/**
-	 * Returns a list of users. Method only accessible to ADMIN users
+	 * Returns a page of all users. Method only accessible to ADMIN users
 	 * 
-	 * @return list of users
+	 * @return page of all users
 	 */
 	@Secured({ "ROLE_ADMIN" })
 	@GetMapping(path = "/admin/allusers")
-	@ApiOperation(value = "Show all users", notes = "Showing all users")
+	@ApiOperation(value = "Get a page of all users")
 	public Page<UserInfo> getAllUsers(@RequestParam("page") int page, @RequestParam("size") int size) {
 
 		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "userId");
@@ -142,7 +142,7 @@ public class UserController {
 	}
 
 	/**
-	 * Get detail for logged in user
+	 * Get details for logged in user
 	 * 
 	 * @return user details
 	 */
@@ -307,7 +307,6 @@ public class UserController {
 	 * Create new user from login screen
 	 *  
 	 */
-	 
  	@PostMapping("/createAccount")
 	@ApiOperation(value = "Create new user account from login screen")
 	public ResponseEntity<String> createAccountLoginScreen(
