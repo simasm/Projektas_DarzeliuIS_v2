@@ -31,9 +31,10 @@ function KindergartenInputForm() {
     provider
       .search({ query: data.address + ", Vilnius" })
       .then((response) => {
-        this.setState({
-          coordinates: response[0].x + "," + response[0].y
-        });
+        // this.setState({
+        //   coordinates: response[0].x + "," + response[0].y
+        // });
+        setData(...data, {coordinates: response[0].x + "," + response[0].y})
       }
       )
       .catch((error) => "");
