@@ -23,6 +23,9 @@ import io.swagger.annotations.ApiParam;
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
 import it.akademija.compensation.CompensationService;
+import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 @RestController
 @Api(value = "application pdf generation")
 @RequestMapping(path = "/api/pdfgeneration")
@@ -40,6 +43,8 @@ public class ApplicationPdfController {
 	@Autowired
 	private CompensationService compensationService;
 	
+	@Autowired
+	private JournalService journalService;
 	
 	/**
 	 * Downloads an application as a .pdf file
@@ -68,12 +73,21 @@ public class ApplicationPdfController {
 		 
 				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
 				
-				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
+				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Atsisiųstas registracijos prašymas");
+				
+				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);		
+				
 			} catch (IOException e) {
+				
+				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Nepavyko atsisiųsti prašymo");
 				e.printStackTrace();
 			}
 			
 		}
+		journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+				"Nepavyko atsisiųsti prašymo");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
@@ -98,12 +112,20 @@ public class ApplicationPdfController {
 		 
 				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
 				
+				journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Atsisiųstas kompensacijos prašymas");
+				
 				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
 			} catch (IOException e) {
+				journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Nepavyko atsisiųsti kompensacijos prašymo");
+				
 				e.printStackTrace();
 			}
 			
 		}
+		journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+				"Nepavyko atsisiųsti kompensacijos prašymo");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

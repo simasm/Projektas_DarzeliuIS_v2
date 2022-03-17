@@ -2,6 +2,8 @@
 package it.akademija.application;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -234,7 +236,10 @@ public class Application {
 	}
 
 	public void setApprovalDate() {
-		this.approvalDate = LocalDate.now();
+		ZoneId GMTplus2 = ZoneId.of("Europe/Vilnius");
+		this.approvalDate = LocalDate.now(GMTplus2);
 	}
+	
+	
 
 }

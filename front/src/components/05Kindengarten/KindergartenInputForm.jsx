@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "../../App.css";
 import http from "../10Services/httpService";
@@ -20,11 +20,13 @@ function KindergartenInputForm() {
   };
 
   const provider = new EsriProvider();
+  const isInitialMount = useRef(true);
 
   var savingStatus = false;
 
   const [data, setData] = useState(initKindergartenData);
   const [elderates, setElderate] = useState([]);
+
   const history = useHistory();
 
   const getKindergartenCoordinates = async () => {
@@ -33,36 +35,38 @@ function KindergartenInputForm() {
   };
 
   useEffect(() => {
-    http.post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      http
+        .post(`${apiEndpoint}/api/darzeliai/manager/createKindergarten`, data)
+        .then((response) => {
+          swal({
+            text: "Darželis sekmingai pridėtas",
+            button: "Gerai",
+          });
+          resetForm();
+        })
+        .catch((error) => {
+          swal({
+            text: "Darželio pridėti nepavyko",
+            button: "Gerai",
+          });
+          resetForm();
+        });
+    }
   }, [data.coordinates]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     savingStatus = true;
-    getKindergartenCoordinates()
-      .then(() => {
-        swal({
-          text: "Naujas darželis „" + data.name + "“ pridėtas sėkmingai!",
-          button: "Gerai",
-        });
-        savingStatus = false;
-        resetForm(event);
-        history.push("/new");
-        history.replace("/darzeliai");
-      })
-      .catch((error) => {
-        if (error.response.status === 409) {
-          swal({
-            text:
-              "Įvyko klaida įrašant naują darželį. " +
-              error.response.data +
-              "\n\nPatikrinkite duomenis ir bandykite dar kartą",
-            button: "Gerai",
-          });
-        }
-        savingStatus = false;
-      });
+
+    getKindergartenCoordinates().then(() => {
+      savingStatus = false;
+      history.push("/new");
+      history.replace("/darzeliai");
+    });
   };
 
   useEffect(() => {
@@ -116,15 +120,13 @@ function KindergartenInputForm() {
     });
   };
 
-  const resetForm = (event) => {
-    event.preventDefault();
+  const resetForm = () => {
     setData(initKindergartenData);
   };
 
   return (
     <div>
-      <div>{data.coordinates}</div>
-      <form onSubmit={handleSubmit} onReset={resetForm}>
+      <form onSubmit={handleSubmit}>
         <h6 className="py-3">
           <b>Pridėti naują darželį </b>
         </h6>

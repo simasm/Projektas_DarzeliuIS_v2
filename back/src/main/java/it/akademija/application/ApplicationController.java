@@ -70,12 +70,20 @@ public class ApplicationController {
 		String childPersonalCode = data.getChildPersonalCode();
 
 		if (!statusService.getStatus().isRegistrationActive()) {
-
+			
+			
+			journalService.newJournalEntry(OperationType.APPLICATION_SUBMIT_FAILED, ObjectType.APPLICATION,
+					"Prašymas teiktas esant neaktyviai registracijai");
+			
 			LOG.warn("Naudotojas [{}] bandė registruoti prašymą esant neaktyviai registracijai", currentUsername);
+			
 			return new ResponseEntity<String>("Šiuo metu registracija nevykdoma.", HttpStatus.METHOD_NOT_ALLOWED);
 
 		} else if (service.existsByPersonalCode(childPersonalCode)) {
-
+			
+			journalService.newJournalEntry(OperationType.APPLICATION_SUBMIT_FAILED, ObjectType.APPLICATION,
+					"Nepavyko sukurti prašymo nes prašyme nurodytas vaiko asmens kodas jau yra registruotas");
+			
 			LOG.warn("Naudotojas [{}] bandė registruoti prašymą jau registruotam vaikui su asmens kodu [{}]",
 					currentUsername, data.getChildPersonalCode());
 
@@ -88,13 +96,15 @@ public class ApplicationController {
 
 			if (application != null) {
 
-				journalService.newJournalEntry(OperationType.APPLICATION_SUBMITED, 123L, ObjectType.APPLICATION,
+				journalService.newJournalEntry(OperationType.APPLICATION_SUBMITED, application.getId(), ObjectType.APPLICATION,
 						"Sukurtas naujas prašymas");
 
 				return new ResponseEntity<String>("Prašymas sukurtas sėkmingai", HttpStatus.OK);
 
 			}
 
+			journalService.newJournalEntry(OperationType.APPLICATION_SUBMIT_FAILED, ObjectType.APPLICATION,
+					"Neteisinga užklausa");
 			return new ResponseEntity<String>("Prašymo sukurti nepavyko", HttpStatus.BAD_REQUEST);
 
 		}
@@ -198,6 +208,7 @@ public class ApplicationController {
 	public ResponseEntity<String> deleteApplication(
 			@ApiParam(value = "Application id to be deleted", required = true) @PathVariable Long id) {
 
+		
 		LOG.info("**ApplicationController: trinamas prasymas [{}] **", id);
 
 		return service.deleteApplication(id);

@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 import it.akademija.user.UserService;
 
 @RestController
@@ -30,6 +33,9 @@ public class UserPasswordResetRequestsController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	JournalService journalService;
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserPasswordResetRequestsController.class);
 	
@@ -56,6 +62,9 @@ public class UserPasswordResetRequestsController {
 	@ApiOperation(value = "Request password reset")
 	public ResponseEntity<String> requestPasswordReset(@ApiParam(value="Username of a user, who requested a reset")@PathVariable(value = "username") final String username) {
 
+		journalService.newJournalEntry(OperationType.RESET_REQUEST, ObjectType.USER,
+				"Naudotojas " + username + " pateikė prašymą dėl slaptažodžio atstatymo");
+		
 		LOG.info("** " + this.getClass().getName() + ": Naujas prašymas atstatyti slaptažodį naudotojo: " + username
 				+ " **");
 
@@ -75,8 +84,12 @@ public class UserPasswordResetRequestsController {
 	@ApiOperation(value = "Delete password request")
 	public ResponseEntity<String> deletePasswordResetRequest(@ApiParam(value="Username of a user whose request to be deleted") @PathVariable(value = "username") final String username) {
 
+		journalService.newJournalEntry(OperationType.RESET_REQUEST_DELETE, ObjectType.USER,
+				"Ištrintas naudotojo " + username + " prašymas dėl slaptažodžio atstatymo");
+		
 		LOG.info("** " + this.getClass().getName() + ": Trinamas naudotojo: " + username
 				+ " slaptažodžio atstatymo prašymas **");
+		
 		userPasswordResetRequestsService.deletePasswordRequest(username);
 
 		return new ResponseEntity<String>(HttpStatus.OK);

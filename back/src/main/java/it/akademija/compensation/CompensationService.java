@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.application.Application;
+import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
 
@@ -26,6 +29,9 @@ public class CompensationService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private JournalService journalService;
 	
 	@Transactional
 	public Compensation createNewCompensationApplication(@Valid CompensationDTO data) {
@@ -66,17 +72,20 @@ public class CompensationService {
 	}
 	
 	@Transactional
-	public String deleteCompensationsApplicationByUsername(String username) {
+	public void deleteCompensationsApplicationByUsername(String username) {
 		List<Compensation> compensations = 
 				compensationDAO.findCompensationsByMainGuardianUsername(username);
 		if(compensations != null) {
 		 compensations.forEach(compensation->compensationDAO.delete(compensation));
 		 	
-		 return "Naudotojo kompensaciju prasymai istrinti";
+		 journalService.newJournalEntry(OperationType.COMPENSATION_DELETE, ObjectType.APPLICATION,
+					"Naudotojo" + username + "kompensacijos prašymai ištrinti");
+		 
 		  
 		}
-		 
-			return "Naudotojas neturi kompensaciju prasymu";
+		journalService.newJournalEntry(OperationType.COMPENSATION_DELETE_FAILED, ObjectType.APPLICATION,
+				"Naudotojas" + username + "neturejo kompensacijos prašymų");
+		
 	}
 	
 	@Transactional

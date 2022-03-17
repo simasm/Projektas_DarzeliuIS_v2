@@ -108,6 +108,9 @@ public class DocumentController {
 
 		documentService.deleteDocument(id);
 
+		journalService.newJournalEntry(OperationType.MEDICAL_RECORD_DELETE, id, ObjectType.MEDICAL_RECORD,
+				"Pažyma ištrinta");
+		
 		return new ResponseEntity<String>("Dokumentas su tokiu id buvo ištrintas.", HttpStatus.OK);
 	}
 

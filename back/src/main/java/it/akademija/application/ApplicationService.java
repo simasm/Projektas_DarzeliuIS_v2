@@ -133,6 +133,7 @@ public class ApplicationService {
 		}
 
 		if (choises.isEmpty()) {
+			
 
 			return null;
 
@@ -140,7 +141,10 @@ public class ApplicationService {
 
 		application.setKindergartenChoises(choises);
 		application = applicationDao.saveAndFlush(application);
+		
+		
 
+		
 		return application;
 
 	}
@@ -185,12 +189,16 @@ public class ApplicationService {
 
 			applicationDao.delete(application);
 
+			
 			journalService.newJournalEntry(OperationType.APPLICATION_DELETED, id, ObjectType.APPLICATION,
 					"Ištrintas prašymas");
-
+			
 			return new ResponseEntity<String>("Ištrinta sėkmingai", HttpStatus.OK);
 		}
 
+		journalService.newJournalEntry(OperationType.APPLICATION_DELETE_FAILED, id, ObjectType.APPLICATION,
+				"Trinamas prašymas nerastas");
+		
 		return new ResponseEntity<String>("Prašymas nerastas", HttpStatus.NOT_FOUND);
 	}
 
@@ -259,11 +267,16 @@ public class ApplicationService {
 		Application application = applicationDao.getOne(id);
 
 		if (application == null) {
+			journalService.newJournalEntry(OperationType.APPLICATION_DEACTIVATE_FAILED, id, ObjectType.APPLICATION,
+					"Deaktyvuoti bandomas prašymas nerastas");
 
 			return new ResponseEntity<String>("Prašymas nerastas", HttpStatus.NOT_FOUND);
 
 		} else if (application.getStatus().equals(ApplicationStatus.Patvirtintas)) {
 
+			journalService.newJournalEntry(OperationType.APPLICATION_DEACTIVATE_FAILED, id, ObjectType.APPLICATION,
+					"Deaktyvuoti bandomas prašymas jau patvirtintas");
+			
 			return new ResponseEntity<String>("Veiksmas negalimas. Prašymas jau patvirtintas.",
 					HttpStatus.METHOD_NOT_ALLOWED);
 
@@ -281,7 +294,10 @@ public class ApplicationService {
 			application.setNumberInWaitingList(0);
 
 			applicationDao.save(application);
-
+			
+			journalService.newJournalEntry(OperationType.APPLICATION_DEACTIVATED, id, ObjectType.APPLICATION,
+					"Prašymas deaktyvuotas");
+			
 			return new ResponseEntity<String>("Statusas pakeistas sėkmingai", HttpStatus.OK);
 		}
 

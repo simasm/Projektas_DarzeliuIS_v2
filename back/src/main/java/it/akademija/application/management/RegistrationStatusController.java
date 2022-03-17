@@ -87,6 +87,9 @@ public class RegistrationStatusController {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		queueService.processApplicationsToQueue();
+		
+		journalService.newJournalEntry(OperationType.QUEUE_FORM, null, ObjectType.QUEUE,
+				"Suformuotos eilės");
 
 		LOG.info("Naudotojas [{}] pradeda eilių formavimą", currentUsername);
 
@@ -106,6 +109,8 @@ public class RegistrationStatusController {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
+		journalService.newJournalEntry(OperationType.QUEUE_CONFIRM, null, ObjectType.QUEUE,
+				"Patvirtintos eilės");
 		LOG.info("Naudotojas [{}] tvirtina eiles.", currentUsername);
 
 		return queueService.confirmApplicationsInQueue();
@@ -124,6 +129,10 @@ public class RegistrationStatusController {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
+		
+		journalService.newJournalEntry(OperationType.QUEUE_LOCK, null, ObjectType.QUEUE,
+				"Eilių redagavimas užrakintas");
+		
 		LOG.info("Naudotojas [{}] užrakina eilių redagavimą.", currentUsername);
 
 		statusService.lockQueueEditing();
@@ -142,7 +151,10 @@ public class RegistrationStatusController {
 	public void unlockQueueEditing() {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		
+		journalService.newJournalEntry(OperationType.QUEUE_UNLOCK, null, ObjectType.QUEUE,
+				"Eilių redagavimas atrakintas");
+		
 		LOG.info("Naudotojas [{}] atrakina eilių redagavimą.", currentUsername);
 
 		statusService.unlockQueueEditing();

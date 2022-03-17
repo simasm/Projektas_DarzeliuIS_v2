@@ -74,6 +74,9 @@ public class UserController {
 		LOG.info("** Usercontroller: kuriamas naujas naudotojas **");
 
 		if (userService.findByUsername(userInfo.getUsername()) != null) {
+			
+			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED, ObjectType.USER,
+					"Naudotojas su vardu " + userInfo.getName() + " jau egzistuoja");
 
 			LOG.warn("Naudotojas [{}] bandė sukurti naują naudotoją su jau egzistuojančiu vardu [{}]", currentUsername,
 					userInfo.getUsername());
@@ -119,6 +122,9 @@ public class UserController {
 			return new ResponseEntity<String>("Naudotojas ištrintas sėkmingai", HttpStatus.OK);
 		}
 
+		journalService.newJournalEntry(OperationType.USER_DELETE_FAILED, ObjectType.KINDERGARTEN,
+				"Naudotojas su vardu " + username + " nerastas");
+		
 		LOG.warn("Naudotojas bandė ištrinti naudotoją neegzistuojančiu vardu [{}]", username);
 
 		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
@@ -189,6 +195,10 @@ public class UserController {
 			return new ResponseEntity<String>("Slaptažodis atkurtas sėkmingai", HttpStatus.OK);
 		}
 
+		journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
+				 ObjectType.USER,
+				"Naudotojas su vardu " + username + " nerastas");
+		
 		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
 	}
 
@@ -246,6 +256,10 @@ public class UserController {
 		} else {
 
 			LOG.warn(" [{}] įvedė neteisingą seną slaptažodį. **", currentUsername);
+			
+			journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
+					 ObjectType.USER,
+					"Naudotojas " + currentUsername + " įvedė neteisingą seną slaptažodį");
 
 			return new ResponseEntity<String>("Neteisingas senas slaptažodis", HttpStatus.BAD_REQUEST);
 
@@ -334,6 +348,10 @@ public class UserController {
 			return new ResponseEntity<String>("Naujas naudotojas sukurtas sėkmingai", HttpStatus.OK);
 		}
 	 
+		journalService.newJournalEntry(OperationType.USER_CREATE_FAILED,
+				 ObjectType.USER,
+				"Naudotojui nepavyko susikurti paskyros" );
+		
 		return new ResponseEntity<String>("Nepavyko sukurti naudotojo", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

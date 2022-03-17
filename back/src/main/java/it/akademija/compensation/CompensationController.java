@@ -32,6 +32,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
  
  import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 import it.akademija.kindergarten.KindergartenController;
 
 
@@ -79,10 +81,17 @@ public class CompensationController {
 	   if(compensation != null)  {
 			String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 			
+			journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT, compensation.getId(), ObjectType.APPLICATION,
+					"Kompensacijos prašymas sukurtas");
+			
 			return new ResponseEntity<>(CompensationService.compensationToDTO(compensation), HttpStatus.CREATED);
 	   }
 		  else 
+			  journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT_FAILED, null, ObjectType.APPLICATION,
+						"Kompensacijos pra6ymas vaikui asmens kodu " + data.getChildInfo().getPersonalID() + " jau yra pateiktas");
+	   
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		 	
 	}
 	
 	/**

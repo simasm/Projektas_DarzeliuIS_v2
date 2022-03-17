@@ -160,12 +160,19 @@ public class KindergartenController {
 		if (kindergartenService.findById(id) != null) {
 
 			LOG.warn("Kuriamas darželis su jau egzistuojančiu įstaigos kodu [{}]", id);
-
-			return new ResponseEntity<String>("Darželis su tokiu įstaigos kodu jau yra", HttpStatus.CONFLICT);
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_CREATE_FAILED, ObjectType.KINDERGARTEN,
+					"Kuriamas darželis su id " + Long.valueOf(kindergarten.getId()) +  " jau egzistuoja duomenų bazėje");
+			
+			return new ResponseEntity<String>("Darželis su tokiu įstaigos kodu jau yra", HttpStatus.BAD_REQUEST);
 
 		} else if (kindergartenService.nameAlreadyExists(kindergarten.getName().trim(), id)) {
+			
 
 			LOG.warn("Kuriamas darželis su jau egzistuojančiu įstaigos pavadinimu [{}]", kindergarten.getName().trim());
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_CREATE_FAILED, ObjectType.KINDERGARTEN,
+					"Kuriamas darželis su pavadinimu " + kindergarten.getName() +  " jau egzistuoja duomenų bazėje");
 
 			return new ResponseEntity<String>("Darželis su tokiu įstaigos pavadinimu jau yra", HttpStatus.CONFLICT);
 
@@ -212,12 +219,18 @@ public class KindergartenController {
 		if (kindergartenService.findById(id) == null) {
 
 			LOG.warn("Darželio įstaigos kodu [{}] nėra", id);
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_UPDATE_FAILED, ObjectType.KINDERGARTEN,
+					"Darželis su id " + id + " nerastas");
 
 			return new ResponseEntity<String>("Darželis su tokiu įstaigos kodu nerastas", HttpStatus.NOT_FOUND);
 
 		} else if (kindergartenService.nameAlreadyExists(updated.getName().trim(), id)) {
 
 			LOG.warn("Darželis pavadinimu [{}] jau egzituoja", updated.getName().trim());
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_UPDATE_FAILED, ObjectType.KINDERGARTEN,
+					"Darželis su pavadinimu " + updated.getName() + " jau egzistuoja");
 
 			return new ResponseEntity<String>("Darželis su tokiu įstaigos pavadinimu jau yra", HttpStatus.CONFLICT);
 
