@@ -19,6 +19,8 @@ export class KindergartenStatContainer extends Component {
       totalPages: 0,
       totalElements: 0,
       numberOfElements: 0,
+
+      allKindergartens : null
     };
   }
   componentDidMount() {
@@ -32,6 +34,7 @@ export class KindergartenStatContainer extends Component {
     if (currentPage < 0) currentPage = 0;
 
     var uri = `${apiEndpoint}/api/darzeliai/statistics?page=${currentPage}&size=${pageSize}`;
+    var allUri = `${apiEndpoint}/api/darzeliai/visi`;
 
     http
       .get(uri)
@@ -43,14 +46,28 @@ export class KindergartenStatContainer extends Component {
           numberOfElements: response.data.numberOfElements,
           currentPage: response.data.number + 1,
         });
+     
       })
       .catch(() => { });
+ 
+      http
+      .get(allUri)
+      .then((response) => {
+        this.setState({
+          allKindergartens: response.data
+        });
+        console.log(JSON.stringify( this.state.allKindergartens));
+      })
+      .catch(() => { });
+
   }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
     this.getKindergartenStat(page);
   };
+
+
 
   render() {
     const { darzeliai, totalElements, pageSize } = this.state;
@@ -69,8 +86,7 @@ export class KindergartenStatContainer extends Component {
       <div className="container pt-4">
 
 
-        <div className="container">
-          <div className="row justify-content-end">
+           <div className="row justify-content-end">
             <div className="col-5" >
 
             <div className="btn btn-primary me-2">1, 2 prioritetai</div>
@@ -83,13 +99,12 @@ export class KindergartenStatContainer extends Component {
           </div>
           <div className="row">
             <div className="col-6">
-              <KindergartenStatChart />
+              <KindergartenStatChart kindergartens={this.state.allKindergartens} />
             </div>
             <div className="col-6">
-              <KindergartenStatChart />
+              <KindergartenStatChart kindergartens={this.state.allKindergartens} />
             </div>
-          </div>
-        </div>
+         </div>
 
 
 
