@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.akademija.application.Application;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
 
@@ -127,6 +128,16 @@ public class CompensationService {
 					compensation.getKindergartenBankName(),
 					compensation.getKindergartenBankAccountNumber(),
 					compensation.getKindergartenBankCode());
+	}
+
+	public boolean existsById(@Valid String id) {
+
+		return compensationDAO.existsById(Long.parseLong(id));
+	}
+	
+	public Compensation getUserCompensationById(String id) {
+		Compensation compensation = compensationDAO.findById(Long.parseLong(id)).orElse(null);
+		return compensation;
 	}
 	
 }
