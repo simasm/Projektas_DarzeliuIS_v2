@@ -20,7 +20,6 @@
     "chart.js": "^3.7.1",
     "chartjs-plugin-datalabels": "^2.0.0",
     "date-fns": "2.17.0",
-    "faker": "^5.5.3",
     "gridjs": "^5.0.2",
     "gridjs-react": "^5.0.2",
     "html2canvas": "^1.4.1",

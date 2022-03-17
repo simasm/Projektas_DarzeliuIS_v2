@@ -41,4 +41,7 @@ public interface KindergartenDAO extends JpaRepository<Kindergarten, String> {
 	
 	List<KindergartenChoise> deleteAllById(String kindergartenId);
 
+	@Query("SELECT new it.akademija.kindergarten.KindergartenStatistics(k.id, k.name, (k.capacityAgeGroup2to3 + k.capacityAgeGroup3to6) as availablePlaces, SUM(case when c.kindergartenChoisePriority ='1' then 1 else 0 end) as selectedAsChoise1, SUM(case when c.kindergartenChoisePriority ='2' then 1 else 0 end) as selectedAsChoise2, SUM(case when c.kindergartenChoisePriority ='3' then 1 else 0 end) as selectedAsChoise3, SUM(case when c.kindergartenChoisePriority ='4' then 1 else 0 end) as selectedAsChoise4, SUM(case when c.kindergartenChoisePriority ='5' then 1 else 0 end) as selectedAsChoise5, size(k.approvedApplications) as takenPlaces) FROM Kindergarten k LEFT JOIN KindergartenChoise c ON c.kindergarten.id=k.id GROUP BY k.id")
+	List<KindergartenStatistics> findAllChoises();
+
 }

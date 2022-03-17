@@ -247,4 +247,19 @@ public class KindergartenController {
 		this.kindergartenService = gartenService;
 	}
 
+	
+	/**
+	 * Get Kindergarten statistics, all
+	 * 
+	 * @return all kindergarten statistics
+	 */
+	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER" })
+	@GetMapping("/statistics/all")	
+	@ApiOperation(value = "Get kindergarten statistics")
+	public List<KindergartenStatistics> getAllKindergartenStatistics() {
+ 
+		return kindergartenService.getAllKindergartenStatistics();
+	}
+
+	 
 }
