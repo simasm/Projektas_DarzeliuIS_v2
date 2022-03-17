@@ -74,8 +74,6 @@ public class CompensationControllerTest {
 	@Order(1)
 	public void contextLoads() {
 		assertNotNull(controller);
-	 
-	 
 	}
 	
 	/*
@@ -190,6 +188,21 @@ public class CompensationControllerTest {
  
 	}
 	
+	@Test
+	@Order(7)
+	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
+	void getCompensationApplicationForUser() {
+		
+		int size = controller.getAllCopensationApplications()
+				.getBody()
+				.size();
+ 
+		assertTrue(size == 0 );
+		
+		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
+		
+		assertNotNull(controller.getAllCopensationApplications().getBody().size());
+	}
  
 	@PreDestroy
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
