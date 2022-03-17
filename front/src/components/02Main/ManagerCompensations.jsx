@@ -73,7 +73,7 @@ const ManagerCompensations = () => {
             Pradinis puslapis
           </Link>
           &nbsp; &gt; &nbsp; */}
-          <h3>Prašymai dėl kompensacijos</h3>
+          <h6>Prašymai dėl kompensacijos</h6>
         </div>
         <div className="row pt-5 ">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">

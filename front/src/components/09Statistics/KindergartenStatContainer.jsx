@@ -67,7 +67,7 @@ export class KindergartenStatContainer extends Component {
     return (
       <div className="container pt-4">
 
-        <h6 className="pl-2 pt-3">Prašymų statistika</h6>
+        <h6 className="pl-2 pt-3">Registracijų statistika</h6>
 
         <div className="row pt-2">
           <div className="col-12">

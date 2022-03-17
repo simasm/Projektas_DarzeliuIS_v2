@@ -205,7 +205,7 @@ export default function Compensation() {
         <div className="container">
           <div className="row justify-content-end me-4">
             <button
-              className="btn btn-primary btn-outline-success position-relative mt-4"
+              className="btn btn-primary  position-relative mt-4"
               id="btnSubmit"
               style={{ width: "100px"}}
               onClick={() => handleSubmit()}
