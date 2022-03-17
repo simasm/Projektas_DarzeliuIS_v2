@@ -17,6 +17,14 @@ import {
 
 export const KindergartenStatChart = ({kindergartens}) => {
 
+    const strCompare = (a,b) => {
+
+        let strA = a.split(/(\d+)/);
+        let strB = b.split(/(\d+)/);
+
+        return parseInt(strA[1]) < parseInt(strB[2]);
+    }
+
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -26,11 +34,19 @@ export const KindergartenStatChart = ({kindergartens}) => {
         Legend,
         ChartDataLabels
       );
+
+
+      ChartJS.defaults.set('plugins.datalabels', {
+        color: '#FE777B',
+        anchor : "start",
+        clamp : true,
+        align : "right"
+        });
       
        const options = {
         indexAxis: 'y' ,
 
-       
+   
              
        
      
@@ -56,14 +72,15 @@ export const KindergartenStatChart = ({kindergartens}) => {
         labels = kindergartens.map(kindergarten => kindergarten.name);
       
        const data = {
-        labels,
+        labels  ,
         datasets: [
         
           {
-            label: labels.length,
-            data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })).sort( (a, b) => a < b),
+            label: "prasymu sk",
+            data: labels.map(( ) => faker.datatype.number({ min: 0, max: 100 })).sort( (a, b) => a < b) ,
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(255, 255, 255, 0)',
+           
           },
         ],
       };
