@@ -92,8 +92,6 @@ public class ApplyForCompensation extends GeneralMethods {
         // Download application
         wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonAtsisiusti));
         compensationPage.clickAtsisiusti();
-        wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonAtgal));
-        compensationPage.clickAtgal();
         logOutUi();
 
         // Delete application

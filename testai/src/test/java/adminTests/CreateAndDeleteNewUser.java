@@ -51,7 +51,7 @@ public class CreateAndDeleteNewUser extends GeneralMethods {
      */
 
     @Test(groups = {"regression"})
-    public void successfullyCreateAndDeleteNewParent() {
+    public void successfullyCreateAndDeleteNewParent() throws InterruptedException {
         uiLogInAsAdmin();
         createNewParent(2);
         deleteNewUser();

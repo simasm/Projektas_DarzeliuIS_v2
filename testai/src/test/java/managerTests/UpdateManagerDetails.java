@@ -3,27 +3,27 @@ package managerTests;
 import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
 
-public class UpdateSpecialistDetails extends GeneralMethods {
+public class UpdateManagerDetails extends GeneralMethods {
 
     /**
      * Test scenario:
-     * Change user details (kindergarten specialist)
+     * Change MANAGER details
      * <p>
      * Preconditions:
      * User admin@admin.lt is already created. User manager123@manager.lt is created during this test.
      * <p>
      * Test steps:
      * 1. Login as admin
-     * 2. Create new kindergarten specialist for the test
+     * 2. Create new MANAGER for the test
      * 3. Logout.
-     * 4. Login as newly created user
+     * 4. Login as newly created MANAGER
      * 5. Go to "Mano paskyra" page
      * 6. Change user details (email, name, surname)
      */
 
     @Test(groups = "regression", priority = 1)
-    public void successfullyChangeSpecialistDetails() {
-        // create a new user (kindergarten specialist) for this test
+    public void successfullyChangeManagerDetails() {
+        // create  new  MANAGER for this test
         createNewManager(1);
         logOutUi();
         logInUi(createNewUserManagerEmail, createNewUserManagerEmail);
@@ -56,7 +56,7 @@ public class UpdateSpecialistDetails extends GeneralMethods {
      */
 
     @Test(groups = "regression", priority = 2)
-    public void successfullyChangeSpecialistPassword() {
+    public void successfullyChangeManagerPassword() {
         changeUserPassword(createNewUserManagerEmail);
     }
 
@@ -80,10 +80,10 @@ public class UpdateSpecialistDetails extends GeneralMethods {
      */
 
     @Test(groups = "regression", priority = 3)
-    public void successfullyResetSpecialistPasswordToOriginal() {
+    public void successfullyResetManagerPasswordToOriginal() {
         resetUserPassword(createNewUserManagerEmail);
 
-        // delete user after successful user details change
+        // delete MANAGER after successful details change
         uiLogInAsAdmin();
         deleteNewUser();
     }

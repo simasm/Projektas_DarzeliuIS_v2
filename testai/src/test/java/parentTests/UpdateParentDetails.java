@@ -23,7 +23,7 @@ public class UpdateParentDetails extends GeneralMethods {
      */
 
     @Test(groups = "regression", priority = 1)
-    public void successfullyChangeParentDetails() {
+    public void successfullyChangeParentDetails() throws InterruptedException {
         // create a new user (parent) for this test
         uiLogInAsAdmin();
         createNewParent(2);

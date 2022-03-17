@@ -28,6 +28,12 @@ public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
     @FindBy(id = "capacityAgeGroup3to6")
     public WebElement capacityAgeGroup3to6;
 
+    @FindBy (id = "directorName")
+    public WebElement directorName;
+
+    @FindBy (id = "directorSurname")
+    public WebElement directorSurname;
+
     // update kindergarten input fields
     @FindBy(id = "txtKindergartenName")
     public WebElement newKindergartenName;
@@ -59,20 +65,28 @@ public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
         kindergartenID.sendKeys(value);
     }
 
-    public void inputkindergartenName(String value) {
+    public void inputKindergartenName(String value) {
         kindergartenName.sendKeys(value);
     }
 
-    public void inputkindergartenAddress(String value) {
+    public void inputKindergartenAddress(String value) {
         kindergartenAddress.sendKeys(value);
     }
 
-    public void inputcapacityAgeGroup2to3(String value) {
+    public void inputCapacityAgeGroup2to3(String value) {
         capacityAgeGroup2to3.sendKeys(value);
     }
 
-    public void inputcapacityAgeGroup3to6(String value) {
+    public void inputCapacityAgeGroup3to6(String value) {
         capacityAgeGroup3to6.sendKeys(value);
+    }
+
+    public void inputDirectorName(String value) {
+        directorName.sendKeys(value);
+    }
+
+    public void inputDirectorSurname(String value) {
+        directorSurname.sendKeys(value);
     }
 
     public void clickButtonSaveKindergarten() {
@@ -91,7 +105,7 @@ public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
     }
 
     public Boolean newKindergartenSearchResult() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//*//td[1]"), "123 Testinis"));
     }
 
@@ -118,13 +132,13 @@ public class CreateAndDeleteNewKindergartenPage extends AbstractObjectPage {
     }
 
     public void clickButtonAgreeToDeleteKindergarten() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(ExpectedConditions.elementToBeClickable(buttonAgreeToDeleteKindergarten));
         buttonAgreeToDeleteKindergarten.click();
     }
 
     public Boolean assertKindergartenWasDeletedSuccessfully() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//body/div[2]/div/div[1]"), "Darželis ištrintas sėkmingai"));
     }
 

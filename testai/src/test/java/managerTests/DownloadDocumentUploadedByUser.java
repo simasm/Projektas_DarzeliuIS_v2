@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class DownloadDocumentUploadedByUser extends GeneralMethods {
      */
 
     @Test (groups = "regression", priority = 2)
-    public void successfullyDownloadPdfAsManager() throws IOException {
+    public void successfullyDownloadPdfAsManager() {
 
         RequestSpecification reqSpec = new RequestSpecBuilder().
                 setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
@@ -81,7 +80,7 @@ public class DownloadDocumentUploadedByUser extends GeneralMethods {
         logOutUi();
 
         // Download document as MANAGER.
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         DocumentPage documentPage = new DocumentPage(driver);
 
         logInUi("manager@manager.lt", "manager@manager.lt");

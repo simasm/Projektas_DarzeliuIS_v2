@@ -16,21 +16,21 @@ public class UploadMedicalDocumentPDF extends GeneralMethods {
      * admin@admin.lt is already created. New user user123@parent.lt is created during the test
      * <p>
      * Test steps:
-     * 1. Login as admin
-     * 2. Create new parent
-     * 3. Logout
-     * 4. Login as the newly created parent
-     * 5. Go to "Mano pazymos" page
-     * 6. Upload pdf
-     * 7. Download it
-     * 8. Delete it
-     * 9. Logout
-     * 10. Login as admin
-     * 11. Delete the test user
+     * 1. Log in as admin.
+     * 2. Create new parent.
+     * 3. Log out.
+     * 4. Log in as the newly created parent.
+     * 5. Go to "Mano pazymos" page.
+     * 6. Upload pdf.
+     * 7. Download it.
+     * 8. Delete it.
+     * 9. Log out.
+     * 10. Log in as admin.
+     * 11. Delete the test user.
      */
 
     @Test(groups = "regression")
-    public void successfullyUploadAndDeletePDF() {
+    public void successfullyUploadAndDeletePDF() throws InterruptedException {
         // create test user (parent)
         uiLogInAsAdmin();
         createNewParent(2);

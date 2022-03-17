@@ -19,6 +19,9 @@ public class LoginPage extends AbstractObjectPage {
     @FindBy(id = "btnLogin")
     public WebElement buttonLogin;
 
+    @FindBy(id = "btnCreate")
+    public WebElement buttonCreateNewAcc;
+
     public void enterUsername(String value) {
         inputUsername.sendKeys(value);
     }
@@ -32,6 +35,10 @@ public class LoginPage extends AbstractObjectPage {
         WebElement login = wait.until(
                 ExpectedConditions.elementToBeClickable(buttonLogin));
         login.click();
+    }
+
+    public void clickButtonCreateNewAcc() {
+        buttonCreateNewAcc.click();
     }
 
     // constructor

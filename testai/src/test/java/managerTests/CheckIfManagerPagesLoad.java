@@ -11,7 +11,7 @@ import smokeTestPages.CheckIfAllUsersPagesLoad;
 
 import java.time.Duration;
 
-public class CheckIfManagerPagesWork extends GeneralMethods {
+public class CheckIfManagerPagesLoad extends GeneralMethods {
 
     /**
      * Test scenario:
@@ -28,8 +28,8 @@ public class CheckIfManagerPagesWork extends GeneralMethods {
 
 
     @Test(groups = "smoke")
-    public void openAndAssertAllSpecialistPages() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    public void openAndAssertAllManagerPages() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         logInUi(managerLogIn, managerLogIn);
 
         // check if Darzeliu sarasas page loads

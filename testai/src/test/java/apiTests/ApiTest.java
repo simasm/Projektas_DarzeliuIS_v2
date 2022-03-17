@@ -1,4 +1,4 @@
-package apiTest;
+package apiTests;
 
 import generalMethods.ApiGeneralMethods;
 import io.restassured.builder.RequestSpecBuilder;
@@ -101,9 +101,12 @@ public class ApiTest extends ApiGeneralMethods {
         kg.setAddress("gatve 13");
         kg.setCapacityAgeGroup2to3(1);
         kg.setCapacityAgeGroup3to6(2);
+        kg.setDirectorName("Alfredas");
+        kg.setDirectorSurname("Bušas");
         kg.setElderate("Antakalnio");
         kg.setId("123456789");
         kg.setName("AAMontessori");
+
 
         createNewKindergarten(kg, reqSpec).
                 then().

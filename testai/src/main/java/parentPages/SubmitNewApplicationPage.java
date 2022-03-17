@@ -169,7 +169,7 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
     }
 
     public void openKindergartenListDropdownPriorityOne() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         driver.findElement(By.tagName("body")).sendKeys(Keys.END);
         Thread.sleep(200);
 

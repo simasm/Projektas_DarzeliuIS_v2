@@ -22,7 +22,7 @@ public class CreateAndDeleteNewKindergarten extends GeneralMethods {
      */
 
     @Test (groups = "regression")
-    public void createAndDeleteNewKindergarten() {
+    public void createAndDeleteNewKindergarten() throws InterruptedException {
         successfullyCreateNewKindergarten();
         deleteNewKindergarten();
         logOutUi();

@@ -59,7 +59,7 @@ public class GeneralMethods extends BaseTest {
     }
 
     public void logOutUi() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement logoutElement = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("btnLogout")));
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -67,12 +67,12 @@ public class GeneralMethods extends BaseTest {
     }
 
     public Boolean verifyIfAdminIsLoggedIn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.id("navAdminUserList"), "Naudotojai"));
     }
 
     public Boolean verifyIfManagerIsLoggedIn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.id("navManagerKindergartenList"), "Darželių sąrašas"));
     }
 
@@ -131,7 +131,7 @@ public class GeneralMethods extends BaseTest {
     }
 
     // create new parent/ guardian
-    public void createNewParent(int index) {
+    public void createNewParent(int index) throws InterruptedException {
         CreateAndDeleteNewUserPage createNewUserPage = new CreateAndDeleteNewUserPage(driver);
         verifyIfAdminIsLoggedIn();
 
@@ -146,6 +146,8 @@ public class GeneralMethods extends BaseTest {
         createNewUserPage.enterPhoneNumber("+37061212123");
         createNewUserPage.enterAddress("Adreso g. 8");
         createNewUserPage.enterCity("Vilnius");
+        driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+        Thread.sleep(200);
 
         createNewUserPage.clickCreateButton();
 
@@ -239,7 +241,7 @@ public class GeneralMethods extends BaseTest {
 
     // CREATE AND DELETE NEW KINDERGARTEN
 
-    public void successfullyCreateNewKindergarten() {
+    public void successfullyCreateNewKindergarten() throws InterruptedException {
 
         // login as kindergarten specialist
         logInUi(managerLogIn, managerLogIn);
@@ -250,14 +252,18 @@ public class GeneralMethods extends BaseTest {
         // input new kindergarten details
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);
         createNewKindergarten.inputKindergartenID("000000001");
-        createNewKindergarten.inputkindergartenName("123 Testinis");
-        createNewKindergarten.inputkindergartenAddress("Adreso g. 5");
+        createNewKindergarten.inputKindergartenName("123 Testinis");
+        createNewKindergarten.inputKindergartenAddress("Adreso g. 5");
         Select dropdownUserRole = new Select(driver.findElement(By.id("elderate")));
         dropdownUserRole.selectByIndex(5);
+        createNewKindergarten.inputDirectorName("Vaišvydas");
+        createNewKindergarten.inputDirectorSurname("Nasvytis");
+        driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+        Thread.sleep(200);
         createNewKindergarten.capacityAgeGroup2to3.sendKeys(Keys.BACK_SPACE);
-        createNewKindergarten.inputcapacityAgeGroup2to3("1");
+        createNewKindergarten.inputCapacityAgeGroup2to3("1");
         createNewKindergarten.capacityAgeGroup3to6.sendKeys(Keys.BACK_SPACE);
-        createNewKindergarten.inputcapacityAgeGroup3to6("1");
+        createNewKindergarten.inputCapacityAgeGroup3to6("1");
 
         // save and create new kindergarten
         createNewKindergarten.clickButtonSaveKindergarten();
@@ -411,7 +417,7 @@ public class GeneralMethods extends BaseTest {
     // UPLOAD USER MEDICAL DOCUMENTS (PDF)
 
     public void uploadPDF() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         UploadMedicalDocumentPDFPage uploadDocument = new UploadMedicalDocumentPDFPage(driver);
         uploadDocument.clickUploadDocumentButton();
         uploadDocument.inputUploadDocument.sendKeys(pdfFileLocation);
@@ -431,45 +437,45 @@ public class GeneralMethods extends BaseTest {
     // WAIT FOR PAGES TO LOAD
 
     public Boolean waitForLoginToLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//h3"), "Prisijungti"));
     }
 
     public Boolean assertThatMyAccountPageHasLoaded() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//div//h6"), "Redaguoti duomenis"));
     }
 
     // WAIT TO ASSERT MESSAGE
 
     public Boolean applicationSuccessful() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("/html/body/div[2]/div/div[1]"), "Prašymas sukurtas sėkmingai"));
     }
 
     public Boolean userIsCreatedMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.xpath("//body/div[2]/div/div[1]"), "Naujas naudotojas buvo sėkmingai sukurtas."));
     }
 
     public Boolean checkErrorMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe(By.id("incorrectLoginData"), expectedErrorMessage));
     }
 
     public void assertThatPasswordWasReset() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(ExpectedConditions.textToBe(By.xpath("//*[@role='dialog']/div[contains(text(), 'Slaptažodis atkurtas sėkmingai')]"), "Slaptažodis atkurtas sėkmingai"));
     }
 
     public Boolean assertThatUserPasswordWasUpdated() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe
                 (By.xpath("//body/div[2]/div/div[1]"), "Naudotojo slaptažodis atnaujintas sėkmingai"));
     }
 
     public Boolean assertThatMyDocumentsPageLoaded() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         return wait.until(ExpectedConditions.textToBe
                 (By.xpath("//*/div[1]//h6"), "Mano pažymos"));
     }
@@ -477,42 +483,42 @@ public class GeneralMethods extends BaseTest {
     // WAIT TO CLICK BUTTONS
 
     public void waitToClickSubmitButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement clickButton = wait.until(
                 ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, 'confirm')]")));
         clickButton.click();
     }
 
     public void clickDeleteApplication() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement delete = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("btnDeleteApplication")));
         delete.click();
     }
 
     public void clickNavButtonAdminMyAccount() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyAccountAdmin = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("navAdminMyAccount")));
         navMyAccountAdmin.click();
     }
 
     public void clickNavButtonMyDocumentsParent() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyDocuments = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("navUserDocuments")));
         navMyDocuments.click();
     }
 
     public void clickNavButtonParentApplications() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyAccountAdmin = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("navUserMyApplications")));
         navMyAccountAdmin.click();
     }
 
     public void clickNavButtonMyAccountParent() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyAccountParent = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("navUserMyAccount")));
         navMyAccountParent.click();
@@ -538,28 +544,28 @@ public class GeneralMethods extends BaseTest {
     }
 
     public void clickUserForgotPasswordButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement forgotPassword = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.className("btn-link")));
         forgotPassword.click();
     }
 
     public void clickDoneButtonForgotPassword() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement clickDone = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div/button")));
         clickDone.click();
     }
 
     public void clickResetPasswordButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement clickResetPassword = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("btnRestoreUserPassword")));
         clickResetPassword.click();
     }
 
     public void clickNavButtonSpecialistMyAccount() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyAccountSpecialist = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.linkText("Mano paskyra")));
         navMyAccountSpecialist.click();
@@ -568,28 +574,28 @@ public class GeneralMethods extends BaseTest {
 
 
     public void clickDeleteUserButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement deleteUserButton = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("btnDeleteUser")));
         deleteUserButton.click();
     }
 
     public void clickNavButtonNewApplication() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navNewApplication = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("navUserNewApplication")));
         navNewApplication.click();
     }
 
     public void clickDrpDnButtonRegistration() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navButtonRegistration = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='dropdown-item' and contains(text(), 'registracijos')]")));
         navButtonRegistration.click();
     }
 
     public void clickDrpDnButtonCompensation() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navButtonCompensation = wait.until(
                 ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='dropdown-item' and contains(text(), 'kompensacijos')]")));
         navButtonCompensation.click();
@@ -597,7 +603,7 @@ public class GeneralMethods extends BaseTest {
 
 
     public void clickNavButtonApplicationQueue() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navApplicationQueue = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Registracijų eilė']")));
         navApplicationQueue.click();
@@ -606,7 +612,7 @@ public class GeneralMethods extends BaseTest {
     // WAIT TO ENTER USER EMAIL WHILE RESETTING PASSWORD
 
     public void enterUserEmail(String value) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement enterUserEmail = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//div[3]/input")));
         enterUserEmail.sendKeys(value);

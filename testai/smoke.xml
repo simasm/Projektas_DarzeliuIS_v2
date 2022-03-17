@@ -13,7 +13,7 @@
             <package name="adminTests"/>
             <package name="managerTests"/>
             <package name="parentTests"/>
-            <package name="apiTest"/>
+            <package name="apiTests"/>
         </packages>
     </test>
 
