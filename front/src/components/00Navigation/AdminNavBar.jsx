@@ -63,7 +63,7 @@ function Navigation(props) {
                   id="navAdminApplicationStats"
                   to={"/statistika"}
                 >
-                  Prašymų statistika
+                  Registracijų statistika
                 </NavLink>
               </li>
 

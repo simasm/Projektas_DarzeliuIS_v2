@@ -36,19 +36,47 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
     return 0;
   }
 
-  let arr = [];
+
+  function letterSort(lang, letters) {
+
+    letters.sort(new Intl.Collator(lang).compare);
+    return letters;
+  }
+
+
+  let applicationCountArr = [];
+  let availablePlacesCountArr = [];
+  let takenPlacesCountArr = [];
   for (let key in statistics) {
+    availablePlacesCountArr.push(statistics[key].occupiedPlaces);
+    takenPlacesCountArr.push(statistics[key].takenPlaces);
     switch (priorities) {
-      case 1: arr.push(statistics[key].c1); break;
-      case 2: arr.push(statistics[key].c2); break;
-      case 3: arr.push(statistics[key].c3); break;
-      case 4: arr.push(statistics[key].c4); break;
-      case 5: arr.push(statistics[key].c5); break;
-      default: arr.push(0); break;
+      case 1: applicationCountArr.push(statistics[key].c1); break;
+      case 2: applicationCountArr.push(statistics[key].c2); break;
+      case 3: applicationCountArr.push(statistics[key].c3); break;
+      case 4: applicationCountArr.push(statistics[key].c4); break;
+      case 5: applicationCountArr.push(statistics[key].c5); break;
+      default: applicationCountArr.push(0); break;
     }
   }
-  var applicationCount = arr.reduce((sum, a) => { return sum + a }, 0);
+  var applicationCount = applicationCountArr.reduce((sum, a) => { return sum + a }, 0);
+  var takenPlacesCount = takenPlacesCountArr.reduce((sum, a) => { return sum + a }, 0);
+  var availablePlacesCount = availablePlacesCountArr.reduce((sum, a) => { return sum + a }, 0);
+  var maxNumber = (Math.max(applicationCount, takenPlacesCount, availablePlacesCount) + "").length;
 
+
+  function addSpaces(val, maxnum) {
+
+    let spaces = "";
+    if (val <= 9)
+      spaces += " ";
+    if (val === 0)
+      spaces += " ";
+    for (let i = 0; i < maxnum - (val + "").length; i++) {
+      spaces += "  ";
+    }
+    return spaces;
+  }
   // console.log("pr " + priorities + " total " + applicationCount);
 
 
@@ -102,9 +130,12 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
       datalabels: {
         formatter: function (value, context) {
           //  console.log(context.dataIndex);
-          return value + "         " +
+          return value +
+           "         " +
+            addSpaces(percentage(value, priorities, applicationCount).toFixed(1), maxNumber) +
             percentage(value, priorities, applicationCount).toFixed(1) + "%" +
-            "                         " +
+            "                         " + 
+            addSpaces(statistics[labels[context.dataIndex]].availablePlaces, maxNumber) +
             statistics[labels[context.dataIndex]].availablePlaces +
             "                                          " +
             statistics[labels[context.dataIndex]].takenPlaces;
@@ -116,17 +147,16 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
       },
       title: {
         display: true,
-        text: '    Darželis       Prašymų skaičius                       Laisvų vietų                     Užimtų vietų',
+        text: '    Darželis       Prašymų skaičius ' +
+         addSpaces(maxNumber) +
+         '                      Laisvų vietų' +
+          addSpaces(maxNumber) +
+          '                     Užimtų vietų',
         align: "start"
       },
     },
   };
 
-  function letterSort(lang, letters) {
-    
-    letters.sort(new Intl.Collator(lang).compare);
-    return letters;
-  }
   var labels = [];
   //  if(kindergartens !== null)
   // labels = kindergartens.map(kindergarten => kindergarten.name);
