@@ -1,8 +1,13 @@
 package it.akademija.application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -118,11 +123,45 @@ public class ApplicationController {
 	@Secured({ "ROLE_USER" })
 	@GetMapping("/user")
 	@ApiOperation(value = "Get all user applications")
-	public Set<ApplicationInfoUser> getAllUserApplications() {
+	public List<ApplicationInfoUser> getAllUserApplications() {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
-		return service.getAllUserApplications(currentUsername);
+		
+		List<ApplicationInfoUser> applicationInfoUser = service.getAllUserApplications(currentUsername)
+				                                               .stream()
+				                                              // .sorted(Comparator.comparing(ApplicationInfoUser::getStatus))
+				                                               .collect(Collectors.toList()) ;
+		
+		List<ApplicationInfoUser> newList = new ArrayList<ApplicationInfoUser>();
+		
+		List<String> myOrder = Arrays.asList("Patvirtintas", "Pateiktas", "Neaktualus", "Laukiantis");
+		
+		String testStatus = "";
+		
+		for(int i=0; i < myOrder.size(); i++ ) {
+			
+		    testStatus = myOrder.get(i);
+		    
+		    if(testStatus.equals("Laukiantis")) {
+		    	List<ApplicationInfoUser> neaktualusList = new ArrayList<ApplicationInfoUser>();
+		    	
+		    	for(ApplicationInfoUser add : applicationInfoUser) {
+		    		if(add.getStatus().toString().equals(testStatus)) {	
+		    			neaktualusList.add(add);
+		    		}
+		    	}
+		    	neaktualusList.sort(Comparator.comparing(ApplicationInfoUser::getNumberInWaitingList));
+		    	newList.addAll(neaktualusList);
+		    }
+		    else {
+				for(ApplicationInfoUser add : applicationInfoUser) {
+					if(add.getStatus().toString().equals(testStatus)) {				
+						newList.add(add);
+					}
+				}
+		    }
+		}
+		return newList;		
 	}
 
 	/**
