@@ -52,7 +52,7 @@ public class UserServiceIntegrationTest {
 	@Test
 	@Order(2)
 	public void testCreateDeleteUser() {
-
+        
 		UserDTO newUser = new UserDTO("MANAGER", "stest", "stest", "stest@test.lt", "stest@test.lt", "stest@test.lt");
 		service.createUser(newUser);
 		assertEquals("stest", service.findByUsername("stest@test.lt").getName());

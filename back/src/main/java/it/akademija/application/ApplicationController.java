@@ -206,7 +206,7 @@ public class ApplicationController {
 	@DeleteMapping("/user/delete/{id}")
 	@ApiOperation("Delete application by application id")
 	public ResponseEntity<String> deleteApplication(
-			@ApiParam(value = "Application id to be deleted", required = true) @PathVariable Long id) {
+			@ApiParam(value = "Application id to be deleted", required = true) @PathVariable(required = true, name = "id") Long id) {
 
 		
 		LOG.info("**ApplicationController: trinamas prasymas [{}] **", id);

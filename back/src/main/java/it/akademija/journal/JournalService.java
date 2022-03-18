@@ -36,7 +36,11 @@ public class JournalService {
 	public void newJournalEntry(OperationType operationType, Long objectID, ObjectType objectType,
 			String entryMessage) {
 
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		var auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String currentUsername = "";
+		if(auth != null) currentUsername = auth.getName();
 		User currentUser = userDAO.findByUsername(currentUsername);
 		Long currentUserID = 0L;
 		
@@ -75,7 +79,11 @@ public class JournalService {
 	@Transactional
 	public void newJournalEntry(OperationType operationType, ObjectType objectType, String entryMessage) {
 
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String currentUsername = "";
+		if(auth != null)
+			currentUsername = auth.getName();
 		
 		User currentUser = userDAO.findByUsername(currentUsername);
 		Long currentUserID = 0L;
