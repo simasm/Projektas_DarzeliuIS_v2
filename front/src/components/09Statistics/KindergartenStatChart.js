@@ -65,15 +65,13 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
   var maxNumber = (Math.max(applicationCount, takenPlacesCount, availablePlacesCount) + "").length;
 
 
-  function addSpaces(val, maxnum) {
+  function addSpaces(val, step) {
 
     let spaces = "";
-    if (val <= 9)
+    
+    
+    for (let i = 0; i < step + maxNumber - (val + "").length; i++) {
       spaces += " ";
-    if (val === 0)
-      spaces += " ";
-    for (let i = 0; i < maxnum - (val + "").length; i++) {
-      spaces += "  ";
     }
     return spaces;
   }
@@ -130,14 +128,18 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
       datalabels: {
         formatter: function (value, context) {
           //  console.log(context.dataIndex);
-          return value +
+          return addSpaces(value,0) +value +
            "         " +
-            addSpaces(percentage(value, priorities, applicationCount).toFixed(1), maxNumber) +
+            addSpaces(percentage(value, priorities, applicationCount).toFixed(1), 1) +
+            addSpaces(percentage(value, priorities, applicationCount).toFixed(1), 1) +
             percentage(value, priorities, applicationCount).toFixed(1) + "%" +
             "                         " + 
-            addSpaces(statistics[labels[context.dataIndex]].availablePlaces, maxNumber) +
+            addSpaces(statistics[labels[context.dataIndex]].availablePlaces, 0) +
             statistics[labels[context.dataIndex]].availablePlaces +
-            "                                          " +
+            addSpaces(statistics[labels[context.dataIndex]].availablePlaces, 0) +
+
+             "                                          " +
+            addSpaces(statistics[labels[context.dataIndex]].takenPlaces, 0) +
             statistics[labels[context.dataIndex]].takenPlaces;
         }
       },

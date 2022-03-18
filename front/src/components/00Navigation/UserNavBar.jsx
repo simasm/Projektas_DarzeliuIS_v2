@@ -55,7 +55,7 @@ function Navigation(props) {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav nav-pills ms-auto">
               <li className="nav-item mr-1 dropdown-z">
                 <Dropdown />
               </li>
@@ -63,8 +63,19 @@ function Navigation(props) {
               <li className="nav-item me-1">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navUserMyApplications"
-                  to={"/prasymai"}
+                   to={"/prasymai"}
+
+                  isActive={(match, location) => {
+                    
+                    if (match && !match.isExact) {
+                      return false;
+                    }
+                    if (match &&  match.isExact) {
+                      return true;
+                    }}}
                 >
                   Mano prašymai
                 </NavLink>
@@ -73,6 +84,8 @@ function Navigation(props) {
               <li className="nav-item me-1">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navUserDocuments"
                   to={"/pazymos"}
                 >
@@ -83,6 +96,8 @@ function Navigation(props) {
               <li className="nav-item me-1">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navUserApplicationStats"
                   to={"/statistika"}
                 >
@@ -93,6 +108,8 @@ function Navigation(props) {
               <li className="nav-item me-1">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navUserMapWindow"
                   to={"/zemelapis"}
                 >
@@ -103,6 +120,8 @@ function Navigation(props) {
               <li className="nav-item mr-e">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navUserMyAccount"
                   to={"/profilis"}
                 >
