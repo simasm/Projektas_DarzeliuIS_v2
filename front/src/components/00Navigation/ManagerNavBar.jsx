@@ -21,7 +21,7 @@ function Navigation(props) {
     var obj2 = "/kompensacijos/download/" + id;
     return {
       "/eile": "Prašymų eilė",
-      "/statistika": "Prašymų statistika",
+      "/statistika": "Registracijų statistika",
       "/kompensacijos": "Prašymai dėl kompensacijos",
       [obj]: "Kompensacijos prašymo peržiūra",
       [obj2]: "Kompensacijos atsisiuntimas",

@@ -123,6 +123,7 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
   };
 
   function letterSort(lang, letters) {
+    
     letters.sort(new Intl.Collator(lang).compare);
     return letters;
   }
@@ -149,11 +150,11 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
   labels = letterSort('lt', labels);
   labels.sort((a, b) => {
     switch (priorities) {
-      case 1: return statistics[a].c1 < statistics[b].c1;
-      case 2: return statistics[a].c2 < statistics[b].c2;
-      case 3: return statistics[a].c3 < statistics[b].c3;
-      case 4: return statistics[a].c4 < statistics[b].c4;
-      case 5: return statistics[a].c5 < statistics[b].c5;
+      case 1: return statistics[b].c1 - statistics[a].c1;
+      case 2: return statistics[b].c2 - statistics[a].c2;
+      case 3: return statistics[b].c3 - statistics[a].c3;
+      case 4: return statistics[b].c4 - statistics[a].c4;
+      case 5: return statistics[b].c5 - statistics[a].c5;
       default: return 0;
     }
 
@@ -164,7 +165,7 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
     datasets: [
 
       {
-        data: dataArray,
+        data: dataArray.sort((a, b) => (b - a)),
         borderColor: 'rgb(32, 222, 12)',
         backgroundColor: 'rgba(255, 255, 255, 0)',
 
@@ -180,5 +181,5 @@ export const KindergartenStatChart = ({ kindergartens, statistics, priorities })
       <Bar options={options} data={data} height="600em" width="100%" />
     </div>);
   else
-    return <div>Siunčiami duomenys</div>;
+    return <h6 className="pt-5">Informacija ruošiama</h6>
 }
