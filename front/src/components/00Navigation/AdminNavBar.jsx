@@ -15,7 +15,7 @@ function Navigation(props) {
   const breadcrumbNameMap = () => {
     return {
       "/eile": "Prašymų eilė",
-      "/statistika": "Prašymų statistika",
+      "/statistika": "Registracijų statistika",
       "/prasymai": "Sąrašo redagavimas",
       "/zurnalas": "Įvykių žurnalas",
       "/profilis": "Mano paskyra",

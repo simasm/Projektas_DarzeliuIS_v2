@@ -24,7 +24,7 @@ function Navigation(props) {
       "/prasymai/kompensacija": "Prašymas dėl kompensacijos",
       "/prasymai": "Mano prašymai",
       "/pazymos": "Mano pažymos",
-      "/statistika": "Prašymų statistika",
+      "/statistika": "Registracijų statistika",
       "/zemelapis": "Žemėlapis",
       "/profilis": "Mano paskyra",
     };
