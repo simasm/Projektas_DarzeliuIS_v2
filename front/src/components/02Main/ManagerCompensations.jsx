@@ -139,24 +139,11 @@ const ManagerCompensations = () => {
                       </Link>
                       <button
                           id="btnDownloadCompensations"
-                          className="btn btn-outline-secondary"
+                          className="btn btn-outline-primary"
                           onClick={() => handleDownloadPdf(item)}
                         >
                           Atsisiųsti
                       </button>
-                      {/* <Link
-                        className="text-decoration-none px-2"
-                        onClick={() => handleDownloadPdf(item.id)}
-                        type="button"
-                        to={`/kompensacijos/download/${item.id}`}
-                      >
-                        <button
-                          id="btnDownloadCompensations"
-                          className="btn btn-outline-primary"
-                        >
-                          Atsisiųsti
-                        </button>
-                      </Link> */}
                     </td>
                   </tr>
                 ))}
