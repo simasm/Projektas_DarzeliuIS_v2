@@ -33,7 +33,7 @@ function Dropdown() {
         <div className='dropdown container'
             onMouseLeave={() => setIsActive(false)}>
 
-            <div className="nav-link dropdown-btn btnnoselect"
+            <div className="nav-link dropdown-toggle btnnoselect"
                 id="navUserNewApplication"
 
                 onClick={handleSetActive}>

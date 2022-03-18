@@ -33,7 +33,7 @@ function ManagerDropdownList() {
   return (
     <div className="dropdown container" onMouseLeave={() => setIsActive(false)}>
       <div
-        className="nav-link dropdown-btn btnnoselect"
+        className="nav-link  dropdown-toggle btnnoselect"
         id="navManagerApplications"
         onClick={handleSetActive}
       >

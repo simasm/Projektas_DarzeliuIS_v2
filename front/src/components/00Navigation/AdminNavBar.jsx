@@ -46,10 +46,12 @@ function Navigation(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav nav-pills ms-auto">
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navAdminUserList"
                   to={"/admin"}
                 >
@@ -60,6 +62,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navAdminApplicationStats"
                   to={"/statistika"}
                 >
@@ -70,6 +74,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navManagerApplicationAdmin"
                   to={"/prasymai"}
                 >
@@ -80,6 +86,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navAdminEventLog"
                   to={"/zurnalas"}
                 >
@@ -90,6 +98,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navAdminMyAccount"
                   to={"/profilis"}
                 >

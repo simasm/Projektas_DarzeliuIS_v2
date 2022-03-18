@@ -55,10 +55,12 @@ function Navigation(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav nav-pills nav-pillsr ms-auto">
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+                  
                   id="navManagerKindergartenList"
                   to={"/darzeliai"}
                 >
@@ -72,7 +74,9 @@ function Navigation(props) {
 
               <li className="nav-item me-2">
                 <NavLink
-                  className="nav-link"
+                  className="nav-link "
+                  activeStyle={{color : "white"}}
+
                   id="navManagerDocuments"
                   to={"/pazymos"}
                 >
@@ -82,7 +86,10 @@ function Navigation(props) {
 
               <li className="nav-item me-1">
                 <NavLink
+                
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navManagerMapWindow"
                   to={"/zemelapis"}
                 >
@@ -93,6 +100,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navManagerMyAccount"
                   to={"/profilis"}
                 >
