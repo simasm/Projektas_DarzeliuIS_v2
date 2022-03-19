@@ -177,7 +177,7 @@ public class ApplicationService {
 	@Transactional
 	public ResponseEntity<String> deleteApplication(Long id) {
 
-		Application application = applicationDao.getOne(id);
+		Application application = applicationDao.findById(id).orElse(null);
 
 		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -194,12 +194,20 @@ public class ApplicationService {
 					"Ištrintas prašymas");
 			
 			return new ResponseEntity<String>("Ištrinta sėkmingai", HttpStatus.OK);
-		}
+			
+		} else if (application == null){
 
-		journalService.newJournalEntry(OperationType.APPLICATION_DELETE_FAILED, id, ObjectType.APPLICATION,
-				"Trinamas prašymas nerastas");
+		journalService.newJournalEntry(OperationType.APPLICATION_DELETE_FAILED, null, ObjectType.APPLICATION,
+				"Trinamas prašymas, kurio id " + id + " nerastas");
 		
 		return new ResponseEntity<String>("Prašymas nerastas", HttpStatus.NOT_FOUND);
+		} else {
+			journalService.newJournalEntry(OperationType.APPLICATION_DELETE_FAILED, null, ObjectType.APPLICATION,
+					"Neautorizuotas prašymo, kurio id " + id + " trynimas");
+			
+			return new ResponseEntity<String>("Neautorizuotas prašymo trynimas", HttpStatus.UNAUTHORIZED);
+			
+		}
 	}
 
 	/**
@@ -264,8 +272,8 @@ public class ApplicationService {
 	@Transactional
 	public ResponseEntity<String> deactivateApplication(Long id) {
 
-		Application application = applicationDao.getOne(id);
-
+		Application application = applicationDao.findById(id).orElse(null);
+		
 		if (application == null) {
 			journalService.newJournalEntry(OperationType.APPLICATION_DEACTIVATE_FAILED, id, ObjectType.APPLICATION,
 					"Deaktyvuoti bandomas prašymas nerastas");

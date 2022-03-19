@@ -64,7 +64,7 @@ public class DocumentController {
 	public byte[] getDocumentFileById(@ApiParam(value = "Id of a document to be retrieved") @PathVariable Long id) {
 
 		journalService.newJournalEntry(OperationType.MEDICAL_RECORD_DOWNLOADED, id, ObjectType.MEDICAL_RECORD,
-				"Atsisiųsta medicininė pažyma");
+				"Atsisiųsta pažyma");
 
 		return documentService.getDocumentById(id).getData();
 	}
@@ -85,13 +85,13 @@ public class DocumentController {
 
 			journalService.newJournalEntry(OperationType.MEDICAL_RECORD_SUBMITED, userService
 					.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getUserId(),
-					ObjectType.MEDICAL_RECORD, "Įkelta medicininė pažyma");
+					ObjectType.MEDICAL_RECORD, "Įkelta pažyma");
 
-			return new ResponseEntity<String>("Dokumentas buvo įkeltas sėkmingai", HttpStatus.CREATED);
+			return new ResponseEntity<String>("Pažyma buvo įkelta sėkmingai", HttpStatus.CREATED);
 
 		} else {
 
-			LOG.warn("Įvyko klaida įkeliant dokumentą");
+			LOG.warn("Įvyko klaida įkeliant pažymą");
 			return new ResponseEntity<String>("Įvyko klaida", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -111,7 +111,7 @@ public class DocumentController {
 		journalService.newJournalEntry(OperationType.MEDICAL_RECORD_DELETE, id, ObjectType.MEDICAL_RECORD,
 				"Pažyma ištrinta");
 		
-		return new ResponseEntity<String>("Dokumentas su tokiu id buvo ištrintas.", HttpStatus.OK);
+		return new ResponseEntity<String>("Pažyma ištrinta", HttpStatus.OK);
 	}
 
 	/**

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,8 @@ import it.akademija.compensation.CompensationService;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
+import it.akademija.user.User;
+import it.akademija.user.UserService;
 @RestController
 @Api(value = "application pdf generation")
 @RequestMapping(path = "/api/pdfgeneration")
@@ -46,6 +49,9 @@ public class ApplicationPdfController {
 	@Autowired
 	private JournalService journalService;
 	
+	@Autowired
+	private UserService userService;
+	
 	/**
 	 * Downloads an application as a .pdf file
 	 * 
@@ -58,6 +64,8 @@ public class ApplicationPdfController {
 	@ResponseBody
 	public ResponseEntity<byte[]> generateApplicationPdf( 
 			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
+		
+		
 		if(applicationService.existsById(id)) {
 		 		
 			try {				
@@ -76,18 +84,18 @@ public class ApplicationPdfController {
 				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD, Long.valueOf(id), ObjectType.DOWNLOAD,
 						"Atsisiųstas registracijos prašymas");
 				
-				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);		
+				return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);		
 				
 			} catch (IOException e) {
 				
 				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
 						"Nepavyko atsisiųsti prašymo");
-				e.printStackTrace();
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 			
 		}
 		journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
-				"Nepavyko atsisiųsti prašymo");
+				"Prašymas nerastas");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
@@ -125,7 +133,7 @@ public class ApplicationPdfController {
 			
 		}
 		journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
-				"Nepavyko atsisiųsti kompensacijos prašymo");
+				"Prašymas nerastas");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

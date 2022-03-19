@@ -79,12 +79,12 @@ public class CompensationService {
 		 compensations.forEach(compensation->compensationDAO.delete(compensation));
 		 	
 		 journalService.newJournalEntry(OperationType.COMPENSATION_DELETE, ObjectType.APPLICATION,
-					"Naudotojo" + username + "kompensacijos prašymai ištrinti");
+					"Naudotojo " + username + " kompensacijos prašymai ištrinti");
 		 
 		  
 		}
 		journalService.newJournalEntry(OperationType.COMPENSATION_DELETE_FAILED, ObjectType.APPLICATION,
-				"Naudotojas" + username + "neturejo kompensacijos prašymų");
+				"Naudotojas " + username + " neturejo kompensacijos prašymų");
 		
 	}
 	

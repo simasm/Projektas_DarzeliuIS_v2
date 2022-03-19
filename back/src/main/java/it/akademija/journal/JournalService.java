@@ -92,8 +92,8 @@ public class JournalService {
 			currentUserID = currentUser.getUserId();
 		} 
 		
-		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, getTimestamp(), operationType,
-				currentUserID, objectType, entryMessage);
+		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, getTimestamp(), operationType, null,
+				 objectType, entryMessage);
 
 		journalEntryDAO.saveAndFlush(entry);
 	}

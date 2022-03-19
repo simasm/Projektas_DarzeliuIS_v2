@@ -76,7 +76,7 @@ public class UserController {
 		if (userService.findByUsername(userInfo.getUsername()) != null) {
 			
 			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED, ObjectType.USER,
-					"Naudotojas su vardu " + userInfo.getName() + " jau egzistuoja");
+					"Naudotojas vardu " + userInfo.getName() + " jau egzistuoja");
 
 			LOG.warn("Naudotojas [{}] bandė sukurti naują naudotoją su jau egzistuojančiu vardu [{}]", currentUsername,
 					userInfo.getUsername());
@@ -109,15 +109,14 @@ public class UserController {
 	public ResponseEntity<String> deleteUser(
 			@ApiParam(value = "Username(email) by which a user is deleted", required = true) @PathVariable final String username) {
 
-		long id = userService.findByUsername(username).getUserId();
-
+		
 		if (userService.findByUsername(username) != null) {
 
 			userService.deleteUser(username);
 
 			LOG.info("** Usercontroller: trinamas naudotojas vardu [{}] **", username);
 
-			journalService.newJournalEntry(OperationType.USER_DELETED, id, ObjectType.USER, "Ištrintas naudotojas");
+			journalService.newJournalEntry(OperationType.USER_DELETED, ObjectType.USER, "Ištrintas naudotojas");
 
 			return new ResponseEntity<String>("Naudotojas ištrintas sėkmingai", HttpStatus.OK);
 		}
@@ -127,7 +126,9 @@ public class UserController {
 		
 		LOG.warn("Naudotojas bandė ištrinti naudotoją neegzistuojančiu vardu [{}]", username);
 
-		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("Naudotojo vardu " + username + " ištrinti nepavyko", HttpStatus.NOT_FOUND);
+
+		
 	}
 
 	/**
@@ -181,9 +182,16 @@ public class UserController {
 	@ApiOperation(value = "Restore user password", notes = "Restore user password to initial value")
 	public ResponseEntity<String> restorePassword(
 			@ApiParam(value = "Username", required = true) @PathVariable final String username) {
+		
+		if (userService.findByUsername(username) == null) {
+			journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
+					 ObjectType.USER,
+					"Naudotojas vardu " + username + " nerastas");
+			
+			return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+		}
 
-		if (userService.findByUsername(username) != null) {
-
+		
 			userService.restorePassword(username);
 
 			LOG.info("** Usercontroller: keiciamas slaptazodis naudotojui vardu [{}] **", username);
@@ -193,13 +201,9 @@ public class UserController {
 					"Atstatytas naudotojo slaptažodis");
 
 			return new ResponseEntity<String>("Slaptažodis atkurtas sėkmingai", HttpStatus.OK);
-		}
-
-		journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
-				 ObjectType.USER,
-				"Naudotojas su vardu " + username + " nerastas");
 		
-		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+
+		
 	}
 
 	/**
