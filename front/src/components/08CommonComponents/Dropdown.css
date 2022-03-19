@@ -1,37 +1,44 @@
 .dropdown .dropdown-btn {
-    color: inherit;
-    width: fit-content;
-  }
+  color: inherit;
+  width: fit-content;
+}
 
-  .dropdown .dropdown-btn:hover {
-    color: inherit;
-    cursor: pointer;
-  }
-  
-  .dropdown .dropdown-content{
-    position: absolute;
-    
-   background: white;
-    width: fit-content;
-    padding: 10px;
-    box-shadow: 3px 3px 10px 6px rgba(0, 39, 75, 0.2);
-    z-index: 1;
-  }
-  
-  .dropdown .dropdown-content .dropdown-item {
-    
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-    align-items: center;
-    color: rgb(116, 116, 117);
-  }
-  
-  .dropdown .dropdown-content .dropdown-item:hover{
-    background: rgb(235, 232, 232);
-    color: rgb(66, 66, 66);
-  }
+.dropdown .dropdown-btn:hover {
+  color: inherit;
+  cursor: pointer;
+}
 
-  .btnnoselect{
-    user-select: none;
-  }
+.dropdown .dropdown-content {
+  position: absolute;
+
+  background: white;
+  width: fit-content;
+  padding: 10px;
+  box-shadow: 3px 3px 10px 6px rgba(0, 39, 75, 0.2);
+  z-index: 1;
+}
+
+.dropdown .dropdown-content .dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+  align-items: center;
+  color: rgb(116, 116, 117);
+}
+
+.dropdown .dropdown-content .dropdown-item:hover {
+  background: rgb(235, 232, 232);
+  color: rgb(66, 66, 66);
+}
+
+.btnnoselect {
+  user-select: none;
+}
+
+#navUserNewApplication:hover {
+  cursor: pointer;
+}
+
+#navManagerApplications:hover {
+  cursor: pointer;
+}

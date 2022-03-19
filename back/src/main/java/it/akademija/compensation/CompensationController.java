@@ -88,7 +88,7 @@ public class CompensationController {
 	   }
 		  else 
 			  journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT_FAILED, null, ObjectType.APPLICATION,
-						"Kompensacijos pra6ymas vaikui asmens kodu " + data.getChildInfo().getPersonalID() + " jau yra pateiktas");
+						"Kompensacijos prašymas vaikui asmens kodu " + data.getChildInfo().getPersonalID() + " jau yra pateiktas");
 	   
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		 	

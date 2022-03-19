@@ -87,7 +87,7 @@ public class ApplicationController {
 		} else if (service.existsByPersonalCode(childPersonalCode)) {
 			
 			journalService.newJournalEntry(OperationType.APPLICATION_SUBMIT_FAILED, ObjectType.APPLICATION,
-					"Nepavyko sukurti prašymo nes prašyme nurodytas vaiko asmens kodas jau yra registruotas");
+					"Nepavyko sukurti prašymo nes prašyme nurodytas vaiko asmens kodas" + childPersonalCode + " jau yra registruotas");
 			
 			LOG.warn("Naudotojas [{}] bandė registruoti prašymą jau registruotam vaikui su asmens kodu [{}]",
 					currentUsername, data.getChildPersonalCode());
@@ -263,7 +263,7 @@ public class ApplicationController {
 	 */
 	@Secured({ "ROLE_MANAGER" })
 	@PostMapping("/manager/deactivate/{id}")
-	@ApiOperation("Delete user application by id")
+	@ApiOperation("Deactivate user application by application id")
 	public ResponseEntity<String> deactivateApplication(
 			@ApiParam(value = "Id of an application to be deactivated", required = true) @PathVariable Long id) {
 
