@@ -77,7 +77,7 @@ public class ApplicationPdfController {
 				 headers.setContentType(MediaType.APPLICATION_PDF);
 			   
 				headers.add("Content-Disposition", "filename=" + id +".pdf");
-				//headers.add("Cache-Control", "no-cache, no-store, must-revalidate"); 
+				//headers.add("Cache-Control", "no-cache, no-store, must-revalidate");v 
 		 
 				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
 				
