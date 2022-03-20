@@ -343,7 +343,8 @@ public class UserController {
  		if ((authentication instanceof AnonymousAuthenticationToken)) {
  			userService.createUserFromLogin(userDTO);
 		
-		journalService.newJournalEntry(OperationType.USER_CREATED,
+		journalService.newJournalEntry(userService.findByUsername(userDTO.getUsername()).getUserId(),userDTO.getUsername(),
+				OperationType.USER_CREATED,
 				userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
 				"Sukurtas naujas naudotojas");
  		}
