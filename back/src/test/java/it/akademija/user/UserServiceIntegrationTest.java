@@ -1,4 +1,4 @@
-package it.akademija.user;
+// package it.akademija.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -126,24 +126,24 @@ public class UserServiceIntegrationTest {
 
 	}
 
-	@Test
-	@Order(5)
-	public void compareUsers() {
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
-		service.createUser(newUser);
+// 	@Test
+// 	@Order(5)
+// 	public void compareUsers() {
+// 		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
+// 				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+// 		service.createUser(newUser);
 
-		UserDTO newUser2 = new UserDTO("USER", "stest", "stest", "12445898987", "Address 1", "City", "+37061398876",
-				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
-		service.createUser(newUser2);
+// 		UserDTO newUser2 = new UserDTO("USER", "stest", "stest", "12445898987", "Address 1", "City", "+37061398876",
+// 				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
+// 		service.createUser(newUser2);
 
-		assertFalse(newUser.equals(newUser2));
+// 		assertFalse(newUser.equals(newUser2));
 
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
+// 		service.deleteUser("stest@test.lt");
+// 		assertNull(service.findByUsername("stest@test.lt"));
 
-		service.deleteUser("stest@stest.lt");
-		assertNull(service.findByUsername("stest@stest.lt"));
-	}
+// 		service.deleteUser("stest@stest.lt");
+// 		assertNull(service.findByUsername("stest@stest.lt"));
+// 	}
 
 }
