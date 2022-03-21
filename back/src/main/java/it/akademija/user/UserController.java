@@ -75,8 +75,10 @@ public class UserController {
 
 		if (userService.findByUsername(userInfo.getUsername()) != null) {
 			
-			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED, ObjectType.USER,
-					"Naudotojas vardu " + userInfo.getName() + " jau egzistuoja");
+			
+			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userInfo.getUsername());
 
 			LOG.warn("Naudotojas [{}] bandė sukurti naują naudotoją su jau egzistuojančiu vardu [{}]", currentUsername,
 					userInfo.getUsername());
@@ -329,14 +331,18 @@ public class UserController {
 	@ApiOperation(value = "Create new user account from login screen")
 	public ResponseEntity<String> createAccountLoginScreen(
 			@RequestBody UserDTO userDTO) {
-		
+ 		
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
+			journalService.newJournalEntry(null, null, OperationType.USER_CREATE_FAILED, null,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userDTO.getUsername());
 			
 			return new ResponseEntity<String>("Toks naudotojas jau egzistuoja!", HttpStatus.BAD_REQUEST);
 		}
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
  		if ((authentication instanceof AnonymousAuthenticationToken)) {
  			userService.createUserFromLogin(userDTO);
 		
