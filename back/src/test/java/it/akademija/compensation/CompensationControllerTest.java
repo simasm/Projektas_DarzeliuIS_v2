@@ -197,7 +197,7 @@ public class CompensationControllerTest {
 				.getBody()
 				.size();
  
-		assertTrue(size == 0 );
+		assertTrue(size == 1);
 		
 		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
 		
