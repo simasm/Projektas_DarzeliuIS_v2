@@ -27,7 +27,7 @@ class RegistrycenterControllerTest {
 	@Test
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	void controllerRespondsWith400OnBadRequest() {
-		assertEquals(controller.getChildDataByIDFromExternalAPI("bad code")
+		assertEquals(controller.getChildDataByIDFromExternalAPI("bad_code")
 				.getStatusCode(), HttpStatus.BAD_REQUEST);
 	}
 	
