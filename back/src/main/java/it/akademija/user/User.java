@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -27,9 +28,11 @@ import it.akademija.application.Application;
 import it.akademija.role.Role;
 
 @Entity
-@Table(name = "users")
+@Table(uniqueConstraints= {@UniqueConstraint(columnNames="username")}, name = "users")
 public class User {
 
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
@@ -61,6 +64,7 @@ public class User {
 	@JsonIgnore
 	private ParentDetails parentDetails;
 
+	
 	@NotEmpty
 	@Email
 	@Column

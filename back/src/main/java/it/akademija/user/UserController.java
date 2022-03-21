@@ -112,11 +112,11 @@ public class UserController {
 		
 		if (userService.findByUsername(username) != null) {
 
-			userService.deleteUser(username);
-
 			LOG.info("** Usercontroller: trinamas naudotojas vardu [{}] **", username);
 
-			journalService.newJournalEntry(OperationType.USER_DELETED, ObjectType.USER, "Ištrintas naudotojas");
+			journalService.newJournalEntry(OperationType.USER_DELETED, userService.findByUsername(username).getUserId(), ObjectType.USER, "Ištrintas naudotojas");
+			
+			userService.deleteUser(username);
 
 			return new ResponseEntity<String>("Naudotojas ištrintas sėkmingai", HttpStatus.OK);
 		}
@@ -330,12 +330,9 @@ public class UserController {
 	public ResponseEntity<String> createAccountLoginScreen(
 			@RequestBody UserDTO userDTO) {
 		
-// 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-// 		if ((authentication instanceof AnonymousAuthenticationToken)) {
-// 			System.out.println("anonymous create user");
-// 			return new ResponseEntity<String>("aha", HttpStatus.I_AM_A_TEAPOT);
-// 		}
+
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
+			
 			return new ResponseEntity<String>("Toks naudotojas jau egzistuoja!", HttpStatus.BAD_REQUEST);
 		}
 		
@@ -343,9 +340,10 @@ public class UserController {
  		if ((authentication instanceof AnonymousAuthenticationToken)) {
  			userService.createUserFromLogin(userDTO);
 		
-		journalService.newJournalEntry(OperationType.USER_CREATED,
-				userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
-				"Sukurtas naujas naudotojas");
+ 			journalService.newJournalEntry(userService.findByUsername(userDTO.getUsername()).getUserId(),userDTO.getUsername(),
+ 					OperationType.USER_CREATED,
+ 					userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
+ 					"Sukurtas naujas naudotojas");
  		}
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
 		 
