@@ -1,9 +1,12 @@
 package it.akademija.document;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,12 +35,25 @@ class DocumentServiceTest {
 	private UserDAO userDao;
 
 	@Test
-	void testUploadDocument() {
+	void testUploadAndDeleteDocument() {
 
 		MockMultipartFile file = new MockMultipartFile("file", "file.pdf", MediaType.APPLICATION_PDF_VALUE,
 				"Hello, World!".getBytes());
 
 		assertTrue(documentService.uploadDocument(file, "file.pdf", 1L));
+		int docListSize = documentService.getAllExistingDocuments().size();
+		List<DocumentEntity> docsList = documentService.getDocumentsByUploaderId(1L);
+		
+		assertNotNull(docsList);
+		System.out.println(docsList.size() + "keywordas");
+		
+		docsList.stream().forEach(doc -> {
+			documentService.deleteDocument(doc.getId());
+			assertTrue(documentService.getAllExistingDocuments().size() < docListSize);
+			}
+		
+		);
+		assertTrue(documentService.getDocumentsByUploaderId(1L).isEmpty());
 
 	}
 
