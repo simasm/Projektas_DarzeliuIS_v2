@@ -102,7 +102,7 @@ export class KindergartenListContainer extends Component {
   handleSearch = (e) => {
     const name = e.currentTarget.value;
 
-    const re = /^[a-zA-Zą-ž\s]+$/;
+    const re = /^[a-zA-Zą-ž\s\d-]+$/;
     if (name === "" || re.test(name)) {
       this.setState({ searchQuery: name });
       this.getKindergartenInfo(1, name);

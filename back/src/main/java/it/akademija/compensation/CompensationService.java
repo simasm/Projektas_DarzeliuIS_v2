@@ -12,6 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.akademija.application.Application;
+import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
 
@@ -25,6 +29,9 @@ public class CompensationService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private JournalService journalService;
 	
 	@Transactional
 	public Compensation createNewCompensationApplication(@Valid CompensationDTO data) {
@@ -65,17 +72,20 @@ public class CompensationService {
 	}
 	
 	@Transactional
-	public String deleteCompensationsApplicationByUsername(String username) {
+	public void deleteCompensationsApplicationByUsername(String username) {
 		List<Compensation> compensations = 
 				compensationDAO.findCompensationsByMainGuardianUsername(username);
 		if(compensations != null) {
 		 compensations.forEach(compensation->compensationDAO.delete(compensation));
 		 	
-		 return "Naudotojo kompensaciju prasymai istrinti";
+		 journalService.newJournalEntry(OperationType.COMPENSATION_DELETE, ObjectType.APPLICATION,
+					"Naudotojo " + username + " kompensacijos prašymai ištrinti");
+		 
 		  
 		}
-		 
-			return "Naudotojas neturi kompensaciju prasymu";
+		journalService.newJournalEntry(OperationType.COMPENSATION_DELETE_FAILED, ObjectType.APPLICATION,
+				"Naudotojas " + username + " neturejo kompensacijos prašymų");
+		
 	}
 	
 	@Transactional
@@ -127,6 +137,16 @@ public class CompensationService {
 					compensation.getKindergartenBankName(),
 					compensation.getKindergartenBankAccountNumber(),
 					compensation.getKindergartenBankCode());
+	}
+
+	public boolean existsById(@Valid String id) {
+
+		return compensationDAO.existsById(Long.parseLong(id));
+	}
+	
+	public Compensation getUserCompensationById(String id) {
+		Compensation compensation = compensationDAO.findById(Long.parseLong(id)).orElse(null);
+		return compensation;
 	}
 	
 }

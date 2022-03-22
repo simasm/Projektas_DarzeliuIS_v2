@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(value = "application queue")
@@ -32,14 +33,14 @@ public class ApplicationQueueController {
 	private ApplicationQueueService queueService;
 
 	/**
-	 * Get application queue
+	 * Retrieves a page of submitted applications
 	 * 
 	 * @return list of sorted applications
 	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/queue")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Get application queue processed")
+	@ApiOperation(value = "Get application queue information")
 	public ResponseEntity<Page<ApplicationQueueInfo>> getApplicationQueueInformation(@RequestParam("page") int page,
 			@RequestParam("size") int size) {
 
@@ -53,16 +54,16 @@ public class ApplicationQueueController {
 	}
 
 	/**
-	 * Get application queue filtered by Child personal code
+	 * Get applications filtered by child personal code
 	 * 
-	 * @return filtered list of sorted applications
+	 * @return filtered list of applications
 	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/queue/{childPersonalCode}")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Get application queue processed")
+	@ApiOperation(value = "Get applications filtered by child personal code")
 	public ResponseEntity<Page<ApplicationQueueInfo>> getApplicationQueueInformationFilteredByChildId(
-			@PathVariable String childPersonalCode, @RequestParam("page") int page, @RequestParam("size") int size) {
+			@ApiParam(value="Child id by which to flter applications") @PathVariable String childPersonalCode, @RequestParam("page") int page, @RequestParam("size") int size) {
 
 		List<Order> orders = new ArrayList<>();
 		orders.add(new Order(Direction.ASC, "childSurname").ignoreCase());

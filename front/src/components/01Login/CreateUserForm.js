@@ -34,11 +34,7 @@ export const CreateUserForm = () => {
         newPasswordRepeat: true
     })
 
-    const [passwordValid, setPasswordValid] = useState(true);
-    const [repeatPasswordValid, setRepeatPasswordValid] = useState(true);
-    const [emailValid, setEmailValid] = useState(true);
-    const [nameValid, setNameValid] = useState(true);
-    const [surnameValid, setSurnameValid] = useState(true);
+  
     const history = useHistory();
 
 
@@ -66,20 +62,34 @@ export const CreateUserForm = () => {
  
  
         if (e.target.value === "")
-              e.target.setCustomValidity(e.target.placeholder + " yra privalomas laukelis");
+              e.target.setCustomValidity(e.target.title + " yra privalomas laukelis");
         else {
-
-            if(e.target.name === "newPassword" || e.target.name === "newPasswordRepeat")  { 
-                e.preventDefault();
+            e.preventDefault();
+            // if(e.target.name === "newPassword" || e.target.name === "newPasswordRepeat")  { 
+            
                 
-            }
+            // }
             e.target.setCustomValidity('');
         }
 
     }
 
-    const resetState = () => {
+    const resetForm = () => {
         setState({
+            email: "",
+            name: "",
+            surname: "",
+            newPassword: "",
+            newPasswordRepeat: ""
+        });
+        setFormValid({
+            email: true,
+            name: true,
+            surname: true,
+            newPassword: true,
+            newPasswordRepeat: true
+        });
+        setFormWarning({
             email: "",
             name: "",
             surname: "",
@@ -156,6 +166,7 @@ export const CreateUserForm = () => {
                                 Vardas <span className="fieldRequired">*</span>
                             </label>
                             <input
+                                title="Vardas"
                                 type="text"
                                 id="txtName"
                                 name="name"
@@ -178,6 +189,7 @@ export const CreateUserForm = () => {
                                 Pavardė <span className="fieldRequired">*</span>
                             </label>
                             <input
+                                title="Pavardė"
                                 type="text"
                                 id="txtSurname"
                                 name="surname"
@@ -201,6 +213,7 @@ export const CreateUserForm = () => {
                                 El. paštas <span className="fieldRequired">*</span>
                             </label>
                             <input
+                                title="Paštas"
                                 type="text"
                                 className="form-control mt-2 mb-2"
                                 id="txtEmail"
@@ -225,6 +238,7 @@ export const CreateUserForm = () => {
 
 
                             <input
+                                title="Slaptažodis"
                                 type="password"
                                 id="txtNewPassword"
                                 name="newPassword"
@@ -249,6 +263,7 @@ export const CreateUserForm = () => {
                                 <span className="fieldRequired">*</span>
                             </label>
                             <input
+                                title="Pakartoti slaptažodį"
                                 type="password"
                                 id="txtNewPasswordRepeat"
                                 name="newPasswordRepeat"
@@ -286,7 +301,7 @@ export const CreateUserForm = () => {
                                 </button>
                                 <button
                                     className="btn btn-outline-danger col-3 "
-                                    onClick={resetState}
+                                    onClick={resetForm}
                                     id="btnClean"
                                 >
                                     Išvalyti

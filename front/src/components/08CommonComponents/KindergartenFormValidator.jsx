@@ -9,7 +9,7 @@ const KindergartenFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
+      if (!e.target.value.match(/^[A-ZĄČĘĖĮŠŲŪŽ]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas pavadinimo formatas",
@@ -35,7 +35,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.code;
 
     case "address":
-      if (!e.target.value.match(/^[A-ZĄ-Ž]{1}[\S\s]{1,64}$/)) {
+      if (!e.target.value.match(/^[A-ZĄČĘĖĮŠŲŪŽ]{1}[\S\s]{1,64}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas adreso formatas",
@@ -76,7 +76,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.email;
 
     case "bankName":
-      if (!e.target.value.match(/^[A-ZĄ-Ž][\w\sÀ-ž-][^%_^$]+$/)) {
+      if (!e.target.value.match(/^[A-ZĄČĘĖĮŠŲŪŽ][\w\s][^%_^$]+$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas banko pavadinimo formatas",
@@ -104,7 +104,7 @@ const KindergartenFormValidator = (
       return kindergartenValid.accountNumber;
 
     case "bankCode":
-      if (!e.target.value.match(/[0-9]{5}/)) {
+      if (!e.target.value.match(/^[0-9]{5}$/)) {
         setKindergartenWarning({
           ...kindergartenWarning,
           [targetName]: "Neteisingas banko kodo formatas",

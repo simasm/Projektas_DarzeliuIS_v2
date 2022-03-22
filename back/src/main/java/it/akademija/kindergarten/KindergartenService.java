@@ -206,12 +206,15 @@ public class KindergartenService {
 	public void updateKindergarten(String id, KindergartenDTO updatedInfo) {
 
 		Kindergarten current = gartenDao.findById(id).orElse(null);
-
+		
 		current.setName(updatedInfo.getName());
 		current.setAddress(updatedInfo.getAddress());
 		current.setElderate(updatedInfo.getElderate());
 		current.setCapacityAgeGroup2to3(updatedInfo.getCapacityAgeGroup2to3());
 		current.setCapacityAgeGroup3to6(updatedInfo.getCapacityAgeGroup3to6());
+		current.setDirectorName(updatedInfo.getDirectorName());
+		current.setDirectorSurname(updatedInfo.getDirectorSurname());
+		current.setCoordinates(updatedInfo.getCoordinates());
 
 		gartenDao.save(current);
 	}
@@ -357,6 +360,10 @@ public class KindergartenService {
 				kindergarten.getElderate()
 				);
 				
+	}
+
+	public List<KindergartenStatistics> getAllKindergartenStatistics() {
+		return gartenDao.findAllChoises();
 	}
 
 }

@@ -9,7 +9,6 @@ import ManagerDropdownList from ".././08CommonComponents/ManagerDropdownList";
 
 import LogoutContainer from "./LogoutContainer";
 
-
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
@@ -22,7 +21,7 @@ function Navigation(props) {
     var obj2 = "/kompensacijos/download/" + id;
     return {
       "/eile": "Prašymų eilė",
-      "/statistika": "Prašymų statistika",
+      "/statistika": "Registracijų statistika",
       "/kompensacijos": "Prašymai dėl kompensacijos",
       [obj]: "Kompensacijos prašymo peržiūra",
       [obj2]: "Kompensacijos atsisiuntimas",
@@ -56,10 +55,12 @@ function Navigation(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav nav-pills nav-pillsr ms-auto">
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+                  
                   id="navManagerKindergartenList"
                   to={"/darzeliai"}
                 >
@@ -73,7 +74,9 @@ function Navigation(props) {
 
               <li className="nav-item me-2">
                 <NavLink
-                  className="nav-link"
+                  className="nav-link "
+                  activeStyle={{color : "white"}}
+
                   id="navManagerDocuments"
                   to={"/pazymos"}
                 >
@@ -83,7 +86,10 @@ function Navigation(props) {
 
               <li className="nav-item me-1">
                 <NavLink
+                
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navManagerMapWindow"
                   to={"/zemelapis"}
                 >
@@ -94,6 +100,8 @@ function Navigation(props) {
               <li className="nav-item me-2">
                 <NavLink
                   className="nav-link"
+                  activeStyle={{color : "white"}}
+
                   id="navManagerMyAccount"
                   to={"/profilis"}
                 >
@@ -128,7 +136,13 @@ function Navigation(props) {
                 {breadcrumbNameMap(value)[to]}
               </Typography>
             ) : (
-              <NavLink underline="hover" color="inherit" to={to} key={to}>
+              <NavLink
+                className="nounderlinelink"
+                underline="hover"
+                color="inherit"
+                to={to}
+                key={to}
+              >
                 {breadcrumbNameMap(value)[to]}
               </NavLink>
             );

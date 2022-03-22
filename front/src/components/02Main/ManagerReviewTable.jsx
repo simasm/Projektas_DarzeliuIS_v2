@@ -111,7 +111,7 @@ const ManagerReviewTable = () => {
         type="button"
         to={`/kompensacijos`}
       >
-        <button className="btn btn-outline-secondary">Atgal</button>
+        <button className="btn btn-outline-primary">Atgal</button>
       </Link>
     </div>
   );

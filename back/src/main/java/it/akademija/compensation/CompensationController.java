@@ -1,6 +1,5 @@
 package it.akademija.compensation;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +32,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
  
  import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
 import it.akademija.kindergarten.KindergartenController;
-import it.akademija.role.Role;
-import it.akademija.user.UserInfo;
-import it.akademija.user.UserService;
+
 
 @RestController
 @Api(value = "application for compensation")
@@ -66,7 +65,7 @@ public class CompensationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create new application for compensation")
 	@ResponseBody
-	public ResponseEntity<CompensationDetails> createNewCompensationApplication(@Valid @RequestBody CompensationDTO data) {
+	public ResponseEntity<CompensationDetails> createNewCompensationApplication(@ApiParam(value="Data of child, mainGuardian and kindergarten")@Valid @RequestBody CompensationDTO data) {
 		
 		Compensation compensation = null; 
 	
@@ -82,29 +81,49 @@ public class CompensationController {
 	   if(compensation != null)  {
 			String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 			
+			journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT, compensation.getId(), ObjectType.APPLICATION,
+					"Kompensacijos prašymas sukurtas");
+			
 			return new ResponseEntity<>(CompensationService.compensationToDTO(compensation), HttpStatus.CREATED);
 	   }
 		  else 
+			  journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT_FAILED, null, ObjectType.APPLICATION,
+						"Kompensacijos prašymas vaikui asmens kodu " + data.getChildInfo().getPersonalID() + " jau yra pateiktas");
+	   
 		 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		 	
 	}
 	
-	
+	/**
+	 * 
+	 * Delete compensation application by child personal code
+	 * 
+	 * @param childCode
+	 * 
+	 */
 	@Secured({ "ROLE_MANAGER", "ROLE_ADMIN"})
-	@ApiOperation(value="delete compensation application")
-	@RequestMapping(value ="/manager/delete/{childCode}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Delete compensation application by child personal code")
+	@RequestMapping(value = "/manager/delete/{childCode}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteCompensationApplicationByChildCode(@ApiParam(value="child code")
+	public void deleteCompensationApplicationByChildCode(@ApiParam(value="Child personal code whose application to be deleted")
 			@PathVariable String childCode) {
 		
 		  compensationService.deleteCompensationApplicationByChildCode(childCode);
 	}
 	
-	
+	/**
+	 * 
+	 * Retrieve a an application for compensation by child personal code
+	 * 
+	 * @param childPersonalCode
+	 * @return compensation data
+	 */
 	@Secured({ "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN" })
+	@ApiOperation(value="Get a compensation application by child personal code")
 	@GetMapping("/{childPersonalCode}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<CompensationDetails> getCompensationApplicationByChildCode(
-			@PathVariable
+			@ApiParam(value="Child personal code whose application to be retrieved")@PathVariable
 			String childPersonalCode ) {
 		
 		Compensation compensation = compensationService.
@@ -118,11 +137,7 @@ public class CompensationController {
 		   }
 			  else 
 			 	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				
-				
-			 
-		
-		
+			
 		
 	}
 	
@@ -161,7 +176,11 @@ public class CompensationController {
 	}
 	
 	
-	/* list  be paging  */
+	/**
+	 * 
+	 * Retrieve all submitted applications for compensation
+	 * @return list of compensations
+	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/list")
 	@ApiOperation(value = "Retrieve all applications for compensation")
@@ -188,7 +207,14 @@ public class CompensationController {
 	}
 	 
 	 
-	/*page*/
+	/**
+	 * 
+	 * Retrieve a page from all submitted applications for compensations
+	 * @param page
+	 * @param size
+	 * 
+	 * @return page of applications for compensation
+	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/page")
 	@ApiOperation(value = "Get a page from all submitted applications")

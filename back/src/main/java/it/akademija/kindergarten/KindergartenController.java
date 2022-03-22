@@ -50,11 +50,11 @@ public class KindergartenController {
 	 * Get list of all Kindergarten names and addresses with capacity of more than
 	 * zero
 	 * 
-	 * @return list of kindergarten
+	 * @return list of kindergartens
 	 */
 	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER" })
 	@GetMapping	
-	@ApiOperation(value = "Get all kindergarten names and addresses with available places > 0")
+	@ApiOperation(value = "Get kindergartens which have places available")
 	public List<KindergartenInfo> getAllWithNonZeroCapacity() {
 
 		return kindergartenService.getAllWithNonZeroCapacity();
@@ -63,7 +63,7 @@ public class KindergartenController {
 	/**
 	 * Get list of all elderates
 	 * 
-	 * @return list of kindergarten
+	 * @return list of elderates
 	 */
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/elderates")	
@@ -73,16 +73,30 @@ public class KindergartenController {
 		return kindergartenService.getAllElderates();
 	}
 	
+	
+	/**
+	 * Retrieves all kindergartens
+	 * 
+	 * @return a list of kindergartens
+	 */
 	@Secured({ "ROLE_MANAGER", "ROLE_USER", "ROLE_ADMIN" })
 	@GetMapping("/visi")
+	@ApiOperation(value = "Get all kindergartens")
 	public ResponseEntity<List<KindergartenInfo>> getAllKindergartens() {
 
 		return new ResponseEntity<>(kindergartenService.getAllKindergartens(), HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * Retrieves all kindergartens that have name or elderate matching the search string
+	 * 
+	 * @return a filtered list of kindergartens
+	 */
 	@Secured({ "ROLE_MANAGER", "ROLE_USER", "ROLE_ADMIN" })
 	@GetMapping("/searchBy={searchString}")
-	public ResponseEntity<List<KindergartenInfo>> getKindergartensFilteredByNameAndElderate(@PathVariable String searchString) {
+	@ApiOperation(value = "Get kindergartens filtered by name and elderate")
+	public ResponseEntity<List<KindergartenInfo>> getKindergartensFilteredByNameAndElderate(@ApiParam(value="A string by which the list of kindergartens is filtered") @PathVariable String searchString) {
 
 		return new ResponseEntity<>(kindergartenService.getKindergartensFilteredByNameAndElderate(searchString), HttpStatus.OK);
 	}
@@ -118,7 +132,7 @@ public class KindergartenController {
 	@Secured({ "ROLE_MANAGER" })
 	@GetMapping("/manager/page/{name}")
 	@ApiOperation(value = "Get kindergarten information pages")
-	public ResponseEntity<Page<Kindergarten>> getKindergartenPageFilteredByName(@PathVariable String name,
+	public ResponseEntity<Page<Kindergarten>> getKindergartenPageFilteredByName(@ApiParam(value="A string by which kindergartens are filtered")@PathVariable String name,
 			@RequestParam("page") int page, @RequestParam("size") int size) {
 
 		Sort.Order order = new Sort.Order(Sort.Direction.ASC, "name").ignoreCase();
@@ -139,21 +153,28 @@ public class KindergartenController {
 	@PostMapping("/manager/createKindergarten")
 	@ApiOperation(value = "Create new kindergarten")
 	public ResponseEntity<String> createNewKindergarten(
-			@ApiParam(value = "Kindergarten", required = true) @Valid @RequestBody KindergartenDTO kindergarten) {
+			@ApiParam(value = "Kindergarten data", required = true) @Valid @RequestBody KindergartenDTO kindergarten) {
 
 		String id = kindergarten.getId();
 
 		if (kindergartenService.findById(id) != null) {
 
 			LOG.warn("Kuriamas darželis su jau egzistuojančiu įstaigos kodu [{}]", id);
-
-			return new ResponseEntity<String>("Darželis su tokiu įstaigos kodu jau yra", HttpStatus.CONFLICT);
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_CREATE_FAILED, ObjectType.KINDERGARTEN,
+					"Kuriamas darželis su id " + Long.valueOf(kindergarten.getId()) +  " jau egzistuoja duomenų bazėje");
+			
+			return new ResponseEntity<String>("Darželis tokiu įstaigos kodu jau yra", HttpStatus.BAD_REQUEST);
 
 		} else if (kindergartenService.nameAlreadyExists(kindergarten.getName().trim(), id)) {
+			
 
 			LOG.warn("Kuriamas darželis su jau egzistuojančiu įstaigos pavadinimu [{}]", kindergarten.getName().trim());
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_CREATE_FAILED, ObjectType.KINDERGARTEN,
+					"Kuriamas darželis su pavadinimu " + kindergarten.getName() +  " jau egzistuoja duomenų bazėje");
 
-			return new ResponseEntity<String>("Darželis su tokiu įstaigos pavadinimu jau yra", HttpStatus.CONFLICT);
+			return new ResponseEntity<String>("Darželis tokiu įstaigos pavadinimu jau yra", HttpStatus.CONFLICT);
 
 		} else {
 
@@ -180,7 +201,7 @@ public class KindergartenController {
 	@DeleteMapping("/manager/delete/{id}")
 	@ApiOperation(value = "Delete kindergarten by ID")
 	public ResponseEntity<String> deleteKindergarten(
-			@ApiParam(value = "Kindergarten id", required = true) @PathVariable String id) {
+			@ApiParam(value = "Id of a kindergarten to be deleted", required = true) @PathVariable String id) {
 
 		journalService.newJournalEntry(OperationType.KINDERGARTEN_DELETED, Long.parseLong(id), ObjectType.KINDERGARTEN,
 				"Ištrintas darželis");
@@ -192,18 +213,24 @@ public class KindergartenController {
 	@PutMapping("/manager/update/{id}")
 	@ApiOperation(value = "Update kindergarten by ID")
 	public ResponseEntity<String> updateKindergarten(
-			@ApiParam(value = "Kindergarten", required = true) @Valid @RequestBody KindergartenDTO updated,
+			@ApiParam(value = "Id of a kindergarten to be updated", required = true) @Valid @RequestBody KindergartenDTO updated,
 			@PathVariable String id) {
 
 		if (kindergartenService.findById(id) == null) {
 
 			LOG.warn("Darželio įstaigos kodu [{}] nėra", id);
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_UPDATE_FAILED, ObjectType.KINDERGARTEN,
+					"Darželis, kurio id " + id + " nerastas");
 
-			return new ResponseEntity<String>("Darželis su tokiu įstaigos kodu nerastas", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Darželis tokiu įstaigos kodu nerastas", HttpStatus.NOT_FOUND);
 
 		} else if (kindergartenService.nameAlreadyExists(updated.getName().trim(), id)) {
 
 			LOG.warn("Darželis pavadinimu [{}] jau egzituoja", updated.getName().trim());
+			
+			journalService.newJournalEntry(OperationType.KINDERGARTEN_UPDATE_FAILED, ObjectType.KINDERGARTEN,
+					"Darželis pavadinimu " + updated.getName() + " jau egzistuoja");
 
 			return new ResponseEntity<String>("Darželis su tokiu įstaigos pavadinimu jau yra", HttpStatus.CONFLICT);
 
@@ -247,4 +274,19 @@ public class KindergartenController {
 		this.kindergartenService = gartenService;
 	}
 
+	
+	/**
+	 * Get Kindergarten statistics, all
+	 * 
+	 * @return all kindergarten statistics
+	 */
+	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER" })
+	@GetMapping("/statistics/all")	
+	@ApiOperation(value = "Get kindergarten statistics")
+	public List<KindergartenStatistics> getAllKindergartenStatistics() {
+ 
+		return kindergartenService.getAllKindergartenStatistics();
+	}
+
+	 
 }
