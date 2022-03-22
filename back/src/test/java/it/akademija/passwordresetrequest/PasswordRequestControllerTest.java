@@ -38,11 +38,13 @@ public class PasswordRequestControllerTest {
 	@Test
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	void testResponseWith200Request() {
-		UserDTO testUser = new UserDTO("Testasauskas", "Testauskasaras", "user4@test.lt", "user4@test.lt", "testPassword4");
+		
+		UserDTO testUser = new UserDTO(Role.USER.toString(), "Testasauskas", "Testauskasaras", "48600239081", "Ateities g. 14", "Vilnius", 
+				                       "+37078952104", "user4@test.lt", "user4@test.lt", "testPassword4");
 
 		userService.createUser(testUser);
 		
-		User user = userService.findByUsername(testUser.getUsername());
+		//User user = userService.findByUsername(testUser.getUsername());
 		
 		assertEquals(controller.requestPasswordReset(testUser.getUsername()).getStatusCode(), HttpStatus.OK);
 		

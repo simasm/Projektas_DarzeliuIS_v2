@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import it.akademija.role.Role;
 import it.akademija.user.User;
 import it.akademija.user.UserDTO;
 import it.akademija.user.UserService;
@@ -27,8 +28,10 @@ public class PasswordRequestServiceTest {
 	//@WithMockUser(username="test@test.lt", roles = { "USER" })
 	public void userPasswordRequestTest() {
 		
-		UserDTO testUser = new UserDTO("Testasas", "Testauskasas", "user6@test.lt", "user6@test.lt", "testPassword");
-
+		//UserDTO testUser = new UserDTO("Testasas", "Testauskasas", "user6@test.lt", "user6@test.lt", "testPassword");
+		UserDTO testUser = new UserDTO(Role.USER.toString(), "Testasauskas", "Testauskasaras", "48600239081", "Ateities g. 14", "Vilnius", 
+                "+37078952104", "user4@test.lt", "user4@test.lt", "testPassword4");
+		
 		userService.createUser(testUser);
 		
 		User user = userService.findByUsername(testUser.getUsername());

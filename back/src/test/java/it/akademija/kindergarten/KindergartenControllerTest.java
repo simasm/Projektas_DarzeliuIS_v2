@@ -37,7 +37,9 @@ public class KindergartenControllerTest {
 	@WithMockUser(username = "manager@manager.lt", roles = { "MANAGER" })
 	void testResponseWith200Request() {
 		
-		KindergartenDTO kinderTest = new KindergartenDTO("123456789", "TestinisDarzelis", "TestAddress", "TestElderate", 2, 6);
+		KindergartenDTO kinderTest = new KindergartenDTO("123456789", "TestinisDarzelis", "TestAddress", "TestElderate",
+				"Jonas", "Jonauskas", 2, 6, "54.85959, 45.845626");
+		
 		kindergartenService.createNewKindergarten(kinderTest);
 		
 		Kindergarten kindergarten = kindergartenService.findById(kinderTest.getId());
