@@ -92,10 +92,14 @@ managerTests package tests:
 - kindergarten admission queue priority
 - download pdf uploaded by user  
 
-parentPages package tests:
+parentTests package tests:
 - submit and delete new application to kindergarten or compensation
 - update parent details (change user information, password, reset password)
 - upload medical document (pdf)
+- create new account
+  
+commonElementsTests:
+- Display, filter, find kindergartens on map.
 
 ```
 
