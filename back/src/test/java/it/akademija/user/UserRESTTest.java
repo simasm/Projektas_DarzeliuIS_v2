@@ -78,10 +78,14 @@ public class UserRESTTest {
 		details.setCity("Miestas");
 		details.setPhone("+37067672587");
 		User newUser = new User(Role.USER, "Jonas", "Pirožnikas", "test@test.lt", details, "test@test.lt", "test@test.lt");
-
-		String jsonRequest = mapper.writeValueAsString(newUser);
-		System.out.println(jsonRequest);
-//		userController.createUser(jsonRequest);
+		
+		UserDTO dto = new UserDTO(newUser.getRole().name(), newUser.getName(),
+                newUser.getSurname(), details.getPersonalCode(),
+                details.getAddress(),details.getCity(),details.getPhone(),
+                details.getEmail(), details.getEmail(), newUser.getPassword());
+		
+		String jsonRequest = mapper.writeValueAsString(dto);
+		//System.out.println(jsonRequest);
 		
 		MvcResult postNew = mvc.perform(
 				post("/api/users/admin/createuser").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
@@ -102,9 +106,14 @@ public class UserRESTTest {
 		details.setEmail("test@test.lt");
 		details.setAddress("Adresas 5");
 		details.setPhone("+37061502254");
-		User newUser = new User(Role.USER, "Test", "Test", "test@test.lt", details, "test@test.lt", "test@test.lt");
+		User newUser = new User(Role.USER, "Jonas", "Pirožnikas", "test@test.lt", details, "test@test.lt", "test@test.lt");
 
-		String jsonRequest = mapper.writeValueAsString(newUser);
+		UserDTO dto2 = new UserDTO(newUser.getRole().name(), newUser.getName(),
+                newUser.getSurname(), details.getPersonalCode(),
+                details.getAddress(),details.getCity(),details.getPhone(),
+                details.getEmail(), details.getEmail(), newUser.getPassword());
+		
+		String jsonRequest = mapper.writeValueAsString(dto2);
 
 		MvcResult updateUser = mvc
 				.perform(put("/api/users/update").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
