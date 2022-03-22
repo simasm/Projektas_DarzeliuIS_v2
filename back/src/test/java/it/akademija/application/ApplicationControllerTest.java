@@ -23,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,6 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.restassured.RestAssured;
 import it.akademija.App;
+import it.akademija.application.management.RegistrationStatus;
 import it.akademija.application.management.RegistrationStatusService;
 import it.akademija.application.priorities.PrioritiesDTO;
 import it.akademija.kindergarten.Kindergarten;
@@ -101,7 +103,7 @@ public class ApplicationControllerTest {
     @Test
     @Order(4)
     @Transactional
-    @WithMockUser(username = "test4@user.lt", roles = { "USER" })
+    @WithMockUser(username = "test4@user.lt", roles = { "USER", "MANAGER" })
     void createNewDeleteApplicationTest() throws Exception {
         var initStatus = statusService.getStatus();        
         
@@ -116,13 +118,21 @@ public class ApplicationControllerTest {
         
         testCompCreated = true;
         
-        statusService.setStatus(false);
-        MvcResult createWhileDisabled = mvc.perform(post("/api/prasymai/user/new",
-        		applicationService.getByPersonalCode(applicationData.getChildPersonalCode()).getId()))
-                .andExpect(status().isMethodNotAllowed()).andReturn();
-        assertEquals(405, createWhileDisabled.getResponse().getStatus());
-        
-        statusService.setStatus(true);
+    	RegistrationStatus status = new RegistrationStatus();
+		status.setRegistrationActive(false);
+		statusService.saveStatus(status);
+     
+		
+		MvcResult disableRegistration = mvc.perform(post("/api/status/{registrationActive}",false))
+				.andExpect(status().isOk()).andReturn();
+        String jsonRequest  = mapper.writeValueAsString(applicationData);
+        MvcResult createWhileDisabled = mvc.perform(post("/api/prasymai/user/new").contentType(jsonRequest)
+.contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(400, createWhileDisabled.getResponse().getStatus());
+         
+      status.setRegistrationActive(true);
+      statusService.saveStatus(status);
         
         assertEquals(HttpStatus.CONFLICT, 
                  controller.createNewApplication(applicationData).getStatusCode());
@@ -148,7 +158,11 @@ public class ApplicationControllerTest {
         MvcResult deleteApplication = mvc.perform(delete("/api/prasymai/user/delete/{id}", 
         		applicationService.getByPersonalCode("51702151236").getId() ))
                 .andExpect(status().isOk()).andReturn();
-        assertEquals(200, deleteApplication.getResponse().getStatus()); 
+        assertEquals(200, deleteApplication.getResponse().getStatus());
+        
+        
+      
+        statusService.saveStatus(initStatus);
     }
     @Test
     @Order(5)

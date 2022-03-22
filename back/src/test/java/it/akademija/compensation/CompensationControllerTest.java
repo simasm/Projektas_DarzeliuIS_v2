@@ -164,7 +164,7 @@ public class CompensationControllerTest {
 	 
 	
 	@Test
-	@Order(6)
+	@Order(7)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
 	void managerCanDeleteCompensationApplicationByChildCode() {
 		//assertEquals(controller.deleteCompensationApplicationByUsername(null))
@@ -187,7 +187,7 @@ public class CompensationControllerTest {
 	}
 	
 	@Test
-	@Order(7)
+	@Order(6)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
 	void getCompensationApplicationForUser() {
 		
@@ -195,6 +195,7 @@ public class CompensationControllerTest {
 				.getBody()
 				.size();
  
+		System.out.println("FIND " + size);
 		assertTrue(size > 0);
 		
 		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());

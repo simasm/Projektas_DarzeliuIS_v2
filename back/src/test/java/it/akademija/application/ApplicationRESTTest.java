@@ -101,7 +101,7 @@ public class ApplicationRESTTest {
 		MvcResult lockEditing = mvc.perform(post("/api/queue/lock")).andExpect(status().isForbidden()).andReturn();
 		assertEquals(403, lockEditing.getResponse().getStatus());
 
-	}
+	} 
 
 	@Test
 	@Order(2)
