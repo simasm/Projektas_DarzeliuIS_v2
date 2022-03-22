@@ -18,8 +18,8 @@ System user roles and their authorities:
 - H2 database
 - Apache Tomcat 9.0.x server
 - Swagger-UI, Maven
-- Selenium 4.1.1
-- TestNG 7.4.0
+- Selenium 4.1.2
+- TestNG 7.5.0
 
 #### Design previews:
 
