@@ -31,9 +31,7 @@ export default function SideMenu({
 
   const addresses = [];
 
-  {
-    kindergartens.map((k) => addresses.push(k.address));
-  }
+  kindergartens.map((k) => addresses.push(k.address));
 
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
@@ -77,7 +75,7 @@ export default function SideMenu({
   };
 
   const SearchKindergartenExact = (bubbleaddress) => {
-    if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === "") {
+    if (bubbleRadiusTmp === "0" || bubbleRadiusTmp === "") {
       setIsBubble(false);
       kindergartens.map((k) =>
         k.address === bubbleaddress ? setActiveThroughMarker(k) : ""
@@ -87,7 +85,7 @@ export default function SideMenu({
 
   const handleBubbleSearch = () => {
     SearchKindergartenExact(bubbleAddressTmp.split(",")[0]);
-    if (bubbleRadiusTmp === "" || bubbleRadiusTmp == 0) {
+    if (bubbleRadiusTmp === "" || bubbleRadiusTmp === "0") {
       setRadiusValid(false);
       setTimeout(() => setRadiusValid(true), 2000);
     }
@@ -100,7 +98,7 @@ export default function SideMenu({
     if (
       bubbleAddressTmp !== "" &&
       bubbleRadiusTmp !== "" &&
-      bubbleRadiusTmp != 0
+      bubbleRadiusTmp !== "0"
     ) {
       setInactive();
       setBubbleAddress(bubbleAddressTmp + ", Vilnius");
@@ -129,7 +127,6 @@ export default function SideMenu({
       "<p>Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais.</p>";
 
     Swal.fire({
-      //text: "Galite ieškoti darželių aplink konkrečią vietą tam tikru spinduliu. Į adreso įvedimo lauką įrašę gatvės, rajono, objekto pavadinimą ar konkretų adresą, atstumo įvedimo lauke įrašykite, kokiu atstumu nuo pasirinktos vietovės norite vykdyti paiešką",
       html: text,
 
       showCloseButton: true,

@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
 
 @Service
 public class RegistrycenterService {

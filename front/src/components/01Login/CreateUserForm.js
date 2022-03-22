@@ -1,5 +1,4 @@
 import React from "react";
-import inputValidator from "../08CommonComponents/InputValidator";
 import { useState } from "react";
 import logo from "../../images/logo.png";
 import { useHistory } from "react-router";

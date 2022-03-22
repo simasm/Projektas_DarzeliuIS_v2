@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import it.akademija.application.queue.ApplicationQueueInfo;
-import it.akademija.kindergartenchoise.KindergartenChoise;
 
 public interface ApplicationDAO extends JpaRepository<Application, Long> {
 
