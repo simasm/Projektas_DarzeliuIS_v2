@@ -64,7 +64,7 @@ public class CompensationControllerTest {
 		new  GuardianInfo("Test",
 						 "Test",
 						 "12345512355",
-						 "+3708525896",
+						 "+37085258906",
 						 "test@test.lt",
 						 "Testaddr")
 		
@@ -113,8 +113,6 @@ public class CompensationControllerTest {
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void controllerRespondsWith201And400() {
 	
-		
- 
 		var response =  controller.createNewCompensationApplication(data);
 	 
 		assertEquals(HttpStatus.CREATED,

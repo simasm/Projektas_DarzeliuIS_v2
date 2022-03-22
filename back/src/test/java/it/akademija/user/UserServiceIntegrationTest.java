@@ -87,7 +87,7 @@ public class UserServiceIntegrationTest {
 	@Order(3)
 	public void testCreateJSON() {
 
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
+		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
 				"stest@test.lt", "stest@test.lt", "stest@test.lt");
 
 		service.createUser(newUser);
@@ -111,7 +111,7 @@ public class UserServiceIntegrationTest {
 
 		assertTrue(journalService.getAllJournalEntries(page).getSize() != 0);
 
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
+		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
 				"stest@test.lt", "stest@test.lt", "stest@test.lt");
 
 		service.createUser(newUser);
@@ -129,11 +129,11 @@ public class UserServiceIntegrationTest {
 	@Test
 	@Order(5)
 	public void compareUsers() {
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
+		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
 				"stest@test.lt", "stest@test.lt", "stest@test.lt");
 		service.createUser(newUser);
 
-		UserDTO newUser2 = new UserDTO("USER", "stest", "stest", "12445898987", "Address 1", "City", "+37061398876",
+		UserDTO newUser2 = new UserDTO("USER", "Stest", "Stest", "12445898987", "Address 1", "City", "+37061398876",
 				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
 		service.createUser(newUser2);
 

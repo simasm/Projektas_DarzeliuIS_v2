@@ -53,6 +53,9 @@ public class UserRESTTest {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserController userController;
 
 	@BeforeAll
 	public void setup() throws Exception {
@@ -66,18 +69,20 @@ public class UserRESTTest {
 	@Order(1)
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	public void testPostDeleteUserMethod() throws Exception {
-		ParentDetails details = new ParentDetails();
+		ParentDetails details = new ParentDetails(); //("48902230223", "Jurgis", "Antanas", "test@test.lt", "Žirmūnų g. 5", "Vilnius", "+37067672587");
 		details.setPersonalCode("48902230223");
 		details.setName("Test");
 		details.setSurname("Test");
 		details.setEmail("test@test.lt");
-		details.setAddress("Adresas 5");
+		details.setAddress("Žirmūnų g. 5");
 		details.setCity("Miestas");
-		details.setPhone("+37061502254");
-		User newUser = new User(Role.USER, "Test", "Test", "test@test.lt", details, "test@test.lt", "test@test.lt");
+		details.setPhone("+37067672587");
+		User newUser = new User(Role.USER, "Jonas", "Pirožnikas", "test@test.lt", details, "test@test.lt", "test@test.lt");
 
 		String jsonRequest = mapper.writeValueAsString(newUser);
-
+		System.out.println(jsonRequest);
+//		userController.createUser(jsonRequest);
+		
 		MvcResult postNew = mvc.perform(
 				post("/api/users/admin/createuser").content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated()).andReturn();

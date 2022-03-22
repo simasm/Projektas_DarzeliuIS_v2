@@ -71,8 +71,8 @@ public class ParentDetails {
 	}
 
 	public ParentDetails(@Pattern(regexp = "^[0-9]{11}$") String personalCode,
-			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\\\s\\\\-']+$") String name,
-			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\\\s\\\\-']+$") String surname,
+			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\s\\-']+$") String name,
+			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\s\\-']+$") String surname,
 			@Email @NotEmpty(message = "El. paštas privalomas!") String email, 
 			@NotEmpty(message = "Adresas privalomas") @Pattern(regexp = "[\\s\\dA-zÀ-ž-.]{5,64}") String address, 
 			String city,
