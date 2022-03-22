@@ -54,8 +54,9 @@ public class Application {
 	@Size(min = 2, max = 70)
 	@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
 	private String childSurname;
-
-	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
+	
+	@NotEmpty(message = "Asmens kodas privalomas!")
+	@Pattern(regexp = "^[0-9]{11}$")
 	private String childPersonalCode;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

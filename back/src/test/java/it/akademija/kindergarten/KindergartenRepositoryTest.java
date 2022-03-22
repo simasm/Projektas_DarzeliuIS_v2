@@ -26,6 +26,8 @@ public class KindergartenRepositoryTest {
 		kindergarten.setName("test");
 		kindergarten.setAddress("Adresas 3");
 		kindergarten.setElderate("Seniunija");
+		kindergarten.setDirectorName("Vladas");
+		kindergarten.setDirectorSurname("Garastas");
 		kindergarten.setCapacityAgeGroup2to3(12);
 		kindergarten.setCapacityAgeGroup3to6(12);
 		kindergarten = entityManager.persistAndFlush(kindergarten);

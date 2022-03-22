@@ -49,24 +49,24 @@ public class CompensationControllerTest {
 	
  
 	private CompensationDTO data = new CompensationDTO (
-			new ChildInfo("12345678911",
+			new ChildInfo("12345678912",
 					"Testas",
 					"Testas",
 					"2001-01-01"),
 		new KindergartenInfo("Testprivatus",
 							"302295680",
 							"Vysniu gatve 13",
-							"123123124",
+							"+37067625896",
 							"test@test.com",
 							"Testbankas",
-							"TBANK1",
-							"1234"),
-		new  GuardianInfo("test",
-						 "test",
+							"LT187045112069350325",
+							"70451"),
+		new  GuardianInfo("Test",
+						 "Test",
 						 "12345512355",
-						 "+1234124",
+						 "+3708525896",
 						 "test@test.lt",
-						 "testaddr")
+						 "Testaddr")
 		
 		);
  

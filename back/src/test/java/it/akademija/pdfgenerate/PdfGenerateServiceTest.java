@@ -1,8 +1,5 @@
-package pdfgenerate;
+package it.akademija.pdfgenerate;
 
-//package it.akademija.pdfgenerate;
-
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,7 +28,6 @@ import it.akademija.application.pdf.ApplicationPdfService;
 import it.akademija.application.priorities.PrioritiesDTO;
 import it.akademija.kindergarten.Kindergarten;
 import it.akademija.kindergarten.KindergartenDAO;
-import it.akademija.kindergarten.KindergartenDTO;
 import it.akademija.kindergartenchoise.KindergartenChoiseDTO;
 import it.akademija.role.Role;
 import it.akademija.user.UserDTO;
@@ -83,7 +79,7 @@ public class PdfGenerateServiceTest {
                 "user1@user.lt"
             ),
             null,
-            new KindergartenChoiseDTO("303318623", "", "", "", "")
+            new KindergartenChoiseDTO("111222333", "", "", "", "")
         );
 	
 	@Test
@@ -91,19 +87,12 @@ public class PdfGenerateServiceTest {
 	@WithMockUser(username="manager1@manager.lt", roles = { "MANAGER"})
 	public void managerSetsFreeKindergartenSlotsTest(){
 
-		KindergartenDTO gartenChildNumbers = new KindergartenDTO("303318623", "Ąžuolas", "Žirmūnų g. 32", "Žirmūnų", 3, 3);
+		Kindergarten newKindergarten = new Kindergarten("111222333", "Erelis", "Aštuonkojų g. 14", "Šnipiškių", 
+				                                        3, 3, "Laimonas", "Strazdauskas", "54.584845, 66.45515");
 
-		Kindergarten current = kindergartenDAO.findById("303318623").orElse(null);
-
-		current.setName(gartenChildNumbers.getName());
-		current.setAddress(gartenChildNumbers.getAddress());
-		current.setElderate(gartenChildNumbers.getElderate());
-		current.setCapacityAgeGroup2to3(gartenChildNumbers.getCapacityAgeGroup2to3());
-		current.setCapacityAgeGroup3to6(gartenChildNumbers.getCapacityAgeGroup3to6());
-
-		kindergartenDAO.save(current);
+		kindergartenDAO.save(newKindergarten);
 		
-		assertNotNull(current);	
+		assertTrue(kindergartenDAO.existsById("111222333"));
 	}
 		
 	@Test
@@ -155,6 +144,7 @@ public class PdfGenerateServiceTest {
 		assertTrue(contents.length > 0);
 
 		applicationDAO.deleteById(application.getId());
+		kindergartenDAO.deleteById("111222333");
 		userService.deleteUser("user1@user.lt");
 	}
 }
