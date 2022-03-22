@@ -31,6 +31,7 @@ class CreateApplicationFormContainer extends Component {
         city: "",
         username: "",
       },
+
       additionalGuardian: {
         name: "",
         surname: "",
@@ -94,7 +95,6 @@ class CreateApplicationFormContainer extends Component {
   componentDidMount() {
     /** Get registation status */
     http.get(`${apiEndpoint}/api/status`).then((response) => {
-      //console.log(response.data.registrationActive);
       this.setState({
         registrationDisabled: !response.data.registrationActive,
       });

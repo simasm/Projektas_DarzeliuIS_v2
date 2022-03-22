@@ -14,14 +14,11 @@ import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import it.akademija.App;
 import it.akademija.user.User;
-import it.akademija.user.UserDAO;
 import it.akademija.user.UserService;
-import it.akademija.compensation.GuardianInfo;
 
 @SpringBootTest(classes = { App.class,
 		CompensationController.class },
@@ -32,12 +29,6 @@ public class CompensationControllerTest {
 	
 	@Autowired
 	private CompensationController controller;
-	
-	@Autowired
-	private CompensationService service;
-	
-	@Autowired
-	private UserDAO userDAO;
 	
 	@Autowired
 	private UserService userService;
@@ -134,7 +125,6 @@ public class CompensationControllerTest {
 	@Order(3)
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void userCantAccessAllCompensations () {
-		AccessDeniedException exception = 
 				assertThrows(AccessDeniedException.class,
 						() -> controller.getAllCopensationApplications()
 				  );

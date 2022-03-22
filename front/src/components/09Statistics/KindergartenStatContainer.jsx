@@ -31,7 +31,6 @@ export class KindergartenStatContainer extends Component {
 
   changePriorities(button) {
     this.setState({ priorityButton: button });
-
   }
 
   getKindergartenStat(currentPage) {
@@ -47,9 +46,8 @@ export class KindergartenStatContainer extends Component {
     http
       .get(allStatisticsUri)
       .then((response) => {
-        //   console.log(response.data);
         let arr = [];
-        response.data.map((val, indx) => {
+        response.data.forEach((val, indx) => {
           arr[val.name] = {
             availablePlaces: val.availablePlaces,
             c1: val.selectedAsChoise1,
@@ -57,17 +55,16 @@ export class KindergartenStatContainer extends Component {
             c3: val.selectedAsChoise3,
             c4: val.selectedAsChoise4,
             c5: val.selectedAsChoise5,
-            takenPlaces: val.takenPlaces
-          }
+            takenPlaces: val.takenPlaces,
+          };
         });
         this.setState({
-          allStatistics: arr
+          allStatistics: arr,
         });
 
         //console.log(this.state.allStatistics);
       })
-      .catch(() => { });
-
+      .catch(() => {});
 
     http
       .get(uri)
@@ -80,30 +77,24 @@ export class KindergartenStatContainer extends Component {
           currentPage: response.data.number + 1,
         });
         //  console.log(this.state.darzeliai);
-
       })
-      .catch(() => { });
+      .catch(() => {});
 
     http
       .get(allUri)
       .then((response) => {
         this.setState({
-          allKindergartens: response.data
+          allKindergartens: response.data,
         });
         //   console.log(JSON.stringify( this.state.allKindergartens));
       })
-      .catch(() => { });
-
-
-
+      .catch(() => {});
   }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
     this.getKindergartenStat(page);
   };
-
-
 
   render() {
     const { darzeliai, totalElements, pageSize } = this.state;
@@ -118,75 +109,82 @@ export class KindergartenStatContainer extends Component {
         </div>
       );
 
-    if (this.state.allStatistics !== null && this.state.allKindergartens !== null)
+    if (
+      this.state.allStatistics !== null &&
+      this.state.allKindergartens !== null
+    )
       return (
         <div className="container pt-4">
-
           <h6 className="pl-2 pt-3">Registracijų statistika</h6>
 
           <div className="row justify-content-end">
-            <div className="col-5" >
-
-              <div className="btn btn-primary me-2"
+            <div className="col-5">
+              <div
+                className="btn btn-primary me-2"
                 id="12Priorities"
                 onClick={() => this.changePriorities(1)}
                 style={
-                  this.state.priorityButton === 1
-                    ? { display: "none" }
-                    : {}
+                  this.state.priorityButton === 1 ? { display: "none" } : {}
                 }
-              >1, 2 prioritetai</div>
+              >
+                1, 2 prioritetai
+              </div>
 
-              <div className="btn btn-primary me-2"
+              <div
+                className="btn btn-primary me-2"
                 id="34Priorities"
                 onClick={() => this.changePriorities(2)}
                 style={
-                  this.state.priorityButton === 2
-                    ? { display: "none" }
-                    : {}
+                  this.state.priorityButton === 2 ? { display: "none" } : {}
                 }
-              >3, 4 prioritetai</div>
+              >
+                3, 4 prioritetai
+              </div>
 
-              <div className="btn btn-primary"
+              <div
+                className="btn btn-primary"
                 id="5Priorities"
                 onClick={() => this.changePriorities(3)}
                 style={
-                  this.state.priorityButton === 3
-                    ? { display: "none" }
-                    : {}
-                }>
-                5 prioritetas</div>
+                  this.state.priorityButton === 3 ? { display: "none" } : {}
+                }
+              >
+                5 prioritetas
+              </div>
             </div>
-
-
           </div>
           <div className="row">
             <div className="col-6">
-              <KindergartenStatChart kindergartens={this.state.allKindergartens}
+              <KindergartenStatChart
+                kindergartens={this.state.allKindergartens}
                 statistics={this.state.allStatistics}
                 priorities={
-                  this.state.priorityButton === 1 ? 1 :
-                    this.state.priorityButton === 2 ? 3 :
-                      this.state.priorityButton === 3 ? 5 : 0}
+                  this.state.priorityButton === 1
+                    ? 1
+                    : this.state.priorityButton === 2
+                    ? 3
+                    : this.state.priorityButton === 3
+                    ? 5
+                    : 0
+                }
               />
             </div>
             <div className="col-6">
-              <KindergartenStatChart kindergartens={this.state.allKindergartens}
+              <KindergartenStatChart
+                kindergartens={this.state.allKindergartens}
                 statistics={this.state.allStatistics}
                 priorities={
-                  this.state.priorityButton === 1 ? 2 :
-                    this.state.priorityButton === 2 ? 4 :
-                      this.state.priorityButton === 3 ? 0 : 0}
+                  this.state.priorityButton === 1
+                    ? 2
+                    : this.state.priorityButton === 2
+                    ? 4
+                    : this.state.priorityButton === 3
+                    ? 0
+                    : 0
+                }
               />
             </div>
-
-
-
-
           </div>
-
-
-
 
           <div className="row pt-2">
             <div className="col-12">
@@ -201,11 +199,9 @@ export class KindergartenStatContainer extends Component {
               currentPage={this.state.currentPage}
             />
           </div>
-
-
         </div>
       );
-    else return <h6 className="pt-5">Informacija ruošiama</h6>
+    else return <h6 className="pt-5">Informacija ruošiama</h6>;
   }
 }
 

@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.application.Application;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;

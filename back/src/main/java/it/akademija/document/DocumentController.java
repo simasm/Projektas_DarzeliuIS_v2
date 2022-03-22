@@ -3,8 +3,6 @@ package it.akademija.document;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.Order;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +27,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.application.ApplicationController;
-import it.akademija.journal.JournalEntry;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
-import it.akademija.kindergarten.Kindergarten;
-import it.akademija.user.User;
 import it.akademija.user.UserService;
 
 @RestController

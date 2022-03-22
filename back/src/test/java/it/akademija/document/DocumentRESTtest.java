@@ -22,11 +22,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.restassured.RestAssured;
 
 import it.akademija.App;
-import it.akademija.user.UserService;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @SpringBootTest(classes = { App.class,
@@ -41,17 +39,10 @@ public class DocumentRESTtest {
 	@Autowired
 	private MockMvc mvc;
 
-	@Autowired
-	private ObjectMapper mapper;
 
 	@Autowired
 	private WebApplicationContext context;
 
-	@Autowired
-	private DocumentService documentService;
-
-	@Autowired
-	private UserService userService;
 
 	@BeforeAll
 	public void setup() throws Exception {
