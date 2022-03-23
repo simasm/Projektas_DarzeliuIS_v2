@@ -53,11 +53,11 @@ public class CompensationRepositoryTest {
 				"302295680",
 				"Testprivatus",
 				"Vysniu gatve 13",
-				"123456",
+				"+37067625896",
 				"darzelis@test.lt",
 				"Testbankas",
-				"TBANK1",
-				"1234" );
+				"LT147044012039850426",
+				"70440" );
 		 
 		entityManager.persistAndFlush(compensation);
 		

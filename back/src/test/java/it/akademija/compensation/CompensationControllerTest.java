@@ -40,24 +40,24 @@ public class CompensationControllerTest {
 	
  
 	private CompensationDTO data = new CompensationDTO (
-			new ChildInfo("12345678911",
+			new ChildInfo("12345678912",
 					"Testas",
 					"Testas",
 					"2001-01-01"),
 		new KindergartenInfo("Testprivatus",
 							"302295680",
 							"Vysniu gatve 13",
-							"123123124",
+							"+37067625896",
 							"test@test.com",
 							"Testbankas",
-							"TBANK1",
-							"1234"),
-		new  GuardianInfo("test",
-						 "test",
+							"LT187045112069350325",
+							"70451"),
+		new  GuardianInfo("Test",
+						 "Test",
 						 "12345512355",
-						 "+1234124",
+						 "+37085258906",
 						 "test@test.lt",
-						 "testaddr")
+						 "Testaddr")
 		
 		);
  
@@ -65,8 +65,6 @@ public class CompensationControllerTest {
 	@Order(1)
 	public void contextLoads() {
 		assertNotNull(controller);
-	 
-	 
 	}
 	
 	/*
@@ -104,8 +102,6 @@ public class CompensationControllerTest {
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void controllerRespondsWith201And400() {
 	
-		
- 
 		var response =  controller.createNewCompensationApplication(data);
 	 
 		assertEquals(HttpStatus.CREATED,
@@ -158,7 +154,7 @@ public class CompensationControllerTest {
 	 
 	
 	@Test
-	@Order(6)
+	@Order(7)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
 	void managerCanDeleteCompensationApplicationByChildCode() {
 		//assertEquals(controller.deleteCompensationApplicationByUsername(null))
@@ -180,7 +176,24 @@ public class CompensationControllerTest {
  
 	}
 	
+	@Test
+	@Order(6)
+	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
+	void getCompensationApplicationForUser() {
+		
+		int size = controller.getAllCopensationApplications()
+				.getBody()
+				.size();
  
+		System.out.println("FIND " + size);
+		assertTrue(size > 0);
+		
+		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
+		
+		assertNotNull(controller.getAllCopensationApplications().getBody().size());
+	}
+	
+	 
 	@PreDestroy
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	void deleteTestUserAndTestComp() {

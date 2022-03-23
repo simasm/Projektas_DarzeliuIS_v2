@@ -143,7 +143,7 @@ function KindergartenInputForm() {
             onChange={handleChange}
             onInvalid={validateField}
             required
-            pattern="\d{9}"
+            pattern="^\d{9}$"
             maxLength={9}
             data-toggle="tooltip"
             data-placement="top"

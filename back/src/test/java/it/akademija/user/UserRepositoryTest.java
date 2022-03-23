@@ -2,6 +2,7 @@
 package it.akademija.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,21 @@ public class UserRepositoryTest {
 	}
 
 	@Test
+	public void itShouldFindUserByUsername() {
+		User user = new User();
+		user.setName("test");
+		user.setSurname("test");
+		user.setPassword("test@test.lt");
+		user.setEmail("test@test.lt");
+		user.setUsername("test@test.lt");
+
+		user = entityManager.persistAndFlush(user);
+		userDAO.findByUsername("test@test.lt");
+		assertNotNull(userDAO.findAll());
+		userDAO.deleteByUsername("test@test.lt");
+	}
+	
+	@Test
 	public void itShouldDeleteUserByUsername() {
 		User user = new User();
 		user.setName("test");
@@ -50,7 +66,7 @@ public class UserRepositoryTest {
 
 		user = entityManager.persistAndFlush(user);
 		userDAO.deleteByUsername("test@test.lt");
-
 		assertTrue(userDAO.findAll().isEmpty());
 	}
+	
 }
