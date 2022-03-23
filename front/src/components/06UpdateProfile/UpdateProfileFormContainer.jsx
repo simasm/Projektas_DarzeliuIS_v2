@@ -357,7 +357,10 @@ export default class UpdateProfileFormContainer extends Component {
 
   handleChange(e) {
     inputValidator(e);
-    UpdateProfileFormValidator(e, this.infoValid, this.infoWarning);
+    
+    if(e.target.name+"" !== "oldPassword" && e.target.name+"" !== "newPassword" &&  e.target.name+"" !=="newPasswordRepeat" ) {
+       UpdateProfileFormValidator(e, this.infoValid, this.infoWarning);
+    }
     this.setState({
       [e.target.name]: e.target.value,
     });
