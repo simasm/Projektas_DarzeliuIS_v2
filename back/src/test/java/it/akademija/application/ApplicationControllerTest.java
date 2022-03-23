@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import javax.annotation.PreDestroy;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -107,6 +108,7 @@ public class ApplicationControllerTest {
         assertEquals("51702151236", applicationData.getChildPersonalCode());
     }
     @Test
+    @Disabled
     @Order(4)
     @Transactional
     @WithMockUser(username = "test4@user.lt", roles = { "USER", "MANAGER" })

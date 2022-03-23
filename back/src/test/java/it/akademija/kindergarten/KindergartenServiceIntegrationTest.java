@@ -51,19 +51,19 @@ public class KindergartenServiceIntegrationTest {
 	public void testCreateDeleteKindergarten() {
 		
 		
-		KindergartenDTO newGarten = new KindergartenDTO("123456789", "Test", "Test", "Test", 
+		KindergartenDTO newGarten = new KindergartenDTO("123456789", "Testa", "Testa", "Testa", 
                                                         "Aleksandras", "Makedonietis", 10, 10, "56.78952, 57.96946");
 		service.createNewKindergarten(newGarten);
-		assertTrue(service.findById("123456789").getAddress().equals("Test"));
+		assertTrue(service.findById("123456789").getAddress().equals("Testa"));
 
-		KindergartenDTO updatedInfo = new KindergartenDTO("123456789", "Test", "Test", "Test", 
+		KindergartenDTO updatedInfo = new KindergartenDTO("123456789", "Testa", "Testa", "Testa", 
                                                           "Aleksandras", "Makedonietis", 10, 10, "56.78952, 57.96946");
 		service.updateKindergarten("123456789", updatedInfo);
 		assertEquals(10, service.findById("123456789").getCapacityAgeGroup2to3());
 
 		service.decreaseNumberOfTakenPlacesInAgeGroup(service.findById("123456789"), 2);
 		assertEquals(10, service.findById("123456789").getCapacityAgeGroup2to3());
-		service.deleteByName("Test");
+		service.deleteByName("Testa");
 		assertNull(service.findById("123456789"));
 
 		KindergartenDTO garten = new KindergartenDTO("123456787", "Testas", "Testas", "Testas", 

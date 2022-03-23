@@ -202,7 +202,8 @@ public class CompensationControllerTest {
 		
 		assertNotNull(controller.getAllCopensationApplications().getBody().size());
 	}
- 
+	
+	 
 	@PreDestroy
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	void deleteTestUserAndTestComp() {

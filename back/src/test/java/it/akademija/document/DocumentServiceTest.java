@@ -40,9 +40,11 @@ class DocumentServiceTest {
 		MockMultipartFile file = new MockMultipartFile("file", "file.pdf", MediaType.APPLICATION_PDF_VALUE,
 				"Hello, World!".getBytes());
 
-		assertTrue(documentService.uploadDocument(file, "file.pdf", 1L));
+		var userId = userDao.findByUsername("user@user.lt").getUserId();
+		
+		assertTrue(documentService.uploadDocument(file, "file.pdf", userId));
 		int docListSize = documentService.getAllExistingDocuments().size();
-		List<DocumentEntity> docsList = documentService.getDocumentsByUploaderId(1L);
+		List<DocumentEntity> docsList = documentService.getDocumentsByUploaderId(userId);
 		
 		assertNotNull(docsList);
 		System.out.println(docsList.size() + "keywordas");
@@ -53,7 +55,7 @@ class DocumentServiceTest {
 			}
 		
 		);
-		assertTrue(documentService.getDocumentsByUploaderId(1L).isEmpty());
+		assertTrue(documentService.getDocumentsByUploaderId(userId).isEmpty());
 
 	}
 
@@ -69,7 +71,11 @@ class DocumentServiceTest {
 		assertEquals("pazyma", newDocument.getName());
 		assertEquals(LocalDate.of(2019, 5, 5), newDocument.getUploadDate());
 
-		assertTrue(documentService.getDocumentsByUploaderId(userDao.findByUsername("user@user.lt").getUserId())
+		var a = userDao.findByUsername("user@user.lt");
+		var b = a.getUserId();
+		var c = documentService.getDocumentsByUploaderId(b);
+				
+		assertTrue(c
 				.size() == 0);
 
 	}

@@ -1,4 +1,4 @@
-111111111;test;test;test;test;test;test,test
+111111111;Test;Test;Test;Test;Test;11,11
 190032931;Aitvaras;Pašilaičių g. 10;Pašilaičių;Ramvyda;Stasiulienė;54.7301858,25.2312924
 190019122;Atžalėlės;Antakalnio g. 74;Antakalnio;Tautenis;Hofmanas;54.7096947,25.3126613
 190020391;Aušrelė;Gerosios Vilties g. 28;Vilkpėdės;Mandrė;Hermanaitė;54.6714031,25.2487183
