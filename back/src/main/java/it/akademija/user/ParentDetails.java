@@ -26,7 +26,7 @@ public class ParentDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long parentDetailsId;
 
-	@Pattern(regexp = "^[0-9]{11}$", message = "Netinkamas asmens kodo formatas") //^(?!\\s*$)[0-9\\s]{11}$
+	//@Pattern(regexp = "^[0-9]{11}$", message = "Netinkamas asmens kodo formatas") //^(?!\\s*$)[0-9\\s]{11}$
 	@Column
 	private String personalCode;
 
@@ -51,15 +51,15 @@ public class ParentDetails {
 	private String email;
 
 	@Column
-	@NotEmpty(message = "Adresas privalomas")
-	@Pattern(regexp = "[\\s\\dA-zÀ-ž-.]{5,64}")
+	//@NotEmpty(message = "Adresas privalomas")
+	//@Pattern(regexp = "[\\s\\dA-zÀ-ž-.]{5,64}")
 	private String address;
 	
 	@Column
 	private String city;
 
-	@NotEmpty(message = "Telefono numeris privalomas")
-	@Pattern(regexp = "[+]{1}[370]{3}[0-9]{8}") //^\\+[0-9\\s]{5,20}$|
+	//@NotEmpty(message = "Telefono numeris privalomas")
+	//@Pattern(regexp = "[+]{1}[370]{3}[0-9]{8}") //^\\+[0-9\\s]{5,20}$|
 	@Column
 	private String phone;
 
@@ -74,9 +74,9 @@ public class ParentDetails {
 			@NotEmpty(message = "Vardas privalomas!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\s\\-']+$") String name,
 			@NotEmpty(message = "Pavardė privaloma!") @Size(min = 2, max = 70) @Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\\s\\-']+$") String surname,
 			@Email @NotEmpty(message = "El. paštas privalomas!") String email, 
-			@NotEmpty(message = "Adresas privalomas") @Pattern(regexp = "[\\s\\dA-zÀ-ž-.]{5,64}") String address, 
+			  String address, 
 			String city,
-			@NotEmpty(message = "Telefono numeris privalomas")@Pattern(regexp = "[+]{1}[370]{3}[0-9]{8}") String phone) {
+			  String phone) {
 		super();
 		this.personalCode = personalCode;
 		this.name = name;
