@@ -160,7 +160,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 						LOG.info("** SecurityConfig: Naudotojas {} ID: {} atsijunge nuo sistemos **", username, userID);
 
-						journalService.newJournalEntry(userID, username, OperationType.LOGOUT, userID, ObjectType.LOGIN,
+						journalService.newJournalEntry(userID, username, OperationType.LOGOUT, null, ObjectType.LOGIN,
 								"Naudotojas atsijungė nuo sistemos");
 
 					}
