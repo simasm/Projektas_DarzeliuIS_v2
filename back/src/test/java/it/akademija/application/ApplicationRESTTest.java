@@ -101,7 +101,7 @@ public class ApplicationRESTTest {
 		MvcResult lockEditing = mvc.perform(post("/api/queue/lock")).andExpect(status().isForbidden()).andReturn();
 		assertEquals(403, lockEditing.getResponse().getStatus());
 
-	}
+	} 
 
 	@Test
 	@Order(2)
@@ -121,7 +121,7 @@ public class ApplicationRESTTest {
 		choices.setKindergartenId4("190021874");
 		choices.setKindergartenId5("190011951");
 
-		UserDTO mainGuardian = new UserDTO("USER", "user", "user", "12345678988", "Address 1", "+37061398876",
+		UserDTO mainGuardian = new UserDTO("USER", "User", "User", "12345678988", "Address 1", "+37061398876",
 				"user@user.lt", "user@user.lt", "user@user.lt");
 
 		ApplicationDTO application = new ApplicationDTO();

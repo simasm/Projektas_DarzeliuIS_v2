@@ -16,6 +16,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,8 +32,7 @@ public class Compensation {
 	@Id
 	@Column(name = "compensation_application_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
+	private Long id;	
 	
 	@Column(name = "date_of_submission")
 	private LocalDate submittedAt;
@@ -48,7 +49,7 @@ public class Compensation {
 	//@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
 	private String childSurname;
 
-	//@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
+	@Pattern(regexp = "^[0-9]{11}$")
 	@NotEmpty(message = "Kodas privalomas")
  	private String childPersonalCode;
 
@@ -62,34 +63,48 @@ public class Compensation {
 	private User mainGuardian;	
 	
 	@Column
+	@Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž-']+$", message = "Vardas turi prasidėti didžiąja raide")
+	@NotEmpty(message = "Vardas privalomas")
 	private String guardianName;
+	@Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž-']+$", message = "Pavardė turi prasidėti didžiąja raide")
+	@NotEmpty(message = "Pavardė privaloma")
 	@Column
 	private String guardianSurname;
+	@Pattern(regexp = "^[0-9]{11}+$", message = "Asmens kodą sudaro 9 skaitmenys")
+	@NotEmpty(message = "Asmens kodas privalomas")
 	@Column
 	private String guardianPersonalCode;
+	@Pattern(regexp = "^[+]{1}[370]{3}[0-9]{8}+$", message = "Telefono numeris pradedamas pliusu, tada adresato kodas ir tada numeris")
+	@NotEmpty(message = "Telefonas privalomas")
 	@Column
 	private String guardianPhone;
+	@Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,4}", message = "Netinkamas elektroninio pašto formatas")
+	@NotEmpty(message = "El. paštas privalomas")
 	@Column
 	private String guardianEmail;
+	@Pattern(regexp = "[\\s\\d\\wĄ-ž-.]{5,64}", message = "Netinkamas adreso formatas. Ilgis iki 64 simbolių")
+	@NotEmpty(message = "Adresas privalomas")
 	@Column
 	private String guardianAddress;
 
 	//kindergarten ifno
 	 
+	@Pattern(regexp = "^[\\d]{9}$|^[\\d]{7}$", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų")
 	@Column(name = "kindergarten_id")
-	//@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{9}$|", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų")
 	private String kindergartenId;
 
 	@NotBlank(message = "Pavadinimas privalomas")
-	//@Pattern(regexp = "\\S[\\s\\S]{2,49}")
+	@Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[\\S\\s]{1,64}$", message = "Neteisingas pavadinimo formatas. Pirmoji raidė didžioji. Ilgis iki 64 simbolių")
 	private String kindergartenName;
 
 	@Column
 	@NotBlank(message = "Adresas privalomas")
+	@Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ]{1}[\\S\\s]{1,64}$", message = "Neteisingas adreso formatas. Pirmoji raidė didžioji. Ilgis iki 64 simbolių")
 	private String kindergartenAddress;
 	
 	@Column
 	@NotBlank(message = "Telefonas privalomas")
+	@Pattern(regexp = "[+]{1}[370]{3}[0-9]{8}", message = "Neteisingas telefono numerio formatas. +370xxxxxxxx")
 	private String kindergartenPhoneNumber;
 	
 	@Email
@@ -98,15 +113,17 @@ public class Compensation {
 	private String kindergartenEmail;
 	
 	@NotBlank(message = "Banko pavadinimas privalomas")
-	//@Pattern(regexp = "\\S[\\s\\S]{2,49}")
+	@Pattern(regexp = "^[A-ZĄČĘĖĮŠŲŪŽ][\\w\\s][^%_^$]+$", message = "Neteisingas banko pavadinimo formatas. Pirmoji raidė didžioji")
 	private String kindergartenBankName;
 
 	@Column
-	@NotBlank(message = "Banko saskaitos numeris privalomas")
+	@NotBlank(message = "Banko sąskaitos numeris privalomas")
+	@Pattern(regexp = "^[LT]{2}[0-9]{18}$", message = "Neteisingas sąskaitos numerio formatas. Turi būti LT ir 18 skaitmenų.")
 	private String kindergartenBankAccountNumber;
 	
 	@Column
 	@NotBlank(message = "Banko kodas privalomas")
+	@Pattern(regexp = "^[0-9]{5}$", message = "Neteisingas banko kodo formatas. Turi būti 5 skaitmenys")
 	private String kindergartenBankCode;
 	
 	public Compensation() {
@@ -126,7 +143,7 @@ public class Compensation {
 			@NotBlank(message = "Telefonas privalomas") String kindergartenPhoneNumber,
 			@Email @NotEmpty(message = "El. paštas privalomas") String kindergartenEmail,
 			@NotBlank(message = "Banko pavadinimas privalomas") String kindergartenBankName,
-			@NotBlank(message = "Banko saskaitos numeris privalomas") String kindergartenBankAccountNumber,
+			@NotBlank(message = "Banko sąskaitos numeris privalomas") String kindergartenBankAccountNumber,
 			@NotBlank(message = "Banko kodas privalomas") String kindergartenBankCode) {
 		super();
 		this.childName = childName;

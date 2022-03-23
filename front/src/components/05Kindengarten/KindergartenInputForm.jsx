@@ -193,7 +193,7 @@ function KindergartenInputForm() {
                 : { border: "2px solid red" }
             }
             required
-            pattern="\d{9}"
+            pattern="^\d{9}$"
             maxLength={9}
             data-toggle="tooltip"
             data-placement="top"

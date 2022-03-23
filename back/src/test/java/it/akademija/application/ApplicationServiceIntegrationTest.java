@@ -55,11 +55,11 @@ public class ApplicationServiceIntegrationTest {
 	@Order(2)
 	public void testCreateNewApplication() {
 
-		UserDTO newUser = new UserDTO("USER", "firstuser", "firstuser", "22345678989", "Address 1", "City", "+37061398876",
+		UserDTO newUser = new UserDTO("USER", "FirstUserName", "FirstUserSurname", "22345678989", "Address 1", "City", "+37061398876",
 				"user1@user.lt", "user1@user.lt", "user1@user.lt");
 		userService.createUser(newUser);
 
-		ParentDetailsDTO secondGuardian = new ParentDetailsDTO("48702241234", "seconduser", "seconduser",
+		ParentDetailsDTO secondGuardian = new ParentDetailsDTO("48702241234", "SecondUser", "SecondUserSurname",
 				"user2@user.lt", "Address 1", "City", "+37061398876");
 
 		PrioritiesDTO priorities = new PrioritiesDTO();
@@ -73,7 +73,7 @@ public class ApplicationServiceIntegrationTest {
 
 		service.createNewApplication("user1@user.lt", application);
 
-		assertEquals("firstuser", userService.findByUsername("user1@user.lt").getName());
+		assertEquals("FirstUserName", userService.findByUsername("user1@user.lt").getName());
 
 		assertTrue(service.existsByPersonalCode("49702253898"));
 
