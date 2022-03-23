@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -31,9 +32,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	 
 	 
+	@SuppressWarnings("deprecation")
 	@ExceptionHandler( ConstraintViolationException.class )
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleValidationError(ConstraintViolationException exception) {
+	public ResponseEntity<Map<String, Object>>handleValidationError(ConstraintViolationException exception) {
  		Map<String, Object> response = new HashMap<>();
 		List<Map<String, String>> errors = new ArrayList<>();
 
@@ -47,8 +49,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 			errors.add(transformedError);
 		}
 		response.put("errors", errors);
-
-		return response;
+		   final HttpHeaders responseHeaders = new HttpHeaders();
+		   responseHeaders.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+ 		ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity<Map<String, Object>>(
+				response,responseHeaders,HttpStatus.BAD_REQUEST);
+		 return responseEntity;
+ 		 
 	}
  
 	

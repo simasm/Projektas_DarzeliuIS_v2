@@ -103,7 +103,7 @@ public class ApplicationControllerTest {
         assertEquals("51702151236", applicationData.getChildPersonalCode());
     }
     @Test 
-    @Order(4)
+    @Order(4) 
     @WithMockUser(username = "test4@user.lt", roles = { "USER", "MANAGER", "ADMIN" })
     void createNewDeleteApplicationTest() throws Exception {
       
