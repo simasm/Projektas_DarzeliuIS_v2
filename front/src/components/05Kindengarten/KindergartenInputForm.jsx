@@ -5,6 +5,7 @@ import http from "../10Services/httpService";
 import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
 import { EsriProvider } from "leaflet-geosearch";
+import KindergartenInputFormValidator from "../08CommonComponents/KindergartenInputFormValidator";
 
 function KindergartenInputForm() {
   const initKindergartenData = {
@@ -18,6 +19,28 @@ function KindergartenInputForm() {
     directorName: "",
     directorSurname: "",
   };
+
+  const [infoValid, setInfoValid] = useState({
+    address: true,
+    id: true,
+    name: true,
+    directorName: true,
+    directorSurname: true,
+    elderate: true,
+    capacityAgeGroup2to3: true,
+    capacityAgeGroup3to6: true,
+  });
+
+  const [infoWarning, setInfoWarning] = useState({
+    address: "",
+    id: "",
+    name: "",
+    directorName: "",
+    directorSurname: "",
+    elderate: "",
+    capacityAgeGroup2to3: "",
+    capacityAgeGroup3to6: "",
+  });
 
   const provider = new EsriProvider();
   const isInitialMount = useRef(true);
@@ -114,6 +137,14 @@ function KindergartenInputForm() {
   const handleChange = (event) => {
     validateField(event);
 
+    KindergartenInputFormValidator(
+      event,
+      infoValid,
+      infoWarning,
+      setInfoValid,
+      setInfoWarning
+    );
+
     setData({
       ...data,
       [event.target.name]: event.target.value,
@@ -122,6 +153,20 @@ function KindergartenInputForm() {
 
   const resetForm = () => {
     setData(initKindergartenData);
+    setInfoValid({
+      address: true,
+      id: true,
+      name: true,
+      directorName: true,
+      directorSurname: true,
+    });
+    setInfoWarning({
+      address: "",
+      id: "",
+      name: "",
+      directorName: "",
+      directorSurname: "",
+    });
   };
 
   return (
@@ -142,6 +187,11 @@ function KindergartenInputForm() {
             value={data.id}
             onChange={handleChange}
             onInvalid={validateField}
+            style={
+              infoValid.id
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             required
             pattern="^\d{9}$"
             maxLength={9}
@@ -149,6 +199,7 @@ function KindergartenInputForm() {
             data-placement="top"
             title="Įveskite įstaigos (darželio) kodą (9 skaitmenys)"
           />
+          <span className="warningmsg">{infoWarning.id}</span>
         </div>
 
         <div className="form-group">
@@ -163,13 +214,19 @@ function KindergartenInputForm() {
             value={data.name}
             onChange={handleChange}
             onInvalid={validateField}
+            style={
+              infoValid.name
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             required
-            pattern="\S[\s\S]{2,49}"
+            pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
             maxLength={50}
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio pavadinimą (nuo 3 iki 50 simbolių)"
           />
+          <span className="warningmsg">{infoWarning.name}</span>
         </div>
 
         <div className="form-group">
@@ -184,12 +241,19 @@ function KindergartenInputForm() {
             value={data.address}
             onChange={handleChange}
             onInvalid={validateField}
+            style={
+              infoValid.address
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             required
             data-toggle="tooltip"
             data-placement="top"
             title="Įveskite darželio adresą"
+            pattern="[A-ZĄ-Ž]{1}[\S\s]{1,64}$"
             maxLength={128}
           />
+          <span className="warningmsg">{infoWarning.address}</span>
         </div>
 
         <div className="form-group">
@@ -231,6 +295,11 @@ function KindergartenInputForm() {
             value={data.directorName}
             onChange={handleChange}
             onInvalid={validateField}
+            style={
+              infoValid.directorName
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,32}$"
             required
             data-toggle="tooltip"
@@ -238,6 +307,7 @@ function KindergartenInputForm() {
             title="Įveskite direktoriaus vardą"
             maxLength={32}
           />
+          <span className="warningmsg">{infoWarning.directorName}</span>
         </div>
         <div className="form-group">
           <label htmlFor="directorSurname" className="marginTopSide">
@@ -251,6 +321,11 @@ function KindergartenInputForm() {
             value={data.directorSurname}
             onChange={handleChange}
             onInvalid={validateField}
+            style={
+              infoValid.directorSurname
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             pattern="^[A-ZĄ-Ž]{1}[\S\s]{1,32}$"
             required
             data-toggle="tooltip"
@@ -258,6 +333,7 @@ function KindergartenInputForm() {
             title="Įveskite direktoriaus pavardę"
             maxLength={32}
           />
+          <span className="warningmsg">{infoWarning.directorSurname}</span>
         </div>
 
         <h6 className="py-3">

@@ -8,6 +8,7 @@ import apiEndpoint from "../10Services/endpoint";
 import swal from "sweetalert";
 
 import inputValidator from "../08CommonComponents/InputValidator";
+import AdminCreateUserFormValidator from "../08CommonComponents/AdminCreateUserFormValidator";
 
 class AdminCreateUser extends Component {
   constructor(props) {
@@ -27,6 +28,26 @@ class AdminCreateUser extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  infoValid = {
+    name: true,
+    surname: true,
+    personalCode: true,
+    address: true,
+    city: true,
+    phone: true,
+    email: true,
+  };
+
+  infoWarning = {
+    name: "",
+    surname: "",
+    personalCode: "",
+    address: "",
+    city: "",
+    phone: "",
+    email: "",
+  };
 
   drawSelector() {
     return (
@@ -57,12 +78,18 @@ class AdminCreateUser extends Component {
             id="txtEmail"
             name="email"
             value={this.state.email}
+            style={
+              this.infoValid.email
+                ? { border: "1px solid lightgray" }
+                : { border: "2px solid red" }
+            }
             onChange={this.handleChange}
             onInvalid={(e) => inputValidator(e)}
             required
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
             maxLength={128}
           />
+          <span className="warningmsg">{this.infoWarning.email}</span>
         </div>
       </div>
     );
@@ -82,12 +109,18 @@ class AdminCreateUser extends Component {
               id="txtName"
               name="name"
               value={this.state.name}
+              style={
+                this.infoValid.name
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
-              pattern="[A-zÀ-ž]{2,32}"
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
             />
+            <span className="warningmsg">{this.infoWarning.name}</span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtSurname" className="mb-2">
@@ -99,12 +132,18 @@ class AdminCreateUser extends Component {
               id="txtSurname"
               name="surname"
               value={this.state.surname}
+              style={
+                this.infoValid.surname
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
-              pattern="[A-zÀ-ž]{2,32}"
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
             />
+            <span className="warningmsg">{this.infoWarning.surname}</span>
           </div>
         </div>
       );
@@ -122,12 +161,18 @@ class AdminCreateUser extends Component {
                 id="txtName"
                 name="name"
                 value={this.state.name}
+                style={
+                  this.infoValid.name
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 required
-                pattern="[A-zÀ-ž]{2,32}"
+                pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
                 maxLength={32}
               />
+              <span className="warningmsg">{this.infoWarning.name}</span>
             </div>
           </div>
           <div className="form">
@@ -141,12 +186,18 @@ class AdminCreateUser extends Component {
                 id="txtSurname"
                 name="surname"
                 value={this.state.surname}
+                style={
+                  this.infoValid.surname
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 required
-                pattern="[A-zÀ-ž]{2,32}"
+                pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
                 maxLength={32}
               />
+              <span className="warningmsg">{this.infoWarning.surname}</span>
             </div>
           </div>
           <div className="form">
@@ -160,12 +211,20 @@ class AdminCreateUser extends Component {
                 id="txtPersonalCode"
                 name="personalCode"
                 value={this.state.personalCode}
+                style={
+                  this.infoValid.personalCode
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 required
                 pattern="[0-9]{11}"
                 maxLength={11}
               />
+              <span className="warningmsg">
+                {this.infoWarning.personalCode}
+              </span>
             </div>
           </div>
           <div className="form">
@@ -173,21 +232,26 @@ class AdminCreateUser extends Component {
               <label htmlFor="txtTelNo" className="mb-2">
                 Telefonas <span className="fieldRequired">*</span>
               </label>
-              <div className="input-group">
-                <input
-                  type="tel"
-                  className="form-control"
-                  id="txtTelNo"
-                  name="phone"
-                  value={this.state.phone}
-                  onChange={this.handleChange}
-                  onInvalid={(e) => inputValidator(e)}
-                  placeholder="+370xxxxxxxx"
-                  required
-                  pattern="[+]{1}[0-9]{4,19}"
-                  maxLength={12}
-                ></input>
-              </div>
+
+              <input
+                type="tel"
+                className="form-control"
+                id="txtTelNo"
+                name="phone"
+                value={this.state.phone}
+                style={
+                  this.infoValid.phone
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
+                onChange={this.handleChange}
+                onInvalid={(e) => inputValidator(e)}
+                placeholder="+370xxxxxxxx"
+                required
+                pattern="[+]{1}[370]{3}[0-9]{8}"
+                maxLength={12}
+              ></input>
+              <span className="warningmsg2">{this.infoWarning.phone}</span>
             </div>
           </div>
 
@@ -202,12 +266,18 @@ class AdminCreateUser extends Component {
                 id="txtAddress"
                 name="address"
                 value={this.state.address}
+                style={
+                  this.infoValid.address
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
                 maxLength={128}
-                pattern="^[A-zÀ-ž0-9-.,\s]+$"
+                pattern="[\s\dA-zÀ-ž-.]{5,64}"
                 required
               />
+              <span className="warningmsg">{this.infoWarning.address}</span>
             </div>
 
             <div className="form-group col-5">
@@ -220,11 +290,17 @@ class AdminCreateUser extends Component {
                 id="txtCity"
                 name="city"
                 value={this.state.city}
+                style={
+                  this.infoValid.city
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
-                pattern="^[A-zÀ-ž-,\s]+$"
+                pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
                 required
               />
+              <span className="warningmsg">{this.infoWarning.city}</span>
             </div>
           </div>
         </div>
@@ -244,6 +320,26 @@ class AdminCreateUser extends Component {
       phone: "",
       email: "",
     });
+
+    this.infoValid = {
+      name: true,
+      surname: true,
+      personalCode: true,
+      address: true,
+      city: true,
+      phone: true,
+      email: true,
+    };
+
+    this.infoWarning = {
+      name: "",
+      surname: "",
+      personalCode: "",
+      address: "",
+      city: "",
+      phone: "",
+      email: "",
+    };
   };
 
   roleDropdownOnChange(event) {
@@ -256,6 +352,7 @@ class AdminCreateUser extends Component {
 
   handleChange(event) {
     const target = event.target;
+    AdminCreateUserFormValidator(event, this.infoValid, this.infoWarning);
     inputValidator(event);
     this.setState({
       [target.name]: target.value,
