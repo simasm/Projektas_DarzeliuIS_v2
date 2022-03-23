@@ -16,8 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
 import it.akademija.App;
 import it.akademija.user.User;
 import it.akademija.user.UserService;

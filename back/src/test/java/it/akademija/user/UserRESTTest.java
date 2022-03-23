@@ -54,9 +54,6 @@ public class UserRESTTest {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private UserController userController;
-
 	@BeforeAll
 	public void setup() throws Exception {
 		RestAssured.port = port;

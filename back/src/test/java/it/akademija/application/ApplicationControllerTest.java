@@ -10,9 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.time.LocalDate;
 import javax.annotation.PreDestroy;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -23,31 +21,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.restassured.RestAssured;
 import it.akademija.App;
-import it.akademija.application.management.RegistrationStatus;
 import it.akademija.application.management.RegistrationStatusController;
-import it.akademija.application.management.RegistrationStatusService;
 import it.akademija.application.priorities.PrioritiesDTO;
-import it.akademija.kindergarten.Kindergarten;
-import it.akademija.kindergarten.KindergartenDAO;
 import it.akademija.kindergartenchoise.KindergartenChoiseDTO;
 import it.akademija.role.Role;
-import it.akademija.user.ParentDetails;
-import it.akademija.user.ParentDetailsDAO;
 import it.akademija.user.ParentDetailsDTO;
-import it.akademija.user.User;
 import it.akademija.user.UserController;
 import it.akademija.user.UserDTO;
 import it.akademija.user.UserService;
@@ -126,7 +114,7 @@ public class ApplicationControllerTest {
     				applicationData.getMainGuardian().getUsername()))
         			 .andExpect(status().isOk()).andReturn();
        
-    	MvcResult createUser = mvc.perform(post("/api/users/admin/createuser")
+    	mvc.perform(post("/api/users/admin/createuser")
     			.content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
     			//.andExpect(status().isOk()).andReturn();
     			.andReturn();
@@ -136,7 +124,7 @@ public class ApplicationControllerTest {
     	
     	
     	jsonRequest = mapper.writeValueAsString(applicationData);
-    	MvcResult createApplication = mvc.perform(post("/api/prasymai/user/new")
+    	mvc.perform(post("/api/prasymai/user/new")
     			.content(jsonRequest).contentType(MediaType.APPLICATION_JSON))
     			.andExpect(status().isOk()).andReturn();
     	
