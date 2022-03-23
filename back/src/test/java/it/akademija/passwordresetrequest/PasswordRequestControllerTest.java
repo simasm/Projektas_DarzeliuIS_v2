@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import it.akademija.role.Role;
-import it.akademija.user.User;
 import it.akademija.user.UserDTO;
 import it.akademija.user.UserService;
 import it.akademija.user.passwordresetrequests.UserPasswordResetRequestsController;

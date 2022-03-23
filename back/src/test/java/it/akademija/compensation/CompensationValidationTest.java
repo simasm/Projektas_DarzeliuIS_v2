@@ -1,4 +1,4 @@
-package it.akademija.validationCheck;
+package it.akademija.compensation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,9 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.compensation.Compensation;
-import it.akademija.compensation.CompensationDAO;
-import it.akademija.compensation.GuardianInfo;
 import it.akademija.role.Role;
 import it.akademija.user.User;
 import it.akademija.user.UserDAO;
@@ -28,6 +25,8 @@ public class CompensationValidationTest {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	 
 	
 	@Test
 	@Transactional
@@ -69,4 +68,6 @@ public class CompensationValidationTest {
 		assertEquals(false,
 				compensationDAO.existsCompensationByChildPersonalCode("51701011234"));
 	}
+	
+	
 }

@@ -56,12 +56,14 @@ public class DocumentController {
 	@Secured({ "ROLE_USER", "ROLE_MANAGER" })
 	@ApiOperation(value = "Get a document by document id")
 	@GetMapping(path = "/get/{id}")
-	public byte[] getDocumentFileById(@ApiParam(value = "Id of a document to be retrieved") @PathVariable Long id) {
+	public ResponseEntity<byte[]> getDocumentFileById(@ApiParam(value = "Id of a document to be retrieved") @PathVariable Long id) {
 
 		journalService.newJournalEntry(OperationType.MEDICAL_RECORD_DOWNLOADED, id, ObjectType.MEDICAL_RECORD,
 				"Atsisiųsta pažyma");
-
-		return documentService.getDocumentById(id).getData();
+		var document = documentService.getDocumentById(id);
+		if(document != null)
+			return new ResponseEntity<byte[]>(document.getData(), HttpStatus.OK);
+		else return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 	}
 
 	/**

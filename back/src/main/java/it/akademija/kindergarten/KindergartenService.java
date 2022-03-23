@@ -169,6 +169,8 @@ public class KindergartenService {
 
 		if (garten != null) {
 			Set<Application> applicationQueue = garten.getApprovedApplications();
+			
+			if(applicationQueue != null)
 			for (Application a : applicationQueue) {
 				
 				
