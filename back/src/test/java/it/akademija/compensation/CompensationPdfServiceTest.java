@@ -20,7 +20,7 @@ import it.akademija.application.pdf.CompensationPdfService;
  
 @TestInstance(Lifecycle.PER_CLASS)
 //@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { App.class, ApplicationController.class }, 
+@SpringBootTest(classes = { App.class, ApplicationController.class, CompensationPdfService.class }, 
               webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 public class CompensationPdfServiceTest {

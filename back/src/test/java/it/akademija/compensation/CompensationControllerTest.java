@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import it.akademija.App;
 import it.akademija.user.User;
 import it.akademija.user.UserService;
@@ -152,6 +154,22 @@ public class CompensationControllerTest {
 		
 	}
 	 
+	@Test
+	@Order(6)
+	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
+	void getCompensationApplicationForUser() {
+		
+		int size = controller.getAllCopensationApplications()
+				.getBody()
+				.size();
+ 
+		System.out.println("FIND " + size);
+		assertTrue(size > 0);
+		
+		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
+		
+		assertNotNull(controller.getAllCopensationApplications().getBody().size());
+	}
 	
 	@Test
 	@Order(7)
@@ -176,23 +194,7 @@ public class CompensationControllerTest {
  
 	}
 	
-	@Test
-	@Order(6)
-	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
-	void getCompensationApplicationForUser() {
-		
-		int size = controller.getAllCopensationApplications()
-				.getBody()
-				.size();
- 
-		System.out.println("FIND " + size);
-		assertTrue(size > 0);
-		
-		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
-		
-		assertNotNull(controller.getAllCopensationApplications().getBody().size());
-	}
-	
+
 	 
 	@PreDestroy
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })

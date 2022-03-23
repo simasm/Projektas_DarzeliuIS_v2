@@ -58,7 +58,7 @@ public class PdfGenerateServiceTest {
 	@Autowired
 	private UserService userService;
 	
-	Application application;
+	private Application application;
 	
 	private ApplicationDTO data = new ApplicationDTO (
             "Benadas",

@@ -127,17 +127,6 @@ public class UserServiceIntegrationTest {
 
 	}
 
-	@Test
-	@Order(5)
-	@Disabled
-	public void compareUsers() {
-		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@atest.lt", "stest@atest.lt", "stest@atest.lt");
-		service.createUser(newUser);
-
-		UserDTO newUser2 = new UserDTO("USER", "Stest", "Stest", "12445898987", "Address 1", "City", "+37061398876",
-				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
-		service.createUser(newUser2);
- 	}
+ 
 
 }
