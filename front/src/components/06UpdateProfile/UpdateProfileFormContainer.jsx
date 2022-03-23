@@ -6,6 +6,7 @@ import inputValidator from "../08CommonComponents/InputValidator";
 import swal from "sweetalert";
 import DownloaderContainer from "./DownloaderContainer";
 import ForgetMe from "./ForgetMe";
+import UpdateProfileFormValidator from "../08CommonComponents/UpdateProfileFormValidator";
 
 export default class UpdateProfileFormContainer extends Component {
   constructor(props) {
@@ -31,6 +32,27 @@ export default class UpdateProfileFormContainer extends Component {
     this.handleUpdatePasswordSubmit =
       this.handleUpdatePasswordSubmit.bind(this);
   }
+
+  infoValid = {
+    name: true,
+    surname: true,
+    personalCode: true,
+    address: true,
+    city: true,
+    phone: true,
+    email: true,
+  };
+
+  infoWarning = {
+    name: "",
+    surname: "",
+    personalCode: "",
+    address: "",
+    city: "",
+    phone: "",
+    email: "",
+  };
+
   componentDidMount() {
     http
       .get(`${apiEndpoint}/api/users/user`)
@@ -87,12 +109,18 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="Vardas"
               className="form-control mt-2"
               value={this.state.name}
+              style={
+                this.infoValid.name
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
-              pattern="[A-zÀ-ž]{2,32}"
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
             />
+            <span className="warningmsg">{this.infoWarning.name}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtSurname" className="marginTopSide">
@@ -105,12 +133,18 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="Pavardė"
               className="form-control mt-2"
               value={this.state.surname}
+              style={
+                this.infoValid.surname
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
-              pattern="[A-zÀ-ž]{2,32}"
             />
+            <span className="warningmsg">{this.infoWarning.surname}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtEmail" className="marginTopSide">
@@ -123,12 +157,18 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="El. paštas"
               className="form-control mt-2"
               value={this.state.email}
+              style={
+                this.infoValid.email
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
-              maxLength={128}
+              maxLength={64}
             />
+            <span className="warningmsg">{this.infoWarning.email}</span>
           </div>
         </div>
       );
@@ -147,12 +187,18 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="Vardas"
               className="form-control mt-2"
               value={this.state.name}
+              style={
+                this.infoValid.name
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
-              pattern="[A-zÀ-ž]{2,32}"
             />
+            <span className="warningmsg">{this.infoWarning.name}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtSurname" className="marginTopSide">
@@ -165,12 +211,18 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="Pavardė"
               className="form-control mt-2"
               value={this.state.surname}
+              style={
+                this.infoValid.surname
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
               maxLength={32}
-              pattern="[A-zÀ-ž]{2,32}"
             />
+            <span className="warningmsg">{this.infoWarning.surname}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtPersonalCode" className="marginTopSide">
@@ -183,32 +235,43 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="Asmens kodas"
               className="form-control mt-2"
               value={this.state.personalCode}
+              style={
+                this.infoValid.personalCode
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
-              maxLength={11}
               pattern="[0-9]{11}"
+              maxLength={11}
             />
+            <span className="warningmsg">{this.infoWarning.personalCode}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtTelNo" className="marginTopSide">
               Telefonas <span className="fieldRequired">*</span>
             </label>
-            <div className="input-group">
-              <input
-                type="tel"
-                className="form-control mt-2"
-                id="txtTelNo"
-                name="phone"
-                value={this.state.phone}
-                onChange={this.handleChange}
-                onInvalid={(e) => inputValidator(e)}
-                placeholder="+37012345678"
-                required
-                maxLength={12}
-                pattern="[+]{1}[0-9]{4,19}"
-              ></input>
-            </div>
+
+            <input
+              type="tel"
+              className="form-control mt-2"
+              id="txtTelNo"
+              name="phone"
+              value={this.state.phone}
+              style={
+                this.infoValid.phone
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
+              onChange={this.handleChange}
+              onInvalid={(e) => inputValidator(e)}
+              placeholder="+37012345678"
+              required
+              pattern="[+]{1}[370]{3}[0-9]{8}"
+              maxLength={12}
+            ></input>
+            <span className="warningmsg">{this.infoWarning.phone}</span>
           </div>
           <div className="form-group">
             <label htmlFor="txtEmail" className="marginTopSide">
@@ -221,15 +284,22 @@ export default class UpdateProfileFormContainer extends Component {
               placeholder="El. paštas"
               className="form-control mt-2"
               value={this.state.email}
+              style={
+                this.infoValid.email
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.handleChange}
               onInvalid={(e) => inputValidator(e)}
               required
               maxLength={64}
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
             />
+            <span className="warningmsg2">{this.infoWarning.email}</span>
           </div>
-          <div className="row">
-            <div className="form-group col-8">
+
+          <div className="form-group row">
+            <div className="form- group col-8">
               <label htmlFor="txtAddress" className="marginTopSide">
                 Adresas <span className="fieldRequired">*</span>
               </label>
@@ -240,12 +310,18 @@ export default class UpdateProfileFormContainer extends Component {
                 name="address"
                 placeholder="Adresas"
                 value={this.state.address}
+                style={
+                  this.infoValid.address
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onChange={this.handleChange}
                 onInvalid={(e) => inputValidator(e)}
-                maxLength={128}
-                pattern="^(?! )[A-zÀ-ž0-9-.,\s]+$"
                 required
+                pattern="[\s\dA-zÀ-ž-.]{5,64}"
+                maxLength={128}
               />
+              <span className="warningmsg">{this.infoWarning.address}</span>
             </div>
 
             <div className="form-group col-4">
@@ -260,10 +336,16 @@ export default class UpdateProfileFormContainer extends Component {
                 placeholder="Miestas"
                 onChange={this.handleChange}
                 value={this.state.city}
+                style={
+                  this.infoValid.city
+                    ? { border: "1px solid lightgray" }
+                    : { border: "2px solid red" }
+                }
                 onInvalid={(e) => inputValidator(e)}
-                pattern="^(?! )[A-zÀ-ž\s]+$"
-                required
+                pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
+                maxLength={32}
               />
+              <span className="warningmsg">{this.infoWarning.city}</span>
             </div>
           </div>
         </div>
@@ -275,6 +357,7 @@ export default class UpdateProfileFormContainer extends Component {
 
   handleChange(e) {
     inputValidator(e);
+    UpdateProfileFormValidator(e, this.infoValid, this.infoWarning);
     this.setState({
       [e.target.name]: e.target.value,
     });

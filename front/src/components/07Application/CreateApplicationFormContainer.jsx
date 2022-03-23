@@ -14,6 +14,8 @@ import inputValidator from "../08CommonComponents/InputValidator";
 
 import "../../App.css";
 import "../08CommonComponents/datePickerStyle.css";
+import MainGuardianFormValidator from "../08CommonComponents/MainGuardianFormValidator";
+import AdditionalGuardianFormValidator from "../08CommonComponents/AdditionalGuardianFormValidator";
 
 registerLocale("lt", lt);
 
@@ -83,12 +85,79 @@ class CreateApplicationFormContainer extends Component {
     this.submitHandle = this.submitHandle.bind(this);
   }
 
+  mainGuardianValid = {
+    name: true,
+    surname: true,
+    personalCode: true,
+    phone: true,
+    email: true,
+    address: true,
+  };
+
+  mainGuardianInfoWarning = {
+    name: "",
+    surname: "",
+    personalCode: "",
+    phone: "",
+    email: "",
+    address: "",
+  };
+
+  additionalGuardianValid = {
+    name: true,
+    surname: true,
+    personalCode: true,
+    phone: true,
+    email: true,
+    address: true,
+  };
+
+  additionalGuardianInfoWarning = {
+    name: "",
+    surname: "",
+    personalCode: "",
+    phone: "",
+    email: "",
+    address: "",
+  };
+
   handleAdd = (e) => {
     e.preventDefault();
 
     this.setState({
       ...this.state,
       additionalGuardianInput: !this.state.additionalGuardianInput,
+    });
+
+    this.additionalGuardianValid = {
+      name: true,
+      surname: true,
+      personalCode: true,
+      phone: true,
+      email: true,
+      address: true,
+    };
+
+    this.additionalGuardianInfoWarning = {
+      name: "",
+      surname: "",
+      personalCode: "",
+      phone: "",
+      email: "",
+      address: "",
+    };
+
+    this.setState({
+      additionalGuardian: {
+        ...this.state.additionalGuardian,
+        name: "",
+        surname: "",
+        personalCode: "",
+        phone: "",
+        email: "",
+        address: "",
+        city: "",
+      },
     });
   };
 
@@ -203,12 +272,21 @@ class CreateApplicationFormContainer extends Component {
                   ? ""
                   : this.state.mainGuardian.name
               }
+              style={
+                this.mainGuardianValid.name
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
               required
-              pattern="[A-zÀ-ž]{2,32}"
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
+              maxLength={32}
             />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.name}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtSurname">
@@ -224,12 +302,21 @@ class CreateApplicationFormContainer extends Component {
                   ? ""
                   : this.state.mainGuardian.surname
               }
+              style={
+                this.mainGuardianValid.surname
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
               required
-              pattern="[A-zÀ-ž]{2,32}"
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
+              maxLength={32}
             />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.surname}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtPersonalCode">
@@ -245,37 +332,54 @@ class CreateApplicationFormContainer extends Component {
                   ? ""
                   : this.state.mainGuardian.personalCode
               }
+              style={
+                this.mainGuardianValid.personalCode
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
               required
               pattern="[0-9]{11}"
+              maxLength={11}
             />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.personalCode}
+            </span>
           </div>
           <div className="form-group mt-2">
-            <label htmlFor="txtTelNo">
-              Telefonas <span className="fieldRequired">*</span>
+            <label htmlFor="txtPhone">
+              Telefonas<span className="fieldRequired">*</span>
             </label>
-            <div className="input-group">
-              <input
-                type="tel"
-                id="txtMainPhone"
-                name="phone"
-                placeholder="+370xxxxxxxx"
-                className="form-control"
-                value={
-                  this.state.registrationDisabled
-                    ? ""
-                    : this.state.mainGuardian.phone
-                }
-                onChange={this.mainGuardianOnChange}
-                onInvalid={(e) => inputValidator(e)}
-                disabled={this.state.registrationDisabled}
-                required
-                pattern="[+]{1}[0-9]{4,19}"
-              ></input>
-            </div>
+            <input
+              type="text"
+              id="txtMainPhone"
+              name="phone"
+              className="form-control"
+              placeholder="+370xxxxxxxx"
+              value={
+                this.state.registrationDisabled
+                  ? ""
+                  : this.state.mainGuardian.phone
+              }
+              style={
+                this.mainGuardianValid.phone
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
+              onChange={this.mainGuardianOnChange}
+              onInvalid={(e) => inputValidator(e)}
+              disabled={this.state.registrationDisabled}
+              required
+              pattern="[+]{1}[370]{3}[0-9]{8}"
+              maxLength={12}
+            />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.phone}
+            </span>
           </div>
+
           <div className="form-group mt-2">
             <label htmlFor="txtEmail">
               El. paštas <span className="fieldRequired">*</span>
@@ -290,12 +394,21 @@ class CreateApplicationFormContainer extends Component {
                   ? ""
                   : this.state.mainGuardian.email
               }
+              style={
+                this.mainGuardianValid.email
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
               required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+              maxLength={64}
             />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.email}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtAddress">
@@ -311,11 +424,21 @@ class CreateApplicationFormContainer extends Component {
                   ? ""
                   : this.state.mainGuardian.address
               }
+              style={
+                this.mainGuardianValid.address
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               onChange={this.mainGuardianOnChange}
               onInvalid={(e) => inputValidator(e)}
               disabled={this.state.registrationDisabled}
               required
+              pattern="[\s\dA-zÀ-ž-.]{5,64}"
+              maxLength={64}
             />
+            <span className="warningmsg">
+              {this.mainGuardianInfoWarning.address}
+            </span>
           </div>
         </div>
       );
@@ -355,9 +478,18 @@ class CreateApplicationFormContainer extends Component {
                 !this.state.additionalGuardianInput ||
                 this.state.registrationDisabled
               }
-              pattern="[A-zÀ-ž]{2,32}"
+              style={
+                this.additionalGuardianValid.name
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               required
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
+              maxLength={32}
             />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.name}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtSurname">
@@ -375,9 +507,18 @@ class CreateApplicationFormContainer extends Component {
                 !this.state.additionalGuardianInput ||
                 this.state.registrationDisabled
               }
-              pattern="[A-zÀ-ž]{2,32}"
+              style={
+                this.additionalGuardianValid.surname
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               required
+              pattern="[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$"
+              maxLength={32}
             />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.surname}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtPersonalCode">
@@ -395,33 +536,52 @@ class CreateApplicationFormContainer extends Component {
                 !this.state.additionalGuardianInput ||
                 this.state.registrationDisabled
               }
-              pattern="[0-9]{11}"
+              style={
+                this.additionalGuardianValid.personalCode
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               required
+              pattern="[0-9]{11}"
+              maxLength={11}
             />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.personalCode}
+            </span>
           </div>
           <div className="form-group mt-2">
-            <label htmlFor="txtTelNo">
+            <label htmlFor="txtAdditionalPhone">
               Telefonas <span className="fieldRequired">*</span>
             </label>
-            <div className="input-group">
-              <input
-                type="tel"
-                id="txtAdditionalPhone"
-                name="phone"
-                placeholder="+370xxxxxxxx"
-                className="form-control"
-                value={this.state.additionalGuardian.phone}
-                onChange={this.additionalGuardianOnChange}
-                onInvalid={(e) => inputValidator(e)}
-                disabled={
-                  !this.state.additionalGuardianInput ||
-                  this.state.registrationDisabled
-                }
-                pattern="[+]{1}[0-9]{4,19}"
-                required
-              />
-            </div>
+            <input
+              type="text"
+              id="txtAdditionalPhone"
+              name="phone"
+              className="form-control"
+              value={this.state.additionalGuardian.phone}
+              onChange={this.additionalGuardianOnChange}
+              onInvalid={(e) => inputValidator(e)}
+              placeholder={
+                this.state.additionalGuardianInput ? "+370xxxxxxxx" : ""
+              }
+              disabled={
+                !this.state.additionalGuardianInput ||
+                this.state.registrationDisabled
+              }
+              style={
+                this.additionalGuardianValid.phone
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
+              required
+              pattern="[+]{1}[370]{3}[0-9]{8}"
+              maxLength={12}
+            />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.phone}
+            </span>
           </div>
+
           <div className="form-group mt-2">
             <label htmlFor="txtEmail">
               El. paštas <span className="fieldRequired">*</span>
@@ -438,9 +598,18 @@ class CreateApplicationFormContainer extends Component {
                 !this.state.additionalGuardianInput ||
                 this.state.registrationDisabled
               }
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+              style={
+                this.additionalGuardianValid.email
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+              maxLength={64}
             />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.email}
+            </span>
           </div>
           <div className="form-group mt-2">
             <label htmlFor="txtAddress">
@@ -458,8 +627,18 @@ class CreateApplicationFormContainer extends Component {
                 !this.state.additionalGuardianInput ||
                 this.state.registrationDisabled
               }
+              style={
+                this.additionalGuardianValid.address
+                  ? { border: "1px solid lightgray" }
+                  : { border: "2px solid red" }
+              }
               required
+              pattern="[\s\dA-zÀ-ž-.]{5,64}"
+              maxLength={64}
             />
+            <span className="warningmsg">
+              {this.additionalGuardianInfoWarning.address}
+            </span>
           </div>
         </div>
       );
@@ -901,6 +1080,12 @@ class CreateApplicationFormContainer extends Component {
   /** Pagrindinio atstovo formos onChange */
   mainGuardianOnChange(e) {
     inputValidator(e);
+    MainGuardianFormValidator(
+      e,
+      this.mainGuardianValid,
+      this.mainGuardianInfoWarning
+    );
+
     this.setState({
       mainGuardian: {
         ...this.state.mainGuardian,
@@ -912,6 +1097,11 @@ class CreateApplicationFormContainer extends Component {
   /** Antro atstovo formos onChange */
   additionalGuardianOnChange(e) {
     inputValidator(e);
+    AdditionalGuardianFormValidator(
+      e,
+      this.additionalGuardianValid,
+      this.additionalGuardianInfoWarning
+    );
     this.setState({
       additionalGuardian: {
         ...this.state.additionalGuardian,
