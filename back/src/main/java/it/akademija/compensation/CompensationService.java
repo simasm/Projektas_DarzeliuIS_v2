@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.application.Application;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
@@ -75,16 +74,20 @@ public class CompensationService {
 	public void deleteCompensationsApplicationByUsername(String username) {
 		List<Compensation> compensations = 
 				compensationDAO.findCompensationsByMainGuardianUsername(username);
-		if(compensations != null) {
+		
+		if (compensations.size() == 0) {
+			journalService.newJournalEntry(OperationType.COMPENSATION_DELETE_FAILED, ObjectType.APPLICATION,
+					"Naudotojas " + username + " neturejo kompensacijos prašymų");
+		} else {
+		
 		 compensations.forEach(compensation->compensationDAO.delete(compensation));
 		 	
 		 journalService.newJournalEntry(OperationType.COMPENSATION_DELETE, ObjectType.APPLICATION,
 					"Naudotojo " + username + " kompensacijos prašymai ištrinti");
 		 
-		  
 		}
-		journalService.newJournalEntry(OperationType.COMPENSATION_DELETE_FAILED, ObjectType.APPLICATION,
-				"Naudotojas " + username + " neturejo kompensacijos prašymų");
+		
+		
 		
 	}
 	

@@ -1,6 +1,5 @@
 package it.akademija.kindergarten;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationDAO;
 import it.akademija.application.ApplicationStatus;
-import it.akademija.journal.JournalService;
 import it.akademija.kindergartenchoise.KindergartenChoiseDAO;
 
 @Service
@@ -36,8 +34,6 @@ public class KindergartenService {
 	@Autowired
 	private ApplicationDAO applicationDao;
 
-	@Autowired
-	private JournalService journalService;
 
 	/**
 	 * Get all kindergarten ID's, names and addresses where capacity in any age

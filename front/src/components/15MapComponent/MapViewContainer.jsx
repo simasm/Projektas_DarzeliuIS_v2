@@ -72,11 +72,10 @@ export default function MapTab() {
       .then((response) =>
         setBubbleCoordinates(response[0].x + "," + response[0].y)
       )
-      .catch((error) => "65line");
+      .catch((error) => "");
   };
 
   useEffect(() => {
-    var array = [];
     getKindergartens();
     if (state.role === "USER") {
       getUserAddress();
@@ -84,12 +83,6 @@ export default function MapTab() {
 
     if (userAddress !== "") {
       getUserCoordinates();
-    }
-
-    {
-      kindergartens.map((k) => {
-        array.push([k.id, k.coordinates]);
-      });
     }
   }, [userAddress]);
 

@@ -60,34 +60,34 @@ const ManagerCompensations = () => {
     // let kompensacija = compensations.filter((comp) => comp.id === id);
     // setCompState(kompensacija);
     http
-        .request({
-          url: `${apiEndpoint}/api/pdfgeneration/manager/${item.id}`,
-          method: "GET",
-          responseType: "blob",
-        })
-        .then((response) => {
-          const url = window.URL.createObjectURL(
-            new Blob([response.data], { type: "application/pdf" })
-          );
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute(
-            "download",
-            `${item.childName}` +
-              ` ${item.childSurname}` +
-              " - prašymas dėl kompensacijos.pdf"
-          );
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-        })
-        .catch((error) => {
-          swal({
-            text: "Įvyko klaida atsisiunčiant " + `${item.childName}` +
-            ` ${item.childSurname}` + " kompensacijos prašymą.",
-            buttons: "Gerai",
-          });
+      .request({
+        url: `${apiEndpoint}/api/pdfgeneration/manager/${item.id}`,
+        method: "GET",
+        responseType: "blob",
+      })
+      .then((response) => {
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: "application/pdf" })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute(
+          "download",
+          `${item.childName}` +
+            ` ${item.childSurname}` +
+            " - prašymas dėl kompensacijos.pdf"
+        );
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((error) => {
+        swal({
+          text: `Įvyko klaida atsisiunčiant ${item.childName} 
+            ${item.childSurname} kompensacijos prašymą.`,
+          buttons: "Gerai",
         });
+      });
   };
 
   const handlePageChange = (page) => {
@@ -138,11 +138,11 @@ const ManagerCompensations = () => {
                         </button>
                       </Link>
                       <button
-                          id="btnDownloadCompensations"
-                          className="btn btn-outline-primary"
-                          onClick={() => handleDownloadPdf(item)}
-                        >
-                          Atsisiųsti
+                        id="btnDownloadCompensations"
+                        className="btn btn-outline-primary"
+                        onClick={() => handleDownloadPdf(item)}
+                      >
+                        Atsisiųsti
                       </button>
                     </td>
                   </tr>

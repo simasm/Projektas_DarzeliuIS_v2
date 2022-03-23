@@ -5,11 +5,13 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
+import com.github.openjson.JSONException;
+import com.github.openjson.JSONObject;
+
 
 @Service
 public class RegistrycenterService {
@@ -54,7 +56,7 @@ public class RegistrycenterService {
 		 try {
 			json = new JSONObject(IOUtils.toString(new URL(url + id), Charset.forName("UTF-8")));
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		 

@@ -23,7 +23,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,8 +74,10 @@ public class UserController {
 
 		if (userService.findByUsername(userInfo.getUsername()) != null) {
 			
-			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED, ObjectType.USER,
-					"Naudotojas vardu " + userInfo.getName() + " jau egzistuoja");
+			
+			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userInfo.getUsername());
 
 			LOG.warn("Naudotojas [{}] bandė sukurti naują naudotoją su jau egzistuojančiu vardu [{}]", currentUsername,
 					userInfo.getUsername());
@@ -112,11 +113,11 @@ public class UserController {
 		
 		if (userService.findByUsername(username) != null) {
 
-			userService.deleteUser(username);
-
 			LOG.info("** Usercontroller: trinamas naudotojas vardu [{}] **", username);
 
-			journalService.newJournalEntry(OperationType.USER_DELETED, ObjectType.USER, "Ištrintas naudotojas");
+			journalService.newJournalEntry(OperationType.USER_DELETED, userService.findByUsername(username).getUserId(), ObjectType.USER, "Ištrintas naudotojas");
+			
+			userService.deleteUser(username);
 
 			return new ResponseEntity<String>("Naudotojas ištrintas sėkmingai", HttpStatus.OK);
 		}
@@ -329,23 +330,25 @@ public class UserController {
 	@ApiOperation(value = "Create new user account from login screen")
 	public ResponseEntity<String> createAccountLoginScreen(
 			@RequestBody UserDTO userDTO) {
-		
-// 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-// 		if ((authentication instanceof AnonymousAuthenticationToken)) {
-// 			System.out.println("anonymous create user");
-// 			return new ResponseEntity<String>("aha", HttpStatus.I_AM_A_TEAPOT);
-// 		}
+ 		
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
+			journalService.newJournalEntry(null, null, OperationType.USER_CREATE_FAILED, null,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userDTO.getUsername());
+			
 			return new ResponseEntity<String>("Toks naudotojas jau egzistuoja!", HttpStatus.BAD_REQUEST);
 		}
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
  		if ((authentication instanceof AnonymousAuthenticationToken)) {
  			userService.createUserFromLogin(userDTO);
 		
-		journalService.newJournalEntry(OperationType.USER_CREATED,
-				userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
-				"Sukurtas naujas naudotojas");
+ 			journalService.newJournalEntry(userService.findByUsername(userDTO.getUsername()).getUserId(),userDTO.getUsername(),
+ 					OperationType.USER_CREATED,
+ 					userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
+ 					"Sukurtas naujas naudotojas");
  		}
 		if (userService.findByUsername(userDTO.getUsername()) != null) {
 		 

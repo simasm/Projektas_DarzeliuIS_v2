@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
-import it.akademija.compensation.Compensation;
 import it.akademija.compensation.CompensationService;
 import it.akademija.document.DocumentDAO;
 import it.akademija.journal.JournalService;

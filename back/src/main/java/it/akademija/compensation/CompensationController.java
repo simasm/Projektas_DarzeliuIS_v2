@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
  
@@ -31,10 +28,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
  
- import it.akademija.journal.JournalService;
+import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
 import it.akademija.journal.OperationType;
-import it.akademija.kindergarten.KindergartenController;
 
 
 @RestController
@@ -42,7 +38,6 @@ import it.akademija.kindergarten.KindergartenController;
 @RequestMapping(path = "/api/kompensacija")
 public class CompensationController {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(KindergartenController.class);
 	
 	@Autowired
 	private CompensationService compensationService;
@@ -79,7 +74,6 @@ public class CompensationController {
 		
 		
 	   if(compensation != null)  {
-			String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 			
 			journalService.newJournalEntry(OperationType.COMPENSATION_SUBMIT, compensation.getId(), ObjectType.APPLICATION,
 					"Kompensacijos prašymas sukurtas");

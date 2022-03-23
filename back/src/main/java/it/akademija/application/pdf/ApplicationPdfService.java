@@ -18,13 +18,10 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.draw.ILineDrawer;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
-//import com.itextpdf.layout.border.Border;
-//import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.List;
@@ -154,7 +151,6 @@ public class ApplicationPdfService {
 	    Paragraph tel = new Paragraph().add(new Tab()).add(telefono_Nr).add(new Tab());
 	    Paragraph email = new Paragraph().add(new Tab()).add(el_pastas).add(new Tab());
 
-	    ILineDrawer filling = new SolidLine(3f);
 	    
 	    PageSize pageSize1 = document.getPdfDocument().getDefaultPageSize();
 	    Rectangle effectivePageSize1 = document.getPageEffectiveArea(pageSize1);
