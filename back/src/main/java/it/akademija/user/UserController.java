@@ -20,6 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +73,11 @@ public class UserController {
 		LOG.info("** Usercontroller: kuriamas naujas naudotojas **");
 
 		if (userService.findByUsername(userInfo.getUsername()) != null) {
+			
+			
+			journalService.newJournalEntry(OperationType.USER_CREATE_FAILED,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userInfo.getUsername());
 
 			LOG.warn("Naudotojas [{}] bandė sukurti naują naudotoją su jau egzistuojančiu vardu [{}]", currentUsername,
 					userInfo.getUsername());
@@ -101,34 +108,38 @@ public class UserController {
 	@DeleteMapping(path = "/admin/delete/{username}")
 	@ApiOperation(value = "Delete user", notes = "Deletes user by username")
 	public ResponseEntity<String> deleteUser(
-			@ApiParam(value = "Username", required = true) @PathVariable final String username) {
+			@ApiParam(value = "Username(email) by which a user is deleted", required = true) @PathVariable final String username) {
 
-		long id = userService.findByUsername(username).getUserId();
-
+		
 		if (userService.findByUsername(username) != null) {
-
-			userService.deleteUser(username);
 
 			LOG.info("** Usercontroller: trinamas naudotojas vardu [{}] **", username);
 
-			journalService.newJournalEntry(OperationType.USER_DELETED, id, ObjectType.USER, "Ištrintas naudotojas");
+			journalService.newJournalEntry(OperationType.USER_DELETED, userService.findByUsername(username).getUserId(), ObjectType.USER, "Ištrintas naudotojas");
+			
+			userService.deleteUser(username);
 
 			return new ResponseEntity<String>("Naudotojas ištrintas sėkmingai", HttpStatus.OK);
 		}
 
+		journalService.newJournalEntry(OperationType.USER_DELETE_FAILED, ObjectType.KINDERGARTEN,
+				"Naudotojas su vardu " + username + " nerastas");
+		
 		LOG.warn("Naudotojas bandė ištrinti naudotoją neegzistuojančiu vardu [{}]", username);
 
-		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>("Naudotojo vardu " + username + " ištrinti nepavyko", HttpStatus.NOT_FOUND);
+
+		
 	}
 
 	/**
-	 * Returns a list of users. Method only accessible to ADMIN users
+	 * Returns a page of all users. Method only accessible to ADMIN users
 	 * 
-	 * @return list of users
+	 * @return page of all users
 	 */
 	@Secured({ "ROLE_ADMIN" })
 	@GetMapping(path = "/admin/allusers")
-	@ApiOperation(value = "Show all users", notes = "Showing all users")
+	@ApiOperation(value = "Get a page of all users")
 	public Page<UserInfo> getAllUsers(@RequestParam("page") int page, @RequestParam("size") int size) {
 
 		Sort.Order order = new Sort.Order(Sort.Direction.DESC, "userId");
@@ -139,7 +150,7 @@ public class UserController {
 	}
 
 	/**
-	 * Get detail for logged in user
+	 * Get details for logged in user
 	 * 
 	 * @return user details
 	 */
@@ -172,9 +183,16 @@ public class UserController {
 	@ApiOperation(value = "Restore user password", notes = "Restore user password to initial value")
 	public ResponseEntity<String> restorePassword(
 			@ApiParam(value = "Username", required = true) @PathVariable final String username) {
+		
+		if (userService.findByUsername(username) == null) {
+			journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
+					 ObjectType.USER,
+					"Naudotojas vardu " + username + " nerastas");
+			
+			return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+		}
 
-		if (userService.findByUsername(username) != null) {
-
+		
 			userService.restorePassword(username);
 
 			LOG.info("** Usercontroller: keiciamas slaptazodis naudotojui vardu [{}] **", username);
@@ -184,9 +202,9 @@ public class UserController {
 					"Atstatytas naudotojo slaptažodis");
 
 			return new ResponseEntity<String>("Slaptažodis atkurtas sėkmingai", HttpStatus.OK);
-		}
+		
 
-		return new ResponseEntity<String>("Naudotojas tokiu vardu nerastas", HttpStatus.NOT_FOUND);
+		
 	}
 
 	/**
@@ -243,6 +261,10 @@ public class UserController {
 		} else {
 
 			LOG.warn(" [{}] įvedė neteisingą seną slaptažodį. **", currentUsername);
+			
+			journalService.newJournalEntry(OperationType.USER_DATA_CHANGE_FAILED,
+					 ObjectType.USER,
+					"Naudotojas " + currentUsername + " įvedė neteisingą seną slaptažodį");
 
 			return new ResponseEntity<String>("Neteisingas senas slaptažodis", HttpStatus.BAD_REQUEST);
 
@@ -300,6 +322,47 @@ public class UserController {
 		userService.deleteMyUserData();
 	}
 
+	/**
+	 * Create new user from login screen
+	 *  
+	 */
+ 	@PostMapping("/createAccount")
+	@ApiOperation(value = "Create new user account from login screen")
+	public ResponseEntity<String> createAccountLoginScreen(
+			@RequestBody UserDTO userDTO) {
+ 		
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (userService.findByUsername(userDTO.getUsername()) != null) {
+			journalService.newJournalEntry(null, null, OperationType.USER_CREATE_FAILED, null,
+					 ObjectType.USER,
+					"Bandymas sukurti vartotoją su jau egzistuojančiu prisijungimo vardu " + userDTO.getUsername());
+			
+			return new ResponseEntity<String>("Toks naudotojas jau egzistuoja!", HttpStatus.BAD_REQUEST);
+		}
+		
+		
+ 		if ((authentication instanceof AnonymousAuthenticationToken)) {
+ 			userService.createUserFromLogin(userDTO);
+		
+ 			journalService.newJournalEntry(userService.findByUsername(userDTO.getUsername()).getUserId(),userDTO.getUsername(),
+ 					OperationType.USER_CREATED,
+ 					userService.findByUsername(userDTO.getUsername()).getUserId(), ObjectType.USER,
+ 					"Sukurtas naujas naudotojas");
+ 		}
+		if (userService.findByUsername(userDTO.getUsername()) != null) {
+		 
+			return new ResponseEntity<String>("Naujas naudotojas sukurtas sėkmingai", HttpStatus.OK);
+		}
+	 
+		journalService.newJournalEntry(OperationType.USER_CREATE_FAILED,
+				 ObjectType.USER,
+				"Naudotojui nepavyko susikurti paskyros" );
+		
+		return new ResponseEntity<String>("Nepavyko sukurti naudotojo", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
 	public UserService getUserService() {
 		return userService;
 	}

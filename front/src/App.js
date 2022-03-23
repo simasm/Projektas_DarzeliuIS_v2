@@ -37,7 +37,8 @@ import SubmittedDocsContainer from "./components/13UserDocuments/SubmittedDocsCo
 import ManagerCompensations from "./components/02Main/ManagerCompensations";
 import ManagerReviewTable from "./components/02Main/ManagerReviewTable";
 import DownloadReviewTable from "./components/02Main/DownloadReviewTable";
- 
+import {CreateUserForm} from "./components/01Login/CreateUserForm"; 
+
 var initState = {
   isAuthenticated: null,
   username: null,
@@ -132,7 +133,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/prasymai/statusas"
+                      path="/prasymai"
                       component={ApplicationStatusContainer}
                     />
                     <Route
@@ -147,7 +148,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/profilis/atnaujinti"
+                      path="/profilis"
                       component={UpdateProfileFormContainer}
                     />
                     <Route path="*" component={NotFound} />
@@ -268,7 +269,7 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/profilis/atnaujinti"
+                      path="/profilis"
                       component={UpdateProfileFormContainer}
                     />
                     <Route
@@ -298,6 +299,7 @@ function App() {
         <AuthContext.Provider value={{ state, dispatch }}>
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/createAccount" component={CreateUserForm} />
             <Route path="*">
               <Redirect to="/login" />
             </Route>

@@ -106,6 +106,13 @@ p {
   color: rgb(134, 37, 37);
   font-size: 12px;
 }
+.warningmsg2 {
+  width: 100%;
+  display: block;
+  text-align: right;
+  color: rgb(134, 37, 37);
+  font-size: 12px;
+}
 
 .redborder {
   border: 3px solid rgb(141, 24, 24);
@@ -249,6 +256,19 @@ p {
   color: grey;
   cursor: pointer;
 }
+
 .questionmarkbtn {
   cursor: pointer;
+}
+
+.compensationBtn {
+  color: #007bff;
+}
+
+.searchbox:focus {
+  box-shadow: none;
+}
+
+.fixpos {
+  position: fixed;
 }

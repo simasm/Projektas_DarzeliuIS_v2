@@ -1,6 +1,5 @@
 package it.akademija.kindergarten;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.akademija.application.Application;
 import it.akademija.application.ApplicationDAO;
 import it.akademija.application.ApplicationStatus;
-import it.akademija.journal.JournalService;
+import it.akademija.kindergartenchoise.KindergartenChoiseDAO;
 
 @Service
 public class KindergartenService {
@@ -28,12 +27,13 @@ public class KindergartenService {
 
 	@Autowired
 	private KindergartenDAO gartenDao;
+	
+	@Autowired
+	private KindergartenChoiseDAO choiseDao;
 
 	@Autowired
 	private ApplicationDAO applicationDao;
 
-	@Autowired
-	private JournalService journalService;
 
 	/**
 	 * Get all kindergarten ID's, names and addresses where capacity in any age
@@ -102,7 +102,7 @@ public class KindergartenService {
 	@Transactional(readOnly = true)
 	public List<KindergartenInfo> getAllKindergartens() {
 
-		List<Kindergarten> kindergartens = gartenDao.findAll();
+		List<Kindergarten> kindergartens = gartenDao.findAllByOrderByNameAsc();
 
 		return kindergartens.stream().map(garten -> new KindergartenInfo(garten.getId(), garten.getName(),
 				garten.getAddress(), garten.getElderate(), garten.getCoordinates())).collect(Collectors.toList());
@@ -118,8 +118,9 @@ public class KindergartenService {
 	public void createNewKindergarten(KindergartenDTO kindergarten) {
 
 		gartenDao.save(new Kindergarten(kindergarten.getId(), kindergarten.getName(), kindergarten.getAddress(),
-				kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(),
-				kindergarten.getCapacityAgeGroup3to6()));
+
+				       kindergarten.getElderate(), kindergarten.getCapacityAgeGroup2to3(), kindergarten.getCapacityAgeGroup3to6(), 
+				       kindergarten.getDirectorName(), kindergarten.getDirectorSurname(), kindergarten.getCoordinates()));
 
 	}
 
@@ -162,24 +163,25 @@ public class KindergartenService {
 	@Transactional
 	public ResponseEntity<String> deleteKindergarten(String id) {
 
-		String gartenID = id;
 
 		Kindergarten garten = gartenDao.findById(id).orElse(null);
+		
 
 		if (garten != null) {
 			Set<Application> applicationQueue = garten.getApprovedApplications();
+			
+			if(applicationQueue != null)
 			for (Application a : applicationQueue) {
+				
+				
 				a.setApprovedKindergarten(null);
-
-				if (a.getKindergartenChoises().size() > 1) {
-					a.setStatus(ApplicationStatus.Pateiktas);
-				} else {
-					a.setStatus(ApplicationStatus.Neaktualus);
-				}
+				a.setStatus(ApplicationStatus.Neaktualus);
+				
 
 				applicationDao.saveAndFlush(a);
 			}
-
+			
+			choiseDao.deleteAllByKindergartenId(id);
 			gartenDao.deleteById(id);
 
 			LOG.info("** UserService: trinamas darželis ID [{}] **", id);
@@ -202,12 +204,15 @@ public class KindergartenService {
 	public void updateKindergarten(String id, KindergartenDTO updatedInfo) {
 
 		Kindergarten current = gartenDao.findById(id).orElse(null);
-
+		
 		current.setName(updatedInfo.getName());
 		current.setAddress(updatedInfo.getAddress());
 		current.setElderate(updatedInfo.getElderate());
 		current.setCapacityAgeGroup2to3(updatedInfo.getCapacityAgeGroup2to3());
 		current.setCapacityAgeGroup3to6(updatedInfo.getCapacityAgeGroup3to6());
+	//current.setDirectorName(updatedInfo.getDirectorName());
+		//current.setDirectorSurname(updatedInfo.getDirectorSurname());
+		//current.setCoordinates(updatedInfo.getCoordinates());
 
 		gartenDao.save(current);
 	}
@@ -353,6 +358,10 @@ public class KindergartenService {
 				kindergarten.getElderate()
 				);
 				
+	}
+
+	public List<KindergartenStatistics> getAllKindergartenStatistics() {
+		return gartenDao.findAllChoises();
 	}
 
 }

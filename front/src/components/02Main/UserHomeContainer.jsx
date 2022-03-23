@@ -104,7 +104,7 @@ export class UserHomeContainer extends Component {
       inputValue: 0,
       showCloseButton: true,
       html: table,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0d6efd",
       inputPlaceholder: "Patvirtinu, kad duomenys teisingi",
       confirmButtonText: "Atsisiųsti sutartį",
 

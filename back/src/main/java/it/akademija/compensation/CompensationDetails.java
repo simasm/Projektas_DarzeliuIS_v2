@@ -2,10 +2,6 @@ package it.akademija.compensation;
 
 import java.time.LocalDate;
 
-import it.akademija.user.ParentDetails;
-import it.akademija.user.User;
-import it.akademija.user.UserInfo;
-
 public class CompensationDetails {
 	
 	private Long id;

@@ -1,6 +1,7 @@
 package it.akademija.journal;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,11 @@ public class JournalService {
 	public void newJournalEntry(OperationType operationType, Long objectID, ObjectType objectType,
 			String entryMessage) {
 
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		var auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String currentUsername = "";
+		if(auth != null) currentUsername = auth.getName();
 		User currentUser = userDAO.findByUsername(currentUsername);
 		Long currentUserID = 0L;
 		
@@ -43,7 +48,7 @@ public class JournalService {
 			currentUserID = currentUser.getUserId();
 		} 
 		
-		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, LocalDateTime.now(), operationType,
+		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, getTimestamp(), operationType,
 				objectID, objectType, entryMessage);
 
 		journalEntryDAO.saveAndFlush(entry);
@@ -74,7 +79,11 @@ public class JournalService {
 	@Transactional
 	public void newJournalEntry(OperationType operationType, ObjectType objectType, String entryMessage) {
 
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String currentUsername = "";
+		if(auth != null)
+			currentUsername = auth.getName();
 		
 		User currentUser = userDAO.findByUsername(currentUsername);
 		Long currentUserID = 0L;
@@ -83,8 +92,8 @@ public class JournalService {
 			currentUserID = currentUser.getUserId();
 		} 
 		
-		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, LocalDateTime.now(), operationType,
-				currentUserID, objectType, entryMessage);
+		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, getTimestamp(), operationType, null,
+				 objectType, entryMessage);
 
 		journalEntryDAO.saveAndFlush(entry);
 	}
@@ -99,9 +108,14 @@ public class JournalService {
 	public void newJournalEntry(Long currentUserID, String currentUsername, OperationType operationType, Long objectID,
 			ObjectType objectType, String entryMessage) {
 
-		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, LocalDateTime.now(), operationType,
+		JournalEntry entry = new JournalEntry(currentUserID, currentUsername, getTimestamp(), operationType,
 				objectID, objectType, entryMessage);
 
 		journalEntryDAO.saveAndFlush(entry);
+	}
+	
+	public LocalDateTime getTimestamp() {
+		ZoneId GMTplus2 = ZoneId.of("Europe/Vilnius");
+		return  LocalDateTime.now(GMTplus2);
 	}
 }

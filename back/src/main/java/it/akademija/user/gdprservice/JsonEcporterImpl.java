@@ -30,6 +30,15 @@ public class JsonEcporterImpl implements JsonExporter {
 		            jsonObject.addProperty("Pavardė", user.getSurname());
 		            jsonObject.addProperty("Telefonas", user.getParentDetails().getPhone());
 		            jsonObject.addProperty("El.pastas", user.getParentDetails().getEmail());
+		            
+		            if (user.getParentDetails().getAddress() == "") {
+		            	jsonObject.addProperty("Adresas", "Nenurodytas");
+		            } else if (user.getParentDetails().getAddress() != "" && user.getParentDetails().getCity() == "") {
+		            	jsonObject.addProperty("Adresas", user.getParentDetails().getAddress());
+		            } else {
+		            	jsonObject.addProperty("Adresas", user.getParentDetails().getAddress() + ", " + user.getParentDetails().getCity());
+		            }
+		            
 		            return jsonObject;
 			}
 	    }).setPrettyPrinting().create();

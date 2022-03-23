@@ -17,8 +17,13 @@ public class MainAppController {
 	@Autowired
 	private UserDAO userDao;
 
+	/**
+	 * Returns a username of the logged in user
+	 * 
+	 * @return username
+	 */
 	@GetMapping("/api/loggedUserName")
-	@ApiOperation(value = "Get username of logged in user")
+	@ApiOperation(value = "Get username of a logged in user")
 	public String getLoggedInUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -30,6 +35,12 @@ public class MainAppController {
 		return "not logged";
 	}
 
+	
+	/**
+	 * Returns credentials of the logged in user
+	 * 
+	 * @return name and surname
+	 */
 	@GetMapping("/api/loggedUser")
 	@ApiOperation(value = "Get name and surname of logged in user")
 	public String getLoggedInUser() {
@@ -44,6 +55,11 @@ public class MainAppController {
 		return "not logged";
 	}
 
+	/**
+	 * Returns a role of the logged in user
+	 * 
+	 * @return role
+	 */
 	@GetMapping("/api/loggedUserRole")
 	@ApiOperation(value = "Get role of logged in user")
 	public String getLoggedInUserRole() {

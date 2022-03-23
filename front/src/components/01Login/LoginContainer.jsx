@@ -11,7 +11,7 @@ import swal from "sweetalert";
 
 import ForgotPasswordWindow from "../01Login/ForgotPasswordWindow";
 
-import instructionsPdf from '../../documents/VMS_VDIS_naudotojo_gidas.pdf';
+import instructionsPdf from "../../documents/VMS_VDIS_naudotojo_gidas.pdf";
 
 axios.defaults.withCredentials = true;
 
@@ -26,7 +26,7 @@ export const LoginContainer = () => {
   const [data, setData] = React.useState(initState);
   const { dispatch } = React.useContext(AuthContext);
   const history = useHistory();
-
+  const createUserForm = "/createAccount";
   const loginInstance = axios.create();
 
   loginInstance.interceptors.response.use(
@@ -50,26 +50,26 @@ export const LoginContainer = () => {
           password: "",
         });
       } else if (error.response) {
-       if (error.response.status === 401) {
-        setData({
-          ...data,
-          loginError: true,
-          loggingIn: false,
-          username: "",
-          password: "",
-        });
-      } else if (error.response.status === 403){
-        swal("Prieiga uždrausta")
-        setData({
-          ...data,
-          loginError: false,
-          loggingIn: false,
-          username: "",
-          password: "",
-        });
-      } 
+        if (error.response.status === 401) {
+          setData({
+            ...data,
+            loginError: true,
+            loggingIn: false,
+            username: "",
+            password: "",
+          });
+        } else if (error.response.status === 403) {
+          swal("Prieiga uždrausta");
+          setData({
+            ...data,
+            loginError: false,
+            loggingIn: false,
+            username: "",
+            password: "",
+          });
+        }
+      }
     }
-    } 
   );
 
   const handleChange = (event) => {
@@ -102,7 +102,7 @@ export const LoginContainer = () => {
         });
         history.push("/home");
       })
-     .catch(() => {})
+      .catch(() => {});
   };
 
   const validateText = (event) => {
@@ -115,6 +115,10 @@ export const LoginContainer = () => {
     } else {
       target.setCustomValidity("");
     }
+  };
+
+  const registrationForm = () => {
+    history.push(createUserForm);
   };
 
   return (
@@ -149,7 +153,6 @@ export const LoginContainer = () => {
           <div className="form-group">
             <label htmlFor="password" className="mt-3 mb-2">
               Slaptažodis <span className="fieldRequired">*</span>
-              
             </label>
             <input
               type="password"
@@ -169,7 +172,6 @@ export const LoginContainer = () => {
           <button
             type="button"
             className="btn btn-link mt-3 text-decoration-none ps-0"
-            
             onClick={() => {
               return ForgotPasswordWindow();
             }}
@@ -186,6 +188,16 @@ export const LoginContainer = () => {
           >
             {data.loggingIn ? "Jungiamasi..." : "Prisijungti"}
           </button>
+
+          <button
+            type="button"
+            className="btn btn-outline-primary float-end mt-3 me-3"
+            id="btnCreate"
+            disabled={data.loggingIn}
+            onClick={registrationForm}
+          >
+            Sukurti paskyrą
+          </button>
         </form>
         {data.loginError && (
           <span
@@ -199,7 +211,17 @@ export const LoginContainer = () => {
       </div>
       <div className="row">
         <div className="col">
-          <h6 className="py-3">Kaip naudotis šia sistema? <a className="text-decoration-none" href={instructionsPdf} target="_blank" rel="noopener noreferrer">Parsisiųsti naudotojo instrukciją.</a></h6>
+          <h6 className="py-3">
+            Kaip naudotis šia sistema?{" "}
+            <a
+              className="text-decoration-none"
+              href={instructionsPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Parsisiųsti naudotojo instrukciją.
+            </a>
+          </h6>
         </div>
       </div>
     </div>

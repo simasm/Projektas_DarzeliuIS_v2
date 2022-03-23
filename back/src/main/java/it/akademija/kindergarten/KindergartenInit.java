@@ -53,7 +53,7 @@ public class KindergartenInit {
 					gartenDao.save(kindergarten);
 				}
 				// apėjimas: pirmą įrašą ištrinam dė duomenų bazės problemų
-				service.deleteByName("test");
+				service.deleteByName("Test");
 			}
 
 		}

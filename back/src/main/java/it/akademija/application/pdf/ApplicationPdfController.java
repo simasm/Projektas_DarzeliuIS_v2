@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import it.akademija.application.Application;
 import it.akademija.application.ApplicationService;
+import it.akademija.compensation.CompensationService;
+import it.akademija.journal.JournalService;
+import it.akademija.journal.ObjectType;
+import it.akademija.journal.OperationType;
+
 @RestController
 @Api(value = "application pdf generation")
 @RequestMapping(path = "/api/pdfgeneration")
@@ -31,9 +35,23 @@ public class ApplicationPdfController {
 	private ApplicationService applicationService;
 	
 	@Autowired
-	private ApplicationPdfService service;
+	private ApplicationPdfService applicationPdfservice;
+	
+	@Autowired
+	private CompensationPdfService compensationPdfservice;
+	
+	@Autowired
+	private CompensationService compensationService;
+	
+	@Autowired
+	private JournalService journalService;
 	
 	
+	/**
+	 * Downloads an application as a .pdf file
+	 * 
+	 * 
+	 */
 	@Secured({ "ROLE_USER" })
  	@RequestMapping(value = "/{id}", method = RequestMethod.GET   )
  	@ResponseStatus(HttpStatus.OK)
@@ -41,12 +59,53 @@ public class ApplicationPdfController {
 	@ResponseBody
 	public ResponseEntity<byte[]> generateApplicationPdf( 
 			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
+		
+		
 		if(applicationService.existsById(id)) {
 		 		
 			try {				
 			 
 		
-				byte[] contents =  service.createPdf(id);
+				byte[] contents =  applicationPdfservice.createPdf(id);
+			
+				HttpHeaders headers = new HttpHeaders();
+				 headers.setContentType(MediaType.APPLICATION_PDF);
+			   
+				headers.add("Content-Disposition", "filename=" + id +".pdf");
+				//headers.add("Cache-Control", "no-cache, no-store, must-revalidate");v2 
+		 
+				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
+				
+				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Atsisiųstas registracijos prašymas");
+				
+				return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);		
+				
+			} catch (IOException e) {
+				
+				journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Nepavyko atsisiųsti prašymo");
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		journalService.newJournalEntry(OperationType.APPLICATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+				"Prašymas nerastas");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@Secured({ "ROLE_MANAGER" })
+ 	@RequestMapping(value = "/manager/{id}", method = RequestMethod.GET )
+ 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Download compensation information as generated PDF file")
+	@ResponseBody
+	public ResponseEntity<byte[]> generateCompensationPdf( 
+			@ApiParam(value = "Application ID", required = true) @PathVariable @Valid String id) {
+		if(compensationService.existsById(id)) {
+		 		
+			try {				
+			 
+				byte[] contents =  compensationPdfservice.createCompensationPdf(id);
 			
 				HttpHeaders headers = new HttpHeaders();
 				 headers.setContentType(MediaType.APPLICATION_PDF);
@@ -56,12 +115,20 @@ public class ApplicationPdfController {
 		 
 				headers.setContentDispositionFormData(id+".pdf",id+".pdf");
 				
+				journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Atsisiųstas kompensacijos prašymas");
+				
 				return new ResponseEntity<byte[]>( contents, headers, HttpStatus.OK);				
 			} catch (IOException e) {
+				journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+						"Nepavyko atsisiųsti kompensacijos prašymo");
+				
 				e.printStackTrace();
 			}
 			
 		}
+		journalService.newJournalEntry(OperationType.COMPENSATION_DOWNLOAD_FAILED, Long.valueOf(id), ObjectType.DOWNLOAD,
+				"Prašymas nerastas");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

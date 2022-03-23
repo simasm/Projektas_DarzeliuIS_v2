@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import apiEndpoint from "../10Services/endpoint";
+import http from "../10Services/httpService";
 import axios from "axios";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
@@ -55,9 +56,38 @@ const ManagerCompensations = () => {
     setCompState(kompensacija);
   };
 
-  const handleDownloadPdf = async (id) => {
-    let kompensacija = compensations.filter((comp) => comp.id === id);
-    setCompState(kompensacija);
+  const handleDownloadPdf = async (item) => {
+    // let kompensacija = compensations.filter((comp) => comp.id === id);
+    // setCompState(kompensacija);
+    http
+      .request({
+        url: `${apiEndpoint}/api/pdfgeneration/manager/${item.id}`,
+        method: "GET",
+        responseType: "blob",
+      })
+      .then((response) => {
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: "application/pdf" })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute(
+          "download",
+          `${item.childName}` +
+            ` ${item.childSurname}` +
+            " - prašymas dėl kompensacijos.pdf"
+        );
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((error) => {
+        swal({
+          text: `Įvyko klaida atsisiunčiant ${item.childName} 
+            ${item.childSurname} kompensacijos prašymą.`,
+          buttons: "Gerai",
+        });
+      });
   };
 
   const handlePageChange = (page) => {
@@ -73,7 +103,7 @@ const ManagerCompensations = () => {
             Pradinis puslapis
           </Link>
           &nbsp; &gt; &nbsp; */}
-          <h3>Prašymai dėl kompensacijos</h3>
+          <h6>Prašymai dėl kompensacijos</h6>
         </div>
         <div className="row pt-5 ">
           <div className="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -102,25 +132,18 @@ const ManagerCompensations = () => {
                       >
                         <button
                           id="btnReviewCompensations"
-                          className="btn btn-outline-secondary"
+                          className="btn btn-outline-primary"
                         >
                           Peržiūrėti
                         </button>
                       </Link>
-
-                      <Link
-                        className="text-decoration-none px-2"
-                        onClick={() => handleDownloadPdf(item.id)}
-                        type="button"
-                        to={`/kompensacijos/download/${item.id}`}
+                      <button
+                        id="btnDownloadCompensations"
+                        className="btn btn-outline-primary"
+                        onClick={() => handleDownloadPdf(item)}
                       >
-                        <button
-                          id="btnDownloadCompensations"
-                          className="btn btn-outline-secondary"
-                        >
-                          Atsisiųsti
-                        </button>
-                      </Link>
+                        Atsisiųsti
+                      </button>
                     </td>
                   </tr>
                 ))}

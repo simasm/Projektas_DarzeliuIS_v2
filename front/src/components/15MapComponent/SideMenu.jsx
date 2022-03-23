@@ -27,12 +27,11 @@ export default function SideMenu({
   const [searchString, setSearchString] = useState("");
   const [radiusValid, setRadiusValid] = useState(true);
   const [objectAddressValid, setObjectAddressValid] = useState(true);
+  const [invalidSearch, setInvalidSearch] = useState(false);
 
   const addresses = [];
 
-  {
-    kindergartens.map((k) => addresses.push(k.address));
-  }
+  kindergartens.map((k) => addresses.push(k.address));
 
   async function getFilteredKindergartens(searchString) {
     const searchResponse = await http.get(
@@ -43,7 +42,14 @@ export default function SideMenu({
   }
 
   const handleSearchStringChange = (e) => {
-    setSearchString(e.target.value);
+    const string = e.target.value;
+    const re = /^[a-zA-Zą-ž\s-]+$/;
+    if (string === "" || re.test(string)) {
+      setSearchString(string);
+    } else {
+      setInvalidSearch(true);
+      setTimeout(() => setInvalidSearch(false), 500);
+    }
   };
 
   useEffect(() => {
@@ -62,11 +68,14 @@ export default function SideMenu({
     const re = /^[0-9\b,.]+$/;
     if (e.target.value === "" || re.test(e.target.value)) {
       setBubbleRadiusTmp(e.target.value);
+    } else {
+      setRadiusValid(false);
+      setTimeout(() => setRadiusValid(true), 500);
     }
   };
 
   const SearchKindergartenExact = (bubbleaddress) => {
-    if (bubbleRadiusTmp == 0 || bubbleRadiusTmp === ""){
+    if (bubbleRadiusTmp === "0" || bubbleRadiusTmp === "") {
       setIsBubble(false);
       kindergartens.map((k) =>
         k.address === bubbleaddress ? setActiveThroughMarker(k) : ""
@@ -76,7 +85,7 @@ export default function SideMenu({
 
   const handleBubbleSearch = () => {
     SearchKindergartenExact(bubbleAddressTmp.split(",")[0]);
-    if (bubbleRadiusTmp === "" || bubbleRadiusTmp == 0) {
+    if (bubbleRadiusTmp === "" || bubbleRadiusTmp === "0") {
       setRadiusValid(false);
       setTimeout(() => setRadiusValid(true), 2000);
     }
@@ -89,7 +98,7 @@ export default function SideMenu({
     if (
       bubbleAddressTmp !== "" &&
       bubbleRadiusTmp !== "" &&
-      bubbleRadiusTmp != 0
+      bubbleRadiusTmp !== "0"
     ) {
       setInactive();
       setBubbleAddress(bubbleAddressTmp + ", Vilnius");
@@ -118,7 +127,6 @@ export default function SideMenu({
       "<p>Žemėlapyje bus sugeneruotas plotas su į jį patenkančiais darželiais.</p>";
 
     Swal.fire({
-      //text: "Galite ieškoti darželių aplink konkrečią vietą tam tikru spinduliu. Į adreso įvedimo lauką įrašę gatvės, rajono, objekto pavadinimą ar konkretų adresą, atstumo įvedimo lauke įrašykite, kokiu atstumu nuo pasirinktos vietovės norite vykdyti paiešką",
       html: text,
 
       showCloseButton: true,
@@ -177,6 +185,11 @@ export default function SideMenu({
           onSearch={handleSearchStringChange}
           value={searchString}
           placeholder={"Ieškokite pagal pavadinimą ar seniūniją"}
+          style={
+            invalidSearch
+              ? { border: "2px solid red" }
+              : { border: "2px solid lightgrey" }
+          }
         />
       </div>
 

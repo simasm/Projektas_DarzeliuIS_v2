@@ -53,11 +53,11 @@ public class ApplicationRepositoryTest {
 		Priorities priorities = new Priorities(true, true, false, false, false, false);
 
 		Kindergarten first = kindergartenDAO
-				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12));
+				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12, "Dir1Name", "Dir1Surname", "45.7896, 76.5897"));
 		Kindergarten second = kindergartenDAO
-				.save(new Kindergarten("146325698", "Pavadinimas 2", "Adresas 3", "Seniunija", 12, 12));
+				.save(new Kindergarten("146325698", "Pavadinimas 2", "Adresas 3", "Seniunija", 12, 12, "Dir2Name", "Dir2Surname", "46.7896, 77.5897"));
 		Kindergarten third = kindergartenDAO
-				.save(new Kindergarten("369258147", "Pavadinimas 3", "Adresas 4", "Seniunija", 12, 12));
+				.save(new Kindergarten("369258147", "Pavadinimas 3", "Adresas 4", "Seniunija", 12, 12, "Dir3Name", "Dir3Surname", "42.7896, 73.5897"));
 
 		Set<KindergartenChoise> choices = new HashSet<>();
 		choices.add(choiseDAO.save(new KindergartenChoise(first, application1, 1)));
@@ -90,11 +90,11 @@ public class ApplicationRepositoryTest {
 		Priorities priorities2 = new Priorities(true, false, false, false, false, false);
 
 		Kindergarten first2 = kindergartenDAO
-				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12));
+				.save(new Kindergarten("123456789", "Pavadinimas 1", "Adresas 2", "Seniunija", 12, 12, "Dir1Name", "Dir1Surname", "45.7896, 76.5897"));
 		Kindergarten second2 = kindergartenDAO
-				.save(new Kindergarten("146325698", "Pavadinimas 2", "Adresas 3", "Seniunija", 12, 12));
+				.save(new Kindergarten("146325698", "Pavadinimas 2", "Adresas 3", "Seniunija", 12, 12, "Dir2Name", "Dir2Surname", "45.7896, 76.5897"));
 		Kindergarten third2 = kindergartenDAO
-				.save(new Kindergarten("369258147", "Pavadinimas 3", "Adresas 4", "Seniunija", 12, 12));
+				.save(new Kindergarten("369258147", "Pavadinimas 3", "Adresas 4", "Seniunija", 12, 12, "Dir3Name", "Dir3Surname", "45.7896, 76.5897"));
 
 		Set<KindergartenChoise> choices2 = new HashSet<>();
 		choices2.add(choiseDAO.save(new KindergartenChoise(first2, application2, 1)));

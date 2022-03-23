@@ -39,5 +39,7 @@ public interface ApplicationDAO extends JpaRepository<Application, Long> {
 
 	@Query("SELECT new it.akademija.application.ApplicationInfo(a.id, a.childPersonalCode, a.childName, a.childSurname, a.status) FROM Application a LEFT JOIN Kindergarten k ON a.approvedKindergarten.id=k.id WHERE a.mainGuardian.username=?1")
 	Set<ApplicationInfo> findAllUserApplicationsWithPersonalCode(String currentUsername);
+	
+	List<Application> deleteAllByApprovedKindergartenId(String kindergartenId);
 
 }

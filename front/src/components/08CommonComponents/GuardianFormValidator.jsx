@@ -1,3 +1,5 @@
+//Validator for COMPENSATION form guardian inputs.
+
 const GuardianFormValidator = (
   e,
   setGuardianWarning,
@@ -9,7 +11,7 @@ const GuardianFormValidator = (
 
   switch (targetName) {
     case "name":
-      if (!e.target.value.match(/^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s-']+$/)) {
+      if (!e.target.value.match(/^[A-ZĄČĘĖĮŠŲŪŽ]{1}[a-zA-Zą-ž\s\-']+$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas vardo formatas",
@@ -35,7 +37,7 @@ const GuardianFormValidator = (
       return guardianValid.surname;
 
     case "personalCode":
-      if (!e.target.value.match(/[0-9]{11}/)) {
+      if (!e.target.value.match(/^[0-9]{11}$/)) {
         setGuardianWarning({
           ...guardianWarning,
           [targetName]: "Neteisingas asmens kodo formatas",

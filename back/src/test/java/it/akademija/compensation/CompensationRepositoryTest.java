@@ -13,8 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.role.Role;
-import it.akademija.compensation.GuardianInfo;
-import it.akademija.user.ParentDetailsDAO;
 import it.akademija.user.User;
 import it.akademija.user.UserDAO;
 
@@ -29,9 +27,6 @@ public class CompensationRepositoryTest {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private ParentDetailsDAO parentDetailsDAO;
 	
 	@Test
 	@Transactional
@@ -58,11 +53,11 @@ public class CompensationRepositoryTest {
 				"302295680",
 				"Testprivatus",
 				"Vysniu gatve 13",
-				"123456",
+				"+37067625896",
 				"darzelis@test.lt",
 				"Testbankas",
-				"TBANK1",
-				"1234" );
+				"LT147044012039850426",
+				"70440" );
 		 
 		entityManager.persistAndFlush(compensation);
 		

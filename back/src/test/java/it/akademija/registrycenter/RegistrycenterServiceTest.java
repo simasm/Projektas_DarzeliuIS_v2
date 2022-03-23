@@ -19,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 class RegistrycenterServiceTest {
 
 	@Autowired
-	private RegistrycenterService service;
 	private static String url = 
 			"https://darzelis.akademijait.vtmc.lt/registru-centras/vaikai/";
 	//known good id

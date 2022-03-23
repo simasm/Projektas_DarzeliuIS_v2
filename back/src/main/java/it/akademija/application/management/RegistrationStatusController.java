@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.akademija.application.queue.ApplicationQueueService;
 import it.akademija.journal.JournalService;
 import it.akademija.journal.ObjectType;
@@ -46,7 +46,7 @@ public class RegistrationStatusController {
 	@Secured({ "ROLE_MANAGER" })
 	@PostMapping("/status/{registrationActive}")	
 	@ApiOperation(value = "Set application status")
-	public RegistrationStatus setStatus(@PathVariable boolean registrationActive) {
+	public RegistrationStatus setStatus(@ApiParam(value="True to activate registration, false to deactivate")@PathVariable boolean registrationActive) {
 
 		if (registrationActive) {
 			journalService.newJournalEntry(OperationType.REGISTRATION_STARTED, null, ObjectType.REGISTRATION,
@@ -74,18 +74,21 @@ public class RegistrationStatusController {
 	}
 
 	/**
-	 * Start queue processing
+	 * Start queue formation
 	 * 
 	 * @return message
 	 */
 
 	@Secured({ "ROLE_MANAGER" })
 	@PostMapping("/queue/process")
-	@ApiOperation(value = "Process queue")
+	@ApiOperation(value = "Begin forming the queue")
 	public ResponseEntity<String> processQueue() {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		queueService.processApplicationsToQueue();
+		
+		journalService.newJournalEntry(OperationType.QUEUE_FORM, null, ObjectType.QUEUE,
+				"Suformuotos eilės");
 
 		LOG.info("Naudotojas [{}] pradeda eilių formavimą", currentUsername);
 
@@ -105,6 +108,8 @@ public class RegistrationStatusController {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
+		journalService.newJournalEntry(OperationType.QUEUE_CONFIRM, null, ObjectType.QUEUE,
+				"Patvirtintos eilės");
 		LOG.info("Naudotojas [{}] tvirtina eiles.", currentUsername);
 
 		return queueService.confirmApplicationsInQueue();
@@ -123,6 +128,10 @@ public class RegistrationStatusController {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
+		
+		journalService.newJournalEntry(OperationType.QUEUE_LOCK, null, ObjectType.QUEUE,
+				"Eilių redagavimas užrakintas");
+		
 		LOG.info("Naudotojas [{}] užrakina eilių redagavimą.", currentUsername);
 
 		statusService.lockQueueEditing();
@@ -141,7 +150,10 @@ public class RegistrationStatusController {
 	public void unlockQueueEditing() {
 
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		
+		journalService.newJournalEntry(OperationType.QUEUE_UNLOCK, null, ObjectType.QUEUE,
+				"Eilių redagavimas atrakintas");
+		
 		LOG.info("Naudotojas [{}] atrakina eilių redagavimą.", currentUsername);
 
 		statusService.unlockQueueEditing();

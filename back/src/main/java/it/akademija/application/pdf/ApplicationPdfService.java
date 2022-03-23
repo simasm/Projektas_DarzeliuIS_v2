@@ -18,11 +18,10 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.draw.ILineDrawer;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.border.SolidBorder;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.List;
@@ -35,6 +34,7 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.ListNumberingType;
 import com.itextpdf.layout.property.TabAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
 
 import it.akademija.application.Application;
@@ -151,7 +151,6 @@ public class ApplicationPdfService {
 	    Paragraph tel = new Paragraph().add(new Tab()).add(telefono_Nr).add(new Tab());
 	    Paragraph email = new Paragraph().add(new Tab()).add(el_pastas).add(new Tab());
 
-	    ILineDrawer filling = new SolidLine(3f);
 	    
 	    PageSize pageSize1 = document.getPdfDocument().getDefaultPageSize();
 	    Rectangle effectivePageSize1 = document.getPageEffectiveArea(pageSize1);
@@ -397,9 +396,10 @@ public class ApplicationPdfService {
 	    
 	    document.add(new Paragraph("Ugdymo įstaigos atstovas:"));
 	    
-	    Table table = new Table(4) ;
+	    Table table = new Table(UnitValue.createPercentArray(new float[]{4,4,4,4}));
+	    table.setWidth(UnitValue.createPercentValue(100));
 	    table.addCell(new Cell().setBorder(Border.NO_BORDER)); 
-	    table.addCell(new Cell(1, 2).add("(Parašas)")
+	    table.addCell(new Cell(1, 2).add(new Paragraph("(Parašas)").setBorder(Border.NO_BORDER))
 	    		.setTextAlignment(TextAlignment.CENTER)
 	    		.setVerticalAlignment(VerticalAlignment.MIDDLE)
 	    		.setFontSize(8)
@@ -413,7 +413,6 @@ public class ApplicationPdfService {
 	    		.setFontSize(10)
 	    		.setBorder(Border.NO_BORDER)
 	    		.setBorderBottom(new SolidBorder(0.5f))
-	    		
 	    		); 
 	    table.addCell(new Cell().setBorder(Border.NO_BORDER));
 	    table.addCell(new Cell().setBorder(Border.NO_BORDER));
@@ -432,9 +431,10 @@ public class ApplicationPdfService {
 	    document.add(new Paragraph(""));
 	    document.add(new Paragraph("Tėvas/Globėjas"));
 	    
-	    Table table2 = new Table(4) ;
+	    Table table2 = new Table(UnitValue.createPercentArray(new float[]{4,4,4,4}));
+	    table2.setWidth(UnitValue.createPercentValue(100));
 	    table2.addCell(new Cell().setBorder(Border.NO_BORDER)); 
-	    table2.addCell(new Cell(1, 2).add("(Parašas)")
+	    table2.addCell(new Cell(1, 2).add(new Paragraph("(Parašas)")) //.add("(Parašas)"
 	    		.setTextAlignment(TextAlignment.CENTER)
 	    		.setVerticalAlignment(VerticalAlignment.MIDDLE)
 	    		.setFontSize(8)
@@ -448,7 +448,6 @@ public class ApplicationPdfService {
 	    		.setFontSize(10)
 	    		.setBorder(Border.NO_BORDER)
 	    		.setBorderBottom(new SolidBorder(0.5f))
-	    		
 	    		); 
 	    table2.addCell(new Cell().setBorder(Border.NO_BORDER));
 	    table2.addCell(new Cell().setBorder(Border.NO_BORDER));

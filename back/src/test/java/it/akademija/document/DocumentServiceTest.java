@@ -1,9 +1,11 @@
 package it.akademija.document;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,12 +34,27 @@ class DocumentServiceTest {
 	private UserDAO userDao;
 
 	@Test
-	void testUploadDocument() {
+	void testUploadAndDeleteDocument() {
 
 		MockMultipartFile file = new MockMultipartFile("file", "file.pdf", MediaType.APPLICATION_PDF_VALUE,
 				"Hello, World!".getBytes());
 
-		assertTrue(documentService.uploadDocument(file, "file.pdf", 1L));
+		var userId = userDao.findByUsername("user@user.lt").getUserId();
+		
+		assertTrue(documentService.uploadDocument(file, "file.pdf", userId));
+		int docListSize = documentService.getAllExistingDocuments().size();
+		List<DocumentEntity> docsList = documentService.getDocumentsByUploaderId(userId);
+		
+		assertNotNull(docsList);
+		System.out.println(docsList.size() + "keywordas");
+		
+		docsList.stream().forEach(doc -> {
+			documentService.deleteDocument(doc.getId());
+			assertTrue(documentService.getAllExistingDocuments().size() < docListSize);
+			}
+		
+		);
+		assertTrue(documentService.getDocumentsByUploaderId(userId).isEmpty());
 
 	}
 
@@ -53,7 +70,11 @@ class DocumentServiceTest {
 		assertEquals("pazyma", newDocument.getName());
 		assertEquals(LocalDate.of(2019, 5, 5), newDocument.getUploadDate());
 
-		assertTrue(documentService.getDocumentsByUploaderId(userDao.findByUsername("user@user.lt").getUserId())
+		var a = userDao.findByUsername("user@user.lt");
+		var b = a.getUserId();
+		var c = documentService.getDocumentsByUploaderId(b);
+				
+		assertTrue(c
 				.size() == 0);
 
 	}

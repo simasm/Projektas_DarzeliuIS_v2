@@ -2,6 +2,7 @@
 package it.akademija.application;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -52,8 +53,9 @@ public class Application {
 	@Size(min = 2, max = 70)
 	@Pattern(regexp = "^\\p{L}+(?: \\p{L}+)*$")
 	private String childSurname;
-
-	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{11}$|")
+	
+	@NotEmpty(message = "Asmens kodas privalomas!")
+	@Pattern(regexp = "^[0-9]{11}$")
 	private String childPersonalCode;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -234,7 +236,10 @@ public class Application {
 	}
 
 	public void setApprovalDate() {
-		this.approvalDate = LocalDate.now();
+		ZoneId GMTplus2 = ZoneId.of("Europe/Vilnius");
+		this.approvalDate = LocalDate.now(GMTplus2);
 	}
+	
+	
 
 }

@@ -1,4 +1,4 @@
-package it.akademija.user;
+ package it.akademija.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,7 +52,7 @@ public class UserServiceIntegrationTest {
 	@Test
 	@Order(2)
 	public void testCreateDeleteUser() {
-
+        
 		UserDTO newUser = new UserDTO("MANAGER", "stest", "stest", "stest@test.lt", "stest@test.lt", "stest@test.lt");
 		service.createUser(newUser);
 		assertEquals("stest", service.findByUsername("stest@test.lt").getName());
@@ -87,19 +87,19 @@ public class UserServiceIntegrationTest {
 	@Order(3)
 	public void testCreateJSON() {
 
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
+				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
 
 		service.createUser(newUser);
 
-		assertEquals(0, service.getUserApplications("stest@test.lt").size());
+		assertEquals(0, service.getUserApplications("stest@stest.lt").size());
 
-		assertEquals("12345898987", service.getUserDetails("stest@test.lt").getPersonalCode());
+		assertEquals("12345898987", service.getUserDetails("stest@stest.lt").getPersonalCode());
 
-		assertFalse(jsonService.export(service.findByUsername("stest@test.lt")).isEmpty());
+		assertFalse(jsonService.export(service.findByUsername("stest@stest.lt")).isEmpty());
 
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
+		service.deleteUser("stest@stest.lt");
+		assertNull(service.findByUsername("stest@stest.lt"));
 
 	}
 
@@ -111,39 +111,21 @@ public class UserServiceIntegrationTest {
 
 		assertTrue(journalService.getAllJournalEntries(page).getSize() != 0);
 
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
+				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
 
 		service.createUser(newUser);
 
-		journalService.depersonalizeUserLogs("stest");
+		journalService.depersonalizeUserLogs("stest@stest.lt");
 
 		PageRequest page2 = PageRequest.of(1, 10);
 		assertTrue(journalDAO.getAllJournalEntries(page2).getSize() != 0);
 
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
-
-	}
-
-	@Test
-	@Order(5)
-	public void compareUsers() {
-		UserDTO newUser = new UserDTO("USER", "stest", "stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
-		service.createUser(newUser);
-
-		UserDTO newUser2 = new UserDTO("USER", "stest", "stest", "12445898987", "Address 1", "City", "+37061398876",
-				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
-		service.createUser(newUser2);
-
-		assertFalse(newUser.equals(newUser2));
-
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
-
 		service.deleteUser("stest@stest.lt");
 		assertNull(service.findByUsername("stest@stest.lt"));
+
 	}
+
+ 
 
 }

@@ -12,6 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import it.akademija.application.Application;
 import it.akademija.kindergartenchoise.KindergartenChoise;
@@ -21,15 +22,16 @@ public class Kindergarten {
 
 	@Id
 	@Column(name = "kindergarten_id")
-	@Pattern(regexp = "^(?!\\s*$)[0-9\\s]{9}$|", message = "Įstaigos kodas turi būti sudarytas iš 9 skaitmenų")
+	@Pattern(regexp = "^\\d{9}$", message = "Neteisingas kodo formatas. Įstaigos kodas turi būti sudarytas iš 9 skaitmenų") //^(?!\\s*$)[0-9\\s]{9}$
 	private String id;
 
 	@NotBlank(message = "Pavadinimas privalomas")
-	@Pattern(regexp = "\\S[\\s\\S]{2,49}")
+	@Pattern(regexp = "\\S[\\s\\S]{2,49}", message = "Neteisingas pavadinimo formatas. Nuo 3 iki 50 simbolių") // ^[A-ZĄČĘĖĮŠŲŪŽ]{1}[\\S\\s]{1,64}$
 	@Column(name = "name", unique = true)
 	private String name;
 
 	@Column
+	@Size(max=128)
 	@NotBlank(message = "Adresas privalomas")
 	private String address;
 
@@ -50,7 +52,12 @@ public class Kindergarten {
 	
 	private int placesTakenAgeGroup3to6;
 	
+	@NotBlank(message = "Direktoriaus vardas privalomas")
+	@Pattern(regexp = "^[A-ZĄ-Ž]{1}[\\S\\s]{1,32}$", message = "Direktoriaus vardas ir pavardė turi būti iki 32 simbolių. Pirmoji žodžio raidė - didžioji.")
 	private String directorName;
+	
+	@NotBlank(message = "Direktoriaus pavardė privaloma")
+	@Pattern(regexp = "^[A-ZĄ-Ž]{1}[\\S\\s]{1,32}$", message = "Direktoriaus vardas ir pavardė turi būti iki 32 simbolių. Pirmoji žodžio raidė - didžioji.")
 	private String directorSurname;
 	
 	private String coordinates;
@@ -65,6 +72,20 @@ public class Kindergarten {
 
 	public Kindergarten() {
 
+	}
+	
+	public Kindergarten(String id, String name, String address, String elderate, 
+			            String directorName, String directorSurname,
+			            int capacityAgeGroup2to3, int capacityAgeGroup3to6) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.elderate = elderate;
+		this.directorName = directorName;
+		this.directorSurname = directorSurname;
+		this.capacityAgeGroup2to3 = capacityAgeGroup2to3;
+		this.capacityAgeGroup3to6 = capacityAgeGroup3to6;
 	}
 	
 	public Kindergarten(String id, String name, String address, String elderate, int capacityAgeGroup2to3,

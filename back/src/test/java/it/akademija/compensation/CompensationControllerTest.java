@@ -14,14 +14,11 @@ import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import it.akademija.App;
 import it.akademija.user.User;
-import it.akademija.user.UserDAO;
 import it.akademija.user.UserService;
-import it.akademija.compensation.GuardianInfo;
 
 @SpringBootTest(classes = { App.class,
 		CompensationController.class },
@@ -34,12 +31,6 @@ public class CompensationControllerTest {
 	private CompensationController controller;
 	
 	@Autowired
-	private CompensationService service;
-	
-	@Autowired
-	private UserDAO userDAO;
-	
-	@Autowired
 	private UserService userService;
 	
 	
@@ -49,24 +40,24 @@ public class CompensationControllerTest {
 	
  
 	private CompensationDTO data = new CompensationDTO (
-			new ChildInfo("12345678911",
+			new ChildInfo("12345678912",
 					"Testas",
 					"Testas",
 					"2001-01-01"),
 		new KindergartenInfo("Testprivatus",
 							"302295680",
 							"Vysniu gatve 13",
-							"123123124",
+							"+37067625896",
 							"test@test.com",
 							"Testbankas",
-							"TBANK1",
-							"1234"),
-		new  GuardianInfo("test",
-						 "test",
+							"LT187045112069350325",
+							"70451"),
+		new  GuardianInfo("Test",
+						 "Test",
 						 "12345512355",
-						 "+1234124",
+						 "+37085258906",
 						 "test@test.lt",
-						 "testaddr")
+						 "Testaddr")
 		
 		);
  
@@ -74,8 +65,6 @@ public class CompensationControllerTest {
 	@Order(1)
 	public void contextLoads() {
 		assertNotNull(controller);
-	 
-	 
 	}
 	
 	/*
@@ -113,8 +102,6 @@ public class CompensationControllerTest {
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void controllerRespondsWith201And400() {
 	
-		
- 
 		var response =  controller.createNewCompensationApplication(data);
 	 
 		assertEquals(HttpStatus.CREATED,
@@ -134,7 +121,6 @@ public class CompensationControllerTest {
 	@Order(3)
 	@WithMockUser(username="test@test.lt", roles = { "USER"})
 	void userCantAccessAllCompensations () {
-		AccessDeniedException exception = 
 				assertThrows(AccessDeniedException.class,
 						() -> controller.getAllCopensationApplications()
 				  );
@@ -166,9 +152,25 @@ public class CompensationControllerTest {
 		
 	}
 	 
-	
 	@Test
 	@Order(6)
+	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
+	void getCompensationApplicationForUser() {
+		
+		int size = controller.getAllCopensationApplications()
+				.getBody()
+				.size();
+ 
+		System.out.println("FIND " + size);
+		assertTrue(size > 0);
+		
+		controller.getCompensationApplicationsForUser(data.getGuardianInfo().getName());
+		
+		assertNotNull(controller.getAllCopensationApplications().getBody().size());
+	}
+	
+	@Test
+	@Order(7)
 	@WithMockUser(username="test@test.lt", roles = { "MANAGER"})
 	void managerCanDeleteCompensationApplicationByChildCode() {
 		//assertEquals(controller.deleteCompensationApplicationByUsername(null))
@@ -190,7 +192,8 @@ public class CompensationControllerTest {
  
 	}
 	
- 
+
+	 
 	@PreDestroy
 	@WithMockUser(username = "admin@admin.lt", roles = { "ADMIN" })
 	void deleteTestUserAndTestComp() {
