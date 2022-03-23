@@ -5,27 +5,29 @@
     "personalCode": "",
     "phone": "",
     "email": "",
-    "address": ""
+    "address": "",
+    "city": ""
   },
   "birthdate": "2016-09-26",
   "childName": "CDešimts",
-  "childPersonalCode": "51609260003",
+  "childPersonalCode": "51609260014",
   "childSurname": "Taškų",
   "kindergartenChoises": {
-    "kindergartenId1": "190032931",
+    "kindergartenId1": "190027037",
     "kindergartenId2": "",
     "kindergartenId3": "",
     "kindergartenId4": "",
     "kindergartenId5": ""
   },
   "mainGuardian": {
-    "name": "user",
-    "surname": "user",
-    "personalCode": "12345678987",
-    "phone": "+37061398876",
-    "email": "user@user.lt",
-    "address": "Address 1",
-    "username": "user@user.lt",
+    "name": "Asdas",
+    "surname": "Asdas",
+    "personalCode": "50901319645",
+    "phone": "+37056456456",
+    "email": "andriusd@andrius.lt",
+    "address": "gatve 33-14",
+    "city": "",
+    "username": "andriusd@andrius.lt",
     "role": "USER"
   },
   "priorities": {

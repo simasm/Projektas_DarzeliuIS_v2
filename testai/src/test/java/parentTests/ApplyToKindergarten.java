@@ -41,7 +41,6 @@ public class ApplyToKindergarten extends GeneralMethods {
      * 9. USER deletes the application.
      * 7. MANAGER deletes kindergarten, ADMIN deletes USER created for this test.
      *
-     * @throws IOException
      */
 
     @Test(groups = "regression", priority = 1)
@@ -117,7 +116,7 @@ public class ApplyToKindergarten extends GeneralMethods {
         // delete the kindergarten that was created for the test
         logInUi(managerLogIn, managerLogIn);
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);
-        createNewKindergarten.searchForTheNewlyCreatedKindergarten("123 Testinis");
+        createNewKindergarten.searchForTheNewlyCreatedKindergarten("AaTestinis");
         deleteNewKindergarten();
         logOutUi();
 

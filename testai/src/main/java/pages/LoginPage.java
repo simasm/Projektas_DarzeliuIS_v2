@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class LoginPage extends AbstractObjectPage {
 
     //input fields
@@ -31,7 +33,7 @@ public class LoginPage extends AbstractObjectPage {
     }
 
     public void clickLoginButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement login = wait.until(
                 ExpectedConditions.elementToBeClickable(buttonLogin));
         login.click();

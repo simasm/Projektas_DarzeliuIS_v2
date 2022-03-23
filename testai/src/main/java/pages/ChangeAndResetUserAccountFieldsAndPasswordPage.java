@@ -116,9 +116,9 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
         okButtonPasswordChanged.click();
     }
 
-    public Boolean assertThatUserInformationWasUpdated() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.textToBe
+    public void assertThatUserInformationWasUpdated() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.textToBe
                 (By.xpath("//body/div[2]/div/div[1]"), "Naudotojo duomenys buvo sėkmingai atnaujinti"));
     }
 

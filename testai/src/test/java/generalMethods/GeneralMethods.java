@@ -17,9 +17,11 @@ import parentPages.SubmitNewApplicationPage;
 import parentPages.UploadMedicalDocumentPDFPage;
 import utilities.FileReaderUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
 
 public class GeneralMethods extends BaseTest {
 
@@ -30,14 +32,11 @@ public class GeneralMethods extends BaseTest {
     protected String createNewUserAdminEmail = "admin123@admin.lt";
     protected String createNewUserManagerEmail = "manager123@manager.lt";
     protected String createNewUserParentEmail = "user123@parent.lt";
-    private String newUserName = "Jonas";
-    private String newUserSurname = "Jonaitis";
-    private String newPassword = "Naujas321";
-    private String changedUserName = "Pakeistas";
-    private String changedUserSurname = "Pakeistas";
-    private String changedUserEmail = "pakeistas@email.lt";
-    private String expectedErrorMessage = "Neteisingas prisijungimo vardas ir/arba slaptažodis!";
+    private final String newUserName = "Jonas";
+    private final String newUserSurname = "Jonaitis";
     private String pdfFileLocation = System.getProperty("user.dir") + "/src/test/resources/Testas.pdf";
+
+
 
     // LOGIN/ LOGOUT METHODS
 
@@ -171,8 +170,11 @@ public class GeneralMethods extends BaseTest {
         // change kindergarten specialist details
         ChangeAndResetUserAccountFieldsAndPasswordPage changeAccountDetails = new ChangeAndResetUserAccountFieldsAndPasswordPage(driver);
         assertThatMyAccountPageHasLoaded();
+        String changedUserName = "Pakeistas";
         changeAccountDetails.changeUserName(changedUserName);
+        String changedUserSurname = "Pakeistas";
         changeAccountDetails.changeUserSurname(changedUserSurname);
+        String changedUserEmail = "pakeistas@email.lt";
         changeAccountDetails.changeUserEmail(changedUserEmail);
     }
 
@@ -183,6 +185,7 @@ public class GeneralMethods extends BaseTest {
 
         // enter old and new password
         changeAccountDetails.enterOldPassword(userLogin);
+        String newPassword = "Naujas321";
         changeAccountDetails.enterNewPassword(newPassword);
         changeAccountDetails.enterRepeatedNewPassword(newPassword);
 
@@ -251,7 +254,7 @@ public class GeneralMethods extends BaseTest {
         // input new kindergarten details
         CreateAndDeleteNewKindergartenPage createNewKindergarten = new CreateAndDeleteNewKindergartenPage(driver);
         createNewKindergarten.inputKindergartenID("000000001");
-        createNewKindergarten.inputKindergartenName("123 Testinis");
+        createNewKindergarten.inputKindergartenName("AaTestinis");
         createNewKindergarten.inputKindergartenAddress("Adreso g. 5");
         Select dropdownUserRole = new Select(driver.findElement(By.id("elderate")));
         dropdownUserRole.selectByIndex(5);
@@ -269,14 +272,14 @@ public class GeneralMethods extends BaseTest {
         createNewKindergarten.clickOKPopUp();
 
         // search for the newly created kindergarten
-        createNewKindergarten.searchForTheNewlyCreatedKindergarten("123 Testinis");
+        createNewKindergarten.searchForTheNewlyCreatedKindergarten("AaTestinis");
 
         // assert that the new kindergarten is found in the searched list
         createNewKindergarten.newKindergartenSearchResult();
 
         // update and save the kindergarten details
         createNewKindergarten.clickButtonUpdateKindergarten();
-        createNewKindergarten.updateNewKindergartenName("123 Testinis darželis");
+        createNewKindergarten.updateNewKindergartenName("AaTestinis darželis");
         createNewKindergarten.updateKindergartenNumberCapacity3to6("1");
         createNewKindergarten.clickSaveUpdatedKindergarten();
     }
@@ -389,6 +392,7 @@ public class GeneralMethods extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         UploadMedicalDocumentPDFPage uploadDocument = new UploadMedicalDocumentPDFPage(driver);
         uploadDocument.clickUploadDocumentButton();
+        pdfFileLocation = pdfFileLocation.replaceAll("/", Matcher.quoteReplacement(File.separator));
         uploadDocument.inputUploadDocument.sendKeys(pdfFileLocation);
         wait.until(ExpectedConditions.elementToBeClickable(uploadDocument.buttonIkelti));
         uploadDocument.clickButtonIkelti();
@@ -396,6 +400,7 @@ public class GeneralMethods extends BaseTest {
     }
 
     public void deletePDF() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         UploadMedicalDocumentPDFPage uploadDocument = new UploadMedicalDocumentPDFPage(driver);
         uploadDocument.clickDeleteDocumentButton();
         waitToAgreePopUp();
@@ -429,6 +434,7 @@ public class GeneralMethods extends BaseTest {
 
     public void checkErrorMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        String expectedErrorMessage = "Neteisingas prisijungimo vardas ir/arba slaptažodis!";
         wait.until(ExpectedConditions.textToBe(By.id("incorrectLoginData"), expectedErrorMessage));
     }
 
@@ -479,13 +485,6 @@ public class GeneralMethods extends BaseTest {
         navMyDocuments.click();
     }
 
-    public void clickNavButtonParentApplications() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        WebElement navMyAccountAdmin = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.id("navUserMyApplications")));
-        navMyAccountAdmin.click();
-    }
-
     public void clickNavButtonMyAccountParent() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement navMyAccountParent = wait.until(
@@ -503,7 +502,7 @@ public class GeneralMethods extends BaseTest {
     public void waitToPressOKPopUp() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement popUpClickOK = wait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'confirm') and contains(text(), 'Gerai')]")));
+                ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='swal-button swal-button--confirm']")));
         popUpClickOK.click();
     }
 
@@ -569,13 +568,6 @@ public class GeneralMethods extends BaseTest {
         navButtonCompensation.click();
     }
 
-
-    public void clickNavButtonApplicationQueue() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        WebElement navApplicationQueue = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Registracijų eilė']")));
-        navApplicationQueue.click();
-    }
 
     // WAIT TO ENTER USER EMAIL WHILE RESETTING PASSWORD
 

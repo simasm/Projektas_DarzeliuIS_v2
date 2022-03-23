@@ -73,14 +73,14 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     }
 
 
-    public Boolean assertNaudotojaiPageTitle() {
+    public void assertNaudotojaiPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/div/h6"), "Naujo naudotojo sukūrimas"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*/div/h6"), "Naujo naudotojo sukūrimas"));
     }
 
-    public Boolean assertPrasymuStatistikaPageTitle() {
+    public void assertPrasymuStatistikaPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Registracijų statistika"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Registracijų statistika"));
     }
 
     public void assertKompensacijosPageTitle() {
@@ -88,39 +88,39 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
         wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Prašymai dėl kompensacijos"));
     }
 
-    public Boolean assertPrasymuRedagavimasPageTitle() {
+    public void assertPrasymuRedagavimasPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų sąrašo redagavimo administravimas"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų sąrašo redagavimo administravimas"));
     }
 
-    public Boolean assertIvykiuZurnalasPageTitle() {
+    public void assertIvykiuZurnalasPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Sistemos įvykių žurnalas"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Sistemos įvykių žurnalas"));
     }
 
-    public Boolean assertDarzeliuSarasasPageTitle() {
+    public void assertDarzeliuSarasasPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*//form/h6[1]"), "Pridėti naują darželį"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*//form/h6[1]"), "Pridėti naują darželį"));
     }
 
-    public Boolean assertPrasymuEilePageTitle() {
+    public void assertPrasymuEilePageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Registracijų eilė"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Registracijų eilė"));
     }
 
-    public Boolean assertManoPrasymaiPageTitle() {
+    public void assertManoPrasymaiPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.id("navUserMyApplications"), "Mano prašymai"));
+        wait.until(ExpectedConditions.textToBe(By.id("navUserMyApplications"), "Mano prašymai"));
     }
 
-    public Boolean assertPrasymasRegistracijaiPageLoaded() {
+    public void assertPrasymasRegistracijaiPageLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//h6[@class='pl-5 pt-3']"), "Prašymas dėl registracijos"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//h6[@class='pl-5 pt-3']"), "Prašymas dėl registracijos"));
     }
 
-    public Boolean assertPrasymasKompensacijaiPageLoaded() {
+    public void assertPrasymasKompensacijaiPageLoaded() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//label[@for='txtGuardianNameCompensation']"), "Vardas *"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//label[@for='txtGuardianNameCompensation']"), "Vardas *"));
     }
 
     // constructor

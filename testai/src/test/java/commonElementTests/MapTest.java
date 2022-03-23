@@ -39,7 +39,7 @@ public class MapTest extends GeneralMethods {
         WebElement kindergarten = mapPage.selectKindergartenInList("303318623");
         kindergarten.click();
         wait.until(ExpectedConditions.visibilityOf(mapPage.popUp));
-        // TODO currently unable to .get pop-up text due to how element is written, text is not part of element;
+        // TODO currently unable to get pop-up text due to how element is written, text is not part of element;
         //  can get with xpath method text() but selenium complains about it being an object and not an element
         Assert.assertTrue(mapPage.popUp.isDisplayed(), "Pop-up is displayed:");
         logOutUi();
