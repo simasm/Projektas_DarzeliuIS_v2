@@ -208,9 +208,9 @@ public class KindergartenService {
 		current.setElderate(updatedInfo.getElderate());
 		current.setCapacityAgeGroup2to3(updatedInfo.getCapacityAgeGroup2to3());
 		current.setCapacityAgeGroup3to6(updatedInfo.getCapacityAgeGroup3to6());
-		current.setDirectorName(updatedInfo.getDirectorName());
-		current.setDirectorSurname(updatedInfo.getDirectorSurname());
-		current.setCoordinates(updatedInfo.getCoordinates());
+	//current.setDirectorName(updatedInfo.getDirectorName());
+		//current.setDirectorSurname(updatedInfo.getDirectorSurname());
+		//current.setCoordinates(updatedInfo.getCoordinates());
 
 		gartenDao.save(current);
 	}
