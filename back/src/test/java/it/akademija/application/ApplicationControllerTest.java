@@ -41,6 +41,8 @@ import it.akademija.kindergarten.Kindergarten;
 import it.akademija.kindergarten.KindergartenDAO;
 import it.akademija.kindergartenchoise.KindergartenChoiseDTO;
 import it.akademija.role.Role;
+import it.akademija.user.ParentDetails;
+import it.akademija.user.ParentDetailsDAO;
 import it.akademija.user.ParentDetailsDTO;
 import it.akademija.user.User;
 import it.akademija.user.UserDTO;
@@ -64,6 +66,10 @@ public class ApplicationControllerTest {
     @Autowired
     private KindergartenDAO gartenDao;
     @Autowired
+	private ApplicationDAO applicationDAO;
+    @Autowired
+    private ParentDetailsDAO parentDao;
+    @Autowired
     private ApplicationController controller;
     @Autowired
 	private ApplicationService applicationService;
@@ -74,7 +80,7 @@ public class ApplicationControllerTest {
         RestAssured.port = port;
         mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
-    private boolean testCompCreated = false;
+    
     private ApplicationDTO applicationData = new ApplicationDTO("Vardukas", "Pavardukas", "51702151236", LocalDate.of(2015, 1, 1),
             new PrioritiesDTO (true, true, false, false, false, false), 
             new UserDTO (Role.USER.toString(), "Testas", "Testauskas", "48901231578", "Lukiškių g. 11", "Vilnius", 
@@ -111,59 +117,95 @@ public class ApplicationControllerTest {
         userService.createUser(applicationData.getMainGuardian());
         Kindergarten garten = new Kindergarten("111111111", "A darzelis", "Adresas darzelio A", "Antakalnio", 
         		                                "Justas", "Pivoriūnas", 0, 0);
-        gartenDao.save(garten);
-        var response = controller.createNewApplication(applicationData);
-        assertEquals(HttpStatus.OK,
-                response.getStatusCode());
+        gartenDao.saveAndFlush(garten);
         
-        testCompCreated = true;
+        String jsonRequest  = mapper.writeValueAsString(applicationData);
+        
+        MvcResult createWhileEnabled = mvc.perform(post("/api/prasymai/user/new").contentType(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(400, createWhileEnabled.getResponse().getStatus());
+        
+        User usr = userService.findByUsername(applicationData.getMainGuardian().getUsername());
+        
+        ParentDetails parentDet = new ParentDetails("11111111111", "Testas", "Testauskas", "test4@user.lt", "Vilniaus g", "Vilnius",
+                "+37000000000");
+        
+        parentDao.saveAndFlush(parentDet);
+        
+        Application appli = new Application(applicationData.getChildName(), applicationData.getChildSurname(),
+        		                          applicationData.getChildPersonalCode(), applicationData.getBirthdate(),
+        		                          usr , parentDet);
+        
+        applicationDAO.saveAndFlush(appli);
+        
+//        var response = controller.createNewApplication(applicationData);
+//        assertEquals(HttpStatus.OK,
+//                response.getStatusCode());
         
     	RegistrationStatus status = new RegistrationStatus();
 		status.setRegistrationActive(false);
 		statusService.saveStatus(status);
      
 		
-		MvcResult disableRegistration = mvc.perform(post("/api/status/{registrationActive}",false))
-				.andExpect(status().isOk()).andReturn();
-        String jsonRequest  = mapper.writeValueAsString(applicationData);
+//		MvcResult disableRegistration = mvc.perform(post("/api/status/{registrationActive}",false))
+//				.andExpect(status().isOk()).andReturn();
+//		assertEquals(200, disableRegistration.getResponse().getStatus());
+		        
         MvcResult createWhileDisabled = mvc.perform(post("/api/prasymai/user/new").contentType(jsonRequest)
-.contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest()).andReturn();
         assertEquals(400, createWhileDisabled.getResponse().getStatus());
          
-      status.setRegistrationActive(true);
-      statusService.saveStatus(status);
+        status.setRegistrationActive(true);
+        statusService.saveStatus(status);
+      
+        MvcResult createSecondTime = mvc.perform(post("/api/prasymai/user/new").contentType(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(400, createSecondTime.getResponse().getStatus());
         
-        assertEquals(HttpStatus.CONFLICT, 
-                 controller.createNewApplication(applicationData).getStatusCode());
+//        assertEquals(HttpStatus.CONFLICT, 
+//                 controller.createNewApplication(applicationData).getStatusCode());
+        
         statusService.setStatus(initStatus.isRegistrationActive());
         
-        User usr = userService.findByUsername(applicationData.getMainGuardian().getUsername());
+        //User usr = userService.findByUsername(applicationData.getMainGuardian().getUsername());
         
         System.out.println("FIND " + usr.getUserApplications());
         
-        int size = controller.getAllUserApplications().size();
+        //int size = controller.getAllUserApplications().size();
         
-        System.out.println("FIND "+ size) ;
+       // System.out.println("FIND "+ size) ;
         
-        assertTrue(size > 0);
-    //  gartenDao.delete(garten);
-        //controller.getAllUserApplications().forEach(a->controller.deleteApplication(a.getId()));
-    //  assertTrue(size >  controller.getAllUserApplications().size());
-        // controller.getAllUserApplications().stream().findFirst().orElse(null).getId().toString()
-        //applicationService.getByPersonalCode("51702151236").setId(123L);
+       // assertTrue(size > 0);
         
-        System.out.println("APPLICATION ID: "+applicationService.getByPersonalCode("51702151236").getId());
+          System.out.println("APPLICATION ID: "+applicationService.getByPersonalCode("51702151236").getId());
         
-        MvcResult deleteApplication = mvc.perform(delete("/api/prasymai/user/delete/{id}", 
-        		applicationService.getByPersonalCode("51702151236").getId() ))
+        Long number = applicationService.getByPersonalCode("51702151236").getId();
+        
+        MvcResult deleteApplication = mvc.perform(delete("/api/prasymai/user/delete/{id}", number))
                 .andExpect(status().isOk()).andReturn();
         assertEquals(200, deleteApplication.getResponse().getStatus());
-        
-        
       
         statusService.saveStatus(initStatus);
     }
+    
+//    @Test
+//	@Order(5)
+//	@WithMockUser(username = "test4@user.lt", roles = { "USER" })
+//	public void testDeleteApplicationMethod() throws Exception {
+//    	
+//    	System.out.println("APPLICATION ID: "+applicationService.getByPersonalCode("51702151236").getId());
+//
+//    	Long number = applicationService.getByPersonalCode("51702151236").getId();
+//    	
+//		MvcResult deleteApplication = mvc.perform(delete("/api/prasymai/user/delete/{id}", number))
+//				.andExpect(status().isOk()).andReturn();
+//		assertEquals(200, deleteApplication.getResponse().getStatus());
+//
+//	}
+    
     @Test
     @Order(5)
     @WithMockUser(username="test4@test4.lt", roles = { "MANAGER" })
