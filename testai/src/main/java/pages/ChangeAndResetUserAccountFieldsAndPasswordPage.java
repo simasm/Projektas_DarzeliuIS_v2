@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObjectPage {
     // input fields
     @FindBy(id = "txtName")
@@ -78,6 +80,8 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
     }
 
     public void clickAgreeToResetUserPasswordButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.elementToBeClickable(agreeToResetUserPasswordButton));
         agreeToResetUserPasswordButton.click();
     }
 

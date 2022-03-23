@@ -1,39 +1,39 @@
 package apiTests;
 
-import generalMethods.ApiGeneralMethods;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.filter.session.SessionFilter;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import models.Kindergarten;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+        import generalMethods.ApiGeneralMethods;
+        import io.restassured.builder.RequestSpecBuilder;
+        import io.restassured.filter.log.RequestLoggingFilter;
+        import io.restassured.filter.log.ResponseLoggingFilter;
+        import io.restassured.filter.session.SessionFilter;
+        import io.restassured.http.ContentType;
+        import io.restassured.specification.RequestSpecification;
+        import models.Kindergarten;
+        import org.testng.annotations.DataProvider;
+        import org.testng.annotations.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+        import java.io.IOException;
+        import java.nio.file.Files;
+        import java.nio.file.Paths;
+        import java.util.ArrayList;
+        import java.util.Arrays;
+        import java.util.HashMap;
 
-import static generalMethods.ApiAdminMethods.createNewUser;
-import static generalMethods.ApiAdminMethods.deleteUser;
-import static generalMethods.ApiManagerMethods.*;
-import static generalMethods.ApiUserMethods.*;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+        import static generalMethods.ApiAdminMethods.createNewUser;
+        import static generalMethods.ApiAdminMethods.deleteUser;
+        import static generalMethods.ApiManagerMethods.*;
+        import static generalMethods.ApiUserMethods.*;
+        import static io.restassured.RestAssured.given;
+        import static org.hamcrest.Matchers.equalTo;
+        import static org.hamcrest.Matchers.not;
 
 
 public class ApiTest extends ApiGeneralMethods {
 
     RequestSpecification reqSpec = new RequestSpecBuilder().
-    setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
-    setContentType(ContentType.JSON).
-    addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
-    build();
+            setBaseUri("https://sextet.akademijait.vtmc.lt/darzelis/").
+            setContentType(ContentType.JSON).
+            addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
+            build();
 
     // log in with all available user roles
     @Test(groups = "smoke", dataProvider = "parameters")
@@ -45,9 +45,9 @@ public class ApiTest extends ApiGeneralMethods {
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
-        when().
+                when().
                 get("api/users/user").
-        then().
+                then().
                 body("role", equalTo(role)).
                 body("username", equalTo(username));
 
@@ -57,9 +57,9 @@ public class ApiTest extends ApiGeneralMethods {
         given().
                 spec(reqSpec).
                 filter(sessionFilter).
-        when().
+                when().
                 get("api/users/user").
-        then().
+                then().
                 statusCode(401);
     }
 
@@ -170,9 +170,9 @@ public class ApiTest extends ApiGeneralMethods {
                 filter(sessionFilter).
                 queryParam("page", 0).
                 queryParam("size", 10).
-        when().
+                when().
                 get("api/users/admin/allusers").
-        then().
+                then().
                 body("content.size", not(0));
     }
 

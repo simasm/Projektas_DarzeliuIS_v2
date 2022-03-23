@@ -63,6 +63,8 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
     }
 
     public void clickNavManagerKompensacijos() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.elementToBeClickable(navManagerKompensacijos));
         navManagerKompensacijos.click();
     }
 
@@ -78,12 +80,12 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
 
     public Boolean assertPrasymuStatistikaPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų statistika"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Registracijų statistika"));
     }
 
     public void assertKompensacijosPageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.textToBe(By.xpath("//h3"), "Prašymai dėl kompensacijos"));
+        wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Prašymai dėl kompensacijos"));
     }
 
     public Boolean assertPrasymuRedagavimasPageTitle() {
@@ -103,7 +105,7 @@ public class CheckIfAllUsersPagesLoad extends AbstractObjectPage {
 
     public Boolean assertPrasymuEilePageTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Prašymų eilė"));
+        return wait.until(ExpectedConditions.textToBe(By.xpath("//*/h6"), "Registracijų eilė"));
     }
 
     public Boolean assertManoPrasymaiPageTitle() {

@@ -47,8 +47,7 @@ public class CheckIfManagerPagesLoad extends GeneralMethods {
         // check if Registraciju statistika page loads
         checkPages.clickNavManagerPrasymai();
         checkPages.clickNavManagerRegistracijuStatistika();
-        WebElement registracijuStatistikaPageTitle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*/h6")));
-        Assert.assertEquals(registracijuStatistikaPageTitle.getText(), "Prašymų statistika");
+        wait.until(ExpectedConditions.textToBe(By.xpath("//h6"), "Registracijų statistika"));
 
         // check if Kompensacijos page loads
         checkPages.clickNavManagerPrasymai();

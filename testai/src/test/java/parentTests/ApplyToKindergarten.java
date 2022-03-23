@@ -52,7 +52,7 @@ public class ApplyToKindergarten extends GeneralMethods {
                 setContentType(ContentType.JSON).
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
         // check if registration is open; if not - open it;
         logInApi("manager@manager.lt", "manager@manager.lt", reqSpec);
