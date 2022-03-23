@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,18 +89,18 @@ public class UserServiceIntegrationTest {
 	public void testCreateJSON() {
 
 		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
 
 		service.createUser(newUser);
 
-		assertEquals(0, service.getUserApplications("stest@test.lt").size());
+		assertEquals(0, service.getUserApplications("stest@stest.lt").size());
 
-		assertEquals("12345898987", service.getUserDetails("stest@test.lt").getPersonalCode());
+		assertEquals("12345898987", service.getUserDetails("stest@stest.lt").getPersonalCode());
 
-		assertFalse(jsonService.export(service.findByUsername("stest@test.lt")).isEmpty());
+		assertFalse(jsonService.export(service.findByUsername("stest@stest.lt")).isEmpty());
 
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
+		service.deleteUser("stest@stest.lt");
+		assertNull(service.findByUsername("stest@stest.lt"));
 
 	}
 
@@ -112,25 +113,26 @@ public class UserServiceIntegrationTest {
 		assertTrue(journalService.getAllJournalEntries(page).getSize() != 0);
 
 		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+				"stest@stest.lt", "stest@stest.lt", "stest@stest.lt");
 
 		service.createUser(newUser);
 
-		journalService.depersonalizeUserLogs("stest");
+		journalService.depersonalizeUserLogs("stest@stest.lt");
 
 		PageRequest page2 = PageRequest.of(1, 10);
 		assertTrue(journalDAO.getAllJournalEntries(page2).getSize() != 0);
 
-		service.deleteUser("stest@test.lt");
-		assertNull(service.findByUsername("stest@test.lt"));
+		service.deleteUser("stest@stest.lt");
+		assertNull(service.findByUsername("stest@stest.lt"));
 
 	}
 
 	@Test
 	@Order(5)
+	@Disabled
 	public void compareUsers() {
 		UserDTO newUser = new UserDTO("USER", "Stest", "Stest", "12345898987", "Address 1", "City", "+37061398876",
-				"stest@test.lt", "stest@test.lt", "stest@test.lt");
+				"stest@atest.lt", "stest@atest.lt", "stest@atest.lt");
 		service.createUser(newUser);
 
 		UserDTO newUser2 = new UserDTO("USER", "Stest", "Stest", "12445898987", "Address 1", "City", "+37061398876",
