@@ -4,7 +4,7 @@ import generalMethods.GeneralMethods;
 import org.testng.annotations.Test;
 import smokeTestPages.CheckIfAllUsersPagesLoad;
 
-public class CheckIfParentPagesWork extends GeneralMethods {
+public class CheckIfParentPagesLoad extends GeneralMethods {
 
     /**
      * Test scenario:

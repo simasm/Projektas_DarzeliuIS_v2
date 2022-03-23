@@ -53,7 +53,7 @@ public class ApplyForCompensation extends GeneralMethods {
                 addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter())).
                 build();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
         // Create new USER for this test
         HashMap<String, Object> user = new HashMap<>();
@@ -72,7 +72,7 @@ public class ApplyForCompensation extends GeneralMethods {
         logInUi("andriusd@andrius.lt", "andriusd@andrius.lt");
 
         fillInCompensationForm(childId);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='dialog']/div[1]"))); // wait for popup
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='dialog']/div[1]"))); // wait for popup
         clickOkButton();
         logOutUi();
 
@@ -92,8 +92,6 @@ public class ApplyForCompensation extends GeneralMethods {
         // Download application
         wait.until(ExpectedConditions.elementToBeClickable(compensationPage.buttonAtsisiusti));
         compensationPage.clickAtsisiusti();
-        wait.until(ExpectedConditions.visibilityOf(compensationPage.buttonAtgal));
-        compensationPage.clickAtgal();
         logOutUi();
 
         // Delete application

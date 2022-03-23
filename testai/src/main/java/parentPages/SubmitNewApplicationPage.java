@@ -80,27 +80,6 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
         addAdditionalGuardianButton.click();
     }
 
-    public void waitToClickStopRegistration() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement stopRegistation = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("btnStopRegistration")));
-        stopRegistation.click();
-    }
-
-    public void waitToFormQueue() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement formQueue = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("btnFormQueue")));
-        formQueue.click();
-    }
-
-    public void waitToConfirmQueue() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement confirmQueue = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("btnConfirmQueue")));
-        confirmQueue.click();
-    }
-
     public void inputSecondParentName(String value) {
         secondParentName.sendKeys(value);
     }
@@ -169,7 +148,7 @@ public class SubmitNewApplicationPage extends AbstractObjectPage {
     }
 
     public void openKindergartenListDropdownPriorityOne() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         driver.findElement(By.tagName("body")).sendKeys(Keys.END);
         Thread.sleep(200);
 

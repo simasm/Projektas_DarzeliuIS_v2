@@ -1,7 +1,6 @@
 package generalMethods;
 
 import basetest.BaseApiTest;
-import basetest.BaseTest;
 import com.google.gson.Gson;
 import io.restassured.filter.session.SessionFilter;
 import io.restassured.response.Response;

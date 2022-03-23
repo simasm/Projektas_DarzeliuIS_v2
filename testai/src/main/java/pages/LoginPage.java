@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class LoginPage extends AbstractObjectPage {
 
     //input fields
@@ -19,6 +21,9 @@ public class LoginPage extends AbstractObjectPage {
     @FindBy(id = "btnLogin")
     public WebElement buttonLogin;
 
+    @FindBy(id = "btnCreate")
+    public WebElement buttonCreateNewAcc;
+
     public void enterUsername(String value) {
         inputUsername.sendKeys(value);
     }
@@ -28,10 +33,14 @@ public class LoginPage extends AbstractObjectPage {
     }
 
     public void clickLoginButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement login = wait.until(
                 ExpectedConditions.elementToBeClickable(buttonLogin));
         login.click();
+    }
+
+    public void clickButtonCreateNewAcc() {
+        buttonCreateNewAcc.click();
     }
 
     // constructor

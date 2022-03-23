@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObjectPage {
     // input fields
     @FindBy(id = "txtName")
@@ -78,6 +80,8 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
     }
 
     public void clickAgreeToResetUserPasswordButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.elementToBeClickable(agreeToResetUserPasswordButton));
         agreeToResetUserPasswordButton.click();
     }
 
@@ -112,9 +116,9 @@ public class ChangeAndResetUserAccountFieldsAndPasswordPage extends AbstractObje
         okButtonPasswordChanged.click();
     }
 
-    public Boolean assertThatUserInformationWasUpdated() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.textToBe
+    public void assertThatUserInformationWasUpdated() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.textToBe
                 (By.xpath("//body/div[2]/div/div[1]"), "Naudotojo duomenys buvo sėkmingai atnaujinti"));
     }
 

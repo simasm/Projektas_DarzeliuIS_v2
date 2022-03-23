@@ -16,7 +16,7 @@ public class MapPage extends AbstractObjectPage{
     public WebElement popUp;
 
     // search bar
-    @FindBy (xpath = "//input[@class='form-control my-3']")
+    @FindBy (xpath = "//input[@class='form-control my-3 searchbox']")
     public WebElement searchBar;
 
     // select kindergarten in list
